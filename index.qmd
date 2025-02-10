@@ -4,7 +4,7 @@ image: "images/jfb.jpg"
 about:
   template: trestles
   image-width: 8em
-  image-shape: rectangle
+  image-shape: rounded
   links:
     - text: "{{< iconify fa6-brands github >}} GitHub"
       # icon: github
