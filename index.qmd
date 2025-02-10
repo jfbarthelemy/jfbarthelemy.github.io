@@ -1,0 +1,32 @@
+---
+title: "Jean-François Barthélémy"
+image: "images/jfb.jpg"
+about:
+  template: trestles
+  image-width: 8em
+  image-shape: rounded
+  links:
+    - text: "{{< iconify fa6-brands github >}} GitHub"
+      # icon: github
+      url: "https://github.com/jfbarthelemy"
+    - text: "{{< ai researchgate >}} Researchgate"
+      url: "https://www.researchgate.net/profile/Jean-Francois_Barthelemy"
+    - text: "{{< ai google-scholar >}} Google Scholar"
+      url: "https://scholar.google.com/citations?user=RVjtCiAAAAAJ&hl=en"
+    - text: "{{< ai hal >}} HAL"
+      url: "https://hal.archives-ouvertes.fr/search/index/?q=%2A&authIdHal_s=jfbarthelemy"
+    - text: "{{< ai clarivate >}} Web Of Science"
+      url: "https://www.webofscience.com/wos/author/record/449919"
+    - text: "{{< ai orcid color=#A7CF36 >}} ORCID"
+      url: "https://orcid.org/0000-0002-1968-8939"
+    - text: "{{< iconify devicon linkedin >}} LinkedIn"
+      url: "https://www.linkedin.com/in/jean-fran%C3%A7ois-barth%C3%A9l%C3%A9my-75b3122/"
+    - text: Email
+      icon: envelope
+      url: "mailto:jf.barthelemy@cerema.fr"
+---
+
+# Jean-François Barthélémy
+
+Welcome to my website!
+

@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "JF Barthélémy"
+  favicon: images/jfb.jpg
+  navbar:
+    right:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+# body-header: | 
+#   This page brought to you by <https://example.com>
+
+# margin-header: |
+#   ![](images/jfb.jpg)
+
+editor:
+    render-on-save: true
+
+format:
+  html:
+    theme:
+      light: [_config/customjfb.scss]
+      dark: [_config/customjfb-dark.scss]
+    # theme: _config/customjfb.scss
+    # css: _config/styles.css
+    toc: true
+    page-layout: full
+    code-overflow: wrap
+
+execute: 
+  freeze: auto
