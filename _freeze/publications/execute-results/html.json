@@ -1,0 +1,12 @@
+{
+  "hash": "240cd9b0208816706f6a448d78108cfb",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\nnocite: |\n  - @adessinaJOBE2025, @kouevidjinEA2024, @adessinaCBM2023, @someRMPD2023, @barthelemyMMS2023, @ailiCCR2023, @someCBM2022, @kouevidjinEFM2022, @beddaaCCC2022, @duMOM2021, @barthelemyIJES2021, @lavergneCCR2020, @duIJES2020, @barthelemyIJES2020_nlayersph, @barthelemyIJES2020_hilltrans, @adessinaMOM2020, @achourCBM2020, @sellinES2019, @giraudMOM2019, @barthelemyIJES2019, @adessinaCCR2019, @adelinetGEOPHYSICS2019, @lozinguezCBM2018, @lavergneCCR2018, @adessinaIJES2017, @barthelemyIJSS2016, @barthelemyIJNAMG2012, @barthelemyIJRMMS2009, @barthelemyIJSS2009, @barthelemyTIPM2009, @maghousEJM2008, @leCRAS2008, @marmierIJNAMG2007, @dormieuxCRAS2006, @hellmichEJM2004, @deudeIJNAMG2004, @barthelemyIJNAMG2004, @barthelemyCG2003, @barthelemyCRAS2003_fisfrot, @barthelemyCRAS2003_homnonlin\n  - @echoes, @tensnd\n---\n\n\n\n\n# References\n\n::: {#refs-main}\n:::\n\n# Software\n\n::: {#refs-software}\n:::\n\n# Test\n\n\n\n\n```{latex}\n\\nocite{*}\n\\bibliographystyle{plain}\n\\bibliography{_biblio/software}\n```\n\n",
+    "supporting": [
+      "publications_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

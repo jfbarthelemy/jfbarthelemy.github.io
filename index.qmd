@@ -1,5 +1,6 @@
 ---
 title: "Jean-François Barthélémy"
+subtitle: Researcher at Cerema / UMR MCD team
 image: "images/jfb.jpg"
 about:
   template: trestles
@@ -24,9 +25,12 @@ about:
     - text: Email
       icon: envelope
       url: "mailto:jf.barthelemy@cerema.fr"
+    - text: "![](images/LogoCerema_horizontal.jpg){width=6cm}"
+      url: "https://www.cerema.fr/en"
+    - text: "![](images/UMR%20MCD-couleur-300dpi.jpg){width=6cm}"
+      url: "https://mcd.univ-gustave-eiffel.fr/"
+
 ---
 
-# Jean-François Barthélémy
-
-Welcome to my website!
+## Welcome to my website!
 

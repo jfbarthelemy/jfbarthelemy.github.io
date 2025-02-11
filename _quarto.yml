@@ -8,6 +8,8 @@ website:
     right:
       - href: index.qmd
         text: Home
+      - href: publications.qmd
+        text: Publications
       - about.qmd
 
 # body-header: | 
@@ -15,6 +17,27 @@ website:
 
 # margin-header: |
 #   ![](images/jfb.jpg)
+
+filters:
+  - quarto
+  - multibib
+validate-yaml: false
+bibliography:
+  acl: _biblio/1_acl.bib
+  acln: _biblio/2_acln.bib
+  ascl: _biblio/3_ascl.bib
+  os: _biblio/5_os.bib
+  inv: _biblio/6_inv.bib
+  acti: _biblio/7_acti.bib
+  actn: _biblio/8_actn.bib
+  com: _biblio/9_com.bib
+  aff: _biblio/10_aff.bib
+  rapp: _biblio/11_rapp.bib
+  rappex: _biblio/12_rappex.bib
+  brev: _biblio/14_brev.bib
+  log: _biblio/15_log.bib
+link-citations: true
+csl: _biblio/elsevier-vancouver.csl
 
 editor:
     render-on-save: true
