@@ -8,6 +8,8 @@ website:
     right:
       - href: index.qmd
         text: Home
+      # - href: files/cvjfb_en.pdf
+      #   text: CV
       - href: publications.qmd
         text: Publications
       - about.qmd
@@ -36,8 +38,12 @@ bibliography:
   rappex: _biblio/12_rappex.bib
   brev: _biblio/14_brev.bib
   log: _biblio/15_log.bib
+suppress-bibliography: false
 link-citations: true
-csl: _biblio/elsevier-vancouver.csl
+# csl: _biblio/elsevier-vancouver.csl
+csl: https://www.zotero.org/styles/elsevier-vancouver
+citeproc: false
+# cite-method: biblatex
 
 editor:
     render-on-save: true
@@ -45,8 +51,8 @@ editor:
 format:
   html:
     theme:
-      light: [_config/customjfb.scss]
-      dark: [_config/customjfb-dark.scss]
+      light: default #[_config/customjfb.scss]
+      dark: superhero #[_config/customjfb-dark.scss]
     # theme: _config/customjfb.scss
     # css: _config/styles.css
     toc: true
