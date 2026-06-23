@@ -9,6 +9,8 @@ about:
   links:
     - text: "{{< ai orcid color=#A7CF36 >}} ORCID"
       url: "https://orcid.org/0000-0002-1968-8939"
+    - text: "{{< iconify simple-icons github >}} GitHub"
+      url: "https://github.com/jfbarthelemy"
     - text: "{{< iconify simple-icons codeberg >}} Codeberg"
       url: "https://codeberg.org/jfbarthelemy"
     - text: "{{< ai researchgate >}} Researchgate"

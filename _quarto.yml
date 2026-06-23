@@ -1,5 +1,9 @@
 project:
   type: website
+  resources:
+    # Pre-rendered postprints are standalone HTML bundles; Quarto doesn't crawl their
+    # internal assets (figures/, *_files/, badge), so copy the whole tree verbatim.
+    - postprints/
 
 website:
   title: "Jean-François Barthélémy"
@@ -17,8 +21,10 @@ website:
       #   text: CV
       - href: publications.qmd
         text: Publications
+      - href: postprints.qmd
+        text: Postprints
 
-# body-header: | 
+# body-header: |
 #   This page brought to you by <https://example.com>
 
 # margin-header: |
@@ -27,6 +33,7 @@ website:
 filters:
   - quarto
   - multibib
+  - _extensions/postprint-links/postprint-links.lua
 validate-yaml: false
 bibliography:
   acl: _biblio/1_acl.bib

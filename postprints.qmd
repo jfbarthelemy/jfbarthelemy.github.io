@@ -1,0 +1,13 @@
+---
+title: "Postprints"
+subtitle: "Open-access author-accepted manuscripts"
+toc: false
+---
+
+The author-accepted manuscripts (postprints) below are freely available as **interactive HTML** and
+**downloadable PDF**, re-typeset from the original sources into a neutral, self-contained layout. Each
+carries the full citation, DOI to the version of record, and is released under the
+[Creative Commons Attribution-NonCommercial-NoDerivatives 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+license. The published version of record remains with the respective publisher.
+
+{{< include _includes/_postprints_cards.qmd >}}

@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jean-François Barthélémy">
+<meta name="dcterms.date" content="2008-01-01">
+<meta name="keywords" content="anisotropic effective permeability, self-consistent scheme, fracture permeability, double scale fracture network">
+
+<title>Effective permeability of media with a dense network of long and micro fractures</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="permfractures_files/libs/clipboard/clipboard.min.js"></script>
+<script src="permfractures_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="permfractures_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="permfractures_files/libs/quarto-html/popper.min.js"></script>
+<script src="permfractures_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="permfractures_files/libs/quarto-html/anchor.min.js"></script>
+<link href="permfractures_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="permfractures_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="permfractures_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="permfractures_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="permfractures_files/libs/bootstrap/bootstrap-1fcf4b563fe088d4ff7716f12daa7d31.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+    wideeq: ["#1", 1],
+    Div: "\\operatorname{div}",
+    argch: "\\operatorname{argch}",
+    grad: "\\operatorname{grad}",
+    hess: "\\operatorname{hess}",
+    Divx: ["{\\Div}_{#1}{#2}", 2],
+    Oi: "\\Omega^i",
+    Os: "\\Omega^s",
+    R: "\\mathbb{R}",
+    dep: ["\\left({#1}\\right)", 1],
+    depc: ["\\left[{#1}\\right]", 1],
+    depx: "(\\x)",
+    derive: ["\\frac{\\partial #1}{\\partial #2}", 2],
+    derivexy: ["\\frac{\\partial^2 #1} {\\partial #2 \\partial #3}", 3],
+    dirac: ["{\\mathrm{\\delta}}_{#1}", 1],
+    frontiere: ["\\partial{#1}", 1],
+    graddx: ["\\uu{\\grad}_{#1}{#2}", 2],
+    gradu: ["\\uv{\\grad}\\,{#1}", 1],
+    gradux: ["\\uv{\\grad}_{#1}{#2}", 2],
+    grando: ["{\\mathcal O}\\dep{#1}", 1],
+    hessx: ["\\uu{\\hess}_{#1}{#2}", 2],
+    idd: "\\uu{1}",
+    inv: ["{{#1}^{-1}}", 1],
+    m: "\\uv{m}",
+    moy: ["<{#1}>", 1],
+    moydom: ["\\moy{#1}_{#2}", 2],
+    n: "\\uv{n}",
+    norm: ["\\left\\|{#1}\\right\\|", 1],
+    paral: "/\\hspace{-.2em}/",
+    prodc: "\\cdot",
+    trans: ["{{\\vphantom{#1}}^{t}{#1}}", 1],
+    ud: "\\,\\mathrm{d}",
+    uu: ["\\mathbb{#1}", 1],
+    uv: ["\\boldsymbol{#1}", 1],
+    ve: ["\\uv{e}_{#1}", 1],
+    vl: "\\uv{l}",
+    x: "\\uv{x}",
+    y: "\\uv{y}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#nomenclature" id="toc-nomenclature" class="nav-link active" data-scroll-target="#nomenclature">Nomenclature</a></li>
+  <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link" data-scroll-target="#sec-intro">Introduction</a></li>
+  <li><a href="#sec-descphases" id="toc-sec-descphases" class="nav-link" data-scroll-target="#sec-descphases"><span class="header-section-number">1</span> Description of the phases</a>
+  <ul class="collapse">
+  <li><a href="#sec-descfrac" id="toc-sec-descfrac" class="nav-link" data-scroll-target="#sec-descfrac"><span class="header-section-number">1.1</span> Description of the fracture network</a></li>
+  <li><a href="#sec-physicalprop" id="toc-sec-physicalprop" class="nav-link" data-scroll-target="#sec-physicalprop"><span class="header-section-number">1.2</span> Hydraulic properties of the phases</a></li>
+  </ul></li>
+  <li><a href="#sec-macroperm" id="toc-sec-macroperm" class="nav-link" data-scroll-target="#sec-macroperm"><span class="header-section-number">2</span> Determination of the macroscopic permeability</a>
+  <ul class="collapse">
+  <li><a href="#sec-Acrossing" id="toc-sec-Acrossing" class="nav-link" data-scroll-target="#sec-Acrossing"><span class="header-section-number">2.1</span> Contribution of the fractures cross-cutting the r.v.e.</a></li>
+  <li><a href="#sec-Amicro" id="toc-sec-Amicro" class="nav-link" data-scroll-target="#sec-Amicro"><span class="header-section-number">2.2</span> Contribution of the micro-fractures</a></li>
+  <li><a href="#sec-Amatrix" id="toc-sec-Amatrix" class="nav-link" data-scroll-target="#sec-Amatrix"><span class="header-section-number">2.3</span> Contribution of the matrix</a></li>
+  <li><a href="#sec-Khomrandom" id="toc-sec-Khomrandom" class="nav-link" data-scroll-target="#sec-Khomrandom"><span class="header-section-number">2.4</span> Macroscopic permeability</a></li>
+  </ul></li>
+  <li><a href="#sec-Knmicro" id="toc-sec-Knmicro" class="nav-link" data-scroll-target="#sec-Knmicro"><span class="header-section-number">3</span> Influence of the normal component of the fracture permeability</a></li>
+  <li><a href="#sec-examples" id="toc-sec-examples" class="nav-link" data-scroll-target="#sec-examples"><span class="header-section-number">4</span> Implementation of the self-consistent scheme on examples</a>
+  <ul class="collapse">
+  <li><a href="#sec-isodistrib" id="toc-sec-isodistrib" class="nav-link" data-scroll-target="#sec-isodistrib"><span class="header-section-number">4.1</span> Isotropic distributions of micro-fractures</a></li>
+  <li><a href="#sec-anisodistrib" id="toc-sec-anisodistrib" class="nav-link" data-scroll-target="#sec-anisodistrib"><span class="header-section-number">4.2</span> Anisotropic distributions of fractures</a></li>
+  </ul></li>
+  <li><a href="#sec-conclu" id="toc-sec-conclu" class="nav-link" data-scroll-target="#sec-conclu">Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#sec-tenseurHill" id="toc-sec-tenseurHill" class="nav-link" data-scroll-target="#sec-tenseurHill"><span class="header-section-number">5</span> Hill tensor in the 3D anisotropic case</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="permfractures.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Effective permeability of media with a dense network of long and micro fractures</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jean-François Barthélémy <a href="mailto:jean-francois.barthelemy@cerema.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1968-8939" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            IFP, Structural Geology dept, 1-4 avenue de Bois-Préau, 92852 Rueil-Malmaison, France
+          </p>
+        <p class="affiliation">
+            Present address: Cerema, Univ Gustave Eiffel, UMR MCD, F-77171 Sourdun, France
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2008</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>This paper presents a new methodology to estimate the effective permeability of random fractured media of any anisotropy containing both micro-fractures and a large number of long fractures cross-cutting the representative volume element. The fractures are replaced by fictitious permeable materials for which the tangential permeability is deduced from a Poiseuille flow. A self-consistent scheme is proposed to derive the macroscopic permeability. On the one hand, the contribution of long fractures to the effective permeability writes by simple superposition of the fracture tangential permeabilities. On the other hand, the contribution of micro-fractures needs to resort to auxiliary problems requiring the computation of second-order Hill (or Eshelby) tensors related to ellipsoids embedded in an anisotropic matrix, for which a complete procedure is detailed. The effect of the micro-fracture normal permeability is put in evidence in the upscaling scheme and analyzed. In particular, it is shown that it must be chosen large enough to allow the connections between families. Examples are finally developed and compared to numerical simulations in the 2D case.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>anisotropic effective permeability, self-consistent scheme, fracture permeability, double scale fracture network</p>
+  </div>
+</div>
+
+</header>
+
+
+<div class="postprint-banner">
+<p><strong>Author-accepted manuscript (postprint).</strong> This is the accepted version of an article published by Springer in <em>Transport in Porous Media</em>. The version of record is available at <a href="https://doi.org/10.1007/s11242-008-9241-9">doi:10.1007/s11242-008-9241-9</a>. Please cite as: J.-F. Barthélémy, “Effective permeability of media with a dense network of long and micro fractures”, <em>Transport in Porous Media</em> <strong>76</strong>(1) (2008) 153–178. © Springer Science+Business Media B.V. 2008.</p>
+<p>This author-accepted manuscript is made available under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)</a> license. <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="cc-by-nc-nd.png" height="24" alt="CC BY-NC-ND 4.0"></a></p>
+</div>
+<section id="nomenclature" class="level1 unnumbered">
+<h1 class="unnumbered">Nomenclature</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\uv{X}\)</span></td>
+<td>vector notation</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\uu{X}\)</span></td>
+<td>second-order tensor notation</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(p\)</span></td>
+<td>pressure field</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\uv{\nabla}P\)</span></td>
+<td>macroscopic pressure gradient</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\uv{q}\)</span></td>
+<td>microscopic filtration vector</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\uv{Q}\)</span></td>
+<td>macroscopic filtration vector</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu\)</span></td>
+<td>fluid viscosity</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\idd\)</span></td>
+<td>second-order identity tensor</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\idd_{\n}\)</span></td>
+<td>orthogonal projector on the plane of normal <span class="math inline">\(\n\)</span> (<span class="math inline">\(\idd_{\n}=\idd-\n\otimes\n\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\uu{K}^s\)</span></td>
+<td>permeability of the solid phase</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\uu{K}^i\)</span></td>
+<td>permeability of a fracture of the <span class="math inline">\(i^{\mathrm{th}}\)</span> family</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(K_t\)</span></td>
+<td>tangential permeability of the fracture</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(K_n\)</span></td>
+<td>normal permeability of the fracture</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\uu{K}^{hom}\)</span></td>
+<td>macroscopic permeability</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\uu{K}^o\)</span></td>
+<td>permeability of the reference medium</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G^o\)</span></td>
+<td>Green function for the reference permeability <span class="math inline">\(\uu{K}^o\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\uu{P}_o^{\mathcal{I}}\)</span></td>
+<td>Hill polarization tensor for an ellipsoidal inclusion <span class="math inline">\(\mathcal{I}\)</span> in the reference medium</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hessx{\x}{}\)</span></td>
+<td>hessian operator with respect to the position <span class="math inline">\(\uv{x}\)</span> (<span class="math inline">\(\hessx{\x}{}\equiv\graddx{\x}{\;\gradux{\x}{}}\)</span>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-intro" class="level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<p>A lot of industrial applications, e.g.&nbsp;hydrocarbon production, water supply or subcritical <span class="math inline">\(CO_2\)</span> storage, are concerned by fluid flows in rocks. The issue of modeling such flows, for example at the scale of a reservoir for the assessment of field productivity and reserves, requires to focus on the porous domain and more specifically on the fracture network. Indeed the latter can be composed of several geological entities of different orders of length magnitude which can all play a very important role in the overall hydraulic behavior of the field. In addition to the pores and fractures at very small scale (decimetric or less) accounting for the intrinsic porosity and permeability of the rock matrix, several fracturation scales are put in evidence in <span class="citation" data-cites="Bourbiaux02">(<a href="#ref-Bourbiaux02" role="doc-biblioref">Bourbiaux et al. 2002</a>)</span>. On the one hand, large scale faults observable by seismic surveys, sub-seismic faults and fracture swarms consisting in clusters of fractures can all be considered as large scale fractures (hectometric or more) taken explicitely into account in flow simulation models. On the other hand, diffuse fractures (metric to decametric) are so numerous that they can not reasonably individually appear in those models; however, their presence may significantly affect the fluid flows. A workflow incorporating the hydraulic effects of fractures at all scales and their possible interactions is detailed in <span class="citation" data-cites="Bourbiaux02">(<a href="#ref-Bourbiaux02" role="doc-biblioref">Bourbiaux et al. 2002</a>)</span> so as to build a complete flow simulation model. An example of model built and calibrated from available static and dynamic data and containing fractures at different scales can be found in <span class="citation" data-cites="deGalard05">(<a href="#ref-deGalard05" role="doc-biblioref">Galard et al. 2005</a>)</span>. Many real case studies show that, as expected, the presence of large scale fractures of high transmissivity has a strong impact on the field behavior and particularly on well production data, especially when they cross the well (<span class="citation" data-cites="Cosentino01">(<a href="#ref-Cosentino01" role="doc-biblioref">Cosentino et al. 2001</a>)</span>, <span class="citation" data-cites="Jenni07">(<a href="#ref-Jenni07" role="doc-biblioref">Jenni et al. 2007</a>)</span>). Nevertheless, as emphasized in <span class="citation" data-cites="Cosentino01">(<a href="#ref-Cosentino01" role="doc-biblioref">Cosentino et al. 2001</a>)</span>, the requested accuracy of the simulation used for prediction imposes to build a dual medium model accounting for the interactions between the large draining faults and their neighborhood, namely media of lower permeability but with a high fluid storage capacity as diffuse fracture networks or even the matrix itself. For this purpose, the intrinsic porosity and permeability of the matrix can sometimes be deduced from fracture observations at the core scale (centimetric) as in <span class="citation" data-cites="Howard90">(<a href="#ref-Howard90" role="doc-biblioref">Howard and Nolen-Hoeksema 1990</a>)</span> or from inversion methods based on flowmeter data as in <span class="citation" data-cites="Cosentino01">(<a href="#ref-Cosentino01" role="doc-biblioref">Cosentino et al. 2001</a>)</span>. For some reservoirs, dynamic data can be successfully numerically reproduced by a model involving only a permeable matrix and networks of diffuse (metric to decametric) fractures but no large fault <span class="citation" data-cites="Verga01">(<a href="#ref-Verga01" role="doc-biblioref">Verga et al. 2001</a>)</span>. The combined influence of diffuse fractures and a permeable matrix suggests resorting to techniques allowing to derive effective properties of dual porosity/permeability media <span class="citation" data-cites="Bourbiaux98">(<a href="#ref-Bourbiaux98" role="doc-biblioref">Bourbiaux et al. 1998</a>)</span>. In many papers proposing workflows for flow simulation (<span class="citation" data-cites="Bourbiaux98">(<a href="#ref-Bourbiaux98" role="doc-biblioref">Bourbiaux et al. 1998</a>)</span>, <span class="citation" data-cites="Sabathier98">(<a href="#ref-Sabathier98" role="doc-biblioref">Sabathier et al. 1998</a>)</span>, <span class="citation" data-cites="Cacas01">(<a href="#ref-Cacas01" role="doc-biblioref">Cacas et al. 2001</a>)</span>, <span class="citation" data-cites="Garcia07">(<a href="#ref-Garcia07" role="doc-biblioref">Garcia et al. 2007</a>)</span>) or presenting real cases (<span class="citation" data-cites="Cosentino01">(<a href="#ref-Cosentino01" role="doc-biblioref">Cosentino et al. 2001</a>)</span>, <span class="citation" data-cites="deGalard05">(<a href="#ref-deGalard05" role="doc-biblioref">Galard et al. 2005</a>)</span>), an important step consists in representing the hydraulic effect of diffuse fractures by an effective permeability. In some cases, the proposed upscaling method relies on a numerical resolution on an explicit local discrete fracture network (<span class="citation" data-cites="Sabathier98">(<a href="#ref-Sabathier98" role="doc-biblioref">Sabathier et al. 1998</a>)</span>, <span class="citation" data-cites="Pouya05">(<a href="#ref-Pouya05" role="doc-biblioref">Pouya 2005</a>)</span>). Besides, the issue of upscaling hydraulic properties of fracture networks by analytical methods has also been raised by several authors: <span class="citation" data-cites="Oda86">(<a href="#ref-Oda86" role="doc-biblioref">Oda 1986</a>)</span> presents a method based on a linear superposition of the contributions of different fracture families, <span class="citation" data-cites="Zimmerman96">(<a href="#ref-Zimmerman96" role="doc-biblioref">Zimmerman 1996</a>)</span> implements the differential scheme and Maxwell’s method for <span class="math inline">\(2D\)</span> isotropic fracture networks, <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span> and <span class="citation" data-cites="DormieuxCRAS04">(<a href="#ref-DormieuxCRAS04" role="doc-biblioref">Dormieux and Kondo 2004</a>)</span> take advantage of the self-consistent scheme for, respectively, <span class="math inline">\(2D\)</span> anisotropic networks and <span class="math inline">\(3D\)</span> isotropic networks. This paper deals with the estimate of the permeability of a fractured medium with a <span class="math inline">\(3D\)</span> anisotropic fracture network. As the existence of a r.v.e. (representative volume element) is assumed in the sequel, it becomes natural to define the macroscopic scale as that considering the r.v.e. as an elementary particle with effective properties and the microscopic scale as that refering to the different phases composing the r.v.e. (fracture families and solid phase). The diffuse fracture network considered here contains a high density of families of micro-fractures and long fractures with small spacing. The adjective <code>long</code> characterizes fractures cross-cutting the r.v.e.. The fracture centers are randomly distributed and the orientations of the families are arbitrary, leading then to a possible anisotropic effective permeability. The notion of r.v.e. implies the separation scale between its characteristic length and those of the fracture families, namely the size of micro-fractures or the average spacing between long fractures cross-cutting the r.v.e.. It should be recalled that the prefix <code>micro</code> only refers to a small size compared to that of the r.v.e., whatever the order of magnitude of the latter (decimetric to hectometric according to real case studies <span class="citation" data-cites="Sabathier98">(<a href="#ref-Sabathier98" role="doc-biblioref">Sabathier et al. 1998</a>)</span>). The framework of random media upscaling, which is also commonly used to estimate mechanical effective properties <span class="citation" data-cites="Zaoui02">(<a href="#ref-Zaoui02" role="doc-biblioref">Zaoui 2002</a>)</span>, is considered here so as to provide a methodology based on the self-consistent scheme to estimate the effective permeability <span class="math inline">\(\uu{K}^{hom}\)</span> in the general case of a <span class="math inline">\(3D\)</span> anisotropic distribution of fractures. The contribution of micro-fractures, requiring the determination of anisotropic Hill polarization tensors, extends to <span class="math inline">\(3D\)</span> the results obtained in <span class="math inline">\(2D\)</span> in <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span>. The self-consistent scheme allows to highlight percolation thresholds in the case of a strong contrast between the phases (fracture space and matrix). Considering fractures as fictitious Darcean materials, i.e.&nbsp;characterized by a permeability tensor, the paper focuses on the relevance of the different components of this tensor. In particular, the influence of the normal component on the macroscopic permeability is analyzed in details for both fracture types and illustrated by (<span class="math inline">\(3D\)</span> or <span class="math inline">\(2D\)</span>) isotropic distributions of fractures allowing to derive closed-form solutions of <span class="math inline">\(\uu{K}^{hom}\)</span>. In the general case of an anisotropic distribution, numerical solutions of the self-consistent scheme can be obtained and compared to calculations made on explicit discrete fracture networks.</p>
+</section>
+<section id="sec-descphases" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Description of the phases</h1>
+<section id="sec-descfrac" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-descfrac"><span class="header-section-number">1.1</span> Description of the fracture network</h2>
+<p>In natural diffuse fractured media as reservoirs, the issue of the existence of a r.v.e. on which upscaling techniques can provide macroscopic properties such as permeability and percolation thresholds has sometimes to be reconsidered. This is for example the case for fracture networks with a fractal correlation (<span class="citation" data-cites="Bonnet01">(<a href="#ref-Bonnet01" role="doc-biblioref">Bonnet et al. 2001</a>)</span>, <span class="citation" data-cites="Darcel03b">(<a href="#ref-Darcel03b" role="doc-biblioref">Darcel et al. 2003</a>)</span>, <span class="citation" data-cites="DarcelThese">(<a href="#ref-DarcelThese" role="doc-biblioref">Darcel 2002</a>)</span>). Nevertheless, aiming at applying upscaling methods, the media which are studied in the present paper are based on the assumption of a random fracture distribution. In this case, some papers (<span class="citation" data-cites="deDreuzy01a">(<a href="#ref-deDreuzy01a" role="doc-biblioref">Dreuzy et al. 2001a</a>)</span>, <span class="citation" data-cites="deDreuzy01b">(<a href="#ref-deDreuzy01b" role="doc-biblioref">Dreuzy et al. 2001b</a>)</span>) have shown the influence of the geometrical parameters of the fractures, in particular the length distribution, on the connectivity and the permeability of the medium. A domain of validity of the effective medium theory based on the self-consistent scheme that will be developed hereafter is provided in <span class="citation" data-cites="deDreuzy01a">(<a href="#ref-deDreuzy01a" role="doc-biblioref">Dreuzy et al. 2001a</a>)</span>. According to the latter, this technique can only be applied for a connectivity beyond the percolation threshold whereas other theories or numerical devices depending on the length distribution should be applied before and at the threshold. Nevertheless, the latter as well as the permeability tensor can be rather well estimated by the self-consistent scheme (<span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span>, <span class="citation" data-cites="Pozdniakov04">(<a href="#ref-Pozdniakov04" role="doc-biblioref">Pozdniakov and Tsang 2004</a>)</span>) except in the very neighborhood of the threshold <span class="citation" data-cites="Sahimi95">(<a href="#ref-Sahimi95" role="doc-biblioref">Sahimi 1995</a>)</span> which appears as a transition at which the permeability progressively changes of order of magnitude. It is worth mentioning that a percolation threshold can also be obtained by means of Maxwell’s method for a <span class="math inline">\(2D\)</span> isotropic network in <span class="citation" data-cites="Zimmerman96">(<a href="#ref-Zimmerman96" role="doc-biblioref">Zimmerman 1996</a>)</span>. Although thresholds derived by such effective media theories do not exactly coincide with numerical simulations, those theories can anyway provide rough but quick estimates which can be refined by numerical computations on effective fracture networks or which can also be used to assess the sensitivity to the fracture network characteristics. The present study relies on the assumption of existence of a r.v.e. with <span class="math inline">\(N\)</span> fracture families. The <span class="math inline">\(i^{\mathrm{th}}\)</span> family (<span class="math inline">\(1\leq i\leq N\)</span>) contains a large number of fractures all characterized by the same length, aspect ratio, orientation and hydraulic properties. It must be emphasized here that the following developments are based on a finite number of families. This means that the characteristics (length, shape, orientation or conductivity) must take discrete values. Nevertheless, continuous distributions of the latter (defined for example by means of probability density functions) could be accounted for by building an equivalent discrete set of families. For example, in the framework of mechanics, <span class="citation" data-cites="TheseQizhi">(<a href="#ref-TheseQizhi" role="doc-biblioref">Zhu 2006</a>)</span> presents methods either based on numerical integration by gaussian quadrature or on the definition of a representative set of families allowing to replace a continuous orientation distribution by a discrete one. The set of <span class="math inline">\(N\)</span> fracture families is partitioned in two subsets: families of long fractures cross-cutting the r.v.e. (<span class="math inline">\(i\in{\mathcal{C}}\)</span>) and families of micro-fractures (<span class="math inline">\(i\in{\mathcal{M}}\)</span>).</p>
+<ul>
+<li><p><em>Families of fractures cross-cutting the r.v.e.</em> (<span class="math inline">\(i\in{\mathcal{C}}\)</span>) A fracture cross-cutting the r.v.e. is geometrically described here as a plane, assuming then that its curvature can be neglected at the scale of the r.v.e.. The average spacing between fractures of the <span class="math inline">\(i^{\mathrm{th}}\)</span> family is denoted by <span class="math inline">\(d_i\)</span>. This distance can be considered as the characteristic dimension of the family and must be very small compared to the size of the fractures and to that of the r.v.e. (<a href="#fig-jointstravers" class="quarto-xref">Fig.&nbsp;1</a>). The orientation is entirely defined by a normal vector i.e.&nbsp;two Euler angles. Adopting a <span class="math inline">\(3D\)</span> description of the fracture, the latter can be seen as a volume delimited by two parallel planes. Introducing the average geometrical aperture <span class="math inline">\(h_i\)</span>, possibly different from the hydraulical aperture defined later, the infinitesimal volume fraction of the family is:</p>
+<p><span id="eq-fI"><span class="math display">\[
+\wideeq{f_i=\frac{h_i}{d_i}}
+\tag{1}\]</span></span></p></li>
+</ul>
+<div id="fig-jointstravers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-jointstravers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/jointstravers.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-jointstravers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Fractures cross-cutting the r.v.e.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><p><em>Families of micro-fractures</em> (<span class="math inline">\(i\in{\mathcal{M}}\)</span>) Considering fractures as <span class="math inline">\(2D\)</span> plane objects, the micro-fractures are modeled as ellipses and the characteristic length of each family (largest radius <span class="math inline">\(a_i\)</span>) is assumed to be very small compared to the characteristic dimension of the r.v.e.. The aspect ratio characterizing the shape in the fracture plane is denoted by <span class="math inline">\(\eta_i=b_i/a_i\)</span> where <span class="math inline">\(b_i\)</span> is the small radius. If <span class="math inline">\({\mathcal{N}}_i\)</span> denotes the number of fractures per volume unit and <span class="math inline">\(\epsilon_i={\mathcal{N}}_i a_i^3\)</span> the classical density introduced by Budiansky <span class="citation" data-cites="Budiansky76">(<a href="#ref-Budiansky76" role="doc-biblioref">Budiansky and O’Connell 1976</a>)</span>, the average spacing between two elements of a family is then the inverse of the average number of fractures intersecting a segment of unit length orthogonal to the fracture plane:</p>
+<p><span id="eq-deltai"><span class="math display">\[
+\wideeq{d_i=\frac{1}{{\mathcal{N}}_i\,\pi\,a_i^2\,\eta_i}=
+\frac{a_i}{\pi\,\epsilon_i\,\eta_i}}
+\tag{2}\]</span></span></p>
+<p>The orientation of all the micro-fractures of a given family is defined by a <span class="math inline">\(3D\)</span> frame (three orthonormal vectors) i.e.&nbsp;three Euler angles as described later in&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;7</a>. A network composed of three families of micro-fractures is shown on&nbsp;<a href="#fig-dfn3d" class="quarto-xref">Fig.&nbsp;2</a>. For sake of convenience in the self-consistent scheme based on Eshelby’s problem and developed in the following, we also introduce a <span class="math inline">\(3D\)</span> model of micro-fractures considered as ellipsoids of largest radii <span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span>. The third dimension is then defined by the small radius <span class="math inline">\(c_i\)</span> or the ratio <span class="math inline">\(\omega_i=c_i/a_i\ll 1\)</span> (see&nbsp;<a href="#fig-oblate" class="quarto-xref">Fig.&nbsp;3</a>). Hence, the volume fraction of the micro-fracture family writes:</p>
+<p><span id="eq-fi"><span class="math display">\[
+\wideeq{f_i=\frac{4}{3}\,\pi\,\epsilon_i\,\eta_i\,\omega_i}
+\tag{3}\]</span></span></p></li>
+</ul>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-dfn3d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dfn3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/dfn3d.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dfn3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Network of micro-fractures
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-oblate" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-oblate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/oblate.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oblate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Ellipsoidal fracture
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>It is assumed that all the characteristic lengths of the families (spacing in the case of fractures cross-cutting the r.v.e. and size in the case of micro-fractures) are of the same order of magnitude, i.e.&nbsp;infinitesimal with respect to the dimension of the r.v.e., in order to incorporate all the families to the same upscaling process. Otherwise several successive steps have to be performed.</p>
+</section>
+<section id="sec-physicalprop" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-physicalprop"><span class="header-section-number">1.2</span> Hydraulic properties of the phases</h2>
+<p>Ene and Sanchez-Palencia have shown, in the framework of periodic homogenization, that the steady-state, laminar, single-phase and incompressible flow of a newtonian viscous fluid in a porous medium obeys to the Darcy law at the upper scale, which means that the filtration velocity is linearly related to the pressure gradient <span class="citation" data-cites="Ene75">(<a href="#ref-Ene75" role="doc-biblioref">Ene and Sanchez-Palencia 1975</a>)</span>:</p>
+<p><span id="eq-darcy"><span class="math display">\[
+\wideeq{\uv{Q}=-\frac{\uu{K}^{hom}}{\mu}\prodc\uv{\nabla} P}
+\tag{4}\]</span></span></p>
+<p>where the second-order tensor <span class="math inline">\(\uu{K}^{hom}\)</span> has the dimension of a surface (<span class="math inline">\(m^2\)</span>) and depends on the sole morphology of the porous space (i.e.&nbsp;not on the fluid viscosity <span class="math inline">\(\mu\)</span>). The aim of the upscaling procedure is to determine or at least estimate <span class="math inline">\(\uu{K}^{hom}\)</span>. It is commonly assumed that the relationship&nbsp;(<a href="#eq-darcy" class="quarto-xref">4</a>) also applies to random media but estimating <span class="math inline">\(\uu{K}^{hom}\)</span> from Stokes equations at the lower scale proves to be a hard task. That is why some authors (<span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span>, <span class="citation" data-cites="DormieuxCRAS04">(<a href="#ref-DormieuxCRAS04" role="doc-biblioref">Dormieux and Kondo 2004</a>)</span>, <span class="citation" data-cites="Pozdniakov04">(<a href="#ref-Pozdniakov04" role="doc-biblioref">Pozdniakov and Tsang 2004</a>)</span>) have proposed to replace the different constituents of the microscopic scale (fractures and solid phase) by fictitious Darcy media. The advantage of such a method is that the same type of equation, namely the Darcy law, applies at both the microscopic and macroscopic scale. The permeability of the solid phase is assumed to be isotropic <span class="math inline">\(\uu{K}^s=K^s\idd\)</span>. This permeability results from the presence of micropores at a lower scale and is possibly obtained by a previous upscaling procedure. The permeability of the fractures writes with tangential and normal permeabilities which are a priori different:</p>
+<p><span id="eq-permfisper"><span class="math display">\[
+\wideeq{\uu{K}^i=\uu{K}_t^i+K_n^i\,\n_i\otimes\n_i
+\quad\textrm{with }
+\uu{K}_t^i=K_t^i\,\idd_{\n_i}
+     =K_t^i\,\dep{\idd-\n_i\otimes\n_i}}
+\tag{5}\]</span></span></p>
+<p>Following a classical result of rock hydraulics <span class="citation" data-cites="Gueguen94">(<a href="#ref-Gueguen94" role="doc-biblioref">Guéguen and Palciauskas 1994</a>)</span>, <span class="math inline">\(K_t^i\)</span> accounts for the overall tangential permeability of the fracture and is identified with the ratio between the average velocity of a Poiseuille flow between two idealized planes and the pressure gradient in the direction of the planes. The space <span class="math inline">\(e_i\)</span> between those fictitious planes is called the hydraulic aperture. It may differ from its geometrical counterpart because the latter may not be uniform along the fracture due to the face rugosity or simply due to the specific <span class="math inline">\(3D\)</span> geometry, for instance in the case of an ellipsoid. The equivalent Poiseuille flow then gives:</p>
+<p><span id="eq-Kitconduc"><span class="math display">\[
+\wideeq{K_t^i=\frac{e_i^2}{12}}
+\tag{6}\]</span></span></p>
+<p>It is assumed in the following that the tangential permeability <span class="math inline">\(K_t^i\)</span> is much larger than <span class="math inline">\(K^s\)</span> implying the impermeability of the fracture faces. As the equivalent Poiseuille problem is based on a flow parallel to the fracture plane, it does not give any indication on how to estimate <span class="math inline">\(K_n^i\)</span>. Recalling that a permeability is the macroscopic evidence of charge loss due to friction at the fluid-solid interface at the microscopic scale, the intuition could lead us to choose a value of <span class="math inline">\(K_n^i\)</span> much larger than <span class="math inline">\(K_t^i\)</span> because the latter should be much more impacted by the narrowness of the fracture aperture&nbsp;(<a href="#eq-Kitconduc" class="quarto-xref">6</a>) than the former. Nevertheless, some authors have proposed different other choices: for example, the micro-fracture permeability is taken isotropic (<span class="math inline">\(K_n^i=K_t^i\)</span>) in <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span> or <span class="math inline">\(K_n^i=K^s\ll K_t^i\)</span> in <span class="citation" data-cites="DormieuxCRAS04">(<a href="#ref-DormieuxCRAS04" role="doc-biblioref">Dormieux and Kondo 2004</a>)</span>. Thus, replacing the real fluid flow in the fracture space by an effective flow in a fictitious Darcy medium somehow makes <span class="math inline">\(K_n^i\)</span> in&nbsp;(<a href="#eq-permfisper" class="quarto-xref">5</a>) a mathematical parameter which does not seem so obvious to choose. It is then necessary to raise the issue of the relevance of any choice of <span class="math inline">\(K_n^i\)</span> by analyzing its impact on the overall permeability, which is the purpose of section&nbsp;<a href="#sec-Knmicro" class="quarto-xref">3</a>.</p>
+</section>
+</section>
+<section id="sec-macroperm" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Determination of the macroscopic permeability</h1>
+<p>The upscaling problem to solve on the r.v.e. <span class="math inline">\(\Omega\)</span> is similar to that allowing to exhibit effective thermal or electrical properties i.e.&nbsp;is the following elliptic problem:</p>
+<p><span id="eq-randompb"><span class="math display">\[
+\left\{
+\begin{array}{lll}
+\Div{\uv{q}}=0&amp; (\Omega)&amp; (a)\\[5pt]
+\uv{q}=-\frac{K^s}{\mu}\,\gradu{p}&amp; (\Omega^s)&amp; (b)\\[5pt]
+\uv{q}=-\frac{\uu{K}^i}{\mu}\prodc\gradu{p}&amp; (\Omega^i)&amp; (c)\\[5pt]
+p=\uv{\nabla} P\prodc\x&amp; (\frontiere{\Omega})&amp; (d)
+\end{array}
+\right.
+\tag{7}\]</span></span></p>
+<p>where <span class="math inline">\(\Omega^s\)</span> is the space occupied by the matrix, <span class="math inline">\(\Omega^i\)</span> the space occupied by the <span class="math inline">\(i^{\mathrm{th}}\)</span> fracture family and <span class="math inline">\(\uv{\nabla} P\)</span> is a given uniform vector identified as the macroscopic pressure gradient. The linearity of the equations at stake implies the existence of a concentration tensor field such that the solution of&nbsp;(<a href="#eq-randompb" class="quarto-xref">7</a>) writes:</p>
+<p><span id="eq-localA"><span class="math display">\[
+\wideeq{\forall\x\in\Omega,\quad
+  \gradu{p}\depx=\uu{A}\depx\prodc\uv{\nabla} P}
+\tag{8}\]</span></span></p>
+<p>The macroscopic permeability is then given by:</p>
+<p><span id="eq-defKhom"><span class="math display">\[
+\begin{array}{c}
+\uv{Q}=\moydom{\uv{q}}{\Omega}=
+-\frac{\uu{K}^{hom}}{\mu}\prodc\uv{\nabla} P\\[5pt]
+\textrm{ with }\;
+\uu{K}^{hom}=\moydom{\uu{K}\prodc\uu{A}}{\Omega}
+=\dep{1-\sum_{i=1}^Nf_i}\uu{K}^s\prodc\moydom{\uu{A}}{\Os}
++\sum_{i=1}^Nf_i\,\uu{K}^i\prodc\moydom{\uu{A}}{\Oi}
+\end{array}
+\tag{9}\]</span></span></p>
+<p>where <span class="math inline">\(\moydom{\cdot}{\omega}\)</span> denotes the average operator over the domain <span class="math inline">\({\omega}\)</span>. The upscaling methods aim at providing estimates of the averages of the concentration tensor or equivalently the relationships between the averages of <span class="math inline">\(\uv{q}\)</span> in each phase and <span class="math inline">\(\uv{\nabla} P\)</span>.</p>
+<section id="sec-Acrossing" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-Acrossing"><span class="header-section-number">2.1</span> Contribution of the fractures cross-cutting the r.v.e.</h2>
+<p>As they cross-cut the r.v.e., those fractures are subjected to a pressure difference directly related to the boundary condition&nbsp;(<a href="#eq-randompb" class="quarto-xref">7</a>&nbsp;d). In fact, as pointed out in <span class="citation" data-cites="Oda86">(<a href="#ref-Oda86" role="doc-biblioref">Oda 1986</a>)</span>, the fluid flow in those fractures sees an effective pressure gradient obtained by projection of the macroscopic pressure gradient onto the fracture plane. By construction of <span class="math inline">\(K_t^i\)</span> and recalling that the fracture faces are impermeable, the flow in such a family is purely tangential and writes:</p>
+<p><span id="eq-solqC"><span class="math display">\[
+\wideeq{\moydom{\uv{q}}{\Oi}
+=-\frac{K_t^i}{\mu}\,\idd_{\n_i}\,\prodc\uv{\nabla} P
+=-\frac{\uu{K}_t^i}{\mu}\prodc\uv{\nabla} P
+\qquad(\forall i\in{\mathcal{C}})}
+\tag{10}\]</span></span></p>
+<p>The contribution of this family to <span class="math inline">\(\uu{K}^{hom}\)</span> (<a href="#eq-defKhom" class="quarto-xref">9</a>) can then be identified in&nbsp;(<a href="#eq-solqC" class="quarto-xref">10</a>) by:</p>
+<p><span id="eq-contribcros"><span class="math display">\[
+\wideeq{\uu{K}^i\prodc\moydom{\uu{A}}{\Oi}=
+\uu{K}_t^i=K_t^i\,\idd_{\n_i}
+\qquad(\forall i\in{\mathcal{C}})}
+\tag{11}\]</span></span></p>
+<p>which appears as a superposed term in&nbsp;(<a href="#eq-defKhom" class="quarto-xref">9</a>) without any interaction with other fracture families. <span class="math inline">\(K_n^i\)</span> is obviously not involved in the explicit contribution of the corresponding family to <span class="math inline">\(\uu{K}^{hom}\)</span> (<a href="#eq-contribcros" class="quarto-xref">11</a>). Focusing on the estimate of the pressure gradient average i.e.&nbsp;<span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span>, it can first be noted that (<a href="#eq-contribcros" class="quarto-xref">11</a>) leads to</p>
+<p><span id="eq-contribAcros"><span class="math display">\[
+\wideeq{\idd_{\n_i}\prodc\moydom{\uu{A}}{\Oi}=
+\idd_{\n_i}
+\quad\textrm{and}\quad
+\norm{K_n^i\,\n_i\otimes\n_i\prodc\moydom{\uu{A}}{\Oi}}\ll K_t^i
+\qquad(\forall i\in{\mathcal{C}})}
+\tag{12}\]</span></span></p>
+<p>The first relationship of&nbsp;(<a href="#eq-contribAcros" class="quarto-xref">12</a>) allows to determine without ambiguity the projection <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span> onto the fracture plane whereas the projection onto the normal depends on the choice of <span class="math inline">\(K_n^i\)</span>. If <span class="math inline">\(K_n^i\)</span> is chosen at least of the same order of magnitude as <span class="math inline">\(K_t^i\)</span>, then (<a href="#eq-contribAcros" class="quarto-xref">12</a>) implies that</p>
+<p><span id="eq-solgradpC"><span class="math display">\[
+\wideeq{\moydom{\uu{A}}{\Oi}=\idd_{\n_i}
+\qquad(\forall i\in{\mathcal{C}})}
+\tag{13}\]</span></span></p>
+<p>The choice <span class="math inline">\(K_n^i\ll K_t^i\)</span> still satisfies the consistency with&nbsp;(<a href="#eq-contribcros" class="quarto-xref">11</a>) but leads to three undetermined components of <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span>. In fact, the following developments in sections&nbsp;<a href="#sec-Amicro" class="quarto-xref">2.2</a> and&nbsp;<a href="#sec-Khomrandom" class="quarto-xref">2.4</a> will show that those components of <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span> do not actually play a role in the upscaling process provided that they keep bounded values. (<a href="#eq-solgradpC" class="quarto-xref">13</a>) can therefore still be used.</p>
+</section>
+<section id="sec-Amicro" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-Amicro"><span class="header-section-number">2.2</span> Contribution of the micro-fractures</h2>
+<p>Unlike the previous case of fractures cross-cutting the r.v.e., the interactions of smaller fractures with their neighborhood must be strong. Their influence on the overall permeability comes from the connections between them, which means that each phase of the heterogeneous medium is in contact with elements of the other phases. According to <span class="citation" data-cites="DormieuxCRAS04">(<a href="#ref-DormieuxCRAS04" role="doc-biblioref">Dormieux and Kondo 2004</a>)</span>, the self-consistent scheme is adapted for its capacity to account for a disordered microstructure and to exhibit percolation thresholds. In the framework of the self-consistent scheme, the average of the concentration tensor in each phase is estimated by means of an auxiliary problem of an ellipsoid <span class="math inline">\(\mathcal{I}\)</span> embedded in the infinite effective medium itself and subjected to a remote pressure gradient <span class="math inline">\(\uv{\nabla}P^o\)</span>. The use of <span class="math inline">\(\uv{\nabla}P^o\)</span> different from <span class="math inline">\(\uv{\nabla}P\)</span> corresponds to a classical way to take into account interactions in upscaling schemes (see for example <span class="citation" data-cites="Zaoui02">(<a href="#ref-Zaoui02" role="doc-biblioref">Zaoui 2002</a>)</span> in the mechanical framework). The relationship between <span class="math inline">\(\uv{\nabla}P^o\)</span> and <span class="math inline">\(\uv{\nabla}P\)</span> is obtained by means of the consistency rule:</p>
+<p><span id="eq-consisgradp"><span class="math display">\[
+\wideeq{\moydom{\gradu{p}}{\Omega}=\uv{\nabla}P}
+\tag{14}\]</span></span></p>
+<p>The auxiliary problem, known as the Eshelby problem <span class="citation" data-cites="Eshelby57">(<a href="#ref-Eshelby57" role="doc-biblioref">Eshelby 1957</a>)</span>, shows an homogeneous pressure gradient within the ellipsoid, which is used as an estimate of the pressure gradient average in the fractures of the <span class="math inline">\(i^{th}\)</span> family in the r.v.e. problem:</p>
+<p><span id="eq-gradpesh"><span class="math display">\[
+\wideeq{\moydom{\gradu{p}}{\Oi}=
+\uu{\Lambda}_i
+\prodc\uv{\nabla}P^o
+\quad\textrm{with }
+\uu{\Lambda}_i=\inv{\dep{\idd+\uu{P}_{hom}^i
+\prodc\dep{\uu{K}^i-\uu{K}^{hom}}}}
+\qquad(\forall i\in{\mathcal{M}})}
+\tag{15}\]</span></span></p>
+<p>where the second-order Hill tensor <span class="math inline">\(\uu{P}_{hom}^i\)</span> depends on <span class="math inline">\(\uu{K}^{hom}\)</span> and on the shape and orientation of the ellipsoid. The ellipsoid representing the <span class="math inline">\(i^{th}\)</span> family is defined thanks to a second-order tensor <span class="math inline">\(\uu{H}_i\)</span> by the equation:</p>
+<p><span id="eq-eqincl"><span class="math display">\[
+\wideeq{\x\prodc\inv{\dep{\trans{\uu{H}_i}\prodc\uu{H}_i}}\prodc\x\leq 1}
+\tag{16}\]</span></span></p>
+<p>For any ellipsoid, <span class="math inline">\(\uu{P}_{hom}^i\)</span> results from <span class="math inline">\(\uu{K}^{hom}\)</span> in the general 3D anisotropic case according to the following procedure (see&nbsp;<a href="#sec-tenseurHill" class="quarto-xref">5</a> for a detailed proof):</p>
+<ol type="1">
+<li><p>Diagonalize <span class="math inline">\(\uu{K}^{hom}\)</span> and introduce the tensor <span class="math inline">\(\uu{R}\)</span> such that</p>
+<p><span id="eq-QdiagK"><span class="math display">\[
+\wideeq{\trans{\uu{Q}}\prodc\uu{Q}=\idd
+\quad\textrm{and}\quad
+\trans{\uu{Q}}\prodc\uu{K}^{hom}\prodc\uu{Q}=
+\sum_{j=1}^3 K^{hom}_{j}\,\ve{j}\otimes\ve{j}}
+\tag{17}\]</span></span></p>
+<p><span id="eq-tensR"><span class="math display">\[
+\wideeq{\uu{R}=\sum_{j=1}^3 \sqrt{K^{hom}_{j}}\,\uu{Q}\prodc\ve{j}\otimes\ve{j}}
+\tag{18}\]</span></span></p></li>
+<li><p>Compute the tensor <span class="math inline">\(\uu{H}'_i=\uu{H}_i\prodc\trans{\inv{\uu{R}}}\)</span> and diagonalize <span class="math inline">\(\trans{\uu{H}'_i}\prodc\uu{H}'_i\)</span></p>
+<p><span id="eq-diagtAA"><span class="math display">\[
+\wideeq{\trans{\uu{S}}_i\prodc\uu{S}_i=\idd
+\quad\textrm{and}\quad
+\trans{\uu{S}}_i\prodc\trans{\uu{H}'_i}\prodc\uu{H}'_i\prodc\uu{S}_i=
+A^2_i\,\ve{1}\otimes\ve{1}+
+B^2_i\,\ve{2}\otimes\ve{2}+
+C^2_i\,\ve{3}\otimes\ve{3}}
+\tag{19}\]</span></span></p>
+<p>with <span class="math inline">\(A_i\geq B_i\geq C_i\)</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
+<li><p>Compute the tensor</p>
+<p><span id="eq-DI"><span class="math display">\[
+\wideeq{\uu{\Delta}_i=I_A^i\,\ve{1}\otimes\ve{1}+
+I_B^i\,\ve{2}\otimes\ve{2}+
+I_C^i\,\ve{3}\otimes\ve{3}}
+\tag{20}\]</span></span></p>
+<p>with</p></li>
+</ol>
+<ul>
+<li><p>[<span class="math inline">\(\bullet\)</span>] if <span class="math inline">\(A_i&gt;B_i&gt;C_i\)</span></p>
+<p><span id="eq-Ia"><span class="math display">\[
+\wideeq{I_A^i=\frac{A_i\,B_i\,C_i}{\dep{A_i^2-B_i^2}\,\sqrt{A_i^2-C_i^2}}\,\dep{{\mathcal{F}}_i-{\mathcal{E}}_i}}
+\tag{21}\]</span></span></p>
+<p><span id="eq-Ic"><span class="math display">\[
+\wideeq{I_C^i=\frac{A_i\,B_i\,C_i}{\dep{B_i^2-C_i^2}\,\sqrt{A_i^2-C_i^2}}\,
+\dep{\frac{B_i\,\sqrt{A_i^2-C_i^2}}{A_i\,C_i}-{\mathcal{E}}_i}}
+\tag{22}\]</span></span></p>
+<p><span id="eq-Ib"><span class="math display">\[
+\wideeq{I_B^i=1-I_A^i-I_C^i}
+\tag{23}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{F}}_i={\mathcal{F}}(\theta_i,k_i)\)</span> and <span class="math inline">\({\mathcal{E}}_i={\mathcal{E}}(\theta_i,k_i)\)</span> are respectively the elliptic integrals of the first and second kinds of amplitude and parameter:</p>
+<p><span id="eq-ampmod"><span class="math display">\[
+\wideeq{\theta_i=\arcsin{\sqrt{1-\frac{C_i^2}{A_i^2}}}
+\quad;\quad
+k_i=\sqrt{\frac{A_i^2-B_i^2}{A_i^2-C_i^2}}}
+\tag{24}\]</span></span></p></li>
+<li><p>[<span class="math inline">\(\bullet\)</span>] if <span class="math inline">\(A_i&gt;B_i=C_i\)</span></p>
+<p><span id="eq-Ibc"><span class="math display">\[
+\wideeq{I_B^i=I_C^i=\frac{1}{2}\,A_i\,
+\frac{A_i\,\sqrt{A_i^2-C_i^2}-C_i^2\,\argch{\dep{A_i/C_i}}}
+{\dep{A_i^2-C_i^2}^{3/2}}}
+\tag{25}\]</span></span></p>
+<p><span id="eq-Iai"><span class="math display">\[
+\wideeq{I_A^i=1-2\,I_B^i}
+\tag{26}\]</span></span></p></li>
+<li><p>[<span class="math inline">\(\bullet\)</span>] if <span class="math inline">\(A_i=B_i&gt;C_i\)</span></p>
+<p><span id="eq-Iab"><span class="math display">\[
+\wideeq{I_A^i=I_B^i=\frac{1}{2}\,C_i\,
+\frac{A_i^2\,\arccos{\dep{C_i/A_i}}-C_i\,\sqrt{A_i^2-C_i^2}}
+{\dep{A_i^2-C_i^2}^{3/2}}}
+\tag{27}\]</span></span></p>
+<p><span id="eq-Ici"><span class="math display">\[
+\wideeq{I_C^i=1-2\,I_A^i}
+\tag{28}\]</span></span></p></li>
+<li><p>[<span class="math inline">\(\bullet\)</span>] if <span class="math inline">\(A_i=B_i=C_i\)</span></p>
+<p><span id="eq-Iabc"><span class="math display">\[
+\wideeq{I_A^i=I_B^i=I_C^i=\frac{1}{3}}
+\tag{29}\]</span></span></p></li>
+</ul>
+<ol type="1">
+<li><p>Finally compute</p>
+<p><span id="eq-P2sol"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^i=
+\trans{\inv{\uu{R}}}\prodc
+\uu{S}_i\prodc\uu{\Delta}_i\prodc\trans{\uu{S}}_i
+\prodc\inv{\uu{R}}}
+\tag{30}\]</span></span></p></li>
+</ol>
+<p>The determination of the average of the concentration tensor <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span> will be achieved when the relationship between <span class="math inline">\(\uv{\nabla}P^o\)</span> and <span class="math inline">\(\uv{\nabla}P\)</span> is found. However, as this relationship comes from the consistency rule&nbsp;(<a href="#eq-consisgradp" class="quarto-xref">14</a>), the average of the pressure gradient within the matrix must also be estimated through an auxiliary problem even if the explicit contribution of the matrix in&nbsp;(<a href="#eq-defKhom" class="quarto-xref">9</a>) could be neglected because of the low permeability of the matrix.</p>
+</section>
+<section id="sec-Amatrix" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-Amatrix"><span class="header-section-number">2.3</span> Contribution of the matrix</h2>
+<p>In the self-consistent scheme, the matrix phase also requires the resolution of an auxiliary problem to estimate the average of the pressure gradient. Nevertheless, unlike polycrystals in which each phase plays an equivalent role, the matrix here plays a specific role from the geometrical point of view. The latter, which occupies almost all the r.v.e. space, is also represented by an ellipsoid in its auxiliary problem but the shape of the ellipsoid may not be as obvious as for the polycrystals. This ellipsoid is supposed to account for the spatial distribution of the matrix with respect to the fractures crossing it. More precisely, it seems judicious to quantify the anisotropy of the inter-fracture space by means of the family orientations <span class="math inline">\(\n_i\)</span> and spacings <span class="math inline">\(d_i\)</span> as shown on&nbsp;<a href="#fig-formematrice" class="quarto-xref">Fig.&nbsp;4</a> and build the <span class="math inline">\(\uu{H}^s\)</span> tensor related to the matrix ellipsoid according to the definition:</p>
+<p><span id="eq-Aellmatrix"><span class="math display">\[
+\wideeq{\uu{H}^s=\inv{\dep{\sum_{i=1}^N\frac{1}{d_i}\,\n_i\otimes\n_i}}}
+\tag{31}\]</span></span></p>
+<div id="fig-formematrice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-formematrice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/formematrice.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-formematrice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Matrix ellipsoid shape
+</figcaption>
+</figure>
+</div>
+<p>Knowing the shape of the ellipsoid, the average of the pressure gradient within the matrix can then be estimated by means of the same procedure as for the micro-fractures i.e.:</p>
+<p><span id="eq-gradpmat"><span class="math display">\[
+\wideeq{\moydom{\gradu{p}}{\Os}=
+\uu{\Lambda}_s
+\prodc\uv{\nabla}P^o
+\quad\textrm{with }
+\uu{\Lambda}_s=\inv{\dep{\idd+\uu{P}_{hom}^s
+\prodc\dep{\uu{K}^s-\uu{K}^{hom}}}}}
+\tag{32}\]</span></span></p>
+<p>where <span class="math inline">\(\uu{P}_{hom}^s\)</span> depends on <span class="math inline">\(\uu{K}^{hom}\)</span> and <span class="math inline">\(\uu{H}^s\)</span>&nbsp;(<a href="#eq-Aellmatrix" class="quarto-xref">31</a>).</p>
+</section>
+<section id="sec-Khomrandom" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-Khomrandom"><span class="header-section-number">2.4</span> Macroscopic permeability</h2>
+<p>Using the estimates&nbsp;(<a href="#eq-gradpesh" class="quarto-xref">15</a>) and (<a href="#eq-gradpmat" class="quarto-xref">32</a>) in the consistency rule&nbsp;(<a href="#eq-consisgradp" class="quarto-xref">14</a>) provides the relationship between the auxiliary pressure gradient <span class="math inline">\(\uv{\nabla}P^o\)</span> and the actual one <span class="math inline">\(\uv{\nabla}P\)</span>:</p>
+<p><span id="eq-gradPgradPobis"><span class="math display">\[
+\wideeq{\uv{\nabla}P^o=
+\inv{\depc{\Big(1-\sum_{i=1}^N f_i\Big)\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{\Lambda}_i
+}}
+\prodc
+\Big({\idd-\sum_{i\in{\mathcal{C}}}f_i\,\moydom{\uu{A}}{\Oi}}\Big)\,
+\prodc\uv{\nabla}P}
+\tag{33}\]</span></span></p>
+<p>Since the fracture volume fractions are infinitesimal, the average pressure gradients i.e.&nbsp;<span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span> of the families of long fractures play a role in&nbsp;(<a href="#eq-gradPgradPobis" class="quarto-xref">33</a>) only if it presents singular values. If <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span> is bounded as in&nbsp;(<a href="#eq-solgradpC" class="quarto-xref">13</a>), (<a href="#eq-gradPgradPobis" class="quarto-xref">33</a>) gives:</p>
+<p><span id="eq-gradPgradPolin"><span class="math display">\[
+\wideeq{\uv{\nabla}P^o=
+\inv{\dep{\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{\Lambda}_i
+}}
+\prodc\uv{\nabla}P}
+\tag{34}\]</span></span></p>
+<p>A singular component of <span class="math inline">\(\moydom{\uu{A}}{\Oi}\)</span>, along <span class="math inline">\(\n_i\otimes\n_i\)</span> to remain consistent with&nbsp;(<a href="#eq-contribAcros" class="quarto-xref">12</a>), would have implied a reduction of the level of <span class="math inline">\(\uv{\nabla}P^o\)</span> and consequently of <span class="math inline">\(\uu{K}^{hom}\)</span>, which would have made the corresponding long fracture family play the unexpected role of a barrier against the fluid flow possibly coming from micro-fracture families. Finally, the average of the concentration tensor in the micro-fracture families (resp. in the matrix) can be written with the help of (<a href="#eq-gradpesh" class="quarto-xref">15</a>) (resp. (<a href="#eq-gradpmat" class="quarto-xref">32</a>)) and (<a href="#eq-gradPgradPolin" class="quarto-xref">34</a>):</p>
+<p><span id="eq-AM"><span class="math display">\[
+\wideeq{\moydom{\uu{A}}{\Oi}=
+\uu{\Lambda}_i\prodc\inv{\dep{\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{\Lambda}_i
+}}
+\qquad(\forall i\in{\mathcal{M}})}
+\tag{35}\]</span></span></p>
+<p><span id="eq-AS"><span class="math display">\[
+\wideeq{\moydom{\uu{A}}{\Os}=
+\uu{\Lambda}_s\prodc\inv{\dep{\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{\Lambda}_i
+}}}
+\tag{36}\]</span></span></p>
+<p>The macroscopic permeability <span class="math inline">\(\uu{K}^{hom}\)</span> can now be estimated by taking advantage of&nbsp;(<a href="#eq-solqC" class="quarto-xref">10</a>), (<a href="#eq-AM" class="quarto-xref">35</a>) and&nbsp;(<a href="#eq-AS" class="quarto-xref">36</a>) in&nbsp;(<a href="#eq-defKhom" class="quarto-xref">9</a>):</p>
+<p><span id="eq-defKhom2"><span class="math display">\[
+\wideeq{\uu{K}^{hom}
+=\dep{
+\Big(1-\sum_{i=1}^N f_i\Big)\uu{K}^s\prodc\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{K}^i\prodc\uu{\Lambda}_i
+}\prodc\inv{\dep{\uu{\Lambda}_s
++\sum_{i\in{\mathcal{M}}}f_i\,\uu{\Lambda}_i
+}}
++\sum_{i\in{\mathcal{C}}}f_i\,\uu{K}_t^i}
+\tag{37}\]</span></span></p>
+<p>It is recalled that, in the framework of the self-consistent scheme, the tensors <span class="math inline">\(\uu{\Lambda}_i\)</span>&nbsp;(<a href="#eq-gradpesh" class="quarto-xref">15</a>) and <span class="math inline">\(\uu{\Lambda}_s\)</span>&nbsp;(<a href="#eq-gradpmat" class="quarto-xref">32</a>) nonlinearly depend on <span class="math inline">\(\uu{K}^{hom}\)</span>, which makes&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>) an implicit equation characterizing <span class="math inline">\(\uu{K}^{hom}\)</span>:</p>
+<p><span id="eq-implicitKhom"><span class="math display">\[
+\wideeq{\uu{K}^{hom}
+={\mathcal{G}}\dep{\uu{K}^{hom}}}
+\tag{38}\]</span></span></p>
+<p>Although closed-form solutions can be obtained in simple cases (see section&nbsp;<a href="#sec-examples" class="quarto-xref">4</a>), it is necessary to use a numerical method to find a solution of&nbsp;(<a href="#eq-implicitKhom" class="quarto-xref">38</a>). A recursive fixed-point method will be implemented in the following examples:</p>
+<p><span id="eq-fixedpoint"><span class="math display">\[
+\wideeq{\uu{K}_0=\uu{K}^s
+\textrm{ and }
+\uu{K}_j
+={\mathcal{G}}\dep{\uu{K}_{j-1}}
+\textrm{ until }
+\norm{\uu{K}_j-\uu{K}_{j-1}}&lt;\varepsilon\norm{\uu{K}_{j-1}}}
+\tag{39}\]</span></span></p>
+<p>However, the relevance of the upscaling scheme still relies on the choice of the normal component of the micro-fracture permeability, which is the purpose of the next paragraph.</p>
+</section>
+</section>
+<section id="sec-Knmicro" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Influence of the normal component of the fracture permeability</h1>
+<p>It has been shown earlier that the macroscopic permeability does not depend on <span class="math inline">\(K_n^i\)</span> of the long fractures, which contributions are obtained by simple superpositions. The case of micro-fractures is different since they are confined inside the r.v.e. and the flow and the pressure gradient established in them strongly depend on their neighborhood. In the self-consistent scheme, the solution in the micro-fractures has been estimated by that of an ellipsoid surrounded by the effective material. Moreover, according to Voigt bound, <span class="math inline">\(\uu{K}^{hom}\)</span> as a quadratic form is always lower than <span class="math inline">\(\moydom{\uu{K}}{\Omega}\)</span> and is reasonably of the same order of magnitude of the latter when the fractures are connected or in the presence of long fractures cross-cutting the r.v.e.&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>). This implies that <span class="math inline">\(\uu{K}^{hom}\)</span> is necessarily much lower than the tangential permeability <span class="math inline">\(K_t^i\)</span> of any fracture contributing to the overall permeability since the fracture volume fraction is infinitesimal. Therefore, the fluid flow is almost parallel to the fracture plane in the auxiliary problem without any condition on <span class="math inline">\(K_n^i\)</span> as the neighboring material is much less permeable than the ellipsoidal fracture. The quantitative influence of <span class="math inline">\(K_n^i\)</span> on <span class="math inline">\(\uu{K}^{hom}\)</span> in the case of micro-fractures has then to be examined more in details. To this end, the behavior of <span class="math inline">\(\uu{\Lambda}_i\)</span>&nbsp;(<a href="#eq-gradpesh" class="quarto-xref">15</a>) and <span class="math inline">\(\uu{P}_{hom}^i\)</span> for small values of the aspect ratio <span class="math inline">\(\omega_i\)</span> is first studied. The Taylor expansion of <span class="math inline">\(\uu{P}_{hom}^i\)</span> with respect to <span class="math inline">\(\omega_i\)</span> can be obtained from another expression of the Hill tensor than the one using the Green function exploited in section&nbsp;<a href="#sec-Amicro" class="quarto-xref">2.2</a>:</p>
+<p><span id="eq-P2int"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^i=\frac{\det{\uu{H}_i}}{4\,\pi}
+    \int_{\norm{\uv{\xi}}=1}
+    \frac{\uv{\xi}\otimes\uv{\xi}}
+      {\dep{\uv{\xi}\prodc\uu{K}^{hom}\prodc\uv{\xi}}
+        \dep{\uv{\xi}\prodc
+   \trans{\uu{H}_i}\prodc\uu{H}_i\prodc\uv{\xi}}^{3/2}}
+   \,\ud S_{\xi}}
+\tag{40}\]</span></span></p>
+<p>Calling <span class="math inline">\((\vl_i,\m_i,\n_i)\)</span> the eigenvectors of the ellipsoid (see&nbsp;<a href="#fig-oblate" class="quarto-xref">Fig.&nbsp;3</a>), <span class="math inline">\(\uu{H}_i\)</span> writes:</p>
+<p><span id="eq-Hi"><span class="math display">\[
+\wideeq{\uu{H}_i=a_i\dep{\vl_i\otimes\vl_i+
+    \eta_i\,\m_i\otimes\m_i+
+    \omega_i\,\n_i\otimes\n_i}}
+\tag{41}\]</span></span></p>
+<p>Using in&nbsp;(<a href="#eq-P2int" class="quarto-xref">40</a>) the parametrization <span class="math inline">\(\uv{\xi}=\sqrt{1-z^2}\dep{\cos{\phi}\,\vl_i+\sin{\phi}\,\m_i}+z\,\n_i\)</span> and <span class="math inline">\(\ud S_{\xi}=\ud z\ud\phi\)</span> as well as an analogy with a result obtained in the framework of elasticity in <span class="citation" data-cites="Huang98">(<a href="#ref-Huang98" role="doc-biblioref">Huang and Liu 1998</a>)</span>, <span class="math inline">\(\uu{P}_{hom}^i\)</span> writes:</p>
+<p><span id="eq-decPi"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^i=\frac{\n_i\otimes\n_i}{\n_i\prodc\uu{K}^{hom}\prodc\n_i}
+  +\omega_i\,\uu{\Pi}_{hom}^i+\grando{\frac{\omega_i^2}{\norm{\uu{K}^{hom}}}}}
+\tag{42}\]</span></span></p>
+<p>with:</p>
+<p><span id="eq-defPi"><span class="math display">\[
+\wideeq{\uu{\Pi}_{hom}^i=-\frac{\eta_i}{4\,\pi}\,
+     \int_{z=-1}^{1}\int_{\phi=0}^{2\,\pi}{}
+    \frac{z}{\sqrt{1-z^2}}\,\frac{1}{\dep{\cos^2\phi+\eta_i^2\sin^2\phi}^{3/2}}
+    \derive{}{z}\dep{\frac{\uv{\xi}\otimes\uv{\xi}}
+    {\uv{\xi}\prodc\uu{K}^{hom}\prodc\uv{\xi}}}\ud\phi\ud z}
+\tag{43}\]</span></span></p>
+<p>It is worth noting on&nbsp;(<a href="#eq-defPi" class="quarto-xref">43</a>) that <span class="math inline">\(\uu{\Pi}_{hom}^i=\grando{1/\norm{\uu{K}^{hom}}}\)</span>. In the case of an oblate spheroid (<span class="math inline">\(\eta_i=1\)</span>) in an isotropic effective medium <span class="math inline">\(\uu{K}^{hom}=K^{hom}\idd\)</span>, (<a href="#eq-decPi" class="quarto-xref">42</a>) becomes:</p>
+<p><span id="eq-defPiiso"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^i=\frac{\n_i\otimes\n_i}{K^{hom}}
+   +\omega_i\,\uu{\Pi}_{hom}^i
+   +\grando{\frac{\omega_i^2}{K^{hom}}}
+   \quad\textrm{ with }
+   \uu{\Pi}_{hom}^i=\frac{\pi}{4\,K^{hom}}\,\dep{\idd_{\n_i}-2\,\n_i\otimes\n_i}}
+\tag{44}\]</span></span></p>
+<p>Substituting&nbsp;(<a href="#eq-decPi" class="quarto-xref">42</a>) in&nbsp;(<a href="#eq-gradpesh" class="quarto-xref">15</a>), it comes out that:</p>
+<p><span id="eq-decaim"><span class="math display">\[
+\wideeq{\inv{\uu{\Lambda}_i}=\idd
+    -\frac{\n_i\otimes\uu{K}^{hom}\prodc\n_i}{K^{hom}_{n_i n_i}}
+    +\frac{K_n^i\,\n_i\otimes\n_i}{K^{hom}_{n_i n_i}}
+    +\omega_i\,\uu{\Pi}_{hom}^i\prodc\dep{\uu{K}^i-\uu{K}^{hom}}
+    +\grando{\omega_i^2\,\frac{\norm{\uu{K}^i}}{\norm{\uu{K}^{hom}}}}}
+\tag{45}\]</span></span></p>
+<p>where <span class="math inline">\(K^{hom}_{n_i n_i}=\n_i\prodc\uu{K}^{hom}\prodc\n_i\)</span>. As already previously mentioned, it seems reasonable to assume that, beyond the percolation threshold, <span class="math inline">\(\uu{K}^{hom}\)</span> is of the same order of magnitude as <span class="math inline">\(f_i\,\uu{K}_t^i\)</span> if the <span class="math inline">\(i^{\mathrm{th}}\)</span> family significantly contributes to <span class="math inline">\(\uu{K}^{hom}\)</span>. Keeping the terms of highest order, <span class="math inline">\(\inv{\uu{\Lambda}_i}\)</span> can be written by blocks:</p>
+<p><span id="eq-decblocaim"><span class="math display">\[
+\begin{array}{lll}
+\inv{\uu{\Lambda}_i}&amp;=
+\underbrace{\idd_{\n_i}+\omega_i\,\idd_{\n_i}
+   \prodc\uu{\Pi}_{hom}^i\prodc\uu{K}_t^i}_{\displaystyle \uu{a}_i}&amp;
++\omega_i\,\underbrace{\idd_{\n_i}\prodc\dep{-\uu{\Pi}_{hom}^i
+\prodc\uu{K}^{hom}}\prodc\n_i\otimes\n_i}_{\displaystyle \uu{b}_i}\\[10pt]
+&amp;+\underbrace{\n_i\otimes\n_i\prodc\dep{\omega_i\,K_t^i\,\uu{\Pi}_{hom}^i
+-\frac{\uu{K}^{hom}}
+  {K^{hom}_{n_i n_i}}}\prodc\idd_{\n_i}}_{\displaystyle \uu{c}_i}&amp;
++\underbrace{\dep{\frac{K_n^i}{K^{hom}_{n_i n_i}}
+-\omega_i\,\n_i\prodc\uu{\Pi}_{hom}^i
+\prodc\uu{K}^{hom}\prodc\n_i}}_{\displaystyle \delta_i}\,\n_i\otimes\n_i
+\end{array}
+\tag{46}\]</span></span></p>
+<p>The tensors <span class="math inline">\(\uu{a}_i\)</span>, <span class="math inline">\(\uu{b}_i\)</span> and <span class="math inline">\(\uu{c}_i\)</span> introduced in&nbsp;(<a href="#eq-decblocaim" class="quarto-xref">46</a>) do not explicitely depend on <span class="math inline">\(K_n^i\)</span> and are all of the same order of magnitude, namely <span class="math inline">\(\grando{1}\)</span>. As an endomorphism of <span class="math inline">\(\R^3\)</span>, <span class="math inline">\(\uu{a}_i\)</span> is singular whereas, as an endomorphism of the fracture plane, <span class="math inline">\(\uu{a}_i\)</span> can be inverted using the following notation:</p>
+<p><span id="eq-invalpha"><span class="math display">\[
+\wideeq{\inv{\uu{a}_i}
+    =\idd_{\n_i}\prodc\inv{\dep{\idd+\omega_i\,\idd_{\n_i}
+   \prodc\uu{\Pi}_{hom}^i\prodc\uu{K}_t^i}}
+    =\idd_{\n_i}\prodc\inv{\dep{\idd+\omega_i\,K_t^i\,\idd_{\n_i}
+   \prodc\uu{\Pi}_{hom}^i\prodc\idd_{\n_i}}}}
+\tag{47}\]</span></span></p>
+<p>In addition, (<a href="#eq-decblocaim" class="quarto-xref">46</a>) shows that <span class="math inline">\(K_n^i\)</span> explicitely appears only in <span class="math inline">\(\delta_i\)</span> (bottom right term i.e.&nbsp;along <span class="math inline">\(\n_i\otimes\n_i\)</span>), which order of magnitude controls that of <span class="math inline">\(\uu{\Lambda}_i\)</span>. As regards the order of magnitude of <span class="math inline">\(\delta_i\)</span> and its dependence on <span class="math inline">\(K_n^i\)</span>, two cases can be examined:</p>
+<ul>
+<li><p><span class="math inline">\(K_n^i\gg\omega_i\,\norm{\uu{K}^{hom}}
+\quad\Rightarrow\delta_i=K_n^i/K^{hom}_{n_i n_i}\)</span> For this condition, <span class="math inline">\(\uu{\Lambda}_i\)</span> writes:</p>
+<p><span id="eq-decblocaiKngg"><span class="math display">\[
+\wideeq{\uu{\Lambda}_i=\inv{\uu{a}_i}+\frac{K^{hom}_{n_i n_i}}{K_n^i}\,
+\dep{-\uu{c}_i\prodc\inv{\uu{a}_i}+\n_i\otimes\n_i}}
+\tag{48}\]</span></span></p>
+<p>On the one hand, recalling that <span class="math inline">\(f_i\)</span> is given by&nbsp;(<a href="#eq-fi" class="quarto-xref">3</a>), it comes that <span class="math inline">\(f_i\,\uu{\Lambda}_i\)</span> can be neglected in the interaction term&nbsp;(<a href="#eq-gradPgradPolin" class="quarto-xref">34</a>). On the other hand, (<a href="#eq-decblocaiKngg" class="quarto-xref">48</a>) also allows to compute the term <span class="math inline">\(\uu{K}^i\prodc\uu{\Lambda}_i\)</span> which will be crucial in&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>). Indeed, as <span class="math inline">\(\idd_{\n_i}\prodc\uu{c}_i=\uu{0}\)</span> (<a href="#eq-decblocaim" class="quarto-xref">46</a>), it comes:</p>
+<p><span id="eq-decblocKaiKngg"><span class="math display">\[
+\wideeq{\uu{K}^i\prodc\uu{\Lambda}_i
+=\uu{K}_t^i\prodc\inv{\uu{a}_i}
++\grando{\norm{\uu{K}^{hom}}}
+=\uu{K}_t^i\prodc\inv{\dep{\idd+\omega_i\,\idd_{\n_i}
+\prodc\uu{\Pi}_{hom}^i\prodc\uu{K}_t^i}}
++\grando{\norm{\uu{K}^{hom}}}}
+\tag{49}\]</span></span></p>
+<p>and, in the case of an oblate spheroid in an isotropic effective medium:</p>
+<p><span id="eq-decblocKaiKnggiso"><span class="math display">\[
+\wideeq{\uu{K}^i\prodc\uu{\Lambda}_i
+=\frac{\uu{K}_t^i}{1+\frac{\pi}{4}\,\frac{\omega_i\,K_t^i}{K^{hom}}}
++\grando{K^{hom}}}
+\tag{50}\]</span></span></p>
+<p>Taking (<a href="#eq-decblocKaiKngg" class="quarto-xref">49</a>) and (<a href="#eq-gradpmat" class="quarto-xref">32</a>) into account as well as the impermeability of the matrix, the implicit expression of <span class="math inline">\(\uu{K}^{hom}\)</span>&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>) can be simplified:</p>
+<p><span id="eq-defKhomKngg"><span class="math display">\[
+\wideeq{\uu{K}^{hom}
+=\dep{
+\sum_{i\in{\mathcal{M}}}f_i\,\uu{K}_t^i\prodc\inv{\dep{\idd+\omega_i\,\idd_{\n_i}
+\prodc\uu{\Pi}_{hom}^i\prodc\uu{K}_t^i}}
+}\prodc\dep{\idd-\uu{P}_{hom}^s
+\prodc\uu{K}^{hom}}
++\sum_{i\in{\mathcal{C}}}f_i\,\uu{K}_t^i}
+\tag{51}\]</span></span></p></li>
+<li><p><span class="math inline">\(K_n^i=\grando{\omega_i\,\norm{\uu{K}^{hom}}}\)</span> In this case, <span class="math inline">\(\delta_i\)</span> can be written:</p>
+<p><span id="eq-deltaip"><span class="math display">\[
+\wideeq{\delta_i=\omega_i\,\delta_i'
+\quad\textrm{ with }\quad
+\delta_i'=\frac{K_n^i}{\omega_i\,K^{hom}_{n_i n_i}}
+-\n_i\prodc\uu{\Pi}_{hom}^i
+\prodc\uu{K}^{hom}\prodc\n_i=\grando{1}}
+\tag{52}\]</span></span></p>
+<p>To the first non-zero order, <span class="math inline">\(\uu{\Lambda}_i\)</span> writes:</p>
+<p><span id="eq-decblocaiKnO"><span class="math display">\[
+\wideeq{\uu{\Lambda}_i=
+\dep{
+\idd_{\n_i}-\frac{\uu{c}_i}{\omega_i\,\delta_i'}
+}
+\prodc
+\inv{\uu{a}_i}\prodc\inv{\dep{
+\idd-\frac{\uu{b}_i
+\prodc\uu{c}_i\prodc\inv{\uu{a}_i}}{\delta_i'}
+}}
+\prodc
+\dep{
+\idd_{\n_i}-\frac{\uu{b}_i}{\delta_i'}
+}
++\frac{\n_i\otimes\n_i}{\omega_i\,\delta_i'}}
+\tag{53}\]</span></span></p>
+<p>Unlike the previous case, <span class="math inline">\(f_i\,\uu{\Lambda}_i\)</span> can not be neglected when <span class="math inline">\(\omega_i\)</span> takes small values. Using&nbsp;(<a href="#eq-fi" class="quarto-xref">3</a>), <span class="math inline">\(f_i\,\uu{\Lambda}_i\)</span> writes to the first order:</p>
+<p><span id="eq-decbloclimaiKnO"><span class="math display">\[
+\wideeq{f_i\,\uu{\Lambda}_i=\frac{4}{3}\,\frac{\pi\,\epsilon_i\,\eta_i}{\delta_i'}\,
+\dep{
+-\uu{c}_i
+\prodc
+\inv{\uu{a}_i}\prodc\inv{\dep{
+\idd-\frac{\uu{b}_i
+\prodc\uu{c}_i\prodc\inv{\uu{a}_i}}{\delta_i'}
+}}
+\prodc
+\dep{
+\idd_{\n_i}-\frac{\uu{b}_i}{\delta_i'}
+}
++\n_i\otimes\n_i}}
+\tag{54}\]</span></span></p>
+<p>leading, in the case of an oblate spheroid in an isotropic effective medium for which <span class="math inline">\(\uu{P}_{hom}^i\)</span> is given by&nbsp;(<a href="#eq-defPiiso" class="quarto-xref">44</a>), to:</p>
+<p><span id="eq-decbloclimaiKnOiso"><span class="math display">\[
+\wideeq{f_i\,\uu{\Lambda}_i=\frac{4}{3}\,\pi\,\epsilon_i\,
+\frac{\n_i\otimes\n_i}{\frac{K_n^i}{\omega_i\,K^{hom}}+\frac{\pi}{2}}\,}
+\tag{55}\]</span></span></p>
+<p><span class="math inline">\(\uu{K}^i\prodc\uu{\Lambda}_i\)</span> can also be obtained:</p>
+<p><span id="eq-decblocKaiKnO"><span class="math display">\[
+\wideeq{\uu{K}^i\prodc\uu{\Lambda}_i
+=\uu{K}_t^i\prodc
+\inv{\uu{a}_i}\prodc\inv{\dep{
+\idd-\frac{\uu{b}_i
+\prodc\uu{c}_i\prodc\inv{\uu{a}_i}}{\delta_i'}
+}}
+\prodc
+\dep{
+\idd_{\n_i}-\frac{\uu{b}_i}{\delta_i'}
+}
++\grando{\norm{\uu{K}^{hom}}}}
+\tag{56}\]</span></span></p>
+<p>leading to&nbsp;(<a href="#eq-decblocKaiKnggiso" class="quarto-xref">50</a>) in the case of an oblate spheroid in an isotropic effective medium. The non-zero term&nbsp;(<a href="#eq-decbloclimaiKnO" class="quarto-xref">54</a>) involved in&nbsp;(<a href="#eq-gradPgradPolin" class="quarto-xref">34</a>) and&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>) highlights the negative influence of a too small value of <span class="math inline">\(K_n^i\)</span> on <span class="math inline">\(\uu{K}^{hom}\)</span>. Indeed, this choice induces an unexpected role of barrier of the fracture in its transverse direction <span class="math inline">\(\n_i\)</span> contributing to decrease at least the value of <span class="math inline">\(K^{hom}_{n_i n_i}\)</span>. Nevertheless, keeping such a small value of <span class="math inline">\(K_n^i\)</span> could be used to somehow account for cementing on the fracture faces impeding the fluid flow from other fractures.</p></li>
+</ul>
+<p>From the results obtained hereabove, one can now conclude that, in the modeling consisting in replacing a fracture by a fictitious Darcy medium, the most relevant choice of the transverse permeability is specific to the fracture type. Whereas the choice of <span class="math inline">\(K_n^i\)</span> of the long fractures has no consequence on the macroscopic permeability, in the case of a micro-fracture, <span class="math inline">\(K_n^i\)</span> must be large enough (<span class="math inline">\(K_n^i\gg\omega_i^2 K_t^i\)</span>) to avoid creating an artificial obstacle in the transverse direction except if it corresponds to the aim of the model.</p>
+</section>
+<section id="sec-examples" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Implementation of the self-consistent scheme on examples</h1>
+<section id="sec-isodistrib" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-isodistrib"><span class="header-section-number">4.1</span> Isotropic distributions of micro-fractures</h2>
+<ul>
+<li><p><em><span class="math inline">\(3D\)</span> case</em> In this paragraph, the fracture orientation distribution is assumed to be isotropic and all the fractures are modeled by identical oblate spheroids of aspect ratio <span class="math inline">\(\omega\)</span> with the same permeability. The macroscopic permeability is isotropic i.e.&nbsp;<span class="math inline">\(\uu{K}^{hom}=K^{hom}\idd\)</span> and the ellipsoid related to the matrix is a sphere according to&nbsp;(<a href="#eq-Aellmatrix" class="quarto-xref">31</a>). It is worth noting that, given an overall fracture density <span class="math inline">\(\epsilon\)</span>, the same permeability tensor <span class="math inline">\(\uu{K}^{hom}\)</span> can be obtained with a network of three orthogonal families of density <span class="math inline">\(\epsilon/3\)</span> each. Recalling that <span class="math inline">\(\uu{P}_{hom}^i\)</span> is written in&nbsp;(<a href="#eq-defPiiso" class="quarto-xref">44</a>) for oblate spheroids and <span class="math inline">\(\uu{P}_{hom}^s=\inv{(3K^{hom})}\idd\)</span> for a sphere, the macroscopic permeability is obtained by solving&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>), which leads to a relationship of the type:</p>
+<p><span id="eq-Khomformiso3d"><span class="math display">\[
+\wideeq{\frac{K^{hom}}{\omega\,K_t}=
+{\mathcal{L}}\dep{\frac{K^s}{K_t},\frac{K_n}{K_t},\epsilon,\omega}}
+\tag{57}\]</span></span></p></li>
+</ul>
+<div id="fig-kiso3d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kiso3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/kiso3d.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kiso3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: <span class="math inline">\(3D\)</span> isotropic distribution of spheroidal fractures (<span class="math inline">\(\omega=10^{-3}\)</span>)
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-kiso3d" class="quarto-xref">Fig.&nbsp;5</a> shows numerical computations of <span class="math inline">\(K^{hom}/K_t\)</span> with respect to the density <span class="math inline">\(\epsilon\)</span> for <span class="math inline">\(\omega=10^{-3}\)</span> and different values of <span class="math inline">\(K^s/K_t\)</span> and <span class="math inline">\(K_n/K_t\)</span>, thus illustrating the role of the order of magnitude of the latter which has been highlighted in section&nbsp;<a href="#sec-Knmicro" class="quarto-xref">3</a>. When <span class="math inline">\(K^s\)</span> tends towards <span class="math inline">\(0\)</span>, closed-form solutions of <span class="math inline">\(K^{hom}\)</span> can be found.</p>
+<ul>
+<li><p>If <span class="math inline">\(K_n\gg \omega^2 K_t\)</span>, a percolation threshold is detected for <span class="math inline">\(\epsilon=27/64\)</span> and, as already found in <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span>, the permeability beyond the threshold writes:</p>
+<p><span id="eq-Khomiso3d"><span class="math display">\[
+\wideeq{\frac{K^{hom}}{\omega\,K_t}=\frac{\pi}{108}\,
+\dep{64\,\epsilon-27}+\grando{\omega}
+\quad,\quad
+\epsilon\geq\frac{27}{64}}
+\tag{58}\]</span></span></p>
+<p>It is recalled that this percolation threshold <span class="math inline">\(\epsilon=27/64\approx 0.42\)</span> has been compared in <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span> to an estimate <span class="math inline">\(\epsilon\approx 0.30\)</span> (i.e.&nbsp;a fracture volume fraction <span class="math inline">\(f\approx 1.27\omega\)</span>) coming from numerical computations on networks of randomly placed ellipsoids provided by <span class="citation" data-cites="Garboczi95">(<a href="#ref-Garboczi95" role="doc-biblioref">Garboczi et al. 1995</a>)</span>, showing that the self-consistent scheme overestimates the threshold in <span class="math inline">\(3D\)</span>.</p></li>
+<li><p>If <span class="math inline">\(K_n\ll \omega^2 K_t\)</span>, the percolation threshold is reached for a larger value namely <span class="math inline">\(\epsilon=9/16\)</span> highlighting the negative effect of a too small value of <span class="math inline">\(K_n\)</span> compared to the previous case. As already found in <span class="citation" data-cites="DormieuxCRAS04">(<a href="#ref-DormieuxCRAS04" role="doc-biblioref">Dormieux and Kondo 2004</a>)</span>, the permeability beyond the threshold is inferior to that of&nbsp;(<a href="#eq-Khomiso3d" class="quarto-xref">58</a>) and writes:</p>
+<p><span id="eq-Khomldiso3d"><span class="math display">\[
+\wideeq{\frac{K^{hom}}{\omega\,K_t}=\frac{3\,\pi}{4}\,
+\frac{16\,\epsilon-9}{16\,\epsilon+27}+\grando{\omega}
+\quad,\quad
+\epsilon\geq\frac{9}{16}}
+\tag{59}\]</span></span></p>
+<p>The irrelevance of the model <span class="math inline">\(K_n\ll \omega^2 K_t\)</span> can also be deduced from the expression&nbsp;(<a href="#eq-Khomldiso3d" class="quarto-xref">59</a>). Indeed, let the number of fractures per volume unit <span class="math inline">\(\mathcal{N}\)</span> and the aperture <span class="math inline">\(c\)</span> be given and let the radius <span class="math inline">\(a\)</span> increase so as to examine its influence on <span class="math inline">\(K^{hom}\)</span>. Recalling that <span class="math inline">\(\epsilon={\mathcal{N}}a^3\)</span> and <span class="math inline">\(K_t=c^2/3\)</span>, it comes from&nbsp;(<a href="#eq-Khomldiso3d" class="quarto-xref">59</a>) that <span class="math inline">\(K^{hom}\)</span> varies as <span class="math inline">\(1/a\)</span> when <span class="math inline">\(a\)</span> is large, meaning that the fracture length would have a negative effect on the permeability, which is unrealistic. This, once again, shows that a small value of <span class="math inline">\(K_n\)</span> makes the fractures play the unexpected role of obstacles in their transverse direction.</p></li>
+<li><p><em><span class="math inline">\(2D\)</span> case</em> The same computation can be done on a <span class="math inline">\(2D\)</span> fractured medium. The geometry is invariant along <span class="math inline">\(\ve{3}\)</span> and isotropic in the <span class="math inline">\((\ve{1},\ve{2})\)</span> plane i.e.&nbsp;<span class="math inline">\(K^{hom}\)</span> is transversely isotropic:</p>
+<p><span id="eq-Khomti"><span class="math display">\[
+\wideeq{\uu{K}^{hom}=K^{hom}_{\paral}\,\dep{\ve{1}\otimes\ve{1}
++\ve{2}\otimes\ve{2}}+K^{hom}_\perp\,\ve{3}\otimes\ve{3}}
+\tag{60}\]</span></span></p>
+<p>The fractures are modeled as flat cylinders of elliptic section. As regards the permeability, one can equivalently consider a random distribution of orientation or two orthogonal orientations. Following the procedure described in section&nbsp;<a href="#sec-Amicro" class="quarto-xref">2.2</a> in the limit case of a largest axis tending towards infinity, the Hill tensor related to a cylinder of elliptic section (same aspect ratio <span class="math inline">\(\omega\)</span> for all the families) embedded in a transversely isotropic medium with the same axis is:</p>
+<p><span id="eq-P2fiso2d"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^i=\frac{1}{K^{hom}_{\paral}}\,
+\dep{\frac{\omega}{1+\omega}\,\uv{m}_i\otimes\uv{m}_i+
+\frac{1}{1+\omega}\,\n_i\otimes\n_i
+}}
+\tag{61}\]</span></span></p>
+<p>where <span class="math inline">\(\n_i\)</span> denotes the normal vector i.e.&nbsp;the small axis direction and <span class="math inline">\(\uv{m}_i\)</span> the direction orthogonal to <span class="math inline">\(\n_i\)</span> in the <span class="math inline">\((\ve{1},\ve{2})\)</span> plane i.e.&nbsp;the large axis direction. It is worth noting that the expression&nbsp;(<a href="#eq-P2fiso2d" class="quarto-xref">61</a>) is also found in <span class="citation" data-cites="Fokker01">(<a href="#ref-Fokker01" role="doc-biblioref">Fokker 2001</a>)</span> in the framework of a complete <span class="math inline">\(2D\)</span> resolution based on the <span class="math inline">\(2D\)</span> Green function. The isotropy in the <span class="math inline">\((\ve{1},\ve{2})\)</span> plane leads to the following expression of <span class="math inline">\(\uu{P}_{hom}^s\)</span></p>
+<p><span id="eq-P2siso2d"><span class="math display">\[
+\wideeq{\uu{P}_{hom}^s=\frac{1}{2\,K^{hom}_{\paral}}\,\dep{\ve{1}\otimes\ve{1}
++\ve{2}\otimes\ve{2}}}
+\tag{62}\]</span></span></p>
+<p>If <span class="math inline">\(f\)</span> denotes the total fracture volume fraction, the fracture density <span class="math inline">\(\epsilon\)</span> in the <span class="math inline">\(2D\)</span> framework is such that <span class="math inline">\(f=\pi\,\epsilon\,\omega\)</span>. By projection of&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>) on <span class="math inline">\(\ve{3}\)</span>, <span class="math inline">\(K^{hom}_\perp\)</span> is found, as expected, as an arithmetic average:</p>
+<p><span id="eq-Kperpiso2d"><span class="math display">\[
+\wideeq{K^{hom}_\perp=\dep{1-\pi\,\epsilon\,\omega}\,K^s+
+\pi\,\epsilon\,\omega\,K_t}
+\tag{63}\]</span></span></p>
+<p>where the <span class="math inline">\(K^s\)</span> term disappears for an impermeable matrix. The solution in the <span class="math inline">\((\ve{1},\ve{2})\)</span> plane is shown on&nbsp;<a href="#fig-kiso2d" class="quarto-xref">Fig.&nbsp;6</a> for <span class="math inline">\(\omega=10^{-3}\)</span> for different values of <span class="math inline">\(K^s/K_t\)</span> and <span class="math inline">\(K_n/K_t\)</span>.</p></li>
+</ul>
+<div id="fig-kiso2d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kiso2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/kiso2d.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kiso2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: <span class="math inline">\(2D\)</span> isotropic distribution of elliptic fractures (<span class="math inline">\(\omega=10^{-3}\)</span>)
+</figcaption>
+</figure>
+</div>
+<p>Moreover, a closed-form solution is available in the case of an impermeable matrix and <span class="math inline">\(K_n\gg \omega^2 K_t\)</span>:</p>
+<p><span id="eq-Kparaliso2d"><span class="math display">\[
+  \wideeq{\frac{K^{hom}_{\paral}}{\omega\,K_t}=\frac{\pi}{4}\,\epsilon-1
+  +\grando{\omega}
+  \quad,\quad
+  \epsilon\geq\frac{4}{\pi}}
+   \tag{64}\]</span></span></p>
+<p>This percolation threshold <span class="math inline">\(\epsilon=4/\pi\approx 1.27\)</span> can be compared to the value <span class="math inline">\(\epsilon\approx 1.4\)</span> obtained from numerical computations by several authors for the same problem of draining fractures in an impermeable matrix (<span class="citation" data-cites="Robinson83">(<a href="#ref-Robinson83" role="doc-biblioref">Robinson 1983</a>)</span>, <span class="citation" data-cites="Berkowitz95">(<a href="#ref-Berkowitz95" role="doc-biblioref">Berkowitz 1995</a>)</span>, <span class="citation" data-cites="Bour97">(<a href="#ref-Bour97" role="doc-biblioref">Bour and Davy 1997</a>)</span>). Unlike the <span class="math inline">\(3D\)</span> case, the self-consistent scheme underestimates the percolation threshold but gives a better estimate. It can be mentioned that, in the inverted problem of impermeable needle-like slits in a permeable matrix, the self-consistent scheme as well as Maxwell’s method give the same percolation threshold <span class="math inline">\(\epsilon=4/\pi\)</span> (above which <span class="math inline">\(K^{hom}_{\paral}=0\)</span>) and even the same function <span class="math inline">\(K^{hom}_{\paral}(\epsilon)\)</span> which is rather successfully compared to numerical simulations except in the very neighborhood of the threshold <span class="citation" data-cites="Zimmerman96">(<a href="#ref-Zimmerman96" role="doc-biblioref">Zimmerman 1996</a>)</span>. Whereas a percolation threshold is found here for a large enough value of <span class="math inline">\(K_n\)</span>, the case <span class="math inline">\(K_n\ll \omega^2 K_t\)</span> does not allow the macroscopic permeability to reach the order of magnitude of <span class="math inline">\(\omega\,K_t\)</span> i.e.&nbsp;does not exhibit any percolation threshold for a finite value of <span class="math inline">\(\epsilon\)</span> (see&nbsp;<a href="#fig-kiso2d" class="quarto-xref">Fig.&nbsp;6</a>), once more illustrating the effect of <span class="math inline">\(K_n\)</span>.</p>
+</section>
+<section id="sec-anisodistrib" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-anisodistrib"><span class="header-section-number">4.2</span> Anisotropic distributions of fractures</h2>
+<ul>
+<li><p><em><span class="math inline">\(3D\)</span> case</em> The algorithm leading to the solution to&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>) is now implemented in the case of an anisotropic <span class="math inline">\(3D\)</span> network. As shown on&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;7</a>, the orientation of a given family with respect to a fixed basis <span class="math inline">\((\ve{1},\ve{2},\ve{3})\)</span> of <span class="math inline">\(\R^3\)</span> is determined by three Euler angles : two angles (spherical coordinates <span class="math inline">\(\theta\)</span> and <span class="math inline">\(\phi\)</span>) are needed to define the normal orientation <span class="math inline">\(\n\)</span> and a third angle <span class="math inline">\(\psi\)</span> (between the major axis and <span class="math inline">\(\ve{\theta}\)</span> on&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;7</a>) allows to define the rotation around <span class="math inline">\(\n\)</span> of the fracture plane. Three families are considered in this example. The aspect ratio <span class="math inline">\(\omega_i\)</span> (see&nbsp;<a href="#fig-oblate" class="quarto-xref">Fig.&nbsp;3</a>) and the tangential permeability are the same for all the families <span class="math inline">\(\omega=10^{-3}\)</span>. The other characteristics are the following:</p></li>
+<li><p>family <span class="math inline">\(1\)</span>: <span class="math inline">\(\theta_1=75°\)</span> ; <span class="math inline">\(\phi_1=0°\)</span> ; <span class="math inline">\(\psi_1=0°\)</span> ; <span class="math inline">\(\eta_1=0.5\)</span></p></li>
+<li><p>family <span class="math inline">\(2\)</span>: <span class="math inline">\(\theta_2=90°\)</span> ; <span class="math inline">\(\phi_2=90°\)</span> ; <span class="math inline">\(\psi_2=0°\)</span> ; <span class="math inline">\(\eta_2=1.\)</span></p></li>
+<li><p>family <span class="math inline">\(3\)</span>: <span class="math inline">\(\theta_3=90°\)</span> ; <span class="math inline">\(\phi_3=45°\)</span> ; <span class="math inline">\(\psi_3=45°\)</span> ; <span class="math inline">\(\eta_3=0.5\)</span></p></li>
+</ul>
+<p>The three family orientations and shapes are represented on&nbsp;<a href="#fig-3familles" class="quarto-xref">Fig.&nbsp;8</a>.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-coorsph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coorsph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/coorsph.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coorsph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Angular coordinates of a fracture
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-3familles" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-3familles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/3familles.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3familles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Three families of micro-fractures
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>In addition, the three fracture volume fractions are assumed to be equal i.e.&nbsp;one third of the total micro-fracture volume fraction. The effective permeability of such a fractured medium is computed for different values of the latter (from <span class="math inline">\(0\)</span> to <span class="math inline">\(6\)</span>‰). Moreover, the same computations are carried out in the presence of a family cross-cutting the r.v.e. of normal <span class="math inline">\(\ve{3}\)</span> (horizontal plane) and of fixed volume fraction <span class="math inline">\(1\)</span>‰. According to the conclusions of section&nbsp;<a href="#sec-Knmicro" class="quarto-xref">3</a>, the normal permeability of the cross-cutting family is zero whereas the tangential permeability is chosen of the same order of magnitude as that of the micro-fractures. In both cases (with or without the family of long fractures), the eigenvalues of <span class="math inline">\(\uu{K}^{hom}\)</span> are plotted against the total fracture volume fraction on&nbsp;<a href="#fig-k3d" class="quarto-xref">Fig.&nbsp;9</a>.</p>
+<div id="fig-k3d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-k3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/k3d.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-k3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Eigenvalues of the permeability of a <span class="math inline">\(3D\)</span> network with and without a family of long fractures cross-cutting the r.v.e.
+</figcaption>
+</figure>
+</div>
+<p>As regards the case without the family of long fractures, a percolation threshold is detected as expected. Beyond a fracture volume fraction of about <span class="math inline">\(3.1\)</span>‰, the three eigenvalues of <span class="math inline">\(\uu{K}^{hom}\)</span> reach the order of magnitude of <span class="math inline">\(\omega\,K_t\)</span> and the principal directions remain constant. It is worth precising that the direction related to the highest permeability is characterized by the angles <span class="math inline">\(\theta=9°\)</span> and <span class="math inline">\(\phi=174°\)</span>, which is close to the vertical axis <span class="math inline">\(\ve{3}\)</span>. In the presence of the cross-cutting family, the percolation threshold disappears and three phases can be observed on&nbsp;<a href="#fig-k3d" class="quarto-xref">Fig.&nbsp;9</a>:</p>
+<ul>
+<li><p><span class="math inline">\(f&lt;3\)</span>‰ The permeability is essentially controlled by the long fractures i.e.&nbsp;the directions related to the two highest permeabilities are close to the direction of the plane <span class="math inline">\((\ve{1},\ve{2})\)</span> but the micro-fractures play nevertheless a role. Indeed, in the orthogonal direction, the permeability starts to increase as soon as the micro-fracture volume fraction increases. This result can be somehow justified by the fact that even few micro-fractures create a connection between the cross-cutting planes because the spacing between these ones is of the same order of magnitude as the length of the micro-fractures.</p></li>
+<li><p><span class="math inline">\(3\)</span>‰<span class="math inline">\(\leq f \leq 4\)</span>‰ This phase is a transition during which the effects of the crossing fractures and those of the micro-fractures are of the same order of magnitude. The computations also show a progressive change of orientation of the principal directions. In particular, the direction related to the highest permeability initially in the horizontal plane rotates and tends towards the major direction of the case without cross-cutting fractures.</p></li>
+<li><p><span class="math inline">\(f&gt;4\)</span>‰ The permeabilities linearly increase with the fracture volume fraction. Due to the density of the micro-fractures, the effect of the cross-cutting family gets slightly attenuated. Nevertheless, it has still to be considered within the abscisse range of&nbsp;<a href="#fig-k3d" class="quarto-xref">Fig.&nbsp;9</a> for the two lowest permeabilites. Indeed, the associated directions are close to the horizontal plane in which the cross-cutting family still plays a role for <span class="math inline">\(f&lt;7\)</span>‰.</p></li>
+<li><p><em><span class="math inline">\(2D\)</span> case : comparisons with computations on explicit discrete fracture networks</em> The same methodology can be used in the <span class="math inline">\(2D\)</span> case for which we consider for example two families of micro-fractures (modeled as flat cylinders of elliptic section). The angle between the orientations is <span class="math inline">\(45°\)</span> and the lengths, the aspect ratio and the densities are identical. The permeability is computed for several values of the total density and compared to numerical simulations on explicit discrete fracture networks by means of the software FRACA developed by IFP. Among many functionalities aiming at analyzing the characteristics of fractured reservoirs, this software allows to randomly generate fractures according to length, orientation and conductivity laws and compute an effective permeability according to the methodology presented in <span class="citation" data-cites="Bourbiaux98">(<a href="#ref-Bourbiaux98" role="doc-biblioref">Bourbiaux et al. 1998</a>)</span>, <span class="citation" data-cites="Sarda01">(<a href="#ref-Sarda01" role="doc-biblioref">Sarda et al. 2001</a>)</span>, <span class="citation" data-cites="Lange01">(<a href="#ref-Lange01" role="doc-biblioref">Lange et al. 2002</a>)</span> and <span class="citation" data-cites="Bourbiaux02">(<a href="#ref-Bourbiaux02" role="doc-biblioref">Bourbiaux et al. 2002</a>)</span>. In the present case, the length, orientation and conductivity laws are deterministic. The number of generated fractures is computed with respect to each required density while the length remains constant and the fracture centers are randomly chosen on a square (see&nbsp;<a href="#fig-dfn2d45deg" class="quarto-xref">Fig.&nbsp;10</a>). In FRACA, the fractures are considered as an infinitesimal space between rectangles, the aspect ratio being therefore defined as the ratio between the aperture and the length. In order to ensure a relevant comparison between the upscaling model (elliptic profile of the fractures) and the numerical simulation (rectangular profile), the length of the rectangular profile, expected to have a straightforward influence on the percolation threshold, is equal to the major diameter of the corresponding ellipse. Besides, the aperture is such that both areas are identical, which means that the aspect ratio of the rectangle profile over the aspect ratio of the corresponding ellipse is equal to <span class="math inline">\(\pi/4\)</span>.</p></li>
+</ul>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-dfn2d45deg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dfn2d45deg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/dfn2d45deg.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dfn2d45deg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: <span class="math inline">\(2D\)</span> discrete fracture network
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-kaniso2d" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kaniso2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/kaniso2d.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kaniso2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Permeability of a <span class="math inline">\(2D\)</span> fracture network of two families — angle between the two directions = 45°
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>The two principal permeabilites provided by the effective medium theory (the computations are quasi-instantaneous on a 2.8&nbsp;GHz PC) and the numerical simulations (each cross requires tens of seconds) are plotted on&nbsp;<a href="#fig-kaniso2d" class="quarto-xref">Fig.&nbsp;11</a>. It appears that both methods give approximately the same value of percolation threshold (about <span class="math inline">\(\epsilon=1.85\)</span>). Nevertheless, the effective medium theory provides a linear evolution of <span class="math inline">\(\uu{K}^{hom}\)</span> beyond the threshold, which is not expected from the percolation theory <span class="citation" data-cites="Sahimi95">(<a href="#ref-Sahimi95" role="doc-biblioref">Sahimi 1995</a>)</span> and the numerical computations here. For higher densities (about twice the threshold value), the theory underestimates the minimal principal permeability computed from the explicit network but both methods give concordant estimates of the maximal permeabilities in the chosen density range (not much than three times the threshold). However, for much higher densities (<span class="math inline">\(\epsilon\gg 1\)</span>), the spacing between fractures&nbsp;(<a href="#eq-deltai" class="quarto-xref">2</a>) becomes very small compared to the length if the latter remains constant i.e.&nbsp;the increase of density is only due to an increase of the fracture number. In that case, the fractures should not be considered as micro-fractures but long ones with respect to a lower scale r.v.e.. Moreover, one can show on the numerical computations of&nbsp;<a href="#fig-kaniso2d" class="quarto-xref">Fig.&nbsp;11</a>, that the slopes of the permeabilities tend towards those corresponding to a network of cross-cutting fractures recalling that <span class="math inline">\(\uu{K}^{hom}\)</span> is then analytically obtained by the second term of&nbsp;(<a href="#eq-defKhom2" class="quarto-xref">37</a>).</p>
+</section>
+</section>
+<section id="sec-conclu" class="level1 unnumbered">
+<h1 class="unnumbered">Conclusion</h1>
+<p>The computation of the macroscopic permeability of a fractured medium is not an easy task. Indeed, natural networks may show spatial correlations preventing the definition of a r.v.e. on which effective properties could be determined. Nevertheless, in the case of a random fractured medium such that a r.v.e. exists, an estimate of the macroscopic permeability is derived in this paper. Two kinds of fractures have been considered : fractures cross-cutting the r.v.e. and micro-fractures. The determination of the macroscopic permeability of such a medium with several families has been proposed by means of the self-consistent scheme. The application of the latter relies first on the substitution of the fractures by equivalent Darcy media with a tangential permeability deduced from the solution of a Poiseuille flow between two planes and an undefined normal permeability. An important step of this scheme consists in computing the second-order Hill tensor. The algorithm leading to the expression of this tensor has been provided for any anisotropic reference medium and any ellipsoidal inclusion. Implementing then the self-consistent scheme, it has been shown that the relevance of the fictitious normal permeability depends on the fracture type: for fractures cross-cutting the r.v.e., any value can be taken whereas for micro-fractures, the same value as the tangential permeability may be chosen not to artificially prevent connections between fractures. Results have finally been provided in the <span class="math inline">\(2D\)</span> and <span class="math inline">\(3D\)</span> isotropic and anisotropic cases. The effective permeability of a <span class="math inline">\(2D\)</span> anisotropic network has been compared to numerical simulations with a good agreement. The need to take carefully into account the characteristic length of each fracture family has also been put in evidence, being understood that all the phases taking part to a given upscling process have all their characteristic length of the same order of magnitude. If the density is of the order of <span class="math inline">\(1\)</span> or less, the characteristic length is the fracture length and the family is considered as a micro-fracture family whereas if the density is large, the characteristic length is the spacing and the family is cross-cutting the r.v.e..</p>
+</section>
+<section id="acknowledgements" class="level1 unnumbered">
+<h1 class="unnumbered">Acknowledgements</h1>
+<p>The author gratefully acknowledges fruitful discussions with Jean-Marc Daniel, Marie-Christine Cacas and Martin Guiton (IFP).</p>
+</section>
+<section id="sec-tenseurHill" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Hill tensor in the 3D anisotropic case</h1>
+<p>This paragraph aims at providing the expression of the Hill tensor <span class="math inline">\(\uu{P}_o^{\mathcal{I}}\)</span> related to an ellipsoid <span class="math inline">\(\mathcal{I}\)</span> of any shape characterised by the second-order tensor <span class="math inline">\(\uu{H}\)</span>&nbsp;(<a href="#eq-eqincl" class="quarto-xref">16</a>) embedded in an infinite medium of any anisotropic permeability <span class="math inline">\(\uu{K}^o\)</span>. Let us first introduce the Green function <span class="math inline">\(G^o\)</span> for the reference permeability <span class="math inline">\(\uu{K}^o\)</span> i.e.&nbsp;the function satisfying:</p>
+<p><span id="eq-green2"><span class="math display">\[
+\wideeq{\Divx{\x}{\dep{\uu{K}^o\prodc\gradux{\x}{G^o}}}
+=\dirac{\uv{0}}
+\quad\textrm{and}\quad
+\lim_{\norm{\x}\to\infty}G^o\depx=0}
+\tag{65}\]</span></span></p>
+<p>where <span class="math inline">\(\dirac{\uv{0}}\)</span> denotes the Dirac distribution at point <span class="math inline">\(\uv{0}\)</span> of <span class="math inline">\(\R^3\)</span>. It can be shown that the Hill tensor <span class="math inline">\(\uu{P}_o^{\mathcal{I}}\)</span> can write by means of <span class="math inline">\(G^o\)</span> <span class="citation" data-cites="DormieuxMicroporo">(<a href="#ref-DormieuxMicroporo" role="doc-biblioref">Dormieux et al. 2006</a>)</span>:</p>
+<p><span id="eq-P2green"><span class="math display">\[
+\wideeq{\uu{P}_o^{\mathcal{I}}\depx=
+\hessx{\x}{
+\int_{\mathcal{I}}G^o\dep{\x-\x'}\,\ud{\Omega_{x'}}}
+=\dep{\derivexy{}{x_i}{x_j}
+\int_{\mathcal{I}}G^o\dep{\x-\x'}\,\ud{\Omega_{x'}}}
+\,
+\ve{i}\otimes\ve{j}}
+\tag{66}\]</span></span></p>
+<p>where the integration is performed with respect to the variable <span class="math inline">\(\x'\)</span> whereas the differentiations concern the variable <span class="math inline">\(\x\)</span>. It will be shown in the following that <span class="math inline">\(\uu{P}_o^{\mathcal{I}}\depx\)</span> is uniform over the ellipsoid <span class="math inline">\(\mathcal{I}\)</span>, which constitutes the transposition of Eshelby’s fundamental result <span class="citation" data-cites="Eshelby57">(<a href="#ref-Eshelby57" role="doc-biblioref">Eshelby 1957</a>)</span> to the second-order tensor problem class. The determination of <span class="math inline">\(\uu{P}_o^{\mathcal{I}}\)</span> (<a href="#eq-P2green" class="quarto-xref">66</a>) requires to solve (<a href="#eq-green2" class="quarto-xref">65</a>). To this end, it is first convenient to simplify (<a href="#eq-green2" class="quarto-xref">65</a>) by introducing the orthogonal tensor <span class="math inline">\(\uu{Q}\)</span> diagonalizing <span class="math inline">\(\uu{K}^o\)</span></p>
+<p><span id="eq-diagK"><span class="math display">\[
+\wideeq{\trans{\uu{Q}}\prodc\uu{Q}=\idd
+\quad\textrm{and}\quad
+\trans{\uu{Q}}\prodc\uu{K}^o\prodc\uu{Q}=\uu{D}=
+\sum_{j=1}^3 K^o_{j}\,\ve{j}\otimes\ve{j}}
+\tag{67}\]</span></span></p>
+<p>the following tensors</p>
+<p><span id="eq-sqrDR"><span class="math display">\[
+\wideeq{\uu{D}^{1/2}=
+\sum_{j=1}^3 \sqrt{K^o_{j}}\,\ve{j}\otimes\ve{j}
+\quad\textrm{and}\quad
+\uu{R}=\uu{Q}\prodc\uu{D}^{1/2}}
+\tag{68}\]</span></span></p>
+<p>as well as the new variable of <span class="math inline">\(\R^3\)</span></p>
+<p><span id="eq-xtilde"><span class="math display">\[
+\wideeq{\y=\inv{\uu{R}}\prodc\x
+=\uu{D}^{-1/2}
+\prodc\trans{\uu{Q}}\prodc\x
+=\dep{\sum_{j=1}^3 \frac{1}{\sqrt{K^o_{j}}}\,\ve{j}\otimes\ve{j}}
+\prodc\trans{\uu{Q}}\prodc\x}
+\tag{69}\]</span></span></p>
+<p>where the obvious notation <span class="math inline">\(\uu{D}^{-1/2}=\inv{\dep{\uu{D}^{1/2}}}\)</span> has been used. Using the change of variable&nbsp;(<a href="#eq-xtilde" class="quarto-xref">69</a>), the left hand side of the first equation of&nbsp;(<a href="#eq-green2" class="quarto-xref">65</a>) writes:</p>
+<p><span id="eq-dgxt"><span class="math display">\[
+\wideeq{\begin{aligned}
+\Divx{\x}{\dep{\uu{K}^o\prodc\gradux{\x}{G^o}}}
+       &amp;=&amp;\uu{K}^o:\hessx{\x}{G^o}\\
+&amp;=&amp;
+\dep{\uu{D}^{-1/2}
+\prodc\trans{\uu{Q}}
+\prodc\uu{K}^o\prodc
+\uu{Q}\prodc\uu{D}^{-1/2}}
+:\hessx{\y}{G^o}\\
+&amp;=&amp;
+\idd:\hessx{\y}{G^o}\\
+&amp;=&amp;
+\Delta_{\y} G^o
+\end{aligned}}
+\tag{70}\]</span></span></p>
+<p>In addition, a classical result of the theory of distributions allows the same change of variable on the right hand side:</p>
+<p><span id="eq-chxdir"><span class="math display">\[
+\wideeq{\dirac{\uv{0}}\depx=\dirac{\uv{0}}\dep{\uu{R}\prodc\y}=
+\frac{1}{\det{\uu{R}}}\,\dirac{\uv{0}}\dep{\y}=
+\frac{1}{\sqrt{\det{\uu{K}^o}}}\,\dirac{\uv{0}}\dep{\y}}
+\tag{71}\]</span></span></p>
+<p>Finally, the first equation of&nbsp;(<a href="#eq-green2" class="quarto-xref">65</a>) write:</p>
+<p><span id="eq-chxeq"><span class="math display">\[
+\wideeq{\Delta_{\y} G^o=
+\frac{1}{\sqrt{\det{\uu{K}^o}}}\,\dirac{\uv{0}}\dep{\y}}
+\tag{72}\]</span></span></p>
+<p>The solution of&nbsp;(<a href="#eq-chxeq" class="quarto-xref">72</a>) satisfying the remote condition&nbsp;(<a href="#eq-green2" class="quarto-xref">65</a>) is known:</p>
+<p><span id="eq-solG"><span class="math display">\[
+\wideeq{G^o\dep{\x=\uu{R}\prodc\y}=
+-\frac{1}{4\,\pi\,\sqrt{\det{\uu{K}^o}}\,\norm{\y}}
+=-\frac{1}{4\,\pi\,\sqrt{\det{\uu{K}^o}}\,
+\sqrt{\x\prodc\inv{\uu{K}^o}\prodc\x}}}
+\tag{73}\]</span></span></p>
+<p>Introducing&nbsp;(<a href="#eq-solG" class="quarto-xref">73</a>) in&nbsp;(<a href="#eq-P2green" class="quarto-xref">66</a>), it comes:</p>
+<p><span id="eq-P2greensol"><span class="math display">\[
+\wideeq{\uu{P}_o^{\mathcal{I}}\depx=-\frac{1}{4\,\pi\,\sqrt{\det{\uu{K}^o}}}\,
+\hessx{\x}{
+\int_{\mathcal{I}}\frac{1}
+{\sqrt{\dep{\x-\x'}\prodc\inv{\uu{K}^o}\prodc\dep{\x-\x'}}}
+\,\ud{\Omega_{x'}}}}
+\tag{74}\]</span></span></p>
+<p>or, with <span class="math inline">\(\x=\uu{R}\prodc\y\)</span> and <span class="math inline">\(\x'=\uu{R}\prodc\y'\)</span>:</p>
+<p><span id="eq-chP2greensol"><span class="math display">\[
+\wideeq{\uu{P}_o^{\mathcal{I}}\dep{\x=\uu{R}\prodc\y}=
+-\frac{1}{4\,\pi}\,
+\trans{\inv{\uu{R}}}\prodc
+\dep{
+\hessx{\y}{
+\int_{\mathcal{J}}\frac{1}
+{\norm{\y-\y'}}
+\,\ud{\Omega_{y'}}}}
+\prodc\inv{\uu{R}}}
+\tag{75}\]</span></span></p>
+<p>where the integration is performed over the ellipsoid <span class="math inline">\(\mathcal{J}\)</span> of equation:</p>
+<p><span id="eq-eqJ"><span class="math display">\[
+\wideeq{\y\in{\mathcal{J}}\Leftrightarrow
+    \y\prodc\inv{\dep{\trans{\uu{H}'}\prodc\uu{H}'}}\prodc\y\leq 1
+\quad\textrm{with}\quad
+\uu{H}'=\uu{H}\prodc\trans{\inv{\uu{R}}}
+=\uu{H}\prodc\uu{Q}\prodc\uu{D}^{-1/2}}
+\tag{76}\]</span></span></p>
+<p>The classical newtonian potential is recognized in (<a href="#eq-chP2greensol" class="quarto-xref">75</a>):</p>
+<p><span id="eq-potnewt"><span class="math display">\[
+\wideeq{\Phi\dep{\y}=\frac{1}{4\,\pi}\,\int_{\mathcal{J}}\frac{1}
+{\norm{\y-\y'}}
+\,\ud{\Omega_{y'}}
+\quad\Rightarrow\quad
+\uu{P}_o^{\mathcal{I}}\dep{\x=\uu{R}\prodc\y}=
+-\,\trans{\inv{\uu{R}}}\prodc
+\hessx{\y}{\Phi\dep{\y}}
+\prodc\inv{\uu{R}}}
+\tag{77}\]</span></span></p>
+<p>The potential <span class="math inline">\(\Phi\)</span> can simply be expressed by means of the eigenvectors and eigenvalues of the characteristic tensor <span class="math inline">\(\trans{\uu{H}'}\prodc\uu{H}'\)</span> of <span class="math inline">\(\mathcal{J}\)</span>. Let us then introduce the orthogonal tensor <span class="math inline">\(\uu{S}\)</span> such that:</p>
+<p><span id="eq-diagtAA2"><span class="math display">\[
+\wideeq{\trans{\uu{S}}\prodc\uu{S}=\idd
+\quad\textrm{and}\quad
+\trans{\uu{S}}\prodc\trans{\uu{H}'}\prodc\uu{H}'\prodc\uu{S}=
+A^2\,\ve{1}\otimes\ve{1}+
+B^2\,\ve{2}\otimes\ve{2}+
+C^2\,\ve{3}\otimes\ve{3}
+\quad(A\geq B\geq C)}
+\tag{78}\]</span></span></p>
+<p>Using these notations, it can be shown that the potential&nbsp;(<a href="#eq-potnewt" class="quarto-xref">77</a>) is a quadratic form of <span class="math inline">\(\y\)</span> for <span class="math inline">\(\y\in{\mathcal{J}}\)</span> i.e.&nbsp;<span class="math inline">\(\x\in{\mathcal{I}}\)</span> (<span class="citation" data-cites="Kellogg29">(<a href="#ref-Kellogg29" role="doc-biblioref">Kellogg 1929</a>)</span>, <span class="citation" data-cites="Eshelby57">(<a href="#ref-Eshelby57" role="doc-biblioref">Eshelby 1957</a>)</span>):</p>
+<p><span id="eq-potnewtsol"><span class="math display">\[
+\wideeq{\forall\y\in{\mathcal{J}},\quad
+\Phi\dep{\y}=\frac{1}{2}\,\dep{A^2\,I_A+B^2\,I_B+C^2\,I_C}
+-\frac{1}{2}\,\y\prodc\uu{S}\prodc\uu{\Delta}_I\prodc\trans{\uu{S}}\prodc\y}
+\tag{79}\]</span></span></p>
+<p>where <span class="math inline">\(\uu{\Delta}_I\)</span>, <span class="math inline">\(I_A\)</span>, <span class="math inline">\(I_B\)</span> and <span class="math inline">\(I_C\)</span> are defined with respect to <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> in (<a href="#eq-DI" class="quarto-xref">20</a>)-(<a href="#eq-Iabc" class="quarto-xref">29</a>). Finally, the homogeneity of <span class="math inline">\(\uu{P}_o^{\mathcal{I}}\)</span> within <span class="math inline">\(\mathcal{I}\)</span> is proved by introducing (<a href="#eq-potnewtsol" class="quarto-xref">79</a>) in&nbsp;(<a href="#eq-potnewt" class="quarto-xref">77</a>):</p>
+<p><span id="eq-P2sol2"><span class="math display">\[
+\wideeq{\uu{P}_o^{\mathcal{I}}=
+\trans{\inv{\uu{R}}}\prodc
+\uu{S}\prodc\uu{\Delta}_I\prodc\trans{\uu{S}}
+\prodc\inv{\uu{R}}}
+\tag{80}\]</span></span></p>
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Berkowitz95" class="csl-entry" role="listitem">
+Berkowitz B (1995) Analysis of fracture network connectivity using percolation theory. Mathematical Geology 27:467–483
+</div>
+<div id="ref-Bonnet01" class="csl-entry" role="listitem">
+Bonnet E, Bour O, Odling N, et al (2001) Scaling of fracture systems in geological media. Reviews of Geophysics 39:347–383
+</div>
+<div id="ref-Bour97" class="csl-entry" role="listitem">
+Bour O, Davy P (1997) Connectivity of random fault networks following a power law fault length distribution. Water Resources Research 33:1567–1583
+</div>
+<div id="ref-Bourbiaux02" class="csl-entry" role="listitem">
+Bourbiaux B, Basquet R, Cacas M-C, Daniel J-M (2002) An integrated workflow to account for multi-scale fractures in reservoir simulation models : Implementation and benefits. In: <span class="math inline">\(10^\mathrm{th}\)</span> international petroleum exhibition and conference. SPE, Reservoir simulation., <span>A</span>bu <span>D</span>habi
+</div>
+<div id="ref-Bourbiaux98" class="csl-entry" role="listitem">
+Bourbiaux B, Cacas M-C, Sarda S, Sabathier J-C (1998) A rapid and efficient methodology to convert fractured reservoir images into a dual-porosity model. Oil and Gas Science and Technology, Rev IFP 53:785–799
+</div>
+<div id="ref-Budiansky76" class="csl-entry" role="listitem">
+Budiansky B, O’Connell RJ (1976) <span class="nocase">Elastic moduli of a cracked solid</span>. Int J Solids Structures 12:81–97
+</div>
+<div id="ref-Cacas01" class="csl-entry" role="listitem">
+Cacas M-C, Daniel J-M, Letouzey J (2001) Nested geological modelling of naturally fractured reservoirs. Petrol Geosci, 7:S43–S52
+</div>
+<div id="ref-Cosentino01" class="csl-entry" role="listitem">
+Cosentino L, Coury Y, Daniel J-M, et al (2001) Integrated study of a fractured middle east reservoir with stratiform super-<span>K</span> intervals - Part2: Upscaling and dual media simulation. In: SPE middle east oil show. SPE, Bahrain
+</div>
+<div id="ref-DarcelThese" class="csl-entry" role="listitem">
+Darcel C (2002) Corrélations dans les réseaux de fractures: Caractérisation et conséquences sur les propriétés hydrauliques. PhD thesis, Université Rennes
+</div>
+<div id="ref-Darcel03b" class="csl-entry" role="listitem">
+Darcel C, Bour O, Davy P, Dreuzy J-R de (2003) Connectivity properties of two-dimensional fracture networks with stochastic fractal correlation. Water Resources Research 39:
+</div>
+<div id="ref-DormieuxCRAS04" class="csl-entry" role="listitem">
+Dormieux L, Kondo D (2004) Approche micromécanique du couplage perméabilité-endommagement. C R Mécanique 332:135–140
+</div>
+<div id="ref-DormieuxMicroporo" class="csl-entry" role="listitem">
+Dormieux L, Kondo D, Ulm FJ (2006) Microporomechanics. John <span>W</span>iley &amp; <span>S</span>ons <span>I</span>nc
+</div>
+<div id="ref-deDreuzy01a" class="csl-entry" role="listitem">
+Dreuzy J-R de, Davy P, Bour O (2001a) Hydraulic properties of two-dimensional random fracture networks following a power law length distribution: 1-<span>E</span>ffective connectivity. Water Resources Research 37:2065–2078
+</div>
+<div id="ref-deDreuzy01b" class="csl-entry" role="listitem">
+Dreuzy J-R de, Davy P, Bour O (2001b) Hydraulic properties of two-dimensional random fracture networks following a power law length distribution: 2-<span>P</span>ermeability. Water Resources Research 37:2079–2095
+</div>
+<div id="ref-Ene75" class="csl-entry" role="listitem">
+Ene HI, Sanchez-Palencia E (1975) <span class="nocase">Équations et phénomènes de surface pour l’écoulement dans un modèle de milieu poreux</span>. Journal de Mécanique 14:73–108
+</div>
+<div id="ref-Eshelby57" class="csl-entry" role="listitem">
+Eshelby JD (1957) The determination of the elastic field of an ellipsoidal inclusion, and related problems. Proc Roy Soc London 241:376–396
+</div>
+<div id="ref-Fokker01" class="csl-entry" role="listitem">
+Fokker PA (2001) General anisotropic effective medium theory for the effective permeability of heterogeneous reservoirs. Transport in Porous Media 44:205–218
+</div>
+<div id="ref-deGalard05" class="csl-entry" role="listitem">
+Galard J-H de, Zoormand GH, Ghanizadeh M, et al (2005) A case study on redevelopment of a giant highly fractured carbonate reservoir in iran based on integrated reservoir characterization and <span>3D</span> modeling studies. In: SPE middle east oil &amp; gas show and conference. SPE, Bahrain
+</div>
+<div id="ref-Garboczi95" class="csl-entry" role="listitem">
+Garboczi EJ, Snyder KA, Douglas JF, Thorpe MF (1995) Geometrical percolation threshold of overlapping ellipsoids. Phys Rev E 52:819–828
+</div>
+<div id="ref-Garcia07" class="csl-entry" role="listitem">
+Garcia M, Gouth F, Gosselin O (2007) Fast and efficient modeling and conditioning of naturally fractured reservoir models using static and dynamic data. In: SPE europec/EAGE conference and exhibition, paper 107525. London
+</div>
+<div id="ref-Gueguen94" class="csl-entry" role="listitem">
+Guéguen Y, Palciauskas V (1994) Introduction to <span>P</span>hysics of <span>R</span>ocks. <span>P</span>rinceton <span>U</span>niv. <span>P</span>ress
+</div>
+<div id="ref-Howard90" class="csl-entry" role="listitem">
+Howard JH, Nolen-Hoeksema RC (1990) Description of natural fracture systems for quantitative use in petroleum geology. AAPG Bulletin 74:151–162
+</div>
+<div id="ref-Huang98" class="csl-entry" role="listitem">
+Huang JH, Liu HK (1998) On a flat ellipsoidal inclusion or crack in three-dimensional anisotropic media. Int J Engng Sci 36:143–155
+</div>
+<div id="ref-Jenni07" class="csl-entry" role="listitem">
+Jenni S, Hu LY, Basquet R, et al (2007) History matching of a stochastic model of field-scale fractures: Methodology and case study. Oil and Gas Science and Technology, Rev IFP 62:265–276
+</div>
+<div id="ref-Kellogg29" class="csl-entry" role="listitem">
+Kellogg OD (1929) Potential theory. Berlin : Springer-Verlag
+</div>
+<div id="ref-Lange01" class="csl-entry" role="listitem">
+Lange A, Basquet R, Bourbiaux B (2002) Hydraulic characterization of faults and fractures using a dual medium discrete fracture network simulator. In: <span class="math inline">\(10^\mathrm{th}\)</span> international petroleum exhibition and conference. SPE, Reservoir simulation., <span>A</span>bu <span>D</span>habi
+</div>
+<div id="ref-Oda86" class="csl-entry" role="listitem">
+Oda M (1986) An equivalent continuum model for coupled stress and fluid flow analysis in jointed rock masses. Water Resources Research 22:1845–1856
+</div>
+<div id="ref-Pouya05" class="csl-entry" role="listitem">
+Pouya A (2005) Tenseurs de perméabilité équivalente d’un domaine hétérogène fini. C R Géoscience 337:581–588
+</div>
+<div id="ref-Pozdniakov04" class="csl-entry" role="listitem">
+Pozdniakov S, Tsang C-F (2004) A self-consistent approach for calculating the effective hydraulic conductivity of a bimodal, heterogeneous medium. <span>L</span>awrence <span>B</span>erkeley <span>N</span>ational <span>L</span>aboratory
+</div>
+<div id="ref-Robinson83" class="csl-entry" role="listitem">
+Robinson PC (1983) Connectivity of fracture systems - <span>A</span> percolation theory approach. J Phys A Math Gen 16:605–614
+</div>
+<div id="ref-Sabathier98" class="csl-entry" role="listitem">
+Sabathier B J.-C. Bourbiaux, Cacas M-C, Sarda S (1998) A new approach of fractured reservoirs. In: International petroleum conference and exhibition, paper 39825. SPE, Mexico
+</div>
+<div id="ref-Sahimi95" class="csl-entry" role="listitem">
+Sahimi M (1995) Flow and transport in porous media and fractured rock. VCH
+</div>
+<div id="ref-Sarda01" class="csl-entry" role="listitem">
+Sarda S, Jeannin L, Bourbiaux B (2001) Hydraulic characterization of fractured reservoirs: Simulation on discrete fracture models. In: Symposium of the society of petroleum engineers. SPE, Reservoir simulation., Houston
+</div>
+<div id="ref-Verga01" class="csl-entry" role="listitem">
+Verga FM, Giglio G, Masserano F, Ruvo L (2001) Calibration of fractured reservoirs with dynamic data. In: SPE reservoir simulation symposium, paper 66395. Houston
+</div>
+<div id="ref-Zaoui02" class="csl-entry" role="listitem">
+Zaoui A (2002) Continuum micromechanics&nbsp;: survey. JEM 128:808–816
+</div>
+<div id="ref-TheseQizhi" class="csl-entry" role="listitem">
+Zhu Q (2006) Applications des approches d’homogénéisation à la modélisation tridimensionnelle de l’endommagement des matériaux quasi-fragiles : Formulations, validations et implémentations numériques. Th\`ese de Doctorat, Université des Sciences et Technologies de Lille
+</div>
+<div id="ref-Zimmerman96" class="csl-entry" role="listitem">
+Zimmerman RW (1996) Effective conductivity of a two-dimensional medium containing elliptical inhomogeneities. Proc Roy Soc Ser A 452:1713–1727
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>A permutation between the eigenvectors is possibly used so as to respect this order.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

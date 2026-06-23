@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jean-François Barthélémy">
+<meta name="author" content="Albert Giraud">
+<meta name="author" content="Francis Lavergne">
+<meta name="author" content="Julien Sanahuja">
+<meta name="dcterms.date" content="2016-01-01">
+<meta name="keywords" content="Micromechanics, Ageing linear viscoelasticity, Viscoelastic Eshelby tensor, Viscoelastic Hill tensor, Viscoelastic inclusion problem">
+
+<title>The Eshelby inclusion problem in ageing linear viscoelasticity</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="viscouseshelby_files/libs/clipboard/clipboard.min.js"></script>
+<script src="viscouseshelby_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="viscouseshelby_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="viscouseshelby_files/libs/quarto-html/popper.min.js"></script>
+<script src="viscouseshelby_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="viscouseshelby_files/libs/quarto-html/anchor.min.js"></script>
+<link href="viscouseshelby_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="viscouseshelby_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="viscouseshelby_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="viscouseshelby_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="viscouseshelby_files/libs/bootstrap/bootstrap-1fcf4b563fe088d4ff7716f12daa7d31.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+    wideeq: ["#1", 1],
+    Div: "\\operatorname{div}",
+    arccosh: "\\operatorname{arccosh}",
+    grad: "\\operatorname{grad}",
+    J: "\\uuuu{J}",
+    K: "\\uuuu{K}",
+    R: "\\mathbb{R}",
+    dirac: "\\mathrm{\\delta}",
+    divu: ["\\uv{\\Div}\\,{#1}", 1],
+    eps: "\\uu{\\varepsilon}",
+    gradd: ["\\uu{\\grad}\\,{#1}", 1],
+    gradu: ["\\uv{\\grad}\\,{#1}", 1],
+    heaviside: "\\mathrm{H}",
+    idd: "\\uu{1}",
+    idq: "\\uuuu{I}",
+    invvolt: ["{#1}^{-1^{\\volt}}", 1],
+    n: "\\uv{n}",
+    norm: ["\\left\\|{#1}\\right\\|", 1],
+    sig: "\\uu{\\sigma}",
+    sotimes: "\\stackrel{s}{\\otimes}",
+    tensP: "\\uuuu{P}",
+    tvolt: "\\stackrel{\\volt}{:}",
+    ud: "\\,\\mathrm{d}",
+    uu: ["\\boldsymbol{#1}", 1],
+    uuuu: ["\\mathbb{#1}", 1],
+    uv: ["\\boldsymbol{#1}", 1],
+    volt: "\\circ",
+    vvolt: "\\stackrel{\\volt}{\\cdot}",
+    x: "\\uv{x}",
+    y: "\\uv{y}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link active" data-scroll-target="#sec-intro"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-problem" id="toc-sec-problem" class="nav-link" data-scroll-target="#sec-problem"><span class="header-section-number">2</span> The problem of an ellipsoidal inclusion of arbitrary shape in an ageing linear viscoelastic medium</a>
+  <ul class="collapse">
+  <li><a href="#sec-Volterra" id="toc-sec-Volterra" class="nav-link" data-scroll-target="#sec-Volterra"><span class="header-section-number">2.1</span> The ageing linear viscoelastic behaviour</a></li>
+  <li><a href="#sec-Eshelby" id="toc-sec-Eshelby" class="nav-link" data-scroll-target="#sec-Eshelby"><span class="header-section-number">2.2</span> The Eshelby inclusion problem</a></li>
+  </ul></li>
+  <li><a href="#sec-hill" id="toc-sec-hill" class="nav-link" data-scroll-target="#sec-hill"><span class="header-section-number">3</span> Resolution and construction of ageing viscoelastic Hill and Eshelby tensors</a>
+  <ul class="collapse">
+  <li><a href="#sec-Green" id="toc-sec-Green" class="nav-link" data-scroll-target="#sec-Green"><span class="header-section-number">3.1</span> Elementary problems and Green tensor</a></li>
+  <li><a href="#sec-solEshelby" id="toc-sec-solEshelby" class="nav-link" data-scroll-target="#sec-solEshelby"><span class="header-section-number">3.2</span> Solution to the Eshelby inclusion problem</a></li>
+  <li><a href="#sec-inhomEshelby" id="toc-sec-inhomEshelby" class="nav-link" data-scroll-target="#sec-inhomEshelby"><span class="header-section-number">3.3</span> Extension to the inhomogeneity problem</a></li>
+  </ul></li>
+  <li><a href="#sec-isotropic" id="toc-sec-isotropic" class="nav-link" data-scroll-target="#sec-isotropic"><span class="header-section-number">4</span> Analytical expression of the viscoelastic Hill tensor associated to an isotropic infinite medium</a></li>
+  <li><a href="#sec-valcons" id="toc-sec-valcons" class="nav-link" data-scroll-target="#sec-valcons"><span class="header-section-number">5</span> Consistency with known results</a>
+  <ul class="collapse">
+  <li><a href="#sec-elasnonage" id="toc-sec-elasnonage" class="nav-link" data-scroll-target="#sec-elasnonage"><span class="header-section-number">5.1</span> The elastic and non-ageing viscoelastic cases</a></li>
+  <li><a href="#sec-ageingsphere" id="toc-sec-ageingsphere" class="nav-link" data-scroll-target="#sec-ageingsphere"><span class="header-section-number">5.2</span> The ageing linear viscoelastic spherical inhomogeneity with isotropic phases</a></li>
+  <li><a href="#sec-cstPoisson" id="toc-sec-cstPoisson" class="nav-link" data-scroll-target="#sec-cstPoisson"><span class="header-section-number">5.3</span> The case of a time-independent Poisson ratio</a></li>
+  </ul></li>
+  <li><a href="#sec-valapp" id="toc-sec-valapp" class="nav-link" data-scroll-target="#sec-valapp"><span class="header-section-number">6</span> Practical implementation and validation</a>
+  <ul class="collapse">
+  <li><a href="#sec-Volterranum" id="toc-sec-Volterranum" class="nav-link" data-scroll-target="#sec-Volterranum"><span class="header-section-number">6.1</span> Numerical procedure to evaluate Volterra operators</a></li>
+  <li><a href="#sec-oblateFEM" id="toc-sec-oblateFEM" class="nav-link" data-scroll-target="#sec-oblateFEM"><span class="header-section-number">6.2</span> Validation of the strain concentration tensor with respect to FEM computations</a></li>
+  <li><a href="#sec-LCGS" id="toc-sec-LCGS" class="nav-link" data-scroll-target="#sec-LCGS"><span class="header-section-number">6.3</span> Performance of the present numerical method based on quadrature in time domain compared to the correspondence principle in the non-ageing case</a></li>
+  </ul></li>
+  <li><a href="#sec-conclu" id="toc-sec-conclu" class="nav-link" data-scroll-target="#sec-conclu"><span class="header-section-number">7</span> Concluding remarks</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#sec-planewave" id="toc-sec-planewave" class="nav-link" data-scroll-target="#sec-planewave"><span class="header-section-number">8</span> Proof of the plane-wave expansion Eq.&nbsp;12</a></li>
+  <li><a href="#sec-chdS" id="toc-sec-chdS" class="nav-link" data-scroll-target="#sec-chdS"><span class="header-section-number">9</span> Change of variable over the unit sphere</a></li>
+  <li><a href="#sec-tensQR" id="toc-sec-tensQR" class="nav-link" data-scroll-target="#sec-tensQR"><span class="header-section-number">10</span> Tensors <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> and Newtonian potential</a></li>
+  <li><a href="#sec-AK" id="toc-sec-AK" class="nav-link" data-scroll-target="#sec-AK"><span class="header-section-number">11</span> Proof of equality between Eq.&nbsp;57 and the expression of <span class="math inline">\(A^K\)</span> provided in <span class="citation" data-cites="Sanahuja2013a">[7]</span></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="viscouseshelby.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Eshelby inclusion problem in ageing linear viscoelasticity</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jean-François Barthélémy <a href="mailto:jean-francois.barthelemy@cerema.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1968-8939" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            CEREMA/DTecITM, 110 rue de Paris, BP 214, 77487 Provins Cedex, France
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Albert Giraud </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            GeoRessources Laboratory, Université de Lorraine (ENSG), CNRS, CREGU, F-54501 Vandœuvre-lès-Nancy, France
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Francis Lavergne </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            CEREMA/DTecITM, 110 rue de Paris, BP 214, 77487 Provins Cedex, France
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Julien Sanahuja </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            EDF R&amp;D — département MMC, Site des Renardières, Avenue des Renardières, Ecuelles, 77818 Moret sur Loing Cedex, France
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2016</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>The present paper focuses on the Eshelby inclusion problem which is revisited in the framework of ageing linear viscoelasticity. All known results established in linear viscoelasticity thanks to the correspondence principle are recovered as particular cases of a general solution extended to ageing. A closed form solution is presented for the Hill and Eshelby tensors related to an ellipsoidal inclusion embedded in an infinite anisotropic medium. The case of the isotropic medium is investigated in detail and related solutions are presented for spherical and ellipsoidal inclusions. A numerical procedure which operates in time domain and based on the trapezoidal rule to determine Volterra integral operators allows to efficiently calculate Hill and Eshelby tensors for a wide range of behaviours including in particular time-dependent Poisson ratios. Validation and verification of the new developed solution are presented for the ageing spherical inclusion on the basis of recent published results and it is completed by comparisons with finite element simulations for the general and novel case of an oblate spheroid embedded in an ageing linear viscoelastic matrix.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Micromechanics, Ageing linear viscoelasticity, Viscoelastic Eshelby tensor, Viscoelastic Hill tensor, Viscoelastic inclusion problem</p>
+  </div>
+</div>
+
+</header>
+
+
+<div class="postprint-banner">
+<p><strong>Author-accepted manuscript (postprint).</strong> This is the accepted version of an article published by Elsevier in the <em>International Journal of Solids and Structures</em>. The version of record is available at <a href="https://doi.org/10.1016/j.ijsolstr.2016.06.035">doi:10.1016/j.ijsolstr.2016.06.035</a>. Please cite as: J.-F. Barthélémy, A. Giraud, F. Lavergne, J. Sanahuja, “The Eshelby inclusion problem in ageing linear viscoelasticity”, <em>International Journal of Solids and Structures</em> <strong>97–98</strong> (2016) 530–542. © 2016 Elsevier Ltd.</p>
+<p>This author-accepted manuscript is made available under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>) license. <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="cc-by-nc-nd.png" height="24" alt="CC BY-NC-ND 4.0"></a></p>
+</div>
+<section id="sec-intro" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>This paper revisits the Eshelby inclusion problem <span class="citation" data-cites="Eshelby57">[<a href="#ref-Eshelby57" role="doc-biblioref">1</a>]</span> in the framework of ageing linear viscoelasticity, on the basis of the <em>ageing correspondence principle</em> proposed by <span class="citation" data-cites="Read1950">[<a href="#ref-Read1950" role="doc-biblioref">2</a>]</span>, <span class="citation" data-cites="LeeVisco1955">[<a href="#ref-LeeVisco1955" role="doc-biblioref">3</a>]</span>, <span class="citation" data-cites="LeeVisco1961">[<a href="#ref-LeeVisco1961" role="doc-biblioref">4</a>]</span>, <span class="citation" data-cites="Mandel58">[<a href="#ref-Mandel58" role="doc-biblioref">5</a>]</span> and <span class="citation" data-cites="MandelMecanique1966">[<a href="#ref-MandelMecanique1966" role="doc-biblioref">6</a>]</span>. It must be emphasized that it includes as a particular case the non-ageing linear viscoelasticity and all results developed in this context may be recovered. A novel solution is presented for the Hill polarization tensor, and the Eshelby tensor related to an ellipsoidal inclusion embedded in an ageing linear viscoelastic material and it extends results presented in recent papers (<span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span>, <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>).</p>
+<p>In the context of non-ageing linear viscoelasticity, and by using the correspondence principle, <span class="citation" data-cites="HashinJAM65">[<a href="#ref-HashinJAM65" role="doc-biblioref">9</a>]</span>, <span class="citation" data-cites="Hashin1970539">[<a href="#ref-Hashin1970539" role="doc-biblioref">10</a>]</span>, <span class="citation" data-cites="Hashin1970797">[<a href="#ref-Hashin1970797" role="doc-biblioref">11</a>]</span>, <span class="citation" data-cites="Christensen196923">[<a href="#ref-Christensen196923" role="doc-biblioref">12</a>]</span> and <span class="citation" data-cites="ChristensenVisco1982">[<a href="#ref-ChristensenVisco1982" role="doc-biblioref">13</a>]</span> have presented generalization of linear elastic problem to the linear viscoelastic one, using Stieltjes integrals combined with Laplace-Carson transform. Such an approach has been widely used to extend homogenization schemes based on Eshelby tensors in elasticity to linear viscoelasticity (see reviews of <span class="citation" data-cites="Pichler20092410">[<a href="#ref-Pichler20092410" role="doc-biblioref">14</a>]</span>, <span class="citation" data-cites="Lavergne2015130">[<a href="#ref-Lavergne2015130" role="doc-biblioref">15</a>]</span>, <span class="citation" data-cites="Berbenni2015110">[<a href="#ref-Berbenni2015110" role="doc-biblioref">16</a>]</span>, and <span class="citation" data-cites="Sevostianov201528">[<a href="#ref-Sevostianov201528" role="doc-biblioref">17</a>]</span>). In many cases, exact solutions may be obtained in Laplace Transform Domain (<em>TD</em>, see <span class="citation" data-cites="WangWeng92">[<a href="#ref-WangWeng92" role="doc-biblioref">18</a>]</span> and <span class="citation" data-cites="Li19941073">[<a href="#ref-Li19941073" role="doc-biblioref">19</a>]</span>) but, due to the complexity of relations in <em>TD</em>, analytical inversions of Laplace transforms are only restricted to simple cases. Hashin</p>
+<p>has presented in <span class="citation" data-cites="HashinIJES69">[<a href="#ref-HashinIJES69" role="doc-biblioref">20</a>]</span> an analytical transient solution in the case of a spherical isotropic elastic inclusion embedded in a non compressible isotropic viscoelastic matrix. One may find in <span class="citation" data-cites="Laws251">[<a href="#ref-Laws251" role="doc-biblioref">21</a>]</span> the complete linear viscoelastic solution for ellipsoidal inclusions in anisotropic materials, and numerical results obtained thanks to a numerical inversion of Laplace-Carson solutions performed by using collocation method (<span class="citation" data-cites="Schapery1962">[<a href="#ref-Schapery1962" role="doc-biblioref">22</a>]</span> and <span class="citation" data-cites="Rekik2011305">[<a href="#ref-Rekik2011305" role="doc-biblioref">23</a>]</span> for a recent extension). Exact inversion of Laplace transform has been presented in <span class="citation" data-cites="Rougieretal93">[<a href="#ref-Rougieretal93" role="doc-biblioref">24</a>]</span> for the problem of a spherical inclusion, considering isotropic non compressible viscoelastic Maxwell materials for inclusion and matrix and self consistent homogenization scheme. It may be noticed that, still in the context of non-ageing linear viscoelasticity, fraction-exponential operators which are extensively used in rheology and linear viscoelasticity (see <span class="citation" data-cites="Mainardi10">[<a href="#ref-Mainardi10" role="doc-biblioref">25</a>]</span>) have been applied to Eshelby inclusion problem and related homogenization approach, to obtain solutions in more general cases of ellipsoidal or penny-shaped cracks in a viscoelastic matrix (see <span class="citation" data-cites="Levin20121">[<a href="#ref-Levin20121" role="doc-biblioref">26</a>]</span>, <span class="citation" data-cites="Sevostianov201528">[<a href="#ref-Sevostianov201528" role="doc-biblioref">17</a>]</span> and <span class="citation" data-cites="SevostianovLevinAM2015">[<a href="#ref-SevostianovLevinAM2015" role="doc-biblioref">27</a>]</span>). Such operators have the advantage to accurately fit a wide range of behaviours and to conduce to analytical expressions for inverse Laplace transform.</p>
+<p>Although theoretically very useful to solve non-ageing linear viscoelastic problems thanks to the correspondence principle, the Laplace-Carson transform suffers from important drawbacks mainly due to the fact that it remains difficult to ensure both accuracy and stability of the numerical algorithms available for inversion. Indeed the method based on the correspondence principle first requires to calculate transforms of some creep or relaxation functions of different phases but closed-form expressions may not exist due to the complexity of the initial functions or because the latter come from experimental points. The last step of the method consists in calculating the inverse of Laplace-Carson transforms in order to come back to the time domain. This step almost systematically needs to resort to numerical algorithms as those described in <span class="citation" data-cites="Abate2006">[<a href="#ref-Abate2006" role="doc-biblioref">28</a>]</span> which generally have to be specifically adapted to the function to inverse. It proves in particular very difficult to reach a certain level of accuracy of the inverse while reducing the sensitivity to the errors in the Laplace domain. To avoid the shortcomings of the Laplace-Carson transform, homogenization methods staying in the time domain have recently been designed (<span class="citation" data-cites="Lahellec2007">[<a href="#ref-Lahellec2007" role="doc-biblioref">29</a>]</span>, <span class="citation" data-cites="Masson2012">[<a href="#ref-Masson2012" role="doc-biblioref">30</a>]</span>, <span class="citation" data-cites="Berbenni2015110">[<a href="#ref-Berbenni2015110" role="doc-biblioref">16</a>]</span>). Among them, one may cite the time-incremental internal variable homogenization method based on Green function techniques and related integral representation presented in <span class="citation" data-cites="CoulibalySabar2011">[<a href="#ref-CoulibalySabar2011" role="doc-biblioref">31</a>]</span>, <span class="citation" data-cites="DinzartSabar2014">[<a href="#ref-DinzartSabar2014" role="doc-biblioref">32</a>]</span> and <span class="citation" data-cites="Berbenni2015110">[<a href="#ref-Berbenni2015110" role="doc-biblioref">16</a>]</span>. In this method, the effective behaviour as well as the evolution laws of the averaged stresses per phase are solved incrementally in the time domain through a time-differential equation, without need to analytical or numerical inverse of Laplace-Carson transforms.</p>
+<p>Regarding ageing viscoelastic composite materials, some results have been obtained in the case of periodic homogenization applied to multilayered media in <span class="citation" data-cites="Maghous2003">[<a href="#ref-Maghous2003" role="doc-biblioref">33</a>]</span> but mean-field schemes based on Eshelby’s solution were previously restricted to particular ageing behaviours for the viscoelastic phases, such as the time-shift behaviour introduced to describe plastic materials and glasses (<span class="citation" data-cites="Struik1941">[<a href="#ref-Struik1941" role="doc-biblioref">34</a>]</span>, <span class="citation" data-cites="Sullivan1990">[<a href="#ref-Sullivan1990" role="doc-biblioref">35</a>]</span>, <span class="citation" data-cites="Odegard2011">[<a href="#ref-Odegard2011" role="doc-biblioref">36</a>]</span>). In this particular case, the correspondence principle can be applied after the change of variable defining the equivalent time (<span class="citation" data-cites="Zheng2002">[<a href="#ref-Zheng2002" role="doc-biblioref">37</a>]</span>, <span class="citation" data-cites="Lavergne2015130">[<a href="#ref-Lavergne2015130" role="doc-biblioref">15</a>]</span>). More recently, comprehensive homogenization methods have been uncovered. On the one hand, the incremental homogenization approach <span class="citation" data-cites="Masson2012">[<a href="#ref-Masson2012" role="doc-biblioref">30</a>]</span> consists in approximating the ageing viscoelastic behaviour to a non-ageing Dirichlet series on each time step. The correspondence principle is then applied on each time step to solve the homogenization problem. The scheme designed in <span class="citation" data-cites="Lahellec2007">[<a href="#ref-Lahellec2007" role="doc-biblioref">29</a>]</span> is also able to estimate the effective response of viscoelastic composites: it relies on the variational technique proposed in <span class="citation" data-cites="Ponte92a">[<a href="#ref-Ponte92a" role="doc-biblioref">38</a>]</span> to rigorously approximate non-uniform eigenstrains due to internal variables by piecewise uniform eigenstrains. On the other hand, <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> has proposed a closed-form solution to handle the case of spherical inhomogeneities, the ageing viscoelastic behaviours of all phases being isotropic without any particular restriction on the bulk and shear relaxation functions. The Volterra operator and its inverse appear in this solution. Using the properties of the Volterra operator, the viscoelastic Eshelby inclusion problem has been solved for ellipsoidal inclusions <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>, providing that the ageing viscoelastic material features a time-independent Poisson ratio in a sense defined in <span class="citation" data-cites="Hilton1998">[<a href="#ref-Hilton1998" role="doc-biblioref">39</a>]</span>. Nevertheless, the viscoelastic Eshelby inclusion problem for ellipsoidal inclusions and an ageing viscoelastic material featuring a time-dependent Poisson ratio could only be solved by mean of approximations (<span class="citation" data-cites="Masson2012">[<a href="#ref-Masson2012" role="doc-biblioref">30</a>]</span>, <span class="citation" data-cites="Lavergne2015c">[<a href="#ref-Lavergne2015c" role="doc-biblioref">40</a>]</span>) and an universal closed-form solution to the viscoelastic Eshelby inclusion problem was yet to be found. All the references listed in the present paragraph share a common feature: the strains in the Eshelby inclusion, or in the inhomogeneity, remain uniform at all times, as for the solutions to the elastic and the non-ageing viscoelastic Eshelby inclusion problems.</p>
+<p>In the present article, after presenting the hypotheses of the ageing linear viscoelastic inclusion problem, a comprehensive closed-form solution is disclosed. Then, its expression in the case of an isotropic infinite medium is derived and successfully compared to existing results in particular situations. In the last section, the efficient numerical procedure designed in <span class="citation" data-cites="Bazant1972">[<a href="#ref-Bazant1972" role="doc-biblioref">41</a>]</span>, <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> and <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span> is applied for further verifications.</p>
+</section>
+<section id="sec-problem" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The problem of an ellipsoidal inclusion of arbitrary shape in an ageing linear viscoelastic medium</h1>
+<section id="sec-Volterra" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-Volterra"><span class="header-section-number">2.1</span> The ageing linear viscoelastic behaviour</h2>
+<p>As in <span class="citation" data-cites="Eshelby57">[<a href="#ref-Eshelby57" role="doc-biblioref">1</a>]</span>, the studied domain is the whole three-dimensional space and the hypothesis of small perturbation is adopted. The difference with <span class="citation" data-cites="Eshelby57">[<a href="#ref-Eshelby57" role="doc-biblioref">1</a>]</span> relies on the fact that the constitutive law of the material is of the ageing linear viscoelastic type. This means that the strain and stress tensor histories, respectively <span class="math inline">\(\eps(t)\)</span> and <span class="math inline">\(\sig(t)\)</span>, are related by means of a Stieltjes integral <span class="citation" data-cites="SalenconVisco">[<a href="#ref-SalenconVisco" role="doc-biblioref">42</a>]</span></p>
+<p><span id="eq-VolterraT"><span class="math display">\[
+\wideeq{\eps(t)=\int_{t'=-\infty}^t \uuuu{L}(t,t'):\ud \sig(t')
+=\int_{t'=-\infty}^t \uuuu{L}(t,t'): \dot{\sig}(t') \ud t'}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{L}\)</span> is the creep compliance tensor of the fourth order. In the general ageing framework, it depends on two independant time variables and is such that <span class="math inline">\(\uuuu{L}(t,t')=\uuuu{0}\)</span> if <span class="math inline">\(t&lt;t'\)</span> due to the causality principle. The non-ageing case corresponds to a dependence of <span class="math inline">\(t\)</span> and <span class="math inline">\(t'\)</span> only through their difference <span class="math inline">\(t-t'\)</span>. The resolution of the Eshelby problem in the latter case is already available thanks to the correspondence principle and the resolution of the associated elastic problem in the Laplace-Carson domain (see references in introduction). The present paper deals with the more general ageing case.</p>
+<p>The linear relationship <a href="#eq-VolterraT" class="quarto-xref">Eq.&nbsp;1</a>, more simply denoted by <span class="math inline">\(\eps=\uuuu{L}\tvolt\sig\)</span> (<span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span>, <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>), generalizes to the tensorial framework the so-called Volterra operator ’‘<span class="math inline">\(\volt\)</span>’’ <span class="citation" data-cites="Volterra59">[<a href="#ref-Volterra59" role="doc-biblioref">43</a>]</span> between scalar functions</p>
+<p><span id="eq-Volterra"><span class="math display">\[
+\wideeq{Y=F\volt X
+\Leftrightarrow
+Y(t)=\int_{t'=-\infty}^t F(t,t')\ud X(t')}
+\tag{2}\]</span></span></p>
+<p>Adopting the convention of summation of repeated indices, <a href="#eq-VolterraT" class="quarto-xref">Eq.&nbsp;1</a> writes in components</p>
+<p><span id="eq-VolterraTcomp"><span class="math display">\[
+\wideeq{\eps=\uuuu{L}\tvolt\sig
+\Leftrightarrow
+\varepsilon_{ij}=L_{ijkl}\volt\sigma_{kl}}
+\tag{3}\]</span></span></p>
+<p>Note that <span class="math inline">\(\uuuu{L}\)</span> obviously verifies the minor symmetries <span class="math inline">\(L_{jikl}=L_{ijlk}=L_{ijkl}\)</span>.</p>
+<p>Similarly a Volterra operator can be built between a second-order kernel <span class="math inline">\(\uu{K}(t,t')\)</span> and a time-dependent vector <span class="math inline">\(\uv{u}(t)\)</span></p>
+<p><span id="eq-VolterraV"><span class="math display">\[
+\wideeq{\uv{T}=\uu{K}\vvolt\uv{u}
+\Leftrightarrow
+\uv{T}(t)=\int_{t'=-\infty}^t \uu{K}(t,t')\cdot\ud \uv{u}(t')}
+\tag{4}\]</span></span></p>
+<p>It is worth recalling that time discontinuities are allowed in all the functions involved in the previous relationships and time derivatives must be considered in the framework of the theory of distributions as introduced by <span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span> (see also <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>).</p>
+<p>The scalar Volterra kernel <span class="math inline">\((t,t')\mapsto \heaviside(t-t')\)</span> where <span class="math inline">\(\heaviside\)</span> is the Heaviside function <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> operates as an identity in~<a href="#eq-Volterra" class="quarto-xref">Eq.&nbsp;2</a>. For the sake of commodity, <span class="math inline">\(\heaviside\)</span> shall also denote this function of two time variables in the following, i.e.&nbsp;<span class="math inline">\(\heaviside\volt X=X\)</span>. As a consequence, the identities of <a href="#eq-VolterraT" class="quarto-xref">Eq.&nbsp;1</a> and <a href="#eq-VolterraV" class="quarto-xref">Eq.&nbsp;4</a> are respectively <span class="math inline">\(\heaviside\idq\)</span> and <span class="math inline">\(\heaviside\idd\)</span>, where <span class="math inline">\(\idq\)</span> is the fourth-order identity tensor acting over symmetric second-order tensors (<span class="math inline">\(\idq_{ijkl}=(\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk})/2\)</span>) and <span class="math inline">\(\idd\)</span> is the second-order identity tensor (<span class="math inline">\(\idd_{ij}=\delta_{ij}\)</span>) with <span class="math inline">\(\delta_{ij}\)</span> denoting the Kronecker symbol <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The operations between a function of two time variables and a function of a single time variable can easily be extended to associative, distributive with respect to the addition, but non-commutative operations between two functions of two time variables, either in scalar or tensorial case. As stated in <span class="citation" data-cites="Maghous2003">[<a href="#ref-Maghous2003" role="doc-biblioref">33</a>]</span>, the commutativity between two scalar functions of two time variables holds only for non-ageing kernels. A fourth-order tensorial example writes</p>
+<p><span id="eq-Volterra2"><span class="math display">\[
+\wideeq{(\uuuu{A} \tvolt \uuuu{B}) (t,t')=\int_{\tau=-\infty}^t \uuuu{A}(t,\tau):
+\frac{\partial \uuuu{B}}{\partial \tau}(\tau,t')\ud \tau}
+\tag{5}\]</span></span></p>
+<p>The definition of the inverse of a (scalar or tensorial) kernel in the sense of Volterra follows immediately. To avoid any confusion with the classical inversion, the notation <span class="math inline">\(\invvolt{\mathcal{T}}\)</span> for the inverse of the (scalar or tensorial) kernel <span class="math inline">\(\mathcal{T}\)</span> is adopted. For instance, the inverse of the creep compliance <span class="math inline">\(\uuuu{L}\)</span>, called the relaxation tensor and denoted by <span class="math inline">\(\uuuu{C}=\invvolt{\uuuu{L}}\)</span>, satisfies <span class="math inline">\(\uuuu{C}\tvolt\uuuu{L}=\uuuu{L}\tvolt\uuuu{C}=\heaviside\idq\)</span>.</p>
+</section>
+<section id="sec-Eshelby" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-Eshelby"><span class="header-section-number">2.2</span> The Eshelby inclusion problem</h2>
+<p>Let <span class="math inline">\(\mathcal{E}\)</span> denote an ellipsoid in <span class="math inline">\(\R^3\)</span> defined by three radii <span class="math inline">\(\rho_1\)</span>, <span class="math inline">\(\rho_2\)</span> and <span class="math inline">\(\rho_3\)</span> (alternatively denoted by <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> when useful for readability enhancement of formulas in <a href="#sec-tensQR" class="quarto-xref">Section&nbsp;10</a>) and an associated orthonormal frame <span class="math inline">\((\uv{e}_1,\uv{e}_2,\uv{e}_3)\)</span> such that the equation of <span class="math inline">\(\mathcal{E}\)</span> writes</p>
+<p><span id="eq-ellipsoid"><span class="math display">\[
+\wideeq{\norm{\uu{A}^{-1}\cdot\x}\leq 1
+\quad\textrm{with}\quad
+\uu{A}=\rho_1\,\uv{e}_1\otimes\uv{e}_1+
+\rho_2\,\uv{e}_2\otimes\uv{e}_2+\rho_3\,\uv{e}_3\otimes\uv{e}_3}
+\tag{6}\]</span></span></p>
+<p>A time-dependent polarization field <span class="math inline">\(\uu{p}(\x,t)=\uu{p}(t)\chi_{\mathcal{E}}(\x)\)</span> is then introduced, where <span class="math inline">\(\chi_{\mathcal{E}}\)</span> is the characteristic function of <span class="math inline">\(\mathcal{E}\)</span> (<span class="math inline">\(\chi_{\mathcal{E}}(\x)=1\)</span> if <span class="math inline">\(\x\in\mathcal{E}\)</span> and <span class="math inline">\(0\)</span> otherwise). In other words, <span class="math inline">\(\uu{p}(\x,t)\)</span> is uniform within <span class="math inline">\(\mathcal{E}\)</span> and <span class="math inline">\(\uu{0}\)</span> outside <span class="math inline">\(\mathcal{E}\)</span>. The whole space is occupied by a uniform ageing linear viscoelastic material of relaxation tensor <span class="math inline">\(\uuuu{C}\)</span> so that the constitutive law is expressed as</p>
+<p><span id="eq-ldcviscopol"><span class="math display">\[
+\wideeq{\sig(\x)=\uuuu{C}\tvolt\eps(\x)+\uu{p}\chi_{\mathcal{E}}(\x)}
+\tag{7}\]</span></span></p>
+<p>where the dependence on time has been omitted for the sake of conciseness but is implicitely taken into account in the Volterra term as well as in <span class="math inline">\(\sig\)</span> and <span class="math inline">\(\uu{p}\)</span>.</p>
+<p>In absence of any body force, the momentum balance applied to <a href="#eq-ldcviscopol" class="quarto-xref">Eq.&nbsp;7</a>, i.e.&nbsp; <span class="math inline">\(\divu{\sig}=\uv{0}\)</span> involves the term <span class="math inline">\(\divu{(\uu{p}\chi_{\mathcal{E}})}\)</span>. Recalling that <span class="math inline">\(\uu{p}\)</span> does not depend on the position <span class="math inline">\(\x\)</span> and that <span class="math inline">\(\gradu{\chi_{\mathcal{E}}}=-\n\dirac_{\partial\mathcal{E}}\)</span> where <span class="math inline">\(\dirac_{\partial\mathcal{E}}\)</span> is the surface Dirac distribution (<span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>, <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>) supported by the boundary of the ellipsoid <span class="math inline">\(\mathcal{E}\)</span> and <span class="math inline">\(\n\)</span> is its unit outward normal vector, it comes that <span class="math inline">\(\divu{(\uu{p}\chi_{\mathcal{E}})}=\uu{p}\cdot\gradu{\chi_{\mathcal{E}}}=
+-\uu{p}\cdot\n\dirac_{\partial\mathcal{E}}\)</span>.</p>
+<p>The displacement field <span class="math inline">\(\uv{u}(\x)\)</span> (still omitting the dependence on <span class="math inline">\(t\)</span>) solution to the ageing linear viscoelastic inclusion problem must finally satisfy the following equations</p>
+<p><span id="eq-EshelbyEq1"><span class="math display">\[
+\wideeq{\divu{(\uuuu{C}\tvolt\gradd{\uv{u}})}
+-\uu{p}\cdot\n\,\dirac_{\partial\mathcal{E}}=\uv{0}}
+\tag{8}\]</span></span></p>
+<p><span id="eq-EshelbyEq2"><span class="math display">\[
+\wideeq{\lim_{\norm{\x}\to\infty}\uv{u}(\x)=\uv{0}}
+\tag{9}\]</span></span></p>
+<p>which is rigorously the same as in the elastic case provided that the double contracted product ’‘<span class="math inline">\(:\)</span>’’ be replaced by the tensorial Volterra operator ’‘<span class="math inline">\(\tvolt\)</span>’’.</p>
+</section>
+</section>
+<section id="sec-hill" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Resolution and construction of ageing viscoelastic Hill and Eshelby tensors</h1>
+<section id="sec-Green" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-Green"><span class="header-section-number">3.1</span> Elementary problems and Green tensor</h2>
+<p>This section aims at deriving the complete solution of the problem <a href="#eq-EshelbyEq1" class="quarto-xref">Eq.&nbsp;8</a><a href="#eq-EshelbyEq2" class="quarto-xref">9</a> thanks to a methodology adapted from the elastic case presented in <span class="citation" data-cites="Willis77">[<a href="#ref-Willis77" role="doc-biblioref">46</a>]</span> or <span class="citation" data-cites="Mura87">[<a href="#ref-Mura87" role="doc-biblioref">47</a>]</span>. For this purpose, it is useful to take advantage of the linearity of the problem and introduce the second-order ageing viscoelastic Green tensor <span class="math inline">\(\uu{G}(\x,t,t')\)</span> associated to these equations: <span class="math inline">\(\uu{G}(\x,t,t')\cdot\uv{P}\)</span> is the displacement field at time <span class="math inline">\(t\)</span></p>
+<p>satisfying <a href="#eq-EshelbyEq2" class="quarto-xref">Eq.&nbsp;9</a> and resulting from the application of a point force step <span class="math inline">\(\uv{P}\)</span> concentrated at the origin and occuring at <span class="math inline">\(t'\)</span>, which means</p>
+<p><span id="eq-Green"><span class="math display">\[
+\wideeq{\divu{\Big(\uuuu{C}(t,\cdot)
+\tvolt\gradd{\big(\uu{G}(\x,\cdot,t')\cdot\uv{P}\big)}\Big)}
++\heaviside(t-t')\dirac(\x)\uv{P}=\uv{0}}
+\tag{10}\]</span></span></p>
+<p>where <span class="math inline">\(\dirac\)</span> stands here for the three-dimensional Dirac distribution associated with the origin (<span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>, <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>). The Volterra operator in <a href="#eq-Green" class="quarto-xref">Eq.&nbsp;10</a> acts on the second arguments of <span class="math inline">\(\uuuu{C}\)</span> and <span class="math inline">\(\uu{G}\)</span> as variable of integration symbolically replaced by ’‘<span class="math inline">\(\cdot\)</span>’’ and results in a function depending on <span class="math inline">\(t\)</span> and <span class="math inline">\(t'\)</span>. It is worth precising again that <span class="math inline">\(t'\)</span> is arbitrarily chosen as the starting time of the loading and the equation <a href="#eq-Green" class="quarto-xref">Eq.&nbsp;10</a> finally depends on <span class="math inline">\(\x\)</span> and <span class="math inline">\(t\)</span> as well as <span class="math inline">\(t'\)</span>. Moreover, due to the fact that the problem is posed in an infinite domain, any translation of the loading, i.e.&nbsp;<span class="math inline">\(\heaviside(t-t')\dirac(\x-\x')\uv{P}\)</span>, results in the same translation in the first argument of the solution <span class="math inline">\(\uu{G}\)</span>, i.e.&nbsp;<span class="math inline">\(\uu{G}(\x-\x',t,t')\cdot\uv{P}\)</span>, which justifies the location of the elementary loading at the origin. In contrast, if the domain was bounded, it would have been necessary to consider unit loadings at any point <span class="math inline">\(\x'\)</span> and introduce this additional variable to the Green function.</p>
+<p>Written in components and eliminating <span class="math inline">\(\uv{P}\)</span>, <a href="#eq-Green" class="quarto-xref">Eq.&nbsp;10</a> writes</p>
+<p><span id="eq-Greencomp"><span class="math display">\[
+\wideeq{(C_{ijkl}\volt G_{kn,jl})(\x,t,t')+\heaviside(t-t')\delta_{in}\dirac(\x)=0}
+\tag{11}\]</span></span></p>
+<p>where indices following the comma (<span class="math inline">\(j\)</span> and <span class="math inline">\(l\)</span>) represent derivatives with respect to the corresponding components of <span class="math inline">\(\x\)</span> (<span class="math inline">\(x_j\)</span> and <span class="math inline">\(x_l\)</span>).</p>
+<p>Two equivalent strategies can then be adoped to solve <a href="#eq-Greencomp" class="quarto-xref">Eq.&nbsp;11</a>: one based on Fourier transforms as in <span class="citation" data-cites="Mura87">[<a href="#ref-Mura87" role="doc-biblioref">47</a>]</span> and another one, inspired by <span class="citation" data-cites="Willis77">[<a href="#ref-Willis77" role="doc-biblioref">46</a>]</span> and followed in the sequel, based on the plane-wave expansion (see <a href="#sec-planewave" class="quarto-xref">Section&nbsp;8</a> for a brief proof)</p>
+<p><span id="eq-deltadec"><span class="math display">\[
+\wideeq{\dirac(\uv{x})=-\frac{1}{8\pi^2}\int_{\norm{\uv{\xi}}=1}
+\dirac''(\uv{\xi}\cdot\uv{x})\ud S_{\uv{\xi}}}
+\tag{12}\]</span></span></p>
+<p>Note that <span class="math inline">\(\dirac\)</span> in the left hand side is the three-dimensional Dirac distribution wheras <span class="math inline">\(\dirac''\)</span> in the right hand side corresponds to the second derivative of the scalar Dirac distribution (<span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>, <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>).</p>
+<p>Considering <a href="#eq-deltadec" class="quarto-xref">Eq.&nbsp;12</a> as a linear decomposition, it becomes interesting to find the solutions <span class="math inline">\(\uu{G}^{\uv{\xi}}(\x,t,t')\)</span> of the following equations parametrized by the unit vector <span class="math inline">\(\uv{\xi}\)</span></p>
+<p><span id="eq-Greencompxi"><span class="math display">\[
+\wideeq{(C_{ijkl}\volt G^{\uv{\xi}}_{kn,jl})(\x,t,t')
++\heaviside(t-t')\delta_{in}\dirac''(\uv{\xi}\cdot\x)=0}
+\tag{13}\]</span></span></p>
+<p>such that the relationship between <span class="math inline">\(\uu{G}\)</span> and <span class="math inline">\(\uu{G}^{\uv{\xi}}\)</span> stems from the superposition principle</p>
+<p><span id="eq-GGxi"><span class="math display">\[
+\wideeq{\uu{G}(\x)=-\frac{1}{8\pi^2}
+\int_{\norm{\uv{\xi}}=1}
+\uu{G}^{\uv{\xi}}(\x)
+\ud S_{\uv{\xi}}}
+\tag{14}\]</span></span></p>
+<p>The solution to <a href="#eq-Greencompxi" class="quarto-xref">Eq.&nbsp;13</a> can easily be built by analogy with the elastic case</p>
+<p><span id="eq-solGreenxi"><span class="math display">\[
+\wideeq{\uu{G}^{\uv{\xi}}(\x)=
+-\dirac(\uv{\xi}\cdot\x)\,
+\invvolt{(\uv{\xi}\cdot\uuuu{C}\cdot\uv{\xi})}
+=-\dirac(\uv{\xi}\cdot\x)\,
+\uu{N}(\uv{\xi})}
+\tag{15}\]</span></span></p>
+<p>where the viscoelastic counterpart of the elastic acoustic tensor is identified in <a href="#eq-solGreenxi" class="quarto-xref">Eq.&nbsp;15</a> by <span class="math inline">\(\uu{K}(\uv{\xi})=\uv{\xi}\cdot\uuuu{C}\cdot\uv{\xi}\)</span> and its inverse (in the sense of Volterra) by <span class="math inline">\(\uu{N}(\uv{\xi})=\invvolt{\uu{K}(\uv{\xi})}
+=\invvolt{(\uv{\xi}\cdot\uuuu{C}\cdot\uv{\xi})}\)</span>. Both are second-order Volterra kernels implicitly depending on two time variables omitted in <a href="#eq-solGreenxi" class="quarto-xref">Eq.&nbsp;15</a>. In order to verify that <span class="math inline">\(\uu{G}^{\uv{\xi}}\)</span> given by <a href="#eq-solGreenxi" class="quarto-xref">Eq.&nbsp;15</a> satisfies <a href="#eq-Greencompxi" class="quarto-xref">Eq.&nbsp;13</a>, the derivatives of its components are calculated</p>
+<p><span id="eq-derivsolGreenxi"><span class="math display">\[
+\wideeq{G^{\uv{\xi}}_{kn,jl}(\x)=
+-\xi_j\,\xi_l\,\dirac''(\uv{\xi}\cdot\x)\,
+N_{kn}(\uv{\xi})}
+\tag{16}\]</span></span></p>
+<p>which successively implies</p>
+<p><span id="eq-CGxi1"><span class="math display">\[
+\wideeq{C_{ijkl}\volt
+G^{\uv{\xi}}_{kn,jl}(\x)
+=-(\xi_j\,C_{ijkl}\,\xi_l)\volt
+N_{kn}(\uv{\xi})\,
+\dirac''(\uv{\xi}\cdot\x)}
+\tag{17}\]</span></span></p>
+<p><span id="eq-CGxi2"><span class="math display">\[
+\wideeq{=-K_{ik}(\uv{\xi})\volt
+N_{kn}(\uv{\xi})\,
+\dirac''(\uv{\xi}\cdot\x)}
+\tag{18}\]</span></span></p>
+<p><span id="eq-CGxi3"><span class="math display">\[
+\wideeq{= -\heaviside\,\delta_{in}\,
+\dirac''(\uv{\xi}\cdot\x)}
+\tag{19}\]</span></span></p>
+<p>The definition of the inverse in the sense of Volterra <span class="math inline">\(\uu{N}(\uv{\xi})=\invvolt{\uu{K}(\uv{\xi})}\)</span> in <a href="#eq-CGxi2" class="quarto-xref">Eq.&nbsp;18</a> leads to <a href="#eq-CGxi3" class="quarto-xref">Eq.&nbsp;19</a> which is indeed identical to <a href="#eq-Greencompxi" class="quarto-xref">Eq.&nbsp;13</a>.</p>
+<p>The determination of <span class="math inline">\(\uu{G}\)</span> is finally completed by introducing <a href="#eq-solGreenxi" class="quarto-xref">Eq.&nbsp;15</a> in <a href="#eq-GGxi" class="quarto-xref">Eq.&nbsp;14</a></p>
+<p><span id="eq-solGreen"><span class="math display">\[
+\wideeq{\uu{G}(\x)=\frac{1}{8\pi^2}
+\int_{\norm{\uv{\xi}}=1}
+\dirac(\uv{\xi}\cdot\x)\,
+\uu{N}(\uv{\xi})
+\ud S_{\uv{\xi}}}
+\tag{20}\]</span></span></p>
+<p>It should also be noticed that <a href="#eq-solGreen" class="quarto-xref">Eq.&nbsp;20</a> allows to verify that <span class="math inline">\(\lim_{\norm{\x}\to\infty}\uu{G}(\x)=\uu{0}\)</span> since <span class="math inline">\(\dirac(\uv{\xi}\cdot\x)=\dirac(\uv{\xi}\cdot\uv{e})/\norm{\x}\)</span> where <span class="math inline">\(\uv{e}=\x/\norm{\x}\)</span>.</p>
+</section>
+<section id="sec-solEshelby" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-solEshelby"><span class="header-section-number">3.2</span> Solution to the Eshelby inclusion problem</h2>
+<p>The solution to <a href="#eq-EshelbyEq1" class="quarto-xref">Eq.&nbsp;8</a><a href="#eq-EshelbyEq2" class="quarto-xref">9</a> is obtained by remarking that the loading <span class="math inline">\(-\uu{p}\cdot\n\dirac_{\partial\mathcal{E}}\)</span> can be viewed as a superposition of translated elementary Dirac contributions. Consequently the displacement field writes (omitting time dependences)</p>
+<p><span id="eq-solu1"><span class="math display">\[
+\wideeq{\uv{u}(\x)=-\int_{\x'\in\partial\mathcal{E}}
+\uu{G}(\x-\x')\vvolt \uu{p}\cdot\n(\x')\ud S_{\x'}}
+\tag{21}\]</span></span></p>
+<p>Note that <a href="#eq-EshelbyEq2" class="quarto-xref">Eq.&nbsp;9</a> is satisfied thanks to the behaviour at infinity of the Green kernel.</p>
+<p>Using <a href="#eq-solGreen" class="quarto-xref">Eq.&nbsp;20</a>, <a href="#eq-solu1" class="quarto-xref">Eq.&nbsp;21</a> becomes</p>
+<p><span id="eq-solu2"><span class="math display">\[
+\wideeq{\uv{u}(\x)=-\frac{1}{8\pi^2}
+\int_{\x'\in\partial\mathcal{E}}
+\int_{\norm{\uv{\xi}}=1}
+\dirac\big(\uv{\xi}\cdot(\x-\x')\big)\,
+\uu{N}(\uv{\xi})
+\vvolt \uu{p}\cdot\n(\x')
+\ud S_{\uv{\xi}}
+\ud S_{\x'}}
+\tag{22}\]</span></span></p>
+<p>Equivalently, <a href="#eq-solu2" class="quarto-xref">Eq.&nbsp;22</a> yields in components</p>
+<p><span id="eq-solu2comp"><span class="math display">\[
+\wideeq{u_i(\x)=-\frac{1}{8\pi^2}
+\int_{\x'\in\partial\mathcal{E}}
+\int_{\norm{\uv{\xi}}=1}
+\dirac\big(\uv{\xi}\cdot(\x-\x')\big)\,
+N_{ik}(\uv{\xi})
+n_l(\x')
+\ud S_{\uv{\xi}}
+\ud S_{\x'}
+\volt p_{kl}}
+\tag{23}\]</span></span></p>
+<p>Applying Fubini’s theorem and Stokes’ theorem to the integral over <span class="math inline">\(\partial\mathcal{E}\)</span> leads to</p>
+<p><span id="eq-solu3comp"><span class="math display">\[
+\wideeq{u_i(\x)=\frac{1}{8\pi^2}
+\int_{\norm{\uv{\xi}}=1}
+\int_{\x'\in\mathcal{E}}
+\dirac'\big(\uv{\xi}\cdot(\x-\x')\big)\,
+N_{ik}(\uv{\xi})\xi_l
+\ud \Omega_{\x'}
+\ud S_{\uv{\xi}}
+\volt p_{kl}}
+\tag{24}\]</span></span></p>
+<p>Finally the strain tensor is given by a relationship analogous to the elastic case</p>
+<p><span id="eq-soleps1"><span class="math display">\[
+\wideeq{\eps(\x)=-\tensP(\x)\tvolt \uu{p}}
+\tag{25}\]</span></span></p>
+<p>in which the fourth-order Volterra kernel <span class="math inline">\(\tensP(\x)\)</span> writes</p>
+<p><span id="eq-solPx"><span class="math display">\[
+\wideeq{\tensP(\x)=-\frac{1}{8\pi^2}
+\int_{\norm{\uv{\xi}}=1}
+\int_{\x'\in\mathcal{E}}
+\dirac''\big(\uv{\xi}\cdot(\x-\x')\big)\,
+\uuuu{\Gamma}(\uv{\xi})
+\ud \Omega_{\x'}
+\ud S_{\uv{\xi}}}
+\tag{26}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-Gamma"><span class="math display">\[
+\wideeq{\uuuu{\Gamma}(\uv{\xi})=
+\uv{\xi}\sotimes\uu{N}(\uv{\xi})\sotimes\uv{\xi}
+=\uv{\xi}\sotimes\invvolt{(\uv{\xi}\cdot\uuuu{C}\cdot\uv{\xi})}\sotimes\uv{\xi}}
+\tag{27}\]</span></span></p>
+<p>where the notation <span class="math inline">\(\sotimes\)</span> denotes a tensor product with symmetrization over the two adjacent indices (here, on the one hand the two first and on the other hand the two last indices of <span class="math inline">\(\uuuu{\Gamma}(\uv{\xi})\)</span>).</p>
+<p>The end of the reasoning relies on the observation that the dependence of <span class="math inline">\(\tensP\)</span> on <span class="math inline">\(\x\)</span> in <a href="#eq-solPx" class="quarto-xref">Eq.&nbsp;26</a> does not differ from that of the elastic case. In particular, the integrations are simplified thanks to the following change of variables</p>
+<p><span id="eq-varchange"><span class="math display">\[
+\wideeq{\x'=\uu{A}\cdot\y'
+\quad\textrm{and}\quad
+\uv{\xi}=\frac{\uu{A}^{-1}\cdot\uv{\zeta}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}}
+\tag{28}\]</span></span></p>
+<p>implying (see <a href="#sec-chdS" class="quarto-xref">Section&nbsp;9</a> for a proof of the second equation)</p>
+<p><span id="eq-dvarchange"><span class="math display">\[
+\wideeq{\ud \Omega_{\x'}=\det{\uu{A}}\ud \Omega_{\y'}
+\quad\textrm{and}\quad
+\ud S_{\uv{\xi}}=\frac{\det{\uu{A}^{-1}}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^3}
+\ud S_{\uv{\zeta}}}
+\tag{29}\]</span></span></p>
+<p>and consequently</p>
+<p><span id="eq-dOmdS"><span class="math display">\[
+\wideeq{\ud \Omega_{\x'}
+\ud S_{\uv{\xi}}
+=\frac{\ud \Omega_{\y'}
+\ud S_{\uv{\zeta}}}
+{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^3}}
+\tag{30}\]</span></span></p>
+<p>Introducing <a href="#eq-varchange" class="quarto-xref">Eq.&nbsp;28</a> and <a href="#eq-dOmdS" class="quarto-xref">Eq.&nbsp;30</a> in <a href="#eq-solPx" class="quarto-xref">Eq.&nbsp;26</a>, <span class="math inline">\(\tensP(\x)\)</span> becomes</p>
+<p><span id="eq-solPxbis0"><span class="math display">\[
+\wideeq{\tensP(\x)=-\frac{1}{8\pi^2}
+\int_{\norm{\uv{\zeta}}=1}
+\uuuu{\Gamma}
+\left(
+\frac{\uu{A}^{-1}\cdot\uv{\zeta}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}
+\right)
+\int_{\norm{\y'}\leq 1}
+\dirac''\left(
+\frac{\uv{\zeta}\cdot(\uu{A}^{-1}\cdot\x-\y')}
+{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}
+\right)\,
+\frac{\ud \Omega_{\y'}
+\ud S_{\uv{\zeta}}}
+{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^3}}
+\tag{31}\]</span></span></p>
+<p>Observing that <span class="math inline">\(\uuuu{\Gamma}\)</span> <a href="#eq-Gamma" class="quarto-xref">Eq.&nbsp;27</a> is positively homogeneous of degree <span class="math inline">\(0\)</span> and that <span class="math inline">\(\dirac''(z/\lambda)=\lambda^3\dirac''(z)\)</span> for <span class="math inline">\(\lambda&gt;0\)</span> (obtained by differentiating twice <span class="math inline">\(\dirac(z/\lambda)=\lambda\dirac(z)\)</span>), <span class="math inline">\(\tensP(\x)\)</span> <a href="#eq-solPxbis0" class="quarto-xref">Eq.&nbsp;31</a> is finally simplified</p>
+<p><span id="eq-solPxbis"><span class="math display">\[
+\wideeq{\tensP(\x)=-\frac{1}{8\pi^2}
+\int_{\norm{\uv{\zeta}}=1}
+\uuuu{\Gamma}(\uu{A}^{-1}\cdot\uv{\zeta})
+\int_{\norm{\y'}\leq 1}
+\dirac''\big(\uv{\zeta}\cdot(\uu{A}^{-1}\cdot\x-\y')\big)\,
+\ud \Omega_{\y'}
+\ud S_{\uv{\zeta}}}
+\tag{32}\]</span></span></p>
+<p>The integration over the unit ball with respect to the variable <span class="math inline">\(\y'\)</span> is then performed by means of cylindrical coordinates <span class="math inline">\((r,\theta,z)\)</span> around the axis directed by <span class="math inline">\(\uv{\zeta}\)</span> (i.e.&nbsp;<span class="math inline">\(z=\uv{\zeta}\cdot\y'\)</span>), which means <span class="math inline">\(\ud \Omega_{\y'}=r\ud r\ud\theta\ud z\)</span> with <span class="math inline">\(\theta\)</span> varying from <span class="math inline">\(0\)</span> to <span class="math inline">\(2\pi\)</span>, <span class="math inline">\(z\)</span> from <span class="math inline">\(-1\)</span> to <span class="math inline">\(1\)</span> and <span class="math inline">\(r\)</span> from <span class="math inline">\(0\)</span> to <span class="math inline">\(\sqrt{1-z^2}\)</span> for each <span class="math inline">\(z\)</span>. Hence <a href="#eq-solPxbis" class="quarto-xref">Eq.&nbsp;32</a> becomes</p>
+<p><span id="eq-solPx2"><span class="math display">\[
+\wideeq{\tensP(\x)=-\frac{1}{8\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\uuuu{\Gamma}(\uu{A}^{-1}\cdot\uv{\zeta})
+\int_{z=-1}^1
+(1-z^2)
+\dirac''(\uv{\zeta}\cdot\uu{A}^{-1}\cdot\x-z)\,
+\ud z
+\ud S_{\uv{\zeta}}}
+\tag{33}\]</span></span></p>
+<p>which can also write by application of the derivative rules of distributions (<span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>, <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>)</p>
+<p><span id="eq-solPx3"><span class="math display">\[
+\wideeq{\tensP(\x)=\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\uuuu{\Gamma}(\uu{A}^{-1}\cdot\uv{\zeta})
+\int_{z=-1}^1
+\dirac(\uv{\zeta}\cdot\uu{A}^{-1}\cdot\x-z)\,
+\ud z
+\ud S_{\uv{\zeta}}}
+\tag{34}\]</span></span></p>
+<p>This expression still depends on <span class="math inline">\(\x\)</span>. Nevertheless, similarly to the elastic case, if <span class="math inline">\(\x\)</span> belongs to the ellipsoid <span class="math inline">\(\mathcal{E}\)</span> of equation <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;6</a>, the scalar <span class="math inline">\(\uv{\zeta}\cdot\uu{A}^{-1}\cdot\x\)</span> belongs to the interval <span class="math inline">\([-1,1]\)</span> and the integral on <span class="math inline">\(z\)</span> is <span class="math inline">\(1\)</span> whatever the position <span class="math inline">\(\x\)</span> within <span class="math inline">\(\mathcal{E}\)</span>. An important consequence is that the well known result of uniformity of <span class="math inline">\(\eps\)</span> and <span class="math inline">\(\sig\)</span> within <span class="math inline">\(\mathcal{E}\)</span> in the elastic case still holds in the ageing linear viscoelastic framework</p>
+<p><span id="eq-soleps2"><span class="math display">\[
+\wideeq{\forall\,\x\in\mathcal{E}\quad
+\eps(\x)=-\tensP\tvolt \uu{p}
+\quad,\quad
+\sig(\x)=-\uuuu{C}\tvolt\tensP\tvolt \uu{p}}
+\tag{35}\]</span></span></p>
+<p>The strain tensor <span class="math inline">\(\eps\)</span> is uniform within <span class="math inline">\(\mathcal{E}\)</span> but implicitely depends on <span class="math inline">\(t\)</span> and the polarization tensor <span class="math inline">\(\tensP\)</span> extending to ageing viscoelasticity the elastic Hill polarization tensor (but acting here as a Volterra kernel or in other words a function of two time variables) writes</p>
+<p><span id="eq-viscoP1"><span class="math display">\[
+\wideeq{\tensP=\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\uuuu{\Gamma}(\uu{A}^{-1}\cdot\uv{\zeta})
+\ud S_{\uv{\zeta}}}
+\tag{36}\]</span></span></p>
+<p>or alternatively thanks to <a href="#eq-Gamma" class="quarto-xref">Eq.&nbsp;27</a>, <a href="#eq-varchange" class="quarto-xref">Eq.&nbsp;28</a> and <a href="#eq-zetaxi" class="quarto-xref">Eq.&nbsp;69</a></p>
+<p><span id="eq-viscoP2"><span class="math display">\[
+\wideeq{\tensP=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\sotimes\invvolt{(\uv{\xi}\cdot\uuuu{C}\cdot\uv{\xi})}
+\sotimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\uv{\xi}}}
+\tag{37}\]</span></span></p>
+<p>This general result recalls that <span class="math inline">\(\tensP\)</span> depends only on the shape and orientation of the ellipsoid and on the relaxation <span class="math inline">\(\uuuu{C}\)</span> of the reference medium. It is valid for any ellipsoid (even with three different radii) and possibly for an anisotropic tensor <span class="math inline">\(\uuuu{C}\)</span>. Nevertheless, as in elasticity, only few cases can lead to analytical expressions of <span class="math inline">\(\tensP\)</span>. In section <a href="#sec-isotropic" class="quarto-xref">Section&nbsp;4</a>, that of an isotropic relaxation tensor <span class="math inline">\(\uuuu{C}\)</span> is considered and a complete analytical expression of <span class="math inline">\(\tensP\)</span> is derived.</p>
+<p>By analogy with the elastic case, the ageing viscoelastic Eshelby tensor is defined by <span class="math inline">\(\uuuu{S}=\tensP\tvolt\uuuu{C}\)</span>. It is useful to relate the uniform strain tensor history within the ellipsoid subjected to a uniform eigenstrain history <span class="math inline">\(\eps^*\)</span></p>
+<p><span id="eq-Eshelbytensor"><span class="math display">\[
+\wideeq{\forall\,\x\in\mathcal{E}\quad
+\eps(\x)=\uuuu{S}\tvolt \eps^*=\tensP\tvolt\uuuu{C}\tvolt \eps^*}
+\tag{38}\]</span></span></p>
+<p>obtained thanks to the previous reasoning by introducing the polarization tensor <span class="math inline">\(\uu{p}=-\uuuu{C}\tvolt\eps^*\)</span> in <a href="#eq-soleps2" class="quarto-xref">Eq.&nbsp;35</a>.</p>
+</section>
+<section id="sec-inhomEshelby" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-inhomEshelby"><span class="header-section-number">3.3</span> Extension to the inhomogeneity problem</h2>
+<p>The resolution of the inhomogeneity problem may also be inspired by that of the elastic case combined with the previous result as in <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>. Indeed, instead of <a href="#eq-EshelbyEq2" class="quarto-xref">Eq.&nbsp;9</a> let us consider now that the infinite domain is subjected to a remote boundary condition of the type</p>
+<p><span id="eq-Hashin"><span class="math display">\[
+\wideeq{\uv{u}(\x,t)\underset{\norm{\x}\to\infty}{\sim} \uv{E}(t)\cdot\x}
+\tag{39}\]</span></span></p>
+<p>where <span class="math inline">\(\uv{E}(t)\)</span> is a given history of the macroscopic strain tensor. The relaxation tensor outside the ellipsoid <span class="math inline">\(\mathcal{E}\)</span> is still <span class="math inline">\(\uuuu{C}\)</span> but the material within <span class="math inline">\(\mathcal{E}\)</span> is now characterized by a different relaxation tensor denoted by <span class="math inline">\(\uuuu{C}^{\mathcal{E}}\)</span>. No polarization is considered here but</p>
+<p>the strain history solution <span class="math inline">\(\eps(t)\)</span> within <span class="math inline">\(\mathcal{E}\)</span> of the present problem can be built by considering the superposition in an infinite uniform medium of the uniform tensor <span class="math inline">\(\uv{E}(t)\)</span> and the response to a fictitious polarization of the form <span class="math inline">\((\uuuu{C}^{\mathcal{E}}-\uuuu{C})\tvolt\eps\)</span> within <span class="math inline">\(\mathcal{E}\)</span> assuming by anticipation that <span class="math inline">\(\eps(t)\)</span> remains uniform within <span class="math inline">\(\mathcal{E}\)</span>. Therefore it comes that</p>
+<p><span id="eq-inhomsol0"><span class="math display">\[
+\wideeq{\forall\,\x\in\mathcal{E}\quad
+\eps=\uv{E}-\tensP\tvolt(\uuuu{C}^{\mathcal{E}}-\uuuu{C})\tvolt\eps}
+\tag{40}\]</span></span></p>
+<p>and eventually</p>
+<p><span id="eq-inhomsol"><span class="math display">\[
+\wideeq{\forall\,\x\in\mathcal{E}\quad
+\eps=\uuuu{A}\tvolt \uv{E}
+\quad\textrm{with}\quad
+\uuuu{A}=
+\invvolt{\left(\heaviside \idq +\tensP\tvolt(\uuuu{C}^{\mathcal{E}}-\uuuu{C})
+\right)}}
+\tag{41}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{A}\)</span>, which depends on <span class="math inline">\((t,t')\)</span>, is the ageing viscoelastic counterpart of the concentration tensor prevailing in the elastic framework <span class="citation" data-cites="Zaoui02">[<a href="#ref-Zaoui02" role="doc-biblioref">48</a>]</span>. The uniformity of <span class="math inline">\(\eps\)</span> within <span class="math inline">\(\mathcal{E}\)</span> is then also ensured in the ageing viscoelastic framework: <span class="math inline">\(\eps\)</span> within <span class="math inline">\(\mathcal{E}\)</span> only depends on time.</p>
+<p>It is worth emphasizing again the fact that the result <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> is valid whatever the shape and orientation of the ellipsoid and whatever the anisotropy of the matrix and inhomogeneity behaviours. Nevertheless the case of an anisotropic matrix behaviour may prevent from determining <span class="math inline">\(\tensP\)</span> <a href="#eq-viscoP2" class="quarto-xref">Eq.&nbsp;37</a> in a simple form. On the contrary, when the matrix is isotropic, the determination of <span class="math inline">\(\tensP\)</span> is easy to obtain as shown in the next section, allowing then the calculation of the concentration tensor <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> even if <span class="math inline">\(\uuuu{C}^{\mathcal{E}}\)</span> is anisotropic (see <a href="#sec-Volterranum" class="quarto-xref">Section&nbsp;6.1</a> for practical calculations).</p>
+</section>
+</section>
+<section id="sec-isotropic" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Analytical expression of the viscoelastic Hill tensor associated to an isotropic infinite medium</h1>
+<p>The isotropy of the reference medium means that the tensor kernel <span class="math inline">\(\uuuu{C}(t,t')\)</span> can be decomposed by means of a bulk relaxation kernel <span class="math inline">\(k(t,t')\)</span> and a shear one <span class="math inline">\(\mu(t,t')\)</span></p>
+<p><span id="eq-Ciso"><span class="math display">\[
+\wideeq{\uuuu{C}(t,t')=3\,k(t,t')\,\J+2\,\mu(t,t')\,\K}
+\tag{42}\]</span></span></p>
+<p>where <span class="math inline">\(\J=(\idd\otimes\idd)/3\)</span> and <span class="math inline">\(\K=\idq-\J\)</span> denote the orthogonal projectors onto the spaces of respectively spherical and deviatoric symmetric second-order tensors. Introducing the conjugated orthogonal projectors <span class="math inline">\(\uv{\xi}\otimes\uv{\xi}\)</span> and <span class="math inline">\(\idd-\uv{\xi}\otimes\uv{\xi}\)</span> for any unit vector <span class="math inline">\(\uv{\xi}\)</span>, the following relationships</p>
+<p><span id="eq-xiJKxi"><span class="math display">\[
+\wideeq{\uv{\xi}\cdot\J\cdot\uv{\xi}=\frac{1}{3}\uv{\xi}\otimes\uv{\xi}
+\quad\textrm{and}\quad
+\uv{\xi}\cdot\K\cdot\uv{\xi}=
+\frac{2}{3}\uv{\xi}\otimes\uv{\xi}
++\frac{1}{2}(\idd-\uv{\xi}\otimes\uv{\xi})}
+\tag{43}\]</span></span></p>
+<p>allow to write the isotropic acoustic tensor and its inverse in the form</p>
+<p><span id="eq-Kiso"><span class="math display">\[
+\wideeq{\uu{K}(\uv{\xi})=\left(k+\frac{4}{3}\mu\right)\uv{\xi}\otimes\uv{\xi}
++\mu(\idd-\uv{\xi}\otimes\uv{\xi})}
+\tag{44}\]</span></span></p>
+<p><span id="eq-Niso"><span class="math display">\[
+\wideeq{\uu{N}(\uv{\xi})=
+\invvolt{\uu{K}(\uv{\xi})}=3\,
+\invvolt{\left(3\,k+4\,\mu\right)}\uv{\xi}\otimes\uv{\xi}
++\invvolt{\mu}(\idd-\uv{\xi}\otimes\uv{\xi})}
+\tag{45}\]</span></span></p>
+<p>Introducing <a href="#eq-Niso" class="quarto-xref">Eq.&nbsp;45</a> in <a href="#eq-viscoP2" class="quarto-xref">Eq.&nbsp;37</a> yields</p>
+<p><span id="eq-Piso"><span class="math display">\[
+\wideeq{\tensP=3\,
+\invvolt{\left(3\,k+4\,\mu\right)}
+\uuuu{Q}
++\invvolt{\mu}(\uuuu{R}-\uuuu{Q})}
+\tag{46}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-tensQ1"><span class="math display">\[
+\wideeq{\uuuu{Q}=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\uv{\xi}}}
+\tag{47}\]</span></span></p>
+<p><span id="eq-tensQ2"><span class="math display">\[
+\wideeq{=
+\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}
+\ud S_{\uv{\zeta}}
+\;\textrm{ with }\;
+\uv{\xi}=\frac{\uu{A}^{-1}\cdot\uv{\zeta}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}}
+\tag{48}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-tensR1"><span class="math display">\[
+\wideeq{\uuuu{R}=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\sotimes
+\idd
+\sotimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\uv{\xi}}}
+\tag{49}\]</span></span></p>
+<p><span id="eq-tensR2"><span class="math display">\[
+\wideeq{=
+\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\uv{\xi}\sotimes
+\idd
+\sotimes\uv{\xi}
+\ud S_{\uv{\zeta}}
+\;\textrm{ with }\;
+\uv{\xi}=\frac{\uu{A}^{-1}\cdot\uv{\zeta}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}}
+\tag{50}\]</span></span></p>
+<p>Remarkably the tensors <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> depend only on the shape and orientation of the ellipsoid through <span class="math inline">\(\uu{A}\)</span> and not on the material properties. They are consequently rigorously identical as those that can be used to express the Hill polarization tensor in the elastic framework. In the latter case, replacing the relaxation functions <span class="math inline">\(k\)</span> and <span class="math inline">\(\mu\)</span> by bulk and shear moduli and the inverse in the sense of Volterra by simple scalar inverse, <a href="#eq-Piso" class="quarto-xref">Eq.&nbsp;46</a> also provides the expression of <span class="math inline">\(\tensP\)</span> in the elastic case. For practical implementation, the components of <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> are explicited in <a href="#sec-tensQR" class="quarto-xref">Section&nbsp;10</a>.</p>
+<p>In the case of a spherical inclusion, the tensors <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> are simply derived by projection of the integrands of <a href="#eq-tensQ2" class="quarto-xref">Eq.&nbsp;48</a> and <a href="#eq-tensR2" class="quarto-xref">Eq.&nbsp;50</a> onto <span class="math inline">\(\J\)</span> and <span class="math inline">\(\K\)</span> <span class="citation" data-cites="Bornert2001Bornesa">[<a href="#ref-Bornert2001Bornesa" role="doc-biblioref">49</a>]</span></p>
+<p><span id="eq-QRisosph"><span class="math display">\[
+\wideeq{\uuuu{Q}=\frac{1}{3}\J+\frac{2}{15}\K
+\quad\textrm{and}\quad
+\uuuu{R}=\frac{1}{3}\idq=\frac{1}{3}\left(\J+\K\right)}
+\tag{51}\]</span></span></p>
+<p>It follows from <a href="#eq-Piso" class="quarto-xref">Eq.&nbsp;46</a> and <a href="#eq-Ciso" class="quarto-xref">Eq.&nbsp;42</a> that the viscoelastic Hill and Eshelby tensors associated to a spherical inclusion respectively write</p>
+<p><span id="eq-Pisosph"><span class="math display">\[
+\wideeq{\tensP=
+\invvolt{(3\,k+4\,\mu)}\volt
+\left(
+\heaviside\J+\frac{3}{5}(k+2\,\mu)\volt\invvolt{\mu}\K
+\right)}
+\tag{52}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-Sisosph"><span class="math display">\[
+\wideeq{\uuuu{S}=\tensP\tvolt\uuuu{C}=
+3\,\invvolt{(3\,k+4\,\mu)}\volt
+\left(
+k\J+\frac{2}{5}(k+2\,\mu)\K
+\right)}
+\tag{53}\]</span></span></p>
+</section>
+<section id="sec-valcons" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Consistency with known results</h1>
+<section id="sec-elasnonage" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-elasnonage"><span class="header-section-number">5.1</span> The elastic and non-ageing viscoelastic cases</h2>
+<p>All the previous results obtained in the very general framework of ageing linear viscoelastic behaviour and ellipsoidal inclusion are consistent with their well established counterparts in elasticity or non-ageing viscoelasticity.</p>
+<p>The consistency with the elastic behaviour is easily verified. Indeed, this behaviour corresponds to a relaxation tensor of the form <span class="math inline">\(\uuuu{C}(t,t')=\heaviside(t,t')\uuuu{C}^0\)</span> where <span class="math inline">\(\uuuu{C}^0\)</span> is the elastic stiffness tensor. As a consequence, <a href="#eq-viscoP2" class="quarto-xref">Eq.&nbsp;37</a> becomes</p>
+<p><span id="eq-viscoP2elas"><span class="math display">\[
+\wideeq{\tensP=\heaviside\,\tensP^0
+\textrm{ with }
+\tensP^0=
+\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\sotimes(\uv{\xi}\cdot\uuuu{C}^0\cdot\uv{\xi})^{-1}
+\sotimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\uv{\xi}}}
+\tag{54}\]</span></span></p>
+<p>where <span class="math inline">\(\tensP^0\)</span> is the well known elastic Hill tensor <span class="citation" data-cites="Mura87">[<a href="#ref-Mura87" role="doc-biblioref">47</a>]</span>. The other relationships <a href="#eq-Eshelbytensor" class="quarto-xref">Eq.&nbsp;38</a>, <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> or <a href="#eq-Piso" class="quarto-xref">Eq.&nbsp;46</a> give the corresponding elastic expressions by replacing the inverses and the tensor contractions in the sense of Volterra by classical inverses and tensor contractions and by multiplying the resulting fourth-order tensors by <span class="math inline">\(\heaviside\)</span>.</p>
+<p>The non-ageing viscoelastic case is almost as simple as the elastic one. As already mentioned in introduction, the correspondence principle can be applied to the set of equations characterizing the inclusion problem and the resolution in Laplace Transform Domain relies on the results already available in the elastic domain. But the objective here is to verify that the solution previously obtained by considering a general ageing behaviour is consistent with the particular non-ageing one. This verification is in fact straightforward by taking advantage of the properties of the Laplace-Carson transform (LCT) <span class="citation" data-cites="SalenconVisco">[<a href="#ref-SalenconVisco" role="doc-biblioref">42</a>]</span>. Indeed the LCT of a Volterra product with a non-ageing kernel, i.e. depending on the pair <span class="math inline">\((t,t')\)</span> only through the difference <span class="math inline">\(t-t'\)</span>, becomes the corresponding product between the LCT of each terms. In addition the LCT of identities and inverses in the sense of Volterra are the corresponding (tensor or scalar) identities and inverses in the usual sense applied in the Laplace Transform Domain. Hence, as expected, all the classical elastic results, in particular the expressions of the Hill and Eshelby tensors and those of the concentration rules, are retrieved in the Laplace domain by applying the LCT to all the previous equations of this article.</p>
+</section>
+<section id="sec-ageingsphere" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-ageingsphere"><span class="header-section-number">5.2</span> The ageing linear viscoelastic spherical inhomogeneity with isotropic phases</h2>
+<p>This particular case has been solved in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> using a direct displacement approach which eventually provides an explicit expression of the concentration tensor relating the strain tensor history within the sphere to the remote strain history. It is shown here that this tensor is exactly retrieved by <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> thanks to <a href="#eq-Pisosph" class="quarto-xref">Eq.&nbsp;52</a> as a function of the relaxation bulk and shear moduli of the matrix (<span class="math inline">\(k\)</span> and <span class="math inline">\(\mu\)</span>) and those of the spherical inhomogeneity (<span class="math inline">\(k^{\mathcal{E}}\)</span> and <span class="math inline">\(\mu^{\mathcal{E}}\)</span>)</p>
+<p><span id="eq-Asph"><span class="math display">\[
+\wideeq{\uuuu{A}(t,t')=A^J(t,t')\,\J+A^K(t,t')\,\K}
+\tag{55}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-AJ"><span class="math display">\[
+\wideeq{A^J=\invvolt{(3\,k^{\mathcal{E}}+4\,\mu)}\volt(3\,k+4\,\mu)}
+\tag{56}\]</span></span></p>
+<p><span id="eq-AK"><span class="math display">\[
+\wideeq{A^K=5\,\invvolt{\left(9\,k+8\,\mu+6(k+2\,\mu)\volt\invvolt{\mu}\volt
+\mu^{\mathcal{E}}\right)}\volt(3\,k+4\,\mu)}
+\tag{57}\]</span></span></p>
+<p>On the one hand the expression of <span class="math inline">\(A^J\)</span> obtained in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> is strictly identical to <a href="#eq-AJ" class="quarto-xref">Eq.&nbsp;56</a> but on the other hand the expression of <span class="math inline">\(A^K\)</span> provided in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> requires some algebraic manipulations developed in <a href="#sec-AK" class="quarto-xref">Section&nbsp;11</a> to lead to the more condensed relationship <a href="#eq-AK" class="quarto-xref">Eq.&nbsp;57</a>.</p>
+<p>Note that the well known elastic expressions recalled in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> are immediately retrieved by replacing the relaxation functions in <a href="#eq-AJ" class="quarto-xref">Eq.&nbsp;56</a> and <a href="#eq-AK" class="quarto-xref">Eq.&nbsp;57</a> by the elastic bulk and shear moduli and the Volterra products and inverses by usual products and inverses within the set of real numbers.</p>
+<p>It is worth emphasizing here that the scope of <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> is much wider in terms of inhomogeneity shape and behaviour since it can easily be applied to an anisotropic ellipsoidal inhomogeneity.</p>
+</section>
+<section id="sec-cstPoisson" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-cstPoisson"><span class="header-section-number">5.3</span> The case of a time-independent Poisson ratio</h2>
+<p>In <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>, the ageing viscoelastic Eshelby inclusion problem is solved for materials featuring a relaxation tensor <span class="math inline">\(\uuuu{C}\)</span> of the form described by <span class="citation" data-cites="Hilton1998">[<a href="#ref-Hilton1998" role="doc-biblioref">39</a>]</span></p>
+<p><span id="eq-fC"><span class="math display">\[
+\wideeq{\uuuu{C}(t,t')=f(t,t')\uuuu{C}^0}
+\tag{58}\]</span></span></p>
+<p>where <span class="math inline">\(f(t,t')\)</span> is a scalar function such that <span class="math inline">\(f(0,0)=1\)</span> and <span class="math inline">\(\uuuu{C}^0\)</span> is the instantaneous stiffness tensor at time <span class="math inline">\(t=0\)</span>. When <span class="math inline">\(\uuuu{C}^0\)</span> is isotropic, the relationship <a href="#eq-fC" class="quarto-xref">Eq.&nbsp;58</a> implies that <span class="math inline">\(\mu(t,t')/k(t,t')\)</span> does not depend on <span class="math inline">\((t,t')\)</span>, which means a constant viscoelastic Poisson ratio. Nevertheless, the following conclusion remains valid if <span class="math inline">\(\uuuu{C}^0\)</span> is anisotropic.</p>
+<p>On the one hand, for such a material, it is shown in <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span> that the ageing viscoelastic Eshelby tensor <span class="math inline">\(\uuuu{S}\)</span> is</p>
+<p><span id="eq-S0"><span class="math display">\[
+\wideeq{\uuuu{S}(t,t')=\heaviside(t,t')\uuuu{S}^0}
+\tag{59}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{S}^0\)</span> is the elastic Eshelby tensor associated to <span class="math inline">\(\uuuu{C}^0\)</span> and an ellipsoid of the same shape.</p>
+<p>On the other hand, introducing <a href="#eq-fC" class="quarto-xref">Eq.&nbsp;58</a> in the comprehensive expression <a href="#eq-viscoP2" class="quarto-xref">Eq.&nbsp;37</a> yields a polarization tensor of the form <span class="math inline">\(\invvolt{f}\tensP^0\)</span> where the constant tensor <span class="math inline">\(\tensP^0\)</span> writes as in <a href="#eq-viscoP2elas" class="quarto-xref">Eq.&nbsp;54</a>. Applying then the formula <a href="#eq-Eshelbytensor" class="quarto-xref">Eq.&nbsp;38</a> providing <span class="math inline">\(\uuuu{S}\)</span> with <a href="#eq-fC" class="quarto-xref">Eq.&nbsp;58</a> finally leads to the same expression as <a href="#eq-S0" class="quarto-xref">Eq.&nbsp;59</a>.</p>
+</section>
+</section>
+<section id="sec-valapp" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Practical implementation and validation</h1>
+<section id="sec-Volterranum" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-Volterranum"><span class="header-section-number">6.1</span> Numerical procedure to evaluate Volterra operators</h2>
+<p>The expressions of the Hill, Eshelby and strain concentration tensors established in this paper involve the Volterra operator and its inverse. In most practical cases, analytical evaluation is not tractable. Nevertheless, taking advantage of the algorithm proposed in <span class="citation" data-cites="Bazant1972">[<a href="#ref-Bazant1972" role="doc-biblioref">41</a>]</span>, it is possible to numerically evaluate the Volterra operator and its inverse. This approach, successfully used in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> on the concentration problem on a spherical inhomogeneity, is briefly recalled here for scalar functions.</p>
+<p>Considering that the value of all the involved functions of a single time variable is zero before <span class="math inline">\(t_0\)</span> and that the time interval of interest is <span class="math inline">\([t_0,t_n]\)</span>, a time sampling <span class="math inline">\(t_0 \leq t_1 \leq \ldots \leq t_n\)</span> is introduced and the time integral appearing in the Volterra operator <a href="#eq-Volterra" class="quarto-xref">Eq.&nbsp;2</a> is discretized using the trapezoidal rule</p>
+<p><span id="eq-trapez"><span class="math display">\[
+\wideeq{\begin{aligned}
+Y_i&amp;=&amp;\sum_{j=0}^i \frac{F(t_i,t_j)+F(t_i,t_{j-1})}{2}(X_j-X_{j-1})
+\quad(\forall\,0\leq i\leq n)\\
+&amp;=&amp;\frac{F(t_i,t_i)+F(t_i,t_{i-1})}{2} X_i
++\sum_{j=0}^{i-1}\frac{F(t_i,t_{j-1})-F(t_i,t_{j+1})}{2} X_j
+\end{aligned}}
+\tag{60}\]</span></span></p>
+<p>in which the conventions <span class="math inline">\(t_{-1}=t_0\)</span>, <span class="math inline">\(X_i=X(t_i)\)</span>, <span class="math inline">\(Y_i=Y(t_i)\)</span> for <span class="math inline">\(0\leq i \leq n\)</span> and <span class="math inline">\(X_{-1}=0\)</span> have been adopted.</p>
+<p>Thus, it follows that the function of two different times <span class="math inline">\(F(t,t')\)</span> playing the role of a Volterra kernel in <a href="#eq-Volterra" class="quarto-xref">Eq.&nbsp;2</a> is now transformed into a lower triangular matrix <span class="math inline">\([F]\)</span> of rank <span class="math inline">\(n+1\)</span> relating the vector <span class="math inline">\([Y]=[Y_0,\ldots,Y_n]\)</span> to <span class="math inline">\([X]=[X_0,\ldots,X_n]\)</span></p>
+<p><span id="eq-VolterraNum"><span class="math display">\[
+\wideeq{[Y]=[F] [X]
+\quad\textrm{with}\quad
+F_{ij}=
+\left\{
+\begin{array}{ll}
+0 &amp; \textrm{if}\; j&gt;i\\
+\Big(F(t_i,t_i)+F(t_i,t_{i-1})\Big)/2 &amp; \textrm{if}\;j=i\\
+\Big(F(t_i,t_{j-1})-F(t_i,t_{j+1})\Big)/2 &amp; \textrm{if}\;j&lt;i
+\end{array}
+\right.}
+\tag{61}\]</span></span></p>
+<p>still with the convention <span class="math inline">\(t_{-1}=t_0\)</span>.</p>
+<p>As already presented in <span class="citation" data-cites="Lavergne2015">[<a href="#ref-Lavergne2015" role="doc-biblioref">8</a>]</span>, the previous methodology can be extended to tensor functions in order to build the numerical counterparts to expressions such as <a href="#eq-VolterraTcomp" class="quarto-xref">Eq.&nbsp;3</a>, <a href="#eq-VolterraV" class="quarto-xref">Eq.&nbsp;4</a> or even <a href="#eq-inhomsol" class="quarto-xref">Eq.&nbsp;41</a> especially in the case of geometrical or physical anisotropy of the inhomogeneity. Indeed the expressions <a href="#eq-trapez" class="quarto-xref">Eq.&nbsp;60</a> are also valid for tensor variables <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> and <span class="math inline">\(F\)</span> provided that the scalar multiplications be replaced by adequate tensor contractions. In addition, tensor contractions can be seen as matrix-vector multiplications involving components in a particular vector frame. It is worth recalling here that the Voigt or the Kelvin-Mandel notations allow to represent strain or stress tensors as vectors of <span class="math inline">\(6\)</span> components depending on time and to represent the relaxation, creep or even concentration tensor kernels as <span class="math inline">\(6\times6\)</span> matrices of functions of two time variables. As a consequence and taking into account the matrix or vector representations of tensors in a given frame, the matrix-vector product <a href="#eq-VolterraNum" class="quarto-xref">Eq.&nbsp;61</a> remains also valid but should be considered in the sense of a block matrix operation since the <span class="math inline">\(i^{\mathrm{th}}\)</span> component of <span class="math inline">\([X]\)</span> (resp. <span class="math inline">\([Y]\)</span>) contains itself a vector of <span class="math inline">\(X\)</span> (resp. <span class="math inline">\(Y\)</span>) at time <span class="math inline">\(t_i\)</span> and each component of the matrix <span class="math inline">\([F]\)</span> represents a block matrix computed with the relationships <a href="#eq-VolterraNum" class="quarto-xref">Eq.&nbsp;61</a> applied on the tensor kernel <span class="math inline">\(F\)</span>. For example, <a href="#eq-VolterraTcomp" class="quarto-xref">Eq.&nbsp;3</a> becomes a matrix-vector product in a space of dimension <span class="math inline">\(6(n+1)\)</span> in which the matrix is lower triangular and contains <span class="math inline">\((n+1)\times(n+1)\)</span> blocks of <span class="math inline">\(6\times 6\)</span> submatrices. Alternatively the block matrix operations can also be built by means of a <span class="math inline">\(6\times 6\)</span> matrix of <span class="math inline">\((n+1)\times(n+1)\)</span> block matrices if the components corresponding to space and time are reordered. The inverse of a tensor kernel in the sense of Volterra simply becomes a matrix inverse in this numerical procedure.</p>
+<p>Thus, practical implementation of the results derived in this paper is straightforward and only requires</p>
+<ul>
+<li>to time-discretize relaxation functions into matrices using <a href="#eq-VolterraNum" class="quarto-xref">Eq.&nbsp;61</a>,</li>
+<li>to implement expressions of the Hill and concentration tensors, replacing the Volterra operator and its inverse by matrix multiplication and inversion, using any software package implementing numerical matrix algebra.</li>
+</ul>
+</section>
+<section id="sec-oblateFEM" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-oblateFEM"><span class="header-section-number">6.2</span> Validation of the strain concentration tensor with respect to FEM computations</h2>
+<p>Apart form the well known elastic or non ageing cases (section <a href="#sec-elasnonage" class="quarto-xref">Section&nbsp;5.1</a>), and the spherical inhomogeneity with ageing case (section <a href="#sec-ageingsphere" class="quarto-xref">Section&nbsp;5.2</a>), reference results in more general situations can be obtained resorting to numerical computations.</p>
+<p>The concentration problem is solved here in ageing linear viscoelasticity, for an oblate spheroid of axis <span class="math inline">\(\uv{e}_3\)</span> and aspect ratio 0.2, using the Code_Aster <span class="citation" data-cites="www_aster">[<a href="#ref-www_aster" role="doc-biblioref">50</a>]</span> finite element code. A spheroid of radii <span class="math inline">\(a=b=5\)</span>, <span class="math inline">\(c=1\)</span> is embedded into a box <span class="math inline">\(\Omega\)</span> which half lengthes are <span class="math inline">\(\chi_\Omega\)</span> times the spheroid radii. Uniform strain type boundary conditions following a macroscopic strain step are imposed, and the evolution of the average strain in the inhomogeneity is sought. The six independent components of the concentration tensor are obtained by considering six elementary orientations of the macroscopic strain. Taking advantage of the axisymmetric nature of the geometry, some computations can be performed in 2D axisymmetric conditions. Besides, taking advantage of the three symmetry planes, only one eight of the domain needs to be meshed (one half in the 2D axisymmetric case). Thus, 2D and 3D quadratic meshes have been prepared, using the Salome <span class="citation" data-cites="www_salome">[<a href="#ref-www_salome" role="doc-biblioref">51</a>]</span> platform, ensuring similar element sizes in critical zones of the computation domain as detailed hereafter. The numerical parameters affecting accuracy are the relative size <span class="math inline">\(\chi_\Omega\)</span> of the computing domain (which is not infinite, in contrary to the Eshelby problem), and mesh refinement.</p>
+<p>A preliminary convergence analysis is performed, considering (see details in <a href="#tbl-mesh_stat" class="quarto-xref">Table&nbsp;1</a>)</p>
+<ul>
+<li>three relative domain sizes: <span class="math inline">\(\chi_\Omega=10\)</span>, <span class="math inline">\(20\)</span> and <span class="math inline">\(40\)</span>,</li>
+<li>three sets of meshes: coarse, medium and fine. The meshes are refined around the inhomogeneity and especially around the highest curvature zone of the interface (<a href="#fig-loc_oblate_meshes" class="quarto-xref">Fig.&nbsp;1</a>).</li>
+</ul>
+<p>This analysis is restricted to elastic behaviours (see elastic characteristics of inhomogeneity and matrix in <a href="#tbl-compliance_params_mat_inc" class="quarto-xref">Table&nbsp;2</a>), to use the classical Eshelby result as a reference. The relative errors on components <span class="math inline">\(1133\)</span> and <span class="math inline">\(3333\)</span> of the strain concentration tensor are plotted on <a href="#fig-conv_analysis_elast" class="quarto-xref">Fig.&nbsp;2</a>. The relative domain size <span class="math inline">\(\chi_\Omega\)</span> is found to have a much larger influence on accuracy than mesh refinement. Similar trends are found on the other components of the strain concentration tensor.</p>
+<p>Thus, the ageing linear viscoelastic numerical computations, subsequently used as references, are performed on the largest domain (<span class="math inline">\(\chi_\Omega=40\)</span>) and with the medium mesh, as a compromise to keep computing times reasonable.</p>
+<div id="tbl-mesh_stat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mesh_stat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Number of nodes (nod.) and elements (el.) in the considered quadratic meshes. The twelve data columns are grouped by relative domain size <span class="math inline">\(\chi_\Omega=10,\,20,\,40\)</span> (four columns each), and within each group by 2D-axisymmetric then 3D mesh.
+</figcaption>
+<div aria-describedby="tbl-mesh_stat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">mesh</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+<th style="text-align: right;">nod.</th>
+<th style="text-align: right;">el.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">coarse</td>
+<td style="text-align: right;">474</td>
+<td style="text-align: right;">213</td>
+<td style="text-align: right;">16962</td>
+<td style="text-align: right;">11094</td>
+<td style="text-align: right;">462</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: right;">10236</td>
+<td style="text-align: right;">6492</td>
+<td style="text-align: right;">418</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">6753</td>
+<td style="text-align: right;">4145</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">medium</td>
+<td style="text-align: right;">976</td>
+<td style="text-align: right;">453</td>
+<td style="text-align: right;">36537</td>
+<td style="text-align: right;">24452</td>
+<td style="text-align: right;">924</td>
+<td style="text-align: right;">427</td>
+<td style="text-align: right;">23283</td>
+<td style="text-align: right;">15205</td>
+<td style="text-align: right;">891</td>
+<td style="text-align: right;">410</td>
+<td style="text-align: right;">18582</td>
+<td style="text-align: right;">12044</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fine</td>
+<td style="text-align: right;">3802</td>
+<td style="text-align: right;">1835</td>
+<td style="text-align: right;">161373</td>
+<td style="text-align: right;">112311</td>
+<td style="text-align: right;">3533</td>
+<td style="text-align: right;">1700</td>
+<td style="text-align: right;">113106</td>
+<td style="text-align: right;">77959</td>
+<td style="text-align: right;">3401</td>
+<td style="text-align: right;">1632</td>
+<td style="text-align: right;">91576</td>
+<td style="text-align: right;">62695</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-loc_oblate_meshes" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loc_oblate_meshes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/oblate_medium_quad_2daxi_tout.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/oblate_medium_quad_3d_tout.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loc_oblate_meshes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: 2D axisymmetric (left) and 3D (right) medium meshes for <span class="math inline">\(\chi_\Omega=10\)</span>: global view (top) and detailed view on inhomogeneity (bottom).
+</figcaption>
+</figure>
+</div>
+<div id="fig-conv_analysis_elast" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-conv_analysis_elast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/conv_analysis_elast_A1133.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/conv_analysis_elast_A3333.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conv_analysis_elast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Relative error on selected components of the strain concentration tensor, with elastic behaviours, between FEM computations and the analytical reference result from Eshelby, using 3 different mesh refinements and 3 different domain sizes.
+</figcaption>
+</figure>
+</div>
+<p>As it is the only ageing linear viscoelastic behaviour available in Code_Aster, the Granger model <span class="citation" data-cites="these_granger">[<a href="#ref-these_granger" role="doc-biblioref">52</a>]</span> is adopted for both matrix and inhomogeneity. A constant Poisson ratio is assumed:</p>
+<p><span id="eq-compliance_granger_tens"><span class="math display">\[
+\wideeq{\uuuu{L}(t,t') = L_E(t,t') \left[
+(1-2\nu) \J + (1+\nu) \K
+\right]}
+\tag{62}\]</span></span></p>
+<p>The uniaxial compliance is here defined with two Kelvin chains, and an arbitrary ageing function <span class="math inline">\(f_a(t')\)</span>:</p>
+<p><span id="eq-compliance_granger_uniax"><span class="math display">\[
+\wideeq{L_E(t,t') = \frac{1}{E} + f_a(t')
+\sum_{i=1}^{2} s_i \left(1 - \mathrm{e}^{-\frac{t-t'}{\tau_i}}\right)
+\quad\textrm{with}\quad
+f_a(t') = \mathrm{e}^{-\left(\frac{t'}{\tau_{a}}\right)^2}}
+\tag{63}\]</span></span></p>
+<p>Arbitrary material parameters are chosen with the inhomogeneity stiffer than the matrix (see <a href="#tbl-compliance_params_mat_inc" class="quarto-xref">Table&nbsp;2</a>). Bulk and shear compliance functions of both matrix and inhomogeneity phases are plotted in <a href="#fig-loc_oblate" class="quarto-xref">Fig.&nbsp;3</a>.</p>
+<div id="tbl-compliance_params_mat_inc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-compliance_params_mat_inc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Material properties of matrix and inhomogeneity phases (arbitrary units).
+</figcaption>
+<div aria-describedby="tbl-compliance_params_mat_inc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(\nu\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(E\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(s_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(s_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\tau_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\tau_2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\tau_a\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">matrix</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">inhomogeneity</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">0.7</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-loc_oblate" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loc_oblate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/Jkg_mat.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/Jkg_inc.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loc_oblate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Bulk (plain lines) and shear (dashed lines) compliance functions of matrix and inhomogeneity phases, for <span class="math inline">\(t'=0, 10, 20, 30, 40, 50\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>The six independent components of the strain concentration tensor are plotted in <a href="#fig-loc_oblate_1" class="quarto-xref">Fig.&nbsp;4</a> and <a href="#fig-loc_oblate_2" class="quarto-xref">Fig.&nbsp;5</a>. The latter are functions of <span class="math inline">\((t,t')\)</span> and correspond to the uniform strain arising in the inhomogeneity at <span class="math inline">\(t\)</span> for a unit strain step occurring at <span class="math inline">\(t'\)</span> at the domain boundary. The semi-analytical result put in evidence in this paper agrees very well with reference FEM computations for all the six components and is able to capture all the details of non-monotonic evolutions.</p>
+<div id="fig-loc_oblate_1" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loc_oblate_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1111_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1111_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1122_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1122_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1133_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a1133_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loc_oblate_1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Components of strain concentration tensor: Eshelby and FEM (medium mesh) results, for <span class="math inline">\(t'=0, 10, 20, 30, 40, 50\)</span>. Right: zoom on small <span class="math inline">\(t\)</span>, for <span class="math inline">\(t'=0\)</span>; FEM results for the medium mesh and the 3 investigated domain sizes are plotted with dotted/dashed lines.
+</figcaption>
+</figure>
+</div>
+<div id="fig-loc_oblate_2" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loc_oblate_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a3311_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a3311_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a3333_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a3333_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a2323_compar_oblate.svg" class="img-fluid figure-img"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="figures/loc_a2323_compar_oblate_zoom.svg" class="img-fluid figure-img"></p>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loc_oblate_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Components of strain concentration tensor: Eshelby and FEM (medium mesh) results, for <span class="math inline">\(t'=0, 10, 20, 30, 40, 50\)</span>. Right: zoom on small <span class="math inline">\(t\)</span>, for <span class="math inline">\(t'=0\)</span>; FEM results for the medium mesh and the 3 investigated domain sizes are plotted with dotted/dashed lines.
+</figcaption>
+</figure>
+</div>
+<p>Regarding convergence analysis of FEM results, trends similar to the elastic case are found:</p>
+<ul>
+<li>the relative domain size <span class="math inline">\(\chi_\Omega\)</span> has a large impact on accuracy (see details in the right part of <a href="#fig-loc_oblate_1" class="quarto-xref">Fig.&nbsp;4</a> and <a href="#fig-loc_oblate_2" class="quarto-xref">Fig.&nbsp;5</a>), especially on components <span class="math inline">\(1122\)</span>, <span class="math inline">\(1133\)</span> and <span class="math inline">\(3311\)</span>,</li>
+<li>the mesh refinement has a much lesser impact on accuracy (<a href="#fig-loc_oblate_1_mesh_effect" class="quarto-xref">Fig.&nbsp;6</a>), suggesting that ageing linear viscoelastic computations on the fine mesh would not provide significant improvements.</li>
+</ul>
+<div id="fig-loc_oblate_1_mesh_effect" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loc_oblate_1_mesh_effect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/loc_a1133_compar_oblate_zoom_effet_maillage.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loc_oblate_1_mesh_effect-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Component <span class="math inline">\(1133\)</span> of strain concentration tensor: Eshelby and FEM results (coarse and medium mesh, 3 domain sizes), for <span class="math inline">\(t'=0\)</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-LCGS" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-LCGS"><span class="header-section-number">6.3</span> Performance of the present numerical method based on quadrature in time domain compared to the correspondence principle in the non-ageing case</h2>
+<p>In order to assess the performance of the numerical procedure based on the trapezoidal rule (<span class="citation" data-cites="Bazant1972">[<a href="#ref-Bazant1972" role="doc-biblioref">41</a>]</span>, <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span>) presented in this paper to calculate the viscoelastic concentration tensor of the Eshelby problem, a comparison with an alternative technique based on the correspondence principle (Laplace-Carson) is proposed for the non-ageing case. To this aim, the hypotheses of the concentration problem presented in the previous section devoted to FEM computations are considered again except that the ageing functions in <a href="#eq-compliance_granger_uniax" class="quarto-xref">Eq.&nbsp;63</a> are replaced by <span class="math inline">\(1\)</span>.</p>
+<p>On the one hand, the Laplace-Carson transforms of the elementary behaviours modelled as Kelvin chains have very simple analytical forms. The concentration problem becomes elastic in the Laplace domain and the application of the Gaver-Stehfest algorithm (see <span class="citation" data-cites="Stehfest1970">[<a href="#ref-Stehfest1970" role="doc-biblioref">53</a>]</span>) allows to come back to the time domain and to express the six independent components of the concentration tensor at any time. If <span class="math inline">\(N\)</span> denotes the number of times at which the latter is calculated, it comes that the complexity of this technique is <span class="math inline">\(\mathcal{O}(N)\)</span> since the number of calls of the elastic problem with the Gaver-Stehfest algorithm at each time is limited.</p>
+<p>On the other hand, the procedure developped in the present paper allows to compute the whole history (with respect to the chosen discrete set of times) of the concentration tensor in only one calculation. As shown in the paper the latter requires to inverse lower triangular block matrices of rank <span class="math inline">\(6N\)</span> which is the most time consuming step of the procedure. It follows that the expected complexity is at best <span class="math inline">\(\mathcal{O}(N^2)\)</span>.</p>
+<p>Both techniques have been implemented in Python 2.7 codes and performed on only one core of an Intel i7-3840QM CPU @ 2.80GHz with 8Gb of RAM. The Gaver-Stehfest algorithm has been used with parameter <span class="math inline">\(M=8\)</span> (summation on <span class="math inline">\(2
+M = 16\)</span>, see <span class="citation" data-cites="Stehfest1970">[<a href="#ref-Stehfest1970" role="doc-biblioref">53</a>]</span>). It must be precised that both methods perfectly coincide, even for the lowest number of times (<span class="math inline">\(N = 150\)</span> between <span class="math inline">\(t = 0\)</span> and <span class="math inline">\(t = 10\)</span>). The evolutions of the concentration tensor are not presented because they are identical to the ones appearing in right <a href="#fig-loc_oblate_1" class="quarto-xref">Fig.&nbsp;4</a> and <a href="#fig-loc_oblate_2" class="quarto-xref">Fig.&nbsp;5</a>. The computing time is plotted against the size of time sampling in <a href="#fig-comp_times_bazant_lc" class="quarto-xref">Fig.&nbsp;7</a>. The results are consistent with the expected complexities evoked in the previous paragraphs. In particular, it appears that the method based on the use of the correspondence principle is more efficient. Nevertheless, this method is designed only for non-ageing behaviours whereas the approach proposed in this paper is more general since it can address the ageing case. Moreover, as recalled in introduction, it should be kept in mind that the algorithms allowing to calculate the inverse of the Laplace transform suffer from several shortcomings and should be carefully adapted to the function to inverse.</p>
+<div id="fig-comp_times_bazant_lc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp_times_bazant_lc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/tps_calc_bazant_lc.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp_times_bazant_lc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Comparison of computation time required to compute the viscoelastic concentration tensor with the approach proposed in this paper (quadrature in time domain), or with the correspondence principle (Laplace-Carson) resorting to numerical Laplace transform inversion using the Gaver-Stehfest algorithm <span class="citation" data-cites="Stehfest1970">[<a href="#ref-Stehfest1970" role="doc-biblioref">53</a>]</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-conclu" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Concluding remarks</h1>
+<p>In this paper, the complete solution to the Eshelby problem of an ellipsoidal inclusion submitted to a uniform polarization history and embedded in an infinite matrix has been derived in the general framework of ageing linear viscoelasticity. In particular it has been proven that the strain state and subsequently the stress state are uniform within the ellipsoid and depend only on time. The structure of the solution is similar to that of the elastic case provided that tensor contractions be replaced by Volterra products: the strain tensor is related to the polarization tensor thanks to a polarization fourth-order Volterra kernel generalizing the elastic Hill polarization tensor. Furthermore, this polarization kernel writes as an integral over the unit sphere of a function depending on the shape of the ellipsoid and of the viscoelastic counterpart of the elastic acoustic tensor of the matrix. In addition, generalizations to ageing linear viscoelasticity of the Eshelby tensor and of the concentration tensor in the case of an ellipsoidal inhomogeneity are provided. Complete analytical expressions of the Hill polarization kernel are determined in the case of an isotropic matrix. The theoretical calculations of the paper are then compared to several published results in order to verify their consistency in particular cases (elasticity, non-ageing viscoelasticity, spherical inclusion). Finally, after recalling an efficient numerical procedure to evaluate Volterra operators, solutions in the case of an ageing spheroidal inhomogeneity in an ageing matrix are very satisfactorily compared to finite element simulations.</p>
+<p>The generalization of Eshelby’s results to ageing linear viscoelasticity as presented in this paper combined with the numerical procedure to evaluate Volterra operators opens a new way to tackle upscaling problems of random media made up with general ageing linear viscoelastic constituents of anisotropic shape. Indeed it becomes rather straightforward to implement classical schemes such as the Mori-Tanaka (for an isotropic matrix) or the self-consistent ones (by means of an iterative fixed-point procedure for a macroscopically isotropic material so as to keep an isotropic fictitious matrix at each iteration) in order to estimate the macroscopic properties of heterogeneous materials with ageing linear viscoelastic random microstructure. As in the elastic framework, the particular case of cracks deserves a special attention: it is currently under investigation and is the topic of a paper in preparation.</p>
+</section>
+<section id="acknowledgements" class="level1 unnumbered">
+<h1 class="unnumbered">Acknowledgements</h1>
+<p>The first author (J.-F. Barth'el'emy) expresses his gratitude to Dr.&nbsp;S. Cariou for fruitful discussions and her encouragement during the course of this work.</p>
+<p>The second author (A. Giraud) gratefully acknowledges the support from TAMER European project (Trans-Atlantic Micromechanics Evolving Research Materials containing inhomogeneities of diverse physical properties, shapes and orientations), FP7 Project TAMER IRSES-GA-2013-610547.</p>
+</section>
+<section id="sec-planewave" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Proof of the plane-wave expansion <a href="#eq-deltadec" class="quarto-xref">Eq.&nbsp;12</a></h1>
+<p>The starting point of the proof is the relationship</p>
+<p><span id="eq-deltadec0"><span class="math display">\[
+\wideeq{\frac{1}{\norm{\x}}=\frac{1}{2\pi}\int_{\norm{\uv{\xi}}=1}
+\dirac(\uv{\xi}\cdot\uv{x})\ud S_{\uv{\xi}}}
+\tag{64}\]</span></span></p>
+<p>obtained by introducing spherical coordinates <span class="math inline">\((\theta,\varphi)\)</span> of <span class="math inline">\(\uv{\xi}\)</span> such that <span class="math inline">\(z=\uv{\xi}\cdot\uv{x}=\norm{\x}\cos\theta\)</span>. The change of variable <span class="math inline">\((\theta,\varphi)\mapsto(z,\varphi)\)</span> allows to write the right hand side of <a href="#eq-deltadec0" class="quarto-xref">Eq.&nbsp;64</a> under the form</p>
+<p><span id="eq-deltadec1"><span class="math display">\[
+\wideeq{\frac{1}{2\pi}\int_{\norm{\uv{\xi}}=1}
+\dirac(\uv{\xi}\cdot\uv{x})\ud S_{\uv{\xi}}
+=\int_{\varphi=0}^{2\pi}\frac{\ud\varphi}{2\pi}
+\int_{z=-\norm{\x}}^{\norm{\x}}\frac{\dirac(z)}{\norm{\x}}\ud z}
+\tag{65}\]</span></span></p>
+<p>which leads to the relationship <a href="#eq-deltadec0" class="quarto-xref">Eq.&nbsp;64</a> thanks to the property of the Dirac distribution <span class="math inline">\(\dirac\)</span> (<span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>, <span class="citation" data-cites="Gelfand64">[<a href="#ref-Gelfand64" role="doc-biblioref">45</a>]</span>).</p>
+<p>Finally taking the Laplacian with respect to the variable <span class="math inline">\(\x\)</span> to each side of <a href="#eq-deltadec0" class="quarto-xref">Eq.&nbsp;64</a> and recalling that <span class="math inline">\(\norm{\uv{\xi}}=1\)</span> and <span class="math inline">\(\Delta\left({1}/{\norm{\x}}\right)=-4\pi\dirac\)</span> (three-dimensional Poisson formula <span class="citation" data-cites="Schwartz66">[<a href="#ref-Schwartz66" role="doc-biblioref">44</a>]</span>), the relationship <a href="#eq-deltadec" class="quarto-xref">Eq.&nbsp;12</a> is retrieved.</p>
+</section>
+<section id="sec-chdS" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Change of variable over the unit sphere</h1>
+<p>This appendix aims at studying the change of variable from the unit sphere to itself <span class="math inline">\(\uv{\zeta}\mapsto\uv{\xi}=\uu{A}^{-1}\cdot\uv{\zeta}
+/\norm{\uu{A}^{-1}\cdot\uv{\zeta}}\)</span> with <span class="math inline">\(\uu{A}\)</span> a symmetric second-order tensor and more specifically at proving the relationship <a href="#eq-dvarchange" class="quarto-xref">Eq.&nbsp;29</a> between the infinitesimal surface elements <span class="math inline">\(\ud S_{\uv{\xi}}\)</span> and <span class="math inline">\(\ud
+S_{\uv{\zeta}}\)</span>.</p>
+<p>By differentation, the infinitesimal vectors are related by</p>
+<p><span id="eq-dxidzeta"><span class="math display">\[
+\wideeq{\ud \uv{\xi}=(\idd-\uv{\xi}\otimes\uv{\xi})\cdot
+\frac{\uu{A}^{-1}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}\cdot\ud\uv{\zeta}}
+\tag{66}\]</span></span></p>
+<p>This corresponds to the application of a transformation gradient <span class="math inline">\(\uu{A}^{-1}/\norm{\uu{A}^{-1}\cdot\uv{\zeta}}\)</span> followed by an orthogonal projection onto the plane of normal <span class="math inline">\(\uv{\xi}\)</span>. The infinitesimal surface elements are then related by</p>
+<p><span id="eq-dsxidszeta"><span class="math display">\[
+\wideeq{\ud S_{\uv{\xi}}=\frac{\det{\uu{A}^{-1}}}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^2}\,
+\uv{\xi}\cdot\uu{A}\cdot\uv{\zeta}
+\ud S_{\uv{\zeta}}}
+\tag{67}\]</span></span></p>
+<p>The definition of the unit vectors <span class="math inline">\(\uv{\xi}\)</span> and <span class="math inline">\(\uv{\zeta}\)</span> implies</p>
+<p><span id="eq-xiAzeta"><span class="math display">\[
+\wideeq{\uv{\xi}\cdot\uu{A}\cdot\uv{\zeta}
+=\uv{\zeta}\cdot\uu{A}\cdot\uv{\xi}
+=\frac{\norm{\uv{\zeta}}^2}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}
+=\frac{1}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}}}
+\tag{68}\]</span></span></p>
+<p>which ends the proof by inserting <a href="#eq-xiAzeta" class="quarto-xref">Eq.&nbsp;68</a> in <a href="#eq-dsxidszeta" class="quarto-xref">Eq.&nbsp;67</a>. It is worth precising that the following relationships are similarly obtained</p>
+<p><span id="eq-zetaxi"><span class="math display">\[
+\wideeq{\uv{\zeta}=\frac{\uu{A}\cdot\uv{\xi}}{\norm{\uu{A}\cdot\uv{\xi}}}
+\quad\textrm{and}\quad
+\ud S_{\uv{\zeta}}
+=\frac{\det{\uu{A}}}{\norm{\uu{A}\cdot\uv{\xi}}^3}\,
+\ud S_{\uv{\xi}}}
+\tag{69}\]</span></span></p>
+<p>It may be noticed that this change of variable has been considered in <span class="citation" data-cites="Mura87">[<a href="#ref-Mura87" role="doc-biblioref">47</a>]</span> and the relationship between surface elements has been obtained by a reasoning on components (see (16.10), (17.09) and (17.10) in <span class="citation" data-cites="Mura87">[<a href="#ref-Mura87" role="doc-biblioref">47</a>]</span>).</p>
+</section>
+<section id="sec-tensQR" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Tensors <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> and Newtonian potential</h1>
+<p>The dependence of <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> on <span class="math inline">\(\uu{A}\)</span> implies that those tensors are orthotropic in the frame <span class="math inline">\((\uv{e}_1,\uv{e}_2,\uv{e}_3)\)</span> defining the ellipsoid <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;6</a>. The non-zero components of <span class="math inline">\(\uuuu{Q}\)</span> and <span class="math inline">\(\uuuu{R}\)</span> in this frame are given by (the summation over repeated indices is <em>not</em> applied in what follows)</p>
+<p><span id="eq-Qiiii"><span class="math display">\[
+\wideeq{Q_{iiii}=\frac{3(I_i-\rho_i^2I_{ii})}{2}
+\quad\forall\, i\in\{1,2,3\}}
+\tag{70}\]</span></span></p>
+<p><span id="eq-Qiijj"><span class="math display">\[
+\wideeq{Q_{iijj}=Q_{ijij}=Q_{ijji}=\frac{I_j-\rho_i^2I_{ij}}{2}
+=\frac{I_i-\rho_j^2I_{ij}}{2}
+\quad\forall\, i\neq j\in\{1,2,3\}}
+\tag{71}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-Riiii"><span class="math display">\[
+\wideeq{R_{iiii}=I_i\quad\forall\, i\in\{1,2,3\}}
+\tag{72}\]</span></span></p>
+<p><span id="eq-Riijj"><span class="math display">\[
+\wideeq{R_{ijij}=R_{ijji}=\frac{I_i+I_j}{4}
+\quad\forall\, i\neq j\in\{1,2,3\}}
+\tag{73}\]</span></span></p>
+<p>The coefficients <span class="math inline">\(I_i\)</span> and <span class="math inline">\(I_{ij}\)</span> used in <a href="#eq-Qiiii" class="quarto-xref">Eq.&nbsp;70</a>, <a href="#eq-Qiijj" class="quarto-xref">Eq.&nbsp;71</a>, <a href="#eq-Riiii" class="quarto-xref">Eq.&nbsp;72</a> and <a href="#eq-Riijj" class="quarto-xref">Eq.&nbsp;73</a> are adapted from those provided in <span class="citation" data-cites="Kellogg29">[<a href="#ref-Kellogg29" role="doc-biblioref">54</a>]</span> and <span class="citation" data-cites="Eshelby57">[<a href="#ref-Eshelby57" role="doc-biblioref">1</a>]</span> (i.e.&nbsp;differ by a factor of <span class="math inline">\(4\pi/3\)</span> for <span class="math inline">\(I_{ij}\)</span> with <span class="math inline">\(i\neq j\)</span> and by <span class="math inline">\(4\pi\)</span> for the others). Assuming that <span class="math inline">\(\rho_1\geq \rho_2\geq \rho_3\)</span> without loss of generality and renaming <span class="math inline">\(\rho_1=a\)</span>, <span class="math inline">\(\rho_2=b\)</span> and <span class="math inline">\(\rho_3=c\)</span> when useful for a better readability of the following formulas, different cases are considered</p>
+<ul>
+<li><p>if <span class="math inline">\(a &gt; b &gt; c\)</span></p>
+<p><span id="eq-I1"><span class="math display">\[
+\wideeq{I_1=\frac{a\,b\,c}{(a^2-b^2)\,\sqrt{a^2-c^2}}\,
+      \left(\mathcal{F}-\mathcal{E}\right)}
+\tag{74}\]</span></span></p>
+<p><span id="eq-I3"><span class="math display">\[
+\wideeq{I_3=\frac{a\,b\,c}{(b^2-c^2)\,\sqrt{a^2-c^2}}\,
+      \left(\frac{b\,\sqrt{a^2-c^2}}{a\,c}-
+      \mathcal{E}\right)}
+\tag{75}\]</span></span></p>
+<p><span id="eq-I2"><span class="math display">\[
+\wideeq{I_2=1-I_1-I_3}
+\tag{76}\]</span></span></p>
+<p><span id="eq-Iii"><span class="math display">\[
+\wideeq{\begin{aligned}
+I_{ij}&amp;=&amp;\frac{I_j-I_i}{\rho_i^2-\rho_j^2}\quad\forall\, i\neq j\in\{1,2,3\}\\
+I_{ii}&amp;=&amp;\frac{1}{3}\left(
+      \frac{1}{\rho_i^2}-
+        \sum_{j\neq i}I_{ij} \right)
+        \quad\forall\, i\in\{1,2,3\}
+\end{aligned}}
+\tag{77}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{F}=\mathcal{F}(\theta,\kappa)\)</span> and <span class="math inline">\(\mathcal{E}=\mathcal{E}(\theta,\kappa)\)</span> are respectively the elliptic integrals of the first and second kinds of amplitude and parameter</p>
+<p><span id="eq-ampmod"><span class="math display">\[
+\wideeq{\theta=\arcsin{\sqrt{1-\frac{c^2}{a^2}}}
+    \quad;\quad
+    \kappa=\sqrt{\frac{a^2-b^2}{a^2-c^2}}}
+\tag{78}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a &gt; b = c\)</span> (prolate spheroid)</p>
+<p><span id="eq-I23pro"><span class="math display">\[
+\wideeq{I_2=I_3=a\,
+    \frac{a\,\sqrt{a^2-c^2}-c^2\,\arccosh{(a/c)}}
+    {2\left(a^2-c^2\right)^{3/2}}}
+\tag{79}\]</span></span></p>
+<p><span id="eq-I1pro"><span class="math display">\[
+\wideeq{I_1=1-2\,I_3}
+\tag{80}\]</span></span></p>
+<p><span id="eq-I1ipro"><span class="math display">\[
+\wideeq{I_{1i}=I_{i1}=\frac{I_i-I_1}{a^2-\rho_i^2}\quad
+    \forall\, i\in\{2,3\}}
+\tag{81}\]</span></span></p>
+<p><span id="eq-Iijpro"><span class="math display">\[
+\wideeq{I_{ij}=\frac{1}{4}
+      \left(\frac{1}{c^2}-I_{31} \right)
+        \quad\forall\, i,j\in\{2,3\}}
+\tag{82}\]</span></span></p>
+<p><span id="eq-I11pro"><span class="math display">\[
+\wideeq{I_{11}=\frac{1}{3}
+      \left(\frac{1}{a^2}-2\,I_{31} \right)}
+\tag{83}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a = b &gt; c\)</span> (oblate spheroid)</p>
+<p><span id="eq-I12ob"><span class="math display">\[
+\wideeq{I_1=I_2=c\,
+     \frac{a^2\,\arccos{(c/a)}-c\,\sqrt{a^2-c^2}}
+     {2\left(a^2-c^2\right)^{3/2}}}
+\tag{84}\]</span></span></p>
+<p><span id="eq-I3ob"><span class="math display">\[
+\wideeq{I_3=1-2\,I_1}
+\tag{85}\]</span></span></p>
+<p><span id="eq-I3iob"><span class="math display">\[
+\wideeq{I_{3i}=I_{i3}=\frac{I_3-I_i}{\rho_i^2-c^2}\quad
+    \forall\, i\in\{1,2\}}
+\tag{86}\]</span></span></p>
+<p><span id="eq-Iijob"><span class="math display">\[
+\wideeq{I_{ij}=\frac{1}{4}
+      \left(\frac{1}{a^2}-I_{31} \right)
+        \quad\forall\, i,j\in\{1,2\}}
+\tag{87}\]</span></span></p>
+<p><span id="eq-I33ob"><span class="math display">\[
+\wideeq{I_{33}=\frac{1}{3}
+      \left(\frac{1}{c^2}-2\,I_{31} \right)}
+\tag{88}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a = b = c\)</span> (sphere)</p>
+<p><span id="eq-I123sph"><span class="math display">\[
+\wideeq{I_1=I_2=I_3=\frac{1}{3}}
+\tag{89}\]</span></span></p>
+<p><span id="eq-Iijsph"><span class="math display">\[
+\wideeq{I_{ij}=\frac{1}{5\,a^2}\quad\forall\, i,j\in\{1,2,3\}}
+\tag{90}\]</span></span></p></li>
+</ul>
+</section>
+<section id="sec-AK" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Proof of equality between <a href="#eq-AK" class="quarto-xref">Eq.&nbsp;57</a> and the expression of <span class="math inline">\(A^K\)</span> provided in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span></h1>
+<p>The expression of <span class="math inline">\(A^K\)</span> provided in <span class="citation" data-cites="Sanahuja2013a">[<a href="#ref-Sanahuja2013a" role="doc-biblioref">7</a>]</span> writes with the notations of the present paper</p>
+<p><span id="eq-AKjs"><span class="math display">\[
+\wideeq{A^K=\heaviside+2(2\heaviside+3D)\volt
+\invvolt{\left(2\mu^{\mathcal{E}}\volt(2\heaviside+3D)
++\mu\volt(6\heaviside-D)
+\right)}
+\volt(\mu-\mu^{\mathcal{E}})}
+\tag{91}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-AKD"><span class="math display">\[
+\wideeq{D=\frac{2}{3}\invvolt{(k+\mu)}\volt\mu}
+\tag{92}\]</span></span></p>
+<p>Replacing</p>
+<p><span id="eq-AKD2"><span class="math display">\[
+\wideeq{2\heaviside+3D=2\invvolt{(k+\mu)}\volt(k+2\mu)}
+\tag{93}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-AKD3"><span class="math display">\[
+\wideeq{6\heaviside-D=\frac{2}{3}\invvolt{(k+\mu)}\volt(9k+8\mu)}
+\tag{94}\]</span></span></p>
+<p>in <a href="#eq-AKjs" class="quarto-xref">Eq.&nbsp;91</a> yields</p>
+<p><span id="eq-AKjs2"><span class="math display">\[
+\wideeq{A^K=\heaviside+6
+\invvolt{\left(6\mu^{\mathcal{E}}
++M
+\right)}
+\volt(\mu-\mu^{\mathcal{E}})}
+\tag{95}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-AKM"><span class="math display">\[
+\wideeq{M=\mu\volt\invvolt{(k+\mu)}\volt(9k+8\mu)
+\volt\invvolt{(k+2\mu)}\volt(k+\mu)}
+\tag{96}\]</span></span></p>
+<p>The terms appearing in <span class="math inline">\(M\)</span> in <a href="#eq-AKM" class="quarto-xref">Eq.&nbsp;96</a> do not commute but <span class="math inline">\(M\)</span> advantageously rewrites with respect to <span class="math inline">\(\rho=k\volt\invvolt{\mu}\)</span></p>
+<p><span id="eq-AKM2"><span class="math display">\[
+\wideeq{M=\invvolt{(\rho+\heaviside)}
+\volt(9\rho+8\heaviside)
+\volt\invvolt{(\rho+2\heaviside)}
+\volt(\rho+\heaviside)
+\volt\mu}
+\tag{97}\]</span></span></p>
+<p>Considering now that <span class="math inline">\(\rho\)</span>, <span class="math inline">\(\heaviside\)</span>, linear combinations of the latter as well as their inverses commute, <a href="#eq-AKM2" class="quarto-xref">Eq.&nbsp;97</a> becomes</p>
+<p><span id="eq-AKM3"><span class="math display">\[
+\wideeq{M=\invvolt{(\rho+2\heaviside)}
+\volt(9\rho+8\heaviside)
+\volt\mu
+=\mu\volt\invvolt{(k+2\mu)}
+\volt(9k+8\mu)}
+\tag{98}\]</span></span></p>
+<p>The last expression of <span class="math inline">\(M\)</span> in <a href="#eq-AKM3" class="quarto-xref">Eq.&nbsp;98</a> is then used in <a href="#eq-AKjs2" class="quarto-xref">Eq.&nbsp;95</a> to end the proof</p>
+<p><span id="eq-AKjs3"><span class="math display">\[
+\wideeq{A^K
+=\heaviside+6
+\invvolt{\left(6\mu^{\mathcal{E}}
++\mu\volt\invvolt{(k+2\mu)}
+\volt(9k+8\mu)
+\right)}
+\volt(\mu-\mu^{\mathcal{E}})}
+\tag{99}\]</span></span></p>
+<p><span id="eq-AKjs4"><span class="math display">\[
+\wideeq{=\heaviside+6
+\invvolt{\left(
+9k+8\mu
++6(k+2\mu)\volt\invvolt{\mu}
+\volt\mu^{\mathcal{E}}
+\right)}\volt
+(k+2\mu)\volt\invvolt{\mu}
+\volt(\mu-\mu^{\mathcal{E}})}
+\tag{100}\]</span></span></p>
+<p><span id="eq-AKjs5"><span class="math display">\[
+\wideeq{=
+5\,\invvolt{\left(9\,k+8\,\mu+6(k+2\,\mu)\volt\invvolt{\mu}\volt
+\mu^{\mathcal{E}}\right)}\volt(3\,k+4\,\mu)}
+\tag{101}\]</span></span></p>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Eshelby57" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Eshelby JD. The determination of the elastic field of an ellipsoidal inclusion, and related problems. Proceedings of the Royal Society Series A 1957;241:376–96.</div>
+</div>
+<div id="ref-Read1950" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Read WT Jr. Stress analysis for compressible viscoelastic materials. Journal of Applied Physics 1950;21:671–4.</div>
+</div>
+<div id="ref-LeeVisco1955" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Lee EH. Stress analysis in linear viscoelastic materials. Quart Appl Math 1955;13:183–90.</div>
+</div>
+<div id="ref-LeeVisco1961" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Lee EH. Stress analysis for linear viscoelastic materials. Rheologica Acta 1961;1:426–30.</div>
+</div>
+<div id="ref-Mandel58" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Mandel J. Sur les corps viscoélastiques linéaires dont les propriétés dépendent de l’âge. Comptes Rendus de l’Acad<span>é</span>mie Des Sciences 1958;247:175–8.</div>
+</div>
+<div id="ref-MandelMecanique1966" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Mandel J. Cours de <span>M</span>écanique des <span>M</span>ilieux <span>C</span>ontinus. Paris: Gauthier-Villars; 1966.</div>
+</div>
+<div id="ref-Sanahuja2013a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Sanahuja J. Effective behaviour of ageing linear viscoelastic composites: Homogenization approach. International Journal of Solids and Structures 2013;50:2846–56. <a href="https://doi.org/10.1016/j.ijsolstr.2013.04.023">https://doi.org/10.1016/j.ijsolstr.2013.04.023</a>.</div>
+</div>
+<div id="ref-Lavergne2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Lavergne F, Sab K, Sanahuja J, Bornert M, Toulemonde C. Homogenization schemes for aging linear viscoelastic matrix-inclusion composite materials with elongated inclusions. International Journal of Solids and Structures 2015:–. https://doi.org/<a href="http://dx.doi.org/10.1016/j.ijsolstr.2015.10.014">http://dx.doi.org/10.1016/j.ijsolstr.2015.10.014</a>.</div>
+</div>
+<div id="ref-HashinJAM65" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Hashin Z. Viscoelastic behavior of heterogeneous media. Journal of Applied Mechanics 1965;32:630–6.</div>
+</div>
+<div id="ref-Hashin1970539" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Hashin Z. Complex moduli of viscoelastic composites—i. General theory and application to particulate composites. International Journal of Solids and Structures 1970;6:539–52.</div>
+</div>
+<div id="ref-Hashin1970797" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Hashin Z. Complex moduli of viscoelastic composites—II. Fiber reinforced materials. International Journal of Solids and Structures 1970;6:797–807.</div>
+</div>
+<div id="ref-Christensen196923" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">Christensen RM. Viscoelastic properties of heterogeneous media. Journal of the Mechanics and Physics of Solids 1969;17:23–41.</div>
+</div>
+<div id="ref-ChristensenVisco1982" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">Christensen RM. Theory of viscoelasticity : An introduction. Second. New-York: Academic Press; 1982.</div>
+</div>
+<div id="ref-Pichler20092410" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">Pichler Ch, Lackner R. Upscaling of viscoelastic properties of highly-filled composites: Investigation of matrix–inclusion-type morphologies with power-law viscoelastic material response. Composites Science and Technology 2009;69:2410–20.</div>
+</div>
+<div id="ref-Lavergne2015130" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">Lavergne F, Sab K, Sanahuja J, Bornert M, Toulemonde C. Estimation of creep strain and creep failure of a glass reinforced plastic by semi-analytical methods and 3D numerical simulations. Mechanics of Materials 2015;89:130–50.</div>
+</div>
+<div id="ref-Berbenni2015110" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">Berbenni S, Dinzart F, Sabar H. A new internal variables homogenization scheme for linear viscoelastic materials based on an exact eshelby interaction law. Mechanics of Materials 2015;81:110–24. https://doi.org/<a href="http://dx.doi.org/10.1016/j.mechmat.2014.11.003">http://dx.doi.org/10.1016/j.mechmat.2014.11.003</a>.</div>
+</div>
+<div id="ref-Sevostianov201528" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">Sevostianov I, Levin V, Radi E. Effective properties of linear viscoelastic microcracked materials: Application of maxwell homogenization scheme. Mechanics of Materials 2015;84:28–43.</div>
+</div>
+<div id="ref-WangWeng92" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">Wang YM, Weng GJ. The <span>I</span>nfluence of <span>I</span>nclusion <span>S</span>hape on the <span>O</span>verall <span>V</span>iscoelastic <span>B</span>ehavior of <span>C</span>omposites. Jour Appl Mech 1992;59:510–8.</div>
+</div>
+<div id="ref-Li19941073" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">Li J, Weng GJ. Anisotropic stress-strain relations and complex moduli of a viscoelastic composite with aligned spheroidal inclusions. Composites Engineering 1994;4:1073–97.</div>
+</div>
+<div id="ref-HashinIJES69" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">Hashin Z. The inelastic inclusion problem. International Journal of Engineering Science 1969;7:11–36.</div>
+</div>
+<div id="ref-Laws251" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">Laws N, McLaughlin R. Self-consistent estimates for the viscoelastic creep compliances of composite materials. Proceedings of the Royal Society of London A: Mathematical, Physical and Engineering Sciences 1978;359:251–73.</div>
+</div>
+<div id="ref-Schapery1962" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">Schapery RA. Approximate methods of transform inversion for viscoelastic stress analysis. Proceedings of u.s. Nat. Congr. Appl. Mech., 4th, vol. 2, ASME; 1962, p. 1075–85.</div>
+</div>
+<div id="ref-Rekik2011305" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">Rekik A, Brenner R. Optimization of the collocation inversion method for the linear viscoelastic homogenization. Mechanics Research Communications 2011;38:305–8.</div>
+</div>
+<div id="ref-Rougieretal93" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">Rougier Y, Stolz C, Zaoui A. Représentation spectrale en viscoélasticité linéaire des matériaux hétérogènes. C R Acad Sci Paris 1993;316II:1517–22.</div>
+</div>
+<div id="ref-Mainardi10" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">Mainardi F. Fractional calculus and waves in linear viscoelasticity. An <span>I</span>ntroduction to <span>M</span>athematical <span>M</span>odels. London: Imperial College Press; 2010.</div>
+</div>
+<div id="ref-Levin20121" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">Levin V, Kanaun S, Jarillo GR. Effective properties of viscoelastic media with crack-like inclusions. International Journal of Rock Mechanics and Mining Sciences 2012;53:1–9.</div>
+</div>
+<div id="ref-SevostianovLevinAM2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">Sevostianov I, Levin V. Creep and relaxation contribution tensors for spheroidal pores in hereditary solids: Fraction-exponential operators approach. Acta Mechanica 2015:1–11.</div>
+</div>
+<div id="ref-Abate2006" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">Abate J, Whitt W. A unified framework for numerically inverting <span>L</span>aplace transforms. INFORMS Journal on Computing 2006;18:408–21. <a href="https://doi.org/10.1287/ijoc.1050.0137">https://doi.org/10.1287/ijoc.1050.0137</a>.</div>
+</div>
+<div id="ref-Lahellec2007" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">Lahellec N, Suquet P. Effective behavior of linear viscoelastic composites: A time-integration approach. International Journal of Solids and Structures 2007;44:507–29. <a href="https://doi.org/10.1016/j.ijsolstr.2006.04.038">https://doi.org/10.1016/j.ijsolstr.2006.04.038</a>.</div>
+</div>
+<div id="ref-Masson2012" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">Masson R, Brenner R, Castelnau O. Incremental homogenization approach for ageing viscoelastic polycrystals. Comptes Rendus Mécanique 2012;340:378–86. https://doi.org/<a href="http://dx.doi.org/10.1016/j.crme.2012.02.021">http://dx.doi.org/10.1016/j.crme.2012.02.021</a>.</div>
+</div>
+<div id="ref-CoulibalySabar2011" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">Coulibaly M, Sabar H. Micromechanical modeling of linear viscoelastic behavior of heterogeneous materials. Archive of Applied Mechanics 2011;81:345–59.</div>
+</div>
+<div id="ref-DinzartSabar2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">Dinzart F, Sabar H. Homogenization of the viscoelastic heterogeneous materials with multi-coated reinforcements: An internal variables formulation. Archive of Applied Mechanics 2014;84:715–30.</div>
+</div>
+<div id="ref-Maghous2003" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">Maghous S, Creus G. Periodic homogenization in thermoviscoelasticity: Case of multilayered media with ageing. International Journal of Solids and Structures 2003;40:851–70. <a href="https://doi.org/10.1016/S0020-7683(02)00549-8">https://doi.org/10.1016/S0020-7683(02)00549-8</a>.</div>
+</div>
+<div id="ref-Struik1941" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">Struik LCE. Physical aging in amorphous polymers and other materials. Elsevier Scientific Pub. Co. ; distributors for the U.S.; Canada, Elsevier North-Holland Amsterdam ; New York : New York; 1978.</div>
+</div>
+<div id="ref-Sullivan1990" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">Sullivan JL. Creep and physical aging of composites. Composites Science and Technology 1990;39:207–32. https://doi.org/<a href="http://dx.doi.org/10.1016/0266-3538(90)90042-4">http://dx.doi.org/10.1016/0266-3538(90)90042-4</a>.</div>
+</div>
+<div id="ref-Odegard2011" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">Odegard GM, Bandyopadhyay A. Physical aging of epoxy polymers and their composites. Journal of Polymer Science Part B: Polymer Physics 2011;49:1695–716. <a href="https://doi.org/10.1002/polb.22384">https://doi.org/10.1002/polb.22384</a>.</div>
+</div>
+<div id="ref-Zheng2002" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">Zheng SF, Weng GJ. A new constitutive equation for the long-term creep of polymers based on physical aging. European Journal of Mechanics - A/Solids 2002;21:411–21. https://doi.org/<a href="http://dx.doi.org/10.1016/S0997-7538(02)01215-9">http://dx.doi.org/10.1016/S0997-7538(02)01215-9</a>.</div>
+</div>
+<div id="ref-Ponte92a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">Ponte Castañeda P. New variational principles in plasticity and their application to composite materials. Journal of the Mechanics and Physics of Solids 1992;40:1757–88. <a href="https://doi.org/10.1016/0022-5096(92)90050-C">https://doi.org/10.1016/0022-5096(92)90050-C</a>.</div>
+</div>
+<div id="ref-Hilton1998" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">Hilton HH, Yi S. The significance of (an)isotropic viscoelastic <span>P</span>oisson ratio stress and time dependencies. International Journal of Solids and Structures 1998;35:3081–95. https://doi.org/<a href="http://dx.doi.org/10.1016/S0020-7683(97)00357-0">http://dx.doi.org/10.1016/S0020-7683(97)00357-0</a>.</div>
+</div>
+<div id="ref-Lavergne2015c" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">Lavergne F, Sab K, Sanahuja J, Bornert M, Toulemonde C. Predicting the aging viscoelastic behavior of fiber-reinforced concrete by a multi-scale homogenization scheme. To Be Published in Cement and Concrete Research 2015.</div>
+</div>
+<div id="ref-Bazant1972" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline">Bažant ZP. Numerical determination of long-range stress history from strain history in concrete. Matériaux Et Construction 1972;5:135–41. <a href="https://doi.org/10.1007/BF02539255">https://doi.org/10.1007/BF02539255</a>.</div>
+</div>
+<div id="ref-SalenconVisco" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">Salençon J. Visco<span>é</span>lasticit<span>é</span> pour le calcul des structures. <span>É</span>ditions de l’<span>É</span>cole Polytechnique; 2009.</div>
+</div>
+<div id="ref-Volterra59" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[43] </div><div class="csl-right-inline">Volterra V. Theory of functionals and of integral and integro-differential equations. New York: Dover; 1959.</div>
+</div>
+<div id="ref-Schwartz66" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[44] </div><div class="csl-right-inline">Schwartz L. Th<span>é</span>orie des distributions. Paris: Hermann; 1966.</div>
+</div>
+<div id="ref-Gelfand64" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[45] </div><div class="csl-right-inline">Gel’fand IM, Shilov GE. Generalized functions — vol. I: Properties and operations. vol. 1. New York; London: Academic Press; 1964.</div>
+</div>
+<div id="ref-Willis77" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[46] </div><div class="csl-right-inline">Willis JR. Bounds and self-consistent estimates for the overall properties of anisotropic composites. Journal of the Mechanics and Physics of Solids 1977;25:185–202.</div>
+</div>
+<div id="ref-Mura87" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[47] </div><div class="csl-right-inline">Mura T. Micromechanics of defects in solids. Second. Martinus Nijhoff Publishers; 1987.</div>
+</div>
+<div id="ref-Zaoui02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[48] </div><div class="csl-right-inline">Zaoui A. Continuum micromechanics: survey. Journal of Engineering Mechanics 2002;128:808–16.</div>
+</div>
+<div id="ref-Bornert2001Bornesa" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[49] </div><div class="csl-right-inline">Bornert M. <span>H</span>omogénéisation des milieux aléatoires : Bornes et estimations. <span>H</span>omogénéisation en mécanique des matériaux 1. Matériaux aléatoires élastiques et milieux périodiques, Paris: <span>H</span>ermes; 2001, p. 133–222.</div>
+</div>
+<div id="ref-www_aster" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[50] </div><div class="csl-right-inline">EDF. <span>Code_Aster</span>: Analyse des structures et thermom<span>é</span>canique pour des <span class="nocase">é</span>tudes et recherches n.d.</div>
+</div>
+<div id="ref-www_salome" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[51] </div><div class="csl-right-inline">CEA, EDF, OpenCascade. <span>Salome</span>: The open source integration platform for numerical simulation n.d.</div>
+</div>
+<div id="ref-these_granger" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[52] </div><div class="csl-right-inline">Granger L. Comportement diff<span>é</span>r<span>é</span> du b<span>é</span>ton dans les enceintes de centrales nucl<span>é</span>aires. Analyse et mod<span>é</span>lisation. PhD thesis. <span>É</span>cole Nationale des Ponts et Chauss<span>é</span>es, 1995.</div>
+</div>
+<div id="ref-Stehfest1970" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[53] </div><div class="csl-right-inline">Stehfest H. Algorithm 368: Numerical inversion of <span>L</span>aplace transforms [D5]. Communications of the ACM 1970;13:47–9. <a href="https://doi.org/10.1145/361953.361969">https://doi.org/10.1145/361953.361969</a>.</div>
+</div>
+<div id="ref-Kellogg29" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[54] </div><div class="csl-right-inline">Kellogg OD. Potential theory. Berlin: Springer-Verlag; 1929.</div>
+</div>
+</div>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><span class="math inline">\(\heaviside(t)=1\)</span> if <span class="math inline">\(t\geq 0\)</span> and <span class="math inline">\(\heaviside(t)=0\)</span> if <span class="math inline">\(t&lt;0\)</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><span class="math inline">\(\delta_{ij}=1\)</span> if <span class="math inline">\(i=j\)</span> and <span class="math inline">\(\delta_{ij}=0\)</span> if <span class="math inline">\(i\neq j\)</span><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

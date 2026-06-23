@@ -209,4 +209,53 @@ body {
       color: lighten($julia_blue, 25%);
     }
   }
+
+  // ─── Postprints + Publications (dark) ──────────────────────────────
+  .pp-card {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+
+    &:hover {
+      border-color: rgba(lighten($julia_blue, 20%), 0.5);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .pp-thumb { background: #0f172a; border-color: rgba(255, 255, 255, 0.12); }
+  .pp-title { color: lighten($julia_blue, 28%) !important; }
+  .pp-authors { color: #9aa6bf; }
+  .pp-badge { background: rgba(64, 99, 216, 0.22); color: lighten($julia_blue, 30%); }
+
+  .pp-featured {
+    background: rgba(64, 99, 216, 0.10);
+    border-color: rgba(lighten($julia_blue, 15%), 0.5);
+    border-left-color: lighten($julia_blue, 18%);
+
+    h5 { color: lighten($julia_blue, 28%); }
+  }
+
+  .pp-chip {
+    background: #1e293b;
+    border-color: rgba(lighten($julia_blue, 15%), 0.5);
+    color: lighten($julia_blue, 28%);
+
+    &:hover { background: lighten($julia_blue, 18%); color: #0f172a !important; }
+  }
+
+  #refs-acl, #refs-acln, #refs-ascl, #refs-os, #refs-inv, #refs-acti,
+  #refs-actn, #refs-com, #refs-aff, #refs-rapp, #refs-rappex, #refs-brev, #refs-log {
+    .csl-entry:hover { background: rgba(255, 255, 255, 0.05); border-left-color: lighten($julia_blue, 20%); }
+    .csl-entry:target { background: rgba(247, 208, 92, 0.12); border-left-color: $orange_C; }
+  }
+
+  h2 > .iconify, h2 > iconify-icon { color: lighten($julia_blue, 25%); }
+
+  .pub-postprint-link {
+    background: rgba(56, 152, 38, 0.18);
+    color: lighten($julia_green, 25%) !important;
+    border-color: rgba(56, 152, 38, 0.5);
+
+    &:hover { background: $julia_green; color: #0f172a !important; }
+  }
 }

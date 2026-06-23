@@ -263,3 +263,131 @@ body {
     color: $primary;
   }
 }
+
+// ─── Postprints: card grid (postprints.qmd) ──────────────────────────
+.pp-card {
+  background: $white;
+  border: 1px solid $gray-300;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  padding: 1rem 1rem 1.1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
+    border-color: $bleu2_C;
+  }
+}
+
+.pp-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1.1;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-200;
+  background: $gray-100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.pp-title {
+  display: block;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 0.7rem;
+  color: $primary !important;
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.pp-authors { display: block; font-size: 0.82rem; color: $gray-600; margin-top: 0.35rem; }
+
+.pp-badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: $bleu_light_C;
+  color: $bleu2_C;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 1rem;
+}
+
+.pp-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+
+  .jfb-btn { padding: 0.3rem 0.8rem; font-size: 0.8rem; }
+}
+
+// ─── Postprints: "featured" block on Publications ────────────────────
+.pp-featured {
+  background: linear-gradient(135deg, lighten($bleu_light_C, 3%), $white);
+  border: 1px solid $bleu_C;
+  border-left: 5px solid $bleu2_C;
+  border-radius: 0.75rem;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 2rem;
+
+  h5 { color: $bleu2_C; margin-top: 0; }
+}
+
+.pp-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.7rem 0 1rem; }
+
+.pp-chip {
+  display: inline-block;
+  text-decoration: none;
+  background: $white;
+  border: 1px solid $bleu_C;
+  color: $bleu2_C;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 3px 11px;
+  border-radius: 1rem;
+  transition: all 0.15s ease;
+
+  &:hover { background: $bleu2_C; color: $white !important; transform: translateY(-1px); }
+}
+
+// ─── Publications list: lift the austere CSL list ────────────────────
+#refs-acl, #refs-acln, #refs-ascl, #refs-os, #refs-inv, #refs-acti,
+#refs-actn, #refs-com, #refs-aff, #refs-rapp, #refs-rappex, #refs-brev, #refs-log {
+  .csl-entry {
+    padding: 0.55rem 0.8rem;
+    border-left: 3px solid transparent;
+    border-radius: 0.4rem;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover { background: lighten($bleu_light_C, 4%); border-left-color: $bleu2_C; }
+    &:target { background: $jaune_light_C; border-left-color: $orange_C; }
+  }
+}
+
+h2 > .iconify, h2 > iconify-icon { color: $bleu2_C; margin-right: 0.4rem; vertical-align: -0.1em; }
+
+// inline postprint links injected into the 9 matching bibliography entries
+.pub-postprint-links { margin-top: 0.35rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.pub-postprint-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: $vert_light_C;
+  color: $vert2_C !important;
+  border: 1px solid $vert_C;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 1rem;
+  text-decoration: none;
+
+  &:hover { background: $vert2_C; color: $white !important; }
+}

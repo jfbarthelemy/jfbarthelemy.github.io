@@ -1,4 +1,5 @@
 ---
+title: "Publications"
 csl: https://www.zotero.org/styles/elsevier-vancouver
 nocite: |
   - @someCBM2026, @adessinaJOBE2025, @achchoubiRMPD2025, @kouevidjinEA2024, @adessinaCBM2023, @someRMPD2023, @barthelemyMMS2023, @ailiCCR2023, @someCBM2022, @kouevidjinEFM2022, @beddaaCCC2022, @duMOM2021, @barthelemyIJES2021, @lavergneCCR2020, @duIJES2020, @barthelemyIJES2020_nlayersph, @barthelemyIJES2020_hilltrans, @adessinaMOM2020, @achourCBM2020, @sellinES2019, @giraudMOM2019, @barthelemyIJES2019, @adessinaCCR2019, @adelinetGEOPHYSICS2019, @lozinguezCBM2018, @lavergneCCR2018, @adessinaIJES2017, @barthelemyIJSS2016, @barthelemyIJNAMG2012, @barthelemyIJRMMS2009, @barthelemyIJSS2009, @barthelemyTIPM2009, @maghousEJM2008, @leCRAS2008, @marmierIJNAMG2007, @dormieuxCRAS2006, @hellmichEJM2004, @deudeIJNAMG2004, @barthelemyIJNAMG2004, @barthelemyCRAS2003_fisfrot, @barthelemyCRAS2003_homnonlin, @barthelemyCG2003
@@ -16,68 +17,69 @@ nocite: |
   - @tensnd, @echoes, @chemistrylab
 ---
 
+{{< include _includes/_postprints_featured.qmd >}}
 
-## Articles in peer-reviewed journals listed in databases
+## {{< iconify mdi:book-open-page-variant >}} Articles in peer-reviewed journals listed in databases
 
 ::: {#refs-acl}
 :::
 
-## Articles in peer-reviewed journals not listed in databases
+## {{< iconify mdi:book-open-variant >}} Articles in peer-reviewed journals not listed in databases
 
 ::: {#refs-acln}
 :::
 
-## Articles in non-peer-reviewed journals
+## {{< iconify mdi:newspaper-variant-outline >}} Articles in non-peer-reviewed journals
 
 ::: {#refs-ascl}
 :::
 
-## Scientific books or chapters
+## {{< iconify mdi:bookshelf >}} Scientific books or chapters
 
 ::: {#refs-os}
 :::
 
-## Invited lectures at international or national conferences
+## {{< iconify mdi:microphone-variant >}} Invited lectures at international or national conferences
 
 ::: {#refs-inv}
 :::
 
-## Communications with proceedings at an international conference
+## {{< iconify mdi:account-group >}} Communications with proceedings at an international conference
 
 ::: {#refs-acti}
 :::
 
-## Communications with proceedings at a national conference
+## {{< iconify mdi:account-group-outline >}} Communications with proceedings at a national conference
 
 ::: {#refs-actn}
 :::
 
-## Oral communications without proceedings at an international or national conference
+## {{< iconify mdi:bullhorn-outline >}} Oral communications without proceedings at an international or national conference
 
 ::: {#refs-com}
 :::
 
-## Poster communications at an international or national conference
+## {{< iconify mdi:image-frame >}} Poster communications at an international or national conference
 
 ::: {#refs-aff}
 :::
 
-## Research reports
+## {{< iconify mdi:file-document-outline >}} Research reports
 
 ::: {#refs-rapp}
 :::
 
-## Expert reports
+## {{< iconify mdi:file-certificate-outline >}} Expert reports
 
 ::: {#refs-rappex}
 :::
 
-## Patents
+## {{< iconify mdi:lightbulb-on-outline >}} Patents
 
 ::: {#refs-brev}
 :::
 
-## Software and numerical libraries
+## {{< iconify mdi:code-tags >}} Software and numerical libraries
 
 ::: {#refs-log}
 :::
