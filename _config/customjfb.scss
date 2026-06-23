@@ -374,11 +374,11 @@ body {
 h2 > .iconify, h2 > iconify-icon { color: $bleu2_C; margin-right: 0.4rem; vertical-align: -0.1em; }
 
 // inline postprint links injected into the 9 matching bibliography entries.
-// margin-left matches .csl-right-inline (the text column, 2em) so the buttons align with the
-// article description / hanging indent rather than under the [n] number.
+// Align with the article description text. The text column sits at 3em from the entry edge
+// (.csl-right-inline margin 2em + the citeproc hanging-indent 1em), NOT under the [n] number.
 .pub-postprint-links {
   margin-top: 0.35rem;
-  margin-left: 2em;
+  margin-left: 3em;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
