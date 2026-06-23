@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Jean-François Barthélémy</title>
+<title>Software Libraries – Jean-François Barthélémy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -34,6 +34,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./images/id_jfb_cartoon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -76,11 +78,69 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<script>
   if (!localStorage.getItem('quarto-color-scheme')) {
     localStorage.setItem('quarto-color-scheme', 'dark');
   }
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="_config/styles.css">
 </head>
@@ -269,7 +329,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./software.html"> 
+    <a class="nav-link active" href="./software.html" aria-current="page"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
@@ -292,28 +352,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#jean-françois-barthélémy" id="toc-jean-françois-barthélémy" class="nav-link active" data-scroll-target="#jean-françois-barthélémy">Jean-François Barthélémy</a></li>
-  <li><a href="#research-interests" id="toc-research-interests" class="nav-link" data-scroll-target="#research-interests">Research Interests</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Software Libraries</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -325,37 +378,120 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="jean-françois-barthélémy" class="level2">
-<h2 class="anchored" data-anchor-id="jean-françois-barthélémy">Jean-François Barthélémy</h2>
-<p>I am a researcher at <a href="https://www.cerema.fr/en">Cerema</a> (Centre d’Études et d’Expertise sur les Risques, l’Environnement, la Mobilité et l’Aménagement), affiliated with the <a href="https://mcd.univ-gustave-eiffel.fr/">UMR MCD</a> (Unité Mixte de Recherche Matériaux et Durabilité des Constructions, Université Gustave Eiffel).</p>
-<div class="quarto-layout-panel" data-layout="[1,1]">
-<div class="quarto-layout-row quarto-layout-valign-center">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><a href="https://www.cerema.fr/en"><img src="images/LogoCerema_horizontal.jpg" class="img-fluid" width="220"></a></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><a href="https://mcd.univ-gustave-eiffel.fr/"><img src="images/UMR MCD-couleur-300dpi.jpg" class="img-fluid" width="220"></a></p>
-</div>
-</div>
-</div>
-</section>
-<section id="research-interests" class="level2">
-<h2 class="anchored" data-anchor-id="research-interests">Research Interests</h2>
-<p>My work lies at the intersection of theoretical mechanics, materials science, and scientific computing. The main topics are:</p>
-<ul>
-<li><strong>Micromechanics and homogenization</strong> — analytical and semi-analytical methods for predicting effective properties of heterogeneous materials (composites, geomaterials, cracked media)</li>
-<li><strong>Eshelby-based models</strong> — dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes for ellipsoidal and crack-like inclusions</li>
-<li><strong>Nonlinear and viscoelastic behavior</strong> — extension of homogenization methods to nonlinear elasticity and linear viscoelasticity</li>
-<li><strong>Scientific software development</strong> — open-source libraries in Julia and C++ for computational micromechanics (see <a href="./software.html">Software</a>)</li>
-</ul>
-<!-- ## CV
-
-A full curriculum vitae is available for download: [CV (PDF)](files/cvjfb_en.pdf). -->
+<p>A selection of academic freeware or open-source scientific libraries I develop and maintain.</p>
 
 
-</section>
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-2">
+<div class="g-col-1" data-index="0" data-categories="QyUyQiUyQiUyQ1B5dGhvbiUyQ01pY3JvbWVjaGFuaWNzJTJDSG9tb2dlbml6YXRpb24=" data-listing-file-modified-sort="1782211361181" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
+<a href="./software/echoes.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_echoes.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+echoes
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('QyUyQiUyQg=='); return false;">C++</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWljcm9tZWNoYW5pY3M='); return false;">Micromechanics</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SG9tb2dlbml6YXRpb24='); return false;">Homogenization</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>A C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNUZW5zb3JzJTJDTGluZWFyJTIwQWxnZWJyYQ==" data-listing-file-modified-sort="1782211361181" data-listing-reading-time-sort="1" data-listing-word-count-sort="76">
+<a href="./software/tensnd.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_tensnd.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+TensND.jl
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGVuc29ycw=='); return false;">Tensors</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TGluZWFyJTIwQWxnZWJyYQ=='); return false;">Linear Algebra</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Julia package for structured tensor types with built-in symmetries. Isotropic, Walpole, orthotropic, and general tensors with ForwardDiff support.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNDaGVtaXN0cnklMkNNYXRlcmlhbHMlMjBTY2llbmNl" data-listing-file-modified-sort="1782211361179" data-listing-reading-time-sort="1" data-listing-word-count-sort="52">
+<a href="./software/chemistrylab.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_chemistrylab.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+ChemistryLab.jl
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q2hlbWlzdHJ5'); return false;">Chemistry</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWF0ZXJpYWxzJTIwU2NpZW5jZQ=='); return false;">Materials Science</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>A Julia package providing computational tools for chemistry and materials science. Now hosted on Codeberg and registered in MPCM-Registry.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="SnVsaWElMkNIb21vZ2VuaXphdGlvbiUyQ0NoZW1pc3RyeSUyQ01hdGVyaWFscyUyMFNjaWVuY2U=" data-listing-file-modified-sort="1782211361181" data-listing-reading-time-sort="1" data-listing-word-count-sort="156">
+<a href="./software/mpcm.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_org_v2.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+MicroPoroChemoMechanics
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('SG9tb2dlbml6YXRpb24='); return false;">Homogenization</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Q2hlbWlzdHJ5'); return false;">Chemistry</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TWF0ZXJpYWxzJTIwU2NpZW5jZQ=='); return false;">Materials Science</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>A Julia ecosystem for the coupled chemo-mechanics of porous reactive media. Structured tensors, mean-field homogenisation, computational chemistry, and adaptive cubature algorithms — all integrated and registered in MPCM-Registry.</p>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
