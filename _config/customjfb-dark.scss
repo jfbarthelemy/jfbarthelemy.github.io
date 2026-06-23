@@ -1,6 +1,6 @@
 /*-- scss:defaults --*/
 
-$theme: "united" !default;
+$theme: "darkly" !default;
 
 //
 // Color system
@@ -52,65 +52,161 @@ $julia_green:        #389826 !default;
 $julia_purple:       #9558B2 !default;
 $julia_red:          #CB3C33 !default;
 
-$primary:       darken($julia_blue, 20%) !default;
-$secondary:     $julia_blue !default;
+$primary:       $julia_blue !default;
+$secondary:     lighten($julia_blue, 15%) !default;
 $success:       $julia_green !default;
 $info:          $julia_purple !default;
 $warning:       $julia_red !default;
 $danger:        $julia_red !default;
-$light:         $julia_green !default;
-$dark:          $julia_purple !default;
+$light:         $gray-700 !default;
+$dark:          $gray-900 !default;
 
 $min-contrast-ratio:   1.8 !default;
 
 // Body
-
-// $body-color:                $gray-800 !default;
-$body-color:                lighten($julia_blue, 20%) !default;
+$body-color:                lighten($julia_blue, 30%) !default;
 
 // Fonts
-
-// stylelint-disable-next-line value-keyword-case
-// $font-family-sans-serif:      Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-family-sans-serif:      -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+$font-family-sans-serif:    "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+$headings-font-family:      "Inter", "Segoe UI", system-ui, sans-serif;
+$headings-font-weight:      700;
 
 // Tables
-
 $table-dark-bg:               $dark !default;
 $table-dark-border-color:     darken($dark, 5%) !default;
 
 /* links */
-$link-color                 : $julia_red;
-$link-color-hover           : mix(#000, $link-color, 25%);
-$link-color-visited         : mix(#fff, $link-color, 25%);
-$masthead-link-color        : $primary;
-$masthead-link-color-hover  : mix(#000, $primary, 25%);
+$link-color                 : lighten($julia_blue, 25%);
+$link-color-hover           : lighten($link-color, 10%);
+$link-color-visited         : mix(#888, $link-color, 25%);
+$masthead-link-color        : $white;
+$masthead-link-color-hover  : rgba(255, 255, 255, 0.8);
+
+// Navbar
+$navbar-bg                  : darken($julia_blue, 30%);
+$navbar-fg                  : $white;
+$navbar-hl                  : #ffe27a;
+
+// Border radius
+$border-radius:               0.75rem;
+$border-radius-lg:            1rem;
+$border-radius-sm:            0.5rem;
 
 
 /*-- scss:rules --*/
 
 
-// Variables
-
-$web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" !default;
+// Google Font: Inter
+$web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" !default;
 @if $web-font-path {
   @import url($web-font-path);
 }
 
-// $body-bg-image: radial-gradient(shade-color($orange_light_C, 10%), shade-color($bleu_light_C, 10%)) !default;
-// $body-bg-image: radial-gradient(shade-color(lighten($julia_purple, 40%), 10%), shade-color(lighten($julia_red, 40%), 10%)) !default;
-$body-bg-image: radial-gradient(black, black) !default;
-$frosted-opacity: .3 !default;
+body {
+  background-color: #0f172a;
+  background-image: none !important;
+}
 
+// Cards — surface élevée sur fond sombre
+.card {
+  background-color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 
-// Indicators
+  &:hover {
+    border-color: rgba(lighten($julia_blue, 20%), 0.4);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+    transform: translateY(-2px);
+  }
+}
 
+// Listing card images — override Quarto's inline object-fit:cover / height:150px
+.quarto-listing .card-img-top {
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  .thumbnail-image {
+    object-fit: contain !important;
+    height: auto !important;
+    max-height: 160px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+// About page: Cerema and UMR MCD logo links each on their own line
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  .about-link:has(img) {
+    flex: 0 0 100%;
+    justify-content: center;
+  }
+}
+
+// Navbar — match light mode height + glassmorphism
+.navbar {
+  --bs-navbar-padding-y: 0.5rem;
+  background: linear-gradient(135deg, rgba(darken($julia_blue, 35%), 0.88) 0%, rgba(darken($julia_blue, 18%), 0.82) 100%) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+
+.navbar .navbar-brand,
+.navbar .navbar-nav .nav-link {
+  color: #f1f5f9 !important;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+  color: #ffe27a !important;
+}
+
+// Badges
 .badge {
   &.bg-light {
     color: $body-color;
   }
 }
 
-body {
-  background-image: $body-bg-image;
+// ─── Dark theme button variants ───────────────────────────────────
+
+[data-bs-theme="dark"],
+.quarto-dark {
+  .jfb-btn-primary {
+    background: $julia_blue;
+    border-color: $julia_blue;
+    color: $white !important;
+
+    &:hover, &:focus {
+      background: darken($julia_blue, 8%);
+      border-color: darken($julia_blue, 8%);
+    }
+  }
+
+  .jfb-btn-outline {
+    color: lighten($julia_blue, 25%) !important;
+    border-color: lighten($julia_blue, 25%);
+
+    &:hover, &:focus {
+      background: lighten($julia_blue, 25%);
+      color: #1a1e2e !important;
+    }
+  }
+
+  .jfb-course-current {
+    background: rgba(255, 255, 255, 0.04);
+    border-left-color: lighten($julia_blue, 20%);
+
+    h3 {
+      color: lighten($julia_blue, 25%);
+    }
+  }
 }

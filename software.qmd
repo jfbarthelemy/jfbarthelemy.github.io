@@ -1,0 +1,16 @@
+---
+title: "Software Libraries"
+listing:
+  type: grid
+  contents:
+    - software/echoes.qmd
+    - software/tensnd.qmd
+    - software/chemistrylab.qmd
+    - software/mpcm.qmd
+  sort: false
+  fields: [title, image, description, categories]
+  grid-columns: 2
+  max-description-length: 300
+---
+
+A selection of academic freeware or open-source scientific libraries I develop and maintain.

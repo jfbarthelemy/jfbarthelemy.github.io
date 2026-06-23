@@ -1,0 +1,36 @@
+---
+title: "TensND.jl"
+description: >
+  Julia package for structured tensor types with built-in symmetries.
+  Isotropic, Walpole, orthotropic, and general tensors with ForwardDiff support.
+categories: [Julia, Tensors, Linear Algebra]
+image: "../images/logo_tensnd.png"
+---
+
+![](../images/logo_tensnd.png){.jfb-page-logo}
+
+**TensND.jl** provides structured tensor types for multi-linear algebra with built-in
+symmetries and automatic index conventions (base-1), fully compatible with automatic
+differentiation via ForwardDiff.
+
+### Key features
+
+- **Isotropic tensors** (`TensISO`) — fully symmetric with minimal storage
+- **Walpole basis** (`TensWalpole`) — standard orthonormal basis for symmetric 4th-order tensors
+- **Orthotropic tensors** (`TensOrtho`) — material symmetry classes
+- **General tensors** — flexible indexed storage
+- **ForwardDiff-compatible** — all operations support dual numbers for AD
+- **Base-1 indexing** — natural tensor index convention (e₁, e₂, …)
+
+### Installation
+
+```julia
+using Pkg
+Pkg.Registry.add(RegistrySpec(url="https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry"))
+Pkg.add("TensND")
+```
+
+### Links
+
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.codeberg.page/TensND.jl/)
+[![Repository](https://img.shields.io/badge/Codeberg-TensND.jl-181717?logo=codeberg)](https://codeberg.org/MicroPoroChemoMechanics/TensND.jl)

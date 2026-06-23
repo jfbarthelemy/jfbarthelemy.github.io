@@ -1,5 +1,35 @@
-##  About
+---
+title: "About"
+---
 
-This is a Quarto website.
+## Jean-François Barthélémy
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I am a researcher at [Cerema](https://www.cerema.fr/en) (Centre d'Études et d'Expertise
+sur les Risques, l'Environnement, la Mobilité et l'Aménagement), affiliated with the
+[UMR MCD](https://mcd.univ-gustave-eiffel.fr/) (Unité Mixte de Recherche Matériaux et
+Durabilité des Constructions, Université Gustave Eiffel).
+
+::: {layout="[1,1]" layout-valign="center"}
+[![](images/LogoCerema_horizontal.jpg){width=220px}](https://www.cerema.fr/en)
+
+[![](images/UMR%20MCD-couleur-300dpi.jpg){width=220px}](https://mcd.univ-gustave-eiffel.fr/)
+:::
+
+## Research Interests
+
+My work lies at the intersection of theoretical mechanics, materials science, and
+scientific computing. The main topics are:
+
+- **Micromechanics and homogenization** — analytical and semi-analytical methods for
+  predicting effective properties of heterogeneous materials (composites, geomaterials,
+  cracked media)
+- **Eshelby-based models** — dilute, Mori–Tanaka, self-consistent, and generalized
+  self-consistent schemes for ellipsoidal and crack-like inclusions
+- **Nonlinear and viscoelastic behavior** — extension of homogenization methods to
+  nonlinear elasticity and linear viscoelasticity
+- **Scientific software development** — open-source libraries in Julia and C++ for
+  computational micromechanics (see [Software](software.qmd))
+
+<!-- ## CV
+
+A full curriculum vitae is available for download: [CV (PDF)](files/cvjfb_en.pdf). -->

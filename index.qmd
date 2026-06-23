@@ -1,15 +1,16 @@
 ---
 title: "Jean-François Barthélémy"
 subtitle: Researcher at Cerema / UMR MCD team
-image: "images/jfb.jpg"
+image: "images/id_jfb_cartoon.png"
 about:
   template: trestles
   image-width: 8em
   image-shape: rounded
   links:
-    - text: "{{< iconify fa6-brands github >}} GitHub"
-      # icon: github
-      url: "https://github.com/jfbarthelemy"
+    - text: "{{< ai orcid color=#A7CF36 >}} ORCID"
+      url: "https://orcid.org/0000-0002-1968-8939"
+    - text: "{{< iconify simple-icons codeberg >}} Codeberg"
+      url: "https://codeberg.org/jfbarthelemy"
     - text: "{{< ai researchgate >}} Researchgate"
       url: "https://www.researchgate.net/profile/Jean-Francois_Barthelemy"
     - text: "{{< ai google-scholar >}} Google Scholar"
@@ -18,8 +19,6 @@ about:
       url: "https://hal.archives-ouvertes.fr/search/index/?q=%2A&authIdHal_s=jfbarthelemy"
     - text: "{{< ai clarivate >}} Web Of Science"
       url: "https://www.webofscience.com/wos/author/record/449919"
-    - text: "{{< ai orcid color=#A7CF36 >}} ORCID"
-      url: "https://orcid.org/0000-0002-1968-8939"
     - text: "{{< iconify devicon linkedin >}} LinkedIn"
       url: "https://www.linkedin.com/in/jean-fran%C3%A7ois-barth%C3%A9l%C3%A9my-75b3122/"
     - text: Email
@@ -32,4 +31,28 @@ about:
 
 ---
 
-## Welcome to my website!
+I am a researcher at [Cerema](https://www.cerema.fr/en) (Centre d'Études et d'Expertise
+sur les Risques, l'Environnement, la Mobilité et l'Aménagement), affiliated with the
+[UMR MCD](https://mcd.univ-gustave-eiffel.fr/) (Unité Mixte de Recherche Matériaux et
+Durabilité des Constructions, Université Gustave Eiffel).
+
+## Research Interests
+
+My work lies at the intersection of theoretical mechanics, materials science, and
+scientific computing. The main topics are:
+
+- **Micromechanics and homogenization** — analytical and semi-analytical methods for
+  predicting effective properties of heterogeneous materials (composites, geomaterials,
+  cracked media)
+- **Eshelby-based models** — dilute, Mori–Tanaka, self-consistent, and generalized
+  self-consistent schemes for ellipsoidal and crack-like inclusions
+- **Nonlinear and viscoelastic behavior** — extension of homogenization methods to
+  nonlinear elasticity and linear viscoelasticity
+- **Scientific software development** — open-source libraries in Julia and C++ for
+  computational micromechanics (see [Software](software.qmd))
+
+::: {.jfb-nav-buttons}
+[{{< iconify fluent code-block-16-regular >}} Software](software.qmd){.jfb-btn .jfb-btn-outline}
+[{{< bi mortarboard-fill >}} Teaching](teaching.qmd){.jfb-btn .jfb-btn-outline}
+[{{< iconify academicons google-scholar >}} Publications](publications.qmd){.jfb-btn .jfb-btn-outline}
+:::

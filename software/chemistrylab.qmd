@@ -1,0 +1,34 @@
+---
+title: "ChemistryLab.jl"
+description: >
+  A Julia package providing computational tools for chemistry and materials science.
+  Now hosted on Codeberg and registered in MPCM-Registry.
+categories: [Julia, Chemistry, Materials Science]
+image: "../images/logo_chemistrylab.png"
+---
+
+![](../images/logo_chemistrylab.png){.jfb-page-logo}
+
+**ChemistryLab.jl** is a Julia package for computational chemistry and materials science,
+featuring Gibbs-energy minimization, phase equilibria, and reaction kinetics.
+Part of the **[MicroPoroChemoMechanics](../software/mpcm.qmd)** ecosystem.
+
+### Installation
+
+```julia
+using Pkg
+Pkg.Registry.add(RegistrySpec(url="https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry"))
+Pkg.add("ChemistryLab")
+```
+
+### Key features
+
+- Gibbs energy minimization using interior-point solver (OptimaSolver.jl backend)
+- Phase equilibrium computations with multiple constraints
+- Chemical kinetics and reaction rate laws
+- Full ForwardDiff compatibility for sensitivity analysis
+
+### Links
+
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.codeberg.page/ChemistryLab.jl/)
+[![Repository](https://img.shields.io/badge/Codeberg-ChemistryLab.jl-181717?logo=codeberg)](https://codeberg.org/MicroPoroChemoMechanics/ChemistryLab.jl)

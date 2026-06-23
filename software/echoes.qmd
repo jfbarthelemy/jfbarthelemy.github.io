@@ -1,0 +1,33 @@
+---
+title: "echoes"
+description: >
+  A C++/Python library implementing homogenization schemes for heterogeneous materials.
+  Provides tools for computing effective elastic, thermal, and viscoelastic properties
+  of composites and geomaterials based on Eshelby-type micromechanical models.
+categories: [C++, Python, Micromechanics, Homogenization]
+image: "../images/logo_echoes.png"
+---
+
+![](../images/logo_echoes.png){.jfb-page-logo}
+
+**echoes** (Extended Calculator of HOmogEnization Schemes) implements a wide range of
+analytical homogenization models for random heterogeneous media.
+
+### Key features
+
+- Dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes
+- Ellipsoidal and crack-like heterogeneities
+- Elasticity, thermal conductivity, and linear viscoelasticity
+- Derivatives of effective properties with respect to phase parameters
+  (essential for secant-based nonlinear homogenization)
+- Python interface with supporting modules
+
+### Documentation
+
+Full documentation and examples are available at
+[echoes.barthelemy.xyz](https://echoes.barthelemy.xyz/).
+
+### Links
+
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=quarto)](https://echoes.barthelemy.xyz/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19679057.svg)](https://doi.org/10.5281/zenodo.19679057)

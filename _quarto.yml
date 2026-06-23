@@ -2,17 +2,21 @@ project:
   type: website
 
 website:
-  title: "JF Barthélémy"
-  favicon: images/jfb.jpg
+  title: "Jean-François Barthélémy"
+  favicon: images/id_jfb_cartoon.png
   navbar:
+    background: primary
     right:
       - href: index.qmd
         text: Home
+      - href: software.qmd
+        text: Software
+      - href: teaching.qmd
+        text: Teaching
       # - href: files/cvjfb_en.pdf
       #   text: CV
       - href: publications.qmd
         text: Publications
-      - about.qmd
 
 # body-header: | 
 #   This page brought to you by <https://example.com>
@@ -51,10 +55,14 @@ editor:
 format:
   html:
     theme:
-      light: default #[_config/customjfb.scss]
-      dark: superhero #[_config/customjfb-dark.scss]
-    # theme: _config/customjfb.scss
-    # css: _config/styles.css
+      light:
+        - cosmo
+        - _config/customjfb.scss
+      dark:
+        - darkly
+        - _config/customjfb-dark.scss
+    css: _config/styles.css
+    include-in-header: _config/dark-default.html
     toc: true
     page-layout: full
     code-overflow: wrap

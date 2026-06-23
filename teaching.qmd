@@ -1,0 +1,58 @@
+---
+title: "Teaching"
+toc: true
+---
+
+## Current course
+
+::: {.jfb-course-current}
+### Pratique du calcul scientifique (2023–present)
+
+**École Nationale des Ponts et Chaussées** — 1st year
+
+Course on scientific computing with Julia: interpolation, integration, linear systems,
+ordinary differential equations, and numerical methods. Includes lectures, tutorials and
+Jupyter notebooks.
+
+[{{< iconify simple-icons codeberg >}} Accéder au cours](https://enpc-casc.codeberg.page/){.jfb-btn .jfb-btn-primary}
+:::
+
+## Past courses
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .p-3}
+### Mécanique des milieux continus (2002–2022)
+
+**École Nationale des Ponts et Chaussées** — 1st year
+
+Tutorials on continuum mechanics for solids and fluids.
+
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .p-3}
+### Mécanique numérique (2003–2005)
+
+**École Nationale des Ponts et Chaussées** — 2nd year
+
+Tutorials on numerical mechanics problems.
+
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6}
+::: {.card .p-3}
+### Mécanique des milieux poreux (2003)
+
+**École Nationale d'Ingénieurs de Tunis (ENIT)** — Master (DEA MS2)
+
+Course on porous media mechanics covering flow through porous materials,
+consolidation, and coupled hydro-mechanical processes.
+
+:::
+:::
+
+:::

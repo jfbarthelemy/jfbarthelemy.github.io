@@ -1,6 +1,6 @@
 /*-- scss:defaults --*/
 
-$theme: "united" !default;
+$theme: "cosmo" !default;
 
 //
 // Color system
@@ -58,59 +58,208 @@ $success:       $julia_green !default;
 $info:          $julia_purple !default;
 $warning:       $julia_red !default;
 $danger:        $julia_red !default;
-$light:         $julia_green !default;
-$dark:          $julia_purple !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
 
 $min-contrast-ratio:   1.8 !default;
 
 // Body
+$body-color:                $gray-800 !default;
 
-// $body-color:                $gray-800 !default;
-$body-color:                darken($julia_blue, 20%) !default;
-
-// Fonts
-
-// stylelint-disable-next-line value-keyword-case
-// $font-family-sans-serif:      Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$font-family-sans-serif:      -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+// Fonts — Inter for body and headings
+$font-family-sans-serif:    "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+$headings-font-family:      "Inter", "Segoe UI", system-ui, sans-serif;
+$headings-font-weight:      700;
 
 // Tables
-
 $table-dark-bg:               $dark !default;
 $table-dark-border-color:     darken($dark, 5%) !default;
 
 /* links */
-$link-color                 : $julia_red;
-$link-color-hover           : mix(#000, $link-color, 25%);
-$link-color-visited         : mix(#fff, $link-color, 25%);
-$masthead-link-color        : $primary;
-$masthead-link-color-hover  : mix(#000, $primary, 25%);
+$link-color                 : darken($julia_blue, 10%);
+$link-color-hover           : mix(#000, $link-color, 20%);
+$link-color-visited         : mix(#fff, $link-color, 20%);
+$masthead-link-color        : $white;
+$masthead-link-color-hover  : rgba(255, 255, 255, 0.8);
+
+// Navbar
+$navbar-bg                  : $primary;
+$navbar-fg                  : $white;
+$navbar-hl                  : #ffe27a;
+
+// Border radius
+$border-radius:               0.75rem;
+$border-radius-lg:            1rem;
+$border-radius-sm:            0.5rem;
 
 
 /*-- scss:rules --*/
 
 
-// Variables
-
-$web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" !default;
+// Google Font: Inter
+$web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" !default;
 @if $web-font-path {
   @import url($web-font-path);
 }
 
-// $body-bg-image: radial-gradient(shade-color($orange_light_C, 10%), shade-color($bleu_light_C, 10%)) !default;
-// $body-bg-image: radial-gradient(shade-color(lighten($julia_purple, 40%), 10%), shade-color(lighten($julia_red, 40%), 10%)) !default;
-$body-bg-image: radial-gradient(white, white) !default;
-$frosted-opacity: .3 !default;
+// Subtle background gradient
+$body-bg-image: radial-gradient(ellipse at top, lighten($bleu_light_C, 3%), $white) !default;
 
+body {
+  background-image: $body-bg-image;
+}
 
-// Indicators
+// Cards
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+    transform: translateY(-2px);
+  }
+}
+
+// Listing card images — override Quarto's inline object-fit:cover / height:150px
+.quarto-listing .card-img-top {
+  background-color: $gray-100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  .thumbnail-image {
+    object-fit: contain !important;
+    height: auto !important;
+    max-height: 160px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+// Navbar — glassmorphism
+.navbar {
+  background: linear-gradient(135deg, rgba($primary, 0.93) 0%, rgba(lighten($primary, 12%), 0.88) 100%) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+}
+
+.navbar .navbar-brand,
+.navbar .navbar-nav .nav-link,
+.navbar .navbar-text {
+  color: $white !important;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+  color: #ffe27a !important;
+}
+
+.navbar-tools .quarto-navigation-tool {
+  color: $white !important;
+}
+
+// Badges
 .badge {
   &.bg-light {
     color: $body-color;
   }
 }
 
-body {
-  background-image: $body-bg-image;
+// About page: Cerema and UMR MCD logo links each on their own line
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  .about-link:has(img) {
+    flex: 0 0 100%;
+    justify-content: center;
+  }
+}
+
+// About page profile image
+.about-image {
+  border: 3px solid $bleu_light_C;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+// ─── Navigation buttons (index page) ──────────────────────────────────
+
+.jfb-nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.jfb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease,
+              transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.jfb-btn-primary {
+  background: $primary;
+  color: $white !important;
+  border: 2px solid $primary;
+
+  &:hover, &:focus {
+    background: darken($primary, 8%);
+    border-color: darken($primary, 8%);
+    color: $white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+  }
+}
+
+.jfb-btn-outline {
+  background: transparent;
+  color: $primary !important;
+  border: 2px solid $primary;
+
+  &:hover, &:focus {
+    background: $primary;
+    color: $white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+  }
+}
+
+// ─── Logo displayed at top of software/project detail pages ──────────
+
+.jfb-page-logo {
+  display: block;
+  max-height: 160px;
+  max-width: 320px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto 2rem;
+}
+
+// ─── Teaching page ───────────────────────────────────────────────────
+
+.jfb-course-current {
+  background: lighten($bleu_light_C, 2%);
+  border-left: 4px solid $primary;
+  border-radius: 0.5rem;
+  padding: 1.5rem 1.5rem 1rem;
+  margin-bottom: 2rem;
+
+  h3 {
+    color: $primary;
+  }
 }
