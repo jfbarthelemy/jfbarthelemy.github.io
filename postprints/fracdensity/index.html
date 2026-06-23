@@ -279,20 +279,7 @@ window.Quarto = {
 <h1 data-number="2"><span class="header-section-number">2</span> Lineic data</h1>
 <section id="sec-dist1d" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-dist1d"><span class="header-section-number">2.1</span> Orientation and size distributions on a <span class="math inline">\(1D\)</span> well path</h2>
-<p>We consider here that the well trajectory is defined by a straight line. It is well known that any <span class="math inline">\(3D\)</span> statistics of a fracture property depending on the orientation and/or extension distributions of the fractures does not simply apply to a sampling of fractures intersecting the well path (<span class="citation" data-cites="Terzaghi65"><a href="#ref-Terzaghi65" role="doc-biblioref">[36]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>). Indeed, statistics are biased by the fact that the number of large fractures or the number of those which are the most perpendicular to the well path are over-estimated in such a sampling. Thus, the relationship between a <span class="math inline">\(3D\)</span> statistics and its <span class="math inline">\(1D\)</span> counterpart must involve a correction factor inversely proportional to the mean number of fractures of given orientation and surface crossing the well path. This number is proportional to the area of the projection of the fracture on the plane perpendicular to the well path. If <span class="math inline">\(\Theta\)</span> denotes the random acute angle between the fracture normal vector and the well direction (<span class="math inline">\(0\leq\Theta\leq\pi/2\)</span>) and <span class="math inline">\(S\)</span> the random surface of the fracture (see&nbsp;<a href="#fig-contvol" class="quarto-xref">Fig.&nbsp;1</a>), the mean number of fractures such that <span class="math inline">\(\theta\leq\Theta&lt;\theta+\ud\theta\)</span></p>
-<div id="fig-contvol" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/contvol.svg" class="img-fluid figure-img" style="width:70.0%">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Volume around the well path
-</figcaption>
-</figure>
-</div>
-<p>and <span class="math inline">\(s\leq S&lt;s+\ud s\)</span></p>
-<p>intersecting a well segment of length <span class="math inline">\(L\)</span> is:</p>
-<p><span id="eq-NlStheta"><span class="math display">\[
+<p>We consider here that the well trajectory is defined by a straight line. It is well known that any <span class="math inline">\(3D\)</span> statistics of a fracture property depending on the orientation and/or extension distributions of the fractures does not simply apply to a sampling of fractures intersecting the well path (<span class="citation" data-cites="Terzaghi65"><a href="#ref-Terzaghi65" role="doc-biblioref">[36]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>). Indeed, statistics are biased by the fact that the number of large fractures or the number of those which are the most perpendicular to the well path are over-estimated in such a sampling. Thus, the relationship between a <span class="math inline">\(3D\)</span> statistics and its <span class="math inline">\(1D\)</span> counterpart must involve a correction factor inversely proportional to the mean number of fractures of given orientation and surface crossing the well path. This number is proportional to the area of the projection of the fracture on the plane perpendicular to the well path. If <span class="math inline">\(\Theta\)</span> denotes the random acute angle between the fracture normal vector and the well direction (<span class="math inline">\(0\leq\Theta\leq\pi/2\)</span>) and <span class="math inline">\(S\)</span> the random surface of the fracture (see&nbsp;<a href="#fig-contvol" class="quarto-xref">Fig.&nbsp;1</a>), the mean number of fractures such that <span class="math inline">\(\theta\leq\Theta&lt;\theta+\ud\theta\)</span> and <span class="math inline">\(s\leq S&lt;s+\ud s\)</span> intersecting a well segment of length <span class="math inline">\(L\)</span> is: <span id="eq-NlStheta"><span class="math display">\[
 \wideeq{\ud N_L=P_{30}\,L\,s\,\cos{\theta}\,
 \pprob{S}{s}\ud s\,\pprob{\Theta}{\theta}\ud\theta}
 \tag{3}\]</span></span></p>
@@ -305,6 +292,16 @@ Figure&nbsp;1: Volume around the well path
 \frac{s}{\Esp{S}}\,\pprob{S}{s}
 \,\frac{\cos\theta}{\Esp{\cos\Theta}}\,\pprob{\Theta}{\theta}}
 \tag{4}\]</span></span></p>
+<div id="fig-contvol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/contvol.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Volume around the well path
+</figcaption>
+</figure>
+</div>
 <p>The second equality of&nbsp;(<a href="#eq-pSTheta1D" class="quarto-xref">4</a>) takes advantage of the independence of <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(S\)</span> <span class="math inline">\(3D\)</span> distributions. Moreover, (<a href="#eq-pSTheta1D" class="quarto-xref">4</a>) proves that <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(S\)</span>, as variables concerning only intersecting fractures, are also independent:</p>
 <p><span id="eq-indeppSTheta1D"><span class="math display">\[
 \wideeq{\pprobL{S,\Theta}{s,\theta}=\pprobL{S}{s}\,\pprobL{\Theta}{\theta}
