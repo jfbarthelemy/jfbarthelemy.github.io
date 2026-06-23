@@ -3,7 +3,7 @@
 ::: {.pp-featured}
 ##### {{< iconify mdi:file-document-multiple-outline >}} Open-access postprints
 
-Author-accepted manuscripts of 9 selected journal articles are freely available
+Author-accepted manuscripts of selected journal articles are freely available
 (HTML + PDF, CC BY-NC-ND license):
 
 ::: {.pp-chips}

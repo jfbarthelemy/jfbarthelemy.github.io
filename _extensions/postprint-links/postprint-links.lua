@@ -48,7 +48,16 @@ function Div(el)
   end
 
   if e then
-    table.insert(el.content, buttons(e))
+    -- Append inside the .csl-right-inline column (the text), so the buttons line up with the
+    -- article description / hanging indent rather than under the [n] number. Fall back to the
+    -- whole entry if that column is absent (e.g. a non-numeric CSL).
+    local target = el
+    for _, blk in ipairs(el.content) do
+      if blk.t == "Div" and blk.classes:includes("csl-right-inline") then
+        target = blk; break
+      end
+    end
+    table.insert(target.content, buttons(e))
     return el
   end
 end
