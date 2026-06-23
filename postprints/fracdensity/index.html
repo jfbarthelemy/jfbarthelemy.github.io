@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jean-François Barthélémy">
+<meta name="author" content="Martin L.E. Guiton">
+<meta name="author" content="Jean-Marc Daniel">
+<meta name="dcterms.date" content="2009-01-01">
+<meta name="keywords" content="fracture networks, density probability law, scanline, cylindrical well, partial intersection">
+
+<title>Estimates of fracture density and uncertainties from well data</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="fracdensity_files/libs/clipboard/clipboard.min.js"></script>
+<script src="fracdensity_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="fracdensity_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="fracdensity_files/libs/quarto-html/popper.min.js"></script>
+<script src="fracdensity_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="fracdensity_files/libs/quarto-html/anchor.min.js"></script>
+<link href="fracdensity_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="fracdensity_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="fracdensity_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="fracdensity_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="fracdensity_files/libs/bootstrap/bootstrap-1fcf4b563fe088d4ff7716f12daa7d31.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+    wideeq: ["#1", 1],
+    tr: "\\operatorname{tr}",
+    Esp: ["\\mathsf{E}\\depc{#1}", 1],
+    Mode: ["\\mathsf{Mode}\\depc{#1}", 1],
+    PProb: ["\\PProbu{#1}\\dep{#2}", 2],
+    PProbu: ["\\mathsf{P}_{#1}", 1],
+    ProbN: ["\\mathsf{P}\\dep{#1}", 1],
+    Var: ["\\mathsf{Var}\\depc{#1}", 1],
+    cdf: ["\\mathsf{F}_{#1}\\dep{#2}", 2],
+    dep: ["\\left({#1}\\right)", 1],
+    depa: ["\\left\\{{#1}\\right\\}", 1],
+    depc: ["\\left[{#1}\\right]", 1],
+    n: "\\uv{n}",
+    pprob: ["\\pprobu{#1}\\dep{#2}", 2],
+    pprobC: ["\\pprobuC{#1}\\dep{#2}", 2],
+    pprobL: ["\\pprobuL{#1}\\dep{#2}", 2],
+    pprobu: ["\\mathsf{p}_{#1}", 1],
+    pprobuC: ["\\mathsf{p}^{\\mathcal{C}}_{#1}", 1],
+    pprobuL: ["\\mathsf{p}^{\\mathcal{L}}_{#1}", 1],
+    prodc: "\\cdot",
+    ud: "\\,\\mathrm{d}",
+    uu: ["\\boldsymbol{#1}", 1],
+    uv: ["\\underline{#1}", 1],
+    ve: ["\\uv{e}_{#1}", 1]
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#sec-intro" id="toc-sec-intro" class="nav-link active" data-scroll-target="#sec-intro">Introduction</a></li>
+  <li><a href="#sec-def" id="toc-sec-def" class="nav-link" data-scroll-target="#sec-def"><span class="header-section-number">1</span> Hypotheses and definitions</a></li>
+  <li><a href="#sec-P32P10" id="toc-sec-P32P10" class="nav-link" data-scroll-target="#sec-P32P10"><span class="header-section-number">2</span> Lineic data</a>
+  <ul class="collapse">
+  <li><a href="#sec-dist1d" id="toc-sec-dist1d" class="nav-link" data-scroll-target="#sec-dist1d"><span class="header-section-number">2.1</span> Orientation and size distributions on a <span class="math inline">\(1D\)</span> well path</a></li>
+  <li><a href="#sec-spatdist" id="toc-sec-spatdist" class="nav-link" data-scroll-target="#sec-spatdist"><span class="header-section-number">2.2</span> Density analysis: <span class="math inline">\(P_{32}\)</span> from <span class="math inline">\(P_{10}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#sec-pois1D" id="toc-sec-pois1D" class="nav-link" data-scroll-target="#sec-pois1D"><span class="header-section-number">2.2.1</span> Poisson process on a well path</a></li>
+  <li><a href="#sec-probP32" id="toc-sec-probP32" class="nav-link" data-scroll-target="#sec-probP32"><span class="header-section-number">2.2.2</span> Probability law of <span class="math inline">\(P_{32}\)</span></a></li>
+  <li><a href="#sec-MC1D" id="toc-sec-MC1D" class="nav-link" data-scroll-target="#sec-MC1D"><span class="header-section-number">2.2.3</span> Validation by Monte Carlo simulations</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-surf23D" id="toc-sec-surf23D" class="nav-link" data-scroll-target="#sec-surf23D"><span class="header-section-number">3</span> Cylindrical data</a>
+  <ul class="collapse">
+  <li><a href="#sec-dist2d" id="toc-sec-dist2d" class="nav-link" data-scroll-target="#sec-dist2d"><span class="header-section-number">3.1</span> Orientation and size distributions on a cylindrical well</a>
+  <ul class="collapse">
+  <li><a href="#sec-sigmapart" id="toc-sec-sigmapart" class="nav-link" data-scroll-target="#sec-sigmapart"><span class="header-section-number">3.1.1</span> Statistics on fractures cutting the well</a></li>
+  <li><a href="#sec-sigmafull" id="toc-sec-sigmafull" class="nav-link" data-scroll-target="#sec-sigmafull"><span class="header-section-number">3.1.2</span> Fractures with full intersections</a></li>
+  <li><a href="#sec-sigmadouble" id="toc-sec-sigmadouble" class="nav-link" data-scroll-target="#sec-sigmadouble"><span class="header-section-number">3.1.3</span> Fractures with single or double traces</a></li>
+  </ul></li>
+  <li><a href="#sec-P32P102D" id="toc-sec-P32P102D" class="nav-link" data-scroll-target="#sec-P32P102D"><span class="header-section-number">3.2</span> Density analysis: <span class="math inline">\(P_{32}\)</span> from <span class="math inline">\(P_{10}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#sec-pois2D" id="toc-sec-pois2D" class="nav-link" data-scroll-target="#sec-pois2D"><span class="header-section-number">3.2.1</span> Poisson process on a cylindrical well</a></li>
+  <li><a href="#sec-probP32_2D" id="toc-sec-probP32_2D" class="nav-link" data-scroll-target="#sec-probP32_2D"><span class="header-section-number">3.2.2</span> Probability law of <span class="math inline">\(P_{32}\)</span></a></li>
+  <li><a href="#sec-MC2D" id="toc-sec-MC2D" class="nav-link" data-scroll-target="#sec-MC2D"><span class="header-section-number">3.2.3</span> Validation by Monte Carlo simulations</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-appliDFN" id="toc-sec-appliDFN" class="nav-link" data-scroll-target="#sec-appliDFN"><span class="header-section-number">4</span> Application: uncertainty on the fracture number in a D.F.N.</a></li>
+  <li><a href="#sec-conclu" id="toc-sec-conclu" class="nav-link" data-scroll-target="#sec-conclu">Conclusions and further works</a></li>
+  <li><a href="#sec-calcsurf" id="toc-sec-calcsurf" class="nav-link" data-scroll-target="#sec-calcsurf"><span class="header-section-number">5</span> Calculation of surfaces</a>
+  <ul class="collapse">
+  <li><a href="#sec-rollcircle" id="toc-sec-rollcircle" class="nav-link" data-scroll-target="#sec-rollcircle"><span class="header-section-number">5.1</span> Curves defined by a circle rolling on an ellipse</a></li>
+  <li><a href="#sec-sigma" id="toc-sec-sigma" class="nav-link" data-scroll-target="#sec-sigma"><span class="header-section-number">5.2</span> Calculation of <span class="math inline">\(\sigma\)</span></a></li>
+  <li><a href="#sec-sigmaf" id="toc-sec-sigmaf" class="nav-link" data-scroll-target="#sec-sigmaf"><span class="header-section-number">5.3</span> Calculation of <span class="math inline">\(\sigma^f\)</span></a></li>
+  <li><a href="#sec-sigmad" id="toc-sec-sigmad" class="nav-link" data-scroll-target="#sec-sigmad"><span class="header-section-number">5.4</span> Calculation of <span class="math inline">\(\sigma_2\)</span></a></li>
+  </ul></li>
+  <li><a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures">Figures</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="fracdensity.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Estimates of fracture density and uncertainties from well data</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jean-François Barthélémy <a href="mailto:jean-francois.barthelemy@cerema.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1968-8939" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            IFP, Geology-Geochemistry-Geophysics Division, Structural Geology Department, 1 &amp; 4 avenue de Bois-Préau, 92852 Rueil-Malmaison Cedex, France
+          </p>
+        <p class="affiliation">
+            Present address: Cerema, Univ Gustave Eiffel, UMR MCD, F-77171 Sourdun, France
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Martin L.E. Guiton </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            IFP, Geology-Geochemistry-Geophysics Division, Structural Geology Department, 1 &amp; 4 avenue de Bois-Préau, 92852 Rueil-Malmaison Cedex, France
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jean-Marc Daniel </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            IFP, Geology-Geochemistry-Geophysics Division, Structural Geology Department, 1 &amp; 4 avenue de Bois-Préau, 92852 Rueil-Malmaison Cedex, France
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2009</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>This paper aims at building a method to estimate the probability law governing the 3D fracture density of a fractured rock conditioned to the number of traces observed on a borehole image when the spatial distribution of fracture centers is assumed to follow a Poisson process. A closed-form expression of this law, allowing to calculate its mean value as well as a confidence interval, is derived in both cases of a lineic well (scanline) and a cylindrical well. The latter is better adapted to the situation of fracture size of the same order of magnitude as the well radius, which enables the presence of partial traces. In particular, the method takes into account the bias in the density estimate due to the fact that a fracture may cut the well along two distinct traces according to the considered fracture size. Monte Carlo simulations finally show a good agreement with the theoretical results of mean density and confidence interval.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>fracture networks, density probability law, scanline, cylindrical well, partial intersection</p>
+  </div>
+</div>
+
+</header>
+
+
+<div class="postprint-banner">
+<p><strong>Author-accepted manuscript (postprint).</strong> This is the accepted version of an article published by Elsevier in <em>International Journal of Rock Mechanics and Mining Sciences</em>. The version of record is available at <a href="https://doi.org/10.1016/j.ijrmms.2008.08.003">doi:10.1016/j.ijrmms.2008.08.003</a>. Please cite as: J.-F. Barthélémy, M. L. E. Guiton, J.-M. Daniel, “Estimates of fracture density and uncertainties from well data”, <em>International Journal of Rock Mechanics and Mining Sciences</em> <strong>46</strong>(3) (2009) 590–603. © 2009 Elsevier Ltd.</p>
+<p>This author-accepted manuscript is made available under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)</a> license. <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="cc-by-nc-nd.png" height="24" alt="CC BY-NC-ND 4.0"></a></p>
+</div>
+<section id="sec-intro" class="level1 unnumbered">
+<h1 class="unnumbered">Introduction</h1>
+<p>Naturally fracture networks in subsurface reservoirs have long been recognized to potentially influence the flow of hydrocarbon (<span class="citation" data-cites="Stearns72"><a href="#ref-Stearns72" role="doc-biblioref">[1]</a></span>, <span class="citation" data-cites="Nelson85"><a href="#ref-Nelson85" role="doc-biblioref">[2]</a></span>), water or <span class="math inline">\(CO_2\)</span> (<span class="citation" data-cites="Beliveau91a"><a href="#ref-Beliveau91a" role="doc-biblioref">[3]</a></span>, <span class="citation" data-cites="Beliveau91b"><a href="#ref-Beliveau91b" role="doc-biblioref">[4]</a></span>, <span class="citation" data-cites="Faure97"><a href="#ref-Faure97" role="doc-biblioref">[5]</a></span>). At the scale of rock matrix heterogeneity, micro-fractures, which are the main ones fully or partially observed on core data, can provide a substantial contribution to the initial volume of fluid in place (<span class="citation" data-cites="Narr96"><a href="#ref-Narr96" role="doc-biblioref">[6]</a></span>, <span class="citation" data-cites="Howard90"><a href="#ref-Howard90" role="doc-biblioref">[7]</a></span>). At a larger scale of a drainage area around a given well, natural fracture network may significantly enhance the permeability, as identified in pressure transient analysis with change of derivative in time, or production events like mud-loss or early water breakthrough. At the late stage of production, the presence of natural fractures often controls the efficiency of enhanced recovery processes (<span class="citation" data-cites="Boerrigter93"><a href="#ref-Boerrigter93" role="doc-biblioref">[8]</a></span>, <span class="citation" data-cites="Faure97"><a href="#ref-Faure97" role="doc-biblioref">[5]</a></span>). At shallow depth, natural fractures are also known to control the mechanical behavior of rock masses involved in the stability of civil engineering structures such as tunnels (<span class="citation" data-cites="Barton86"><a href="#ref-Barton86" role="doc-biblioref">[9]</a></span>, <span class="citation" data-cites="Goodman95"><a href="#ref-Goodman95" role="doc-biblioref">[10]</a></span>).</p>
+<p>Considering fractures as micro-heterogeneities in a representative volume element (R.V.E.) of the reservoir,<br>
+their hydraulical or mechanical effects are involved in simulations often through homogenized properties.<br>
+For instance, the macroscopic permeability as well as the percolation threshold can be estimated by numerical (<span class="citation" data-cites="Koudina98"><a href="#ref-Koudina98" role="doc-biblioref">[11]</a></span>, <span class="citation" data-cites="Bourbiaux98"><a href="#ref-Bourbiaux98" role="doc-biblioref">[12]</a></span>, <span class="citation" data-cites="Sarda01"><a href="#ref-Sarda01" role="doc-biblioref">[13]</a></span>, <span class="citation" data-cites="Lange01"><a href="#ref-Lange01" role="doc-biblioref">[14]</a></span>, <span class="citation" data-cites="Bourbiaux02"><a href="#ref-Bourbiaux02" role="doc-biblioref">[15]</a></span>, <span class="citation" data-cites="Garcia07"><a href="#ref-Garcia07" role="doc-biblioref">[16]</a></span>) or<br>
+theoretical methods (<span class="citation" data-cites="Berkowitz95"><a href="#ref-Berkowitz95" role="doc-biblioref">[17]</a></span>, <span class="citation" data-cites="deDreuzy01a"><a href="#ref-deDreuzy01a" role="doc-biblioref">[18]</a></span>, <span class="citation" data-cites="deDreuzy01b"><a href="#ref-deDreuzy01b" role="doc-biblioref">[19]</a></span>, <span class="citation" data-cites="Fokker01"><a href="#ref-Fokker01" role="doc-biblioref">[20]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="TIPM07"><a href="#ref-TIPM07" role="doc-biblioref">[22]</a></span>).<br>
+Whatever the method, the construction of homogeneized property should require the following<br>
+stages. First, it is necessary to collect information on parameters describing the fractures in the<br>
+R.V.E. from scarce available data, namely mainly from core data analysis or from image log<br>
+(e.g.&nbsp;FMS, FMI and UBI) interpretation (<span class="citation" data-cites="Olarewaju97"><a href="#ref-Olarewaju97" role="doc-biblioref">[23]</a></span>, <span class="citation" data-cites="Wu02"><a href="#ref-Wu02" role="doc-biblioref">[24]</a></span>, <span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>).<br>
+Besides the qualitative description of a possible cementation or material infill which<br>
+should be considered for conductivity, a quantitative description is generally first elaborated from geometrical parameters : orientation, size,<br>
+spatial distribution, connectivity, opening and density. In the following, we will focus only<br>
+on the fracture density (see definition in <a href="#sec-def" class="quarto-xref">1</a>) which is particularly important to appropriately<br>
+estimate homogenized hydraulical properties.<br>
+The usual procedure is then to extrapolate fracture density from well data to the full field<br>
+reservoir by means of a geostatistical approach, either with basic variogram analyses <span class="citation" data-cites="Olarewaju97"><a href="#ref-Olarewaju97" role="doc-biblioref">[23]</a></span><br>
+or with the construction of an explicative function relating fracture density to drivers available<br>
+at the full field scale. For instance, multilinear explicative functions are obtained with<br>
+discriminant analysis in <span class="citation" data-cites="Gauthier00"><a href="#ref-Gauthier00" role="doc-biblioref">[26]</a></span>, <span class="citation" data-cites="Gauthier02"><a href="#ref-Gauthier02" role="doc-biblioref">[27]</a></span> and <span class="citation" data-cites="Garcia07"><a href="#ref-Garcia07" role="doc-biblioref">[16]</a></span>, while non-linear<br>
+explicative functions are provided by neural network techniques in <span class="citation" data-cites="Ouenes00"><a href="#ref-Ouenes00" role="doc-biblioref">[28]</a></span> and <span class="citation" data-cites="Tran04"><a href="#ref-Tran04" role="doc-biblioref">[29]</a></span>. The drivers used to explain fracture density may be interpreted according to the geological history during which natural fractures have formed. It is worth considering the influence of mechanical properties<br>
+coming from lithology (e.g.&nbsp;porosity, grain size, dolomitization in <span class="citation" data-cites="Stearns72"><a href="#ref-Stearns72" role="doc-biblioref">[1]</a></span>, <span class="citation" data-cites="Gauthier00"><a href="#ref-Gauthier00" role="doc-biblioref">[26]</a></span>) or<br>
+from sedimentology like the small bed thickness positively correlated to the spacing between joints<br>
+(<span class="citation" data-cites="Ladeira81"><a href="#ref-Ladeira81" role="doc-biblioref">[30]</a></span>, <span class="citation" data-cites="Narr84"><a href="#ref-Narr84" role="doc-biblioref">[31]</a></span>, <span class="citation" data-cites="Narr91"><a href="#ref-Narr91" role="doc-biblioref">[32]</a></span>). Natural fractures distribution may also have been controlled<br>
+by tectonic deformation like the extension in fold outer-arc which correlates to strata curvature<br>
+(<span class="citation" data-cites="Lisle94"><a href="#ref-Lisle94" role="doc-biblioref">[33]</a></span>, <span class="citation" data-cites="Hennings00"><a href="#ref-Hennings00" role="doc-biblioref">[34]</a></span>, <span class="citation" data-cites="Gauthier02"><a href="#ref-Gauthier02" role="doc-biblioref">[27]</a></span>) and the large shear deformation at the<br>
+vicinity of faults (<span class="citation" data-cites="Pohn81"><a href="#ref-Pohn81" role="doc-biblioref">[35]</a></span>, <span class="citation" data-cites="Gauthier00"><a href="#ref-Gauthier00" role="doc-biblioref">[26]</a></span>) which is often partly accommodated by pervasive fractures.</p>
+<p>A crucial point of the workflow is the link between the estimate of fracture density from well observations and the <span class="math inline">\(3D\)</span> density of a R.V.E.. Indeed, it is for instance well known that<br>
+the first one is strongly influenced by the relative orientation of the well with respect to fractures, while R.V.E. density should not. Since <span class="citation" data-cites="Terzaghi65"><a href="#ref-Terzaghi65" role="doc-biblioref">[36]</a></span> and then in <span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span> a correction factor is widely used to compensate the<br>
+poor chance to sample fractures sub-parallel to the well trajectory. More recently, this method has been extended to account for the intersection of fractures of finite size with a well cylinder (<span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>) or for the bed thickness (<span class="citation" data-cites="Narr84"><a href="#ref-Narr84" role="doc-biblioref">[31]</a></span>, <span class="citation" data-cites="Narr96"><a href="#ref-Narr96" role="doc-biblioref">[6]</a></span>). Alternatively, in <span class="citation" data-cites="Wu02"><a href="#ref-Wu02" role="doc-biblioref">[24]</a></span> fracture density is computed with data from different locations on the well but converging towards a same volume of density measurement. When a relationship has been derived between the mean density computed from the observations and that of a corresponding given <span class="math inline">\(3D\)</span> fracture network, the uncertainty of the density estimate remains to be quantified, in order to allow for instance the comparison of density estimate from different wells. An empirical way to quantify this uncertainty would be to realize many <span class="math inline">\(3D\)</span> discrete fracture networks (D.F.N.) in a Monte Carlo simulation with a priori postulate on the <span class="math inline">\(3D\)</span> model properties (orientation, size and density of fractures) following for instance the idea presented in <span class="citation" data-cites="LaPointe93"><a href="#ref-LaPointe93" role="doc-biblioref">[42]</a></span> in which the size distributions is constrained from length of observed fracture traces. Beside the obvious time consuming drawback of such a method, the quantification of a probability distribution for the <span class="math inline">\(3D\)</span> fracture density would lack of precision. Also, like in <span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>, one could consider a distribution for the number of fractures in a given <span class="math inline">\(3D\)</span> volume, e.g.&nbsp;the discrete Poisson distribution (see details in <a href="#sec-def" class="quarto-xref">1</a>), but to the authors’ knowledge, the determination of the density parameter which characterizes such distribution given the well data remains to be done.<br>
+In this context, this paper aims at proposing closed-form solutions to this issue. The method presented in this paper therefore allows to quantify efficiently the uncertainty of the density estimate and to envision a quality control on the sample data. After recalling the different definitions of the density and the hypothesis of Poisson distribution, the paper falls into two parts. The first one considers the well as a scanline which can be crossed by plane fractures and the second one explicitely takes into account the cylindrical geometry of the well on which partial fracture traces can be observed. For both models, we derive the complete probability law of the fracture density conditioned to the number of observed traces along a well segment of given length. Eventually, this law allows to calculate the mean fracture density as well as quantiles, namely the confidence interval for any given tolerance. Whereas no assumption is made on the fracture shape in the lineic case, the procedure proposed for the cylindrical well requires the knowledge of the size distribution of fractures assumed to be elliptic. This distribution has therefore to be estimated beforehand, for example by assuming a correlation with another fracture property which can be observed on borehole images, e.g.&nbsp;spacing or aperture <span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>, or by means of an inversion procedure constrained by the observation of fracture traces on outcrop surfaces (e.g.&nbsp;see <span class="citation" data-cites="Priest04"><a href="#ref-Priest04" role="doc-biblioref">[43]</a></span>, <span class="citation" data-cites="Berkowitz98"><a href="#ref-Berkowitz98" role="doc-biblioref">[44]</a></span>, <span class="citation" data-cites="LaPointe02"><a href="#ref-LaPointe02" role="doc-biblioref">[45]</a></span> and <span class="citation" data-cites="Tonon07"><a href="#ref-Tonon07" role="doc-biblioref">[46]</a></span> for the intersection between circular fractures and a plane outcrop, and see <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span> for the intersection between a <span class="math inline">\(3D\)</span> fracture network and a well cylinder in partial or full traces). However, according to the considered size distribution, the density probability presented in this paper takes into account the bias induced by the fact that two distinct traces can possibly come from the same fracture, which implies a reduction of the apparent density.</p>
+</section>
+<section id="sec-def" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Hypotheses and definitions</h1>
+<p>As often assumed, the fractures will be considered as planar (see <span class="citation" data-cites="Zhang02"><a href="#ref-Zhang02" role="doc-biblioref">[48]</a></span> for a review about this hypothesis). The fractured medium that is studied here may contain several sets of fractures. A set gathers fractures according to the distribution of normal vectors around a mean pole and a rather small dispersion around the pole. For example, a method to create fracture sets statisfying bivariate normal distributions can be found in <span class="citation" data-cites="Marcotte02"><a href="#ref-Marcotte02" role="doc-biblioref">[49]</a></span> (other distributions are presented in <span class="citation" data-cites="Fisher87"><a href="#ref-Fisher87" role="doc-biblioref">[50]</a></span>). Each set is also characterized by a size distribution. The presence of several sets may imply a correlation between the orientation and size distributions. Nevertheless, it is reasonable to assume these properties are independent within each set.</p>
+<p>In the following, a unique set is considered. It is then characterized by an orientation distribution, a size distribution as well as a density. The latter in a rock mass crossed by a well is quantified by means of the following definitions (<span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>): <span class="math inline">\(P_{30}\)</span> is the mean number of fracture centers per unit volume (in <span class="math inline">\(/m^3\)</span>), <span class="math inline">\(P_{32}\)</span> is the mean fractured surface per unit volume (in <span class="math inline">\(m^2/m^3\)</span>), <span class="math inline">\(P_{21}\)</span> is the mean curvilinear length of fracture traces per well unit surface (in <span class="math inline">\(m/m^2\)</span>), recalling that a trace is defined as the intersection between the fracture and the well surface (seen as a cylinder) and <span class="math inline">\(P_{10}\)</span> is the mean number of fracture traces per well unit length (in <span class="math inline">\(/m\)</span>). To identify proper parameters of the size, orientation and spatial distributions, it is necessary to consider studied domains, namely intervals, within which those parameters are stationary. Therefore, the intervals must be small enough to ensure the homogeneity of the distributions. The hypothesis of the independence between the size distribution and the spatial location is also argued in <span class="citation" data-cites="Zhang02"><a href="#ref-Zhang02" role="doc-biblioref">[48]</a></span>. The last hypothesis, which will play a major role in the sequel, is that the fracture centers follow a Poisson distribution. Although this is not the only spatial distribution which has been identified on field observations, numerous works (<span class="citation" data-cites="Priest76"><a href="#ref-Priest76" role="doc-biblioref">[51]</a></span>, <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>) have proven its validity in a large number of field studies. In particular, it is shown in <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span> that it may be well adapted to describe networks of low density or early stages of fracturation. The Poisson distribution means that the number <span class="math inline">\(N_V\)</span> of centers which can be found in a volume <span class="math inline">\(V\)</span> is given by:</p>
+<p><span id="eq-poisvol"><span class="math display">\[
+\wideeq{\PProb{N_V}{n_V}
+=e^{-P_{30}\,V}\,\frac{\dep{P_{30}\,V}^{n_V}}{n_V!}
+={\mathcal{P}}_{P_{30}V}\dep{n_V}
+\quad(\forall n_V\geq 0)}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{P}}_{\lambda}(n)=e^{-\lambda}\lambda^n/n!\)</span> denotes the discrete Poisson distribution of positive scalar parameter <span class="math inline">\(\lambda\)</span>. It is very important to note that <span class="math inline">\(P_{30}\)</span> plays the role of a parameter of the law&nbsp;(<a href="#eq-poisvol" class="quarto-xref">1</a>). The expectation of <span class="math inline">\(N_V\)</span> is equal to <span class="math inline">\(P_{30}V\)</span>, which gives <span class="math inline">\(P_{30}\)</span> its physical meaning as the mean number of centers per unit volume. Nevertheless, one must emphasize that <span class="math inline">\(P_{30}\)</span>, as an unknown parameter, should not be directly identified as the number of fracture centers divided by the volume of a given observation since the uncertainty on the actual value of <span class="math inline">\(P_{30}\)</span> would not be then taken into account, especially if the number of centers is too small. According to the previous definitions, this parameter <span class="math inline">\(P_{30}\)</span> can be replaced in&nbsp;(<a href="#eq-poisvol" class="quarto-xref">1</a>) by the usual <span class="math inline">\(3D\)</span> density <span class="math inline">\(P_{32}\)</span> thanks to</p>
+<p><span id="eq-NP32"><span class="math display">\[
+\wideeq{P_{32}=P_{30}\,\Esp{S}}
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(\Esp{S}\)</span> is the expectation of the fracture surface <span class="math inline">\(S\)</span>. The density <span class="math inline">\(P_{32}\)</span> now also appears as a positive scalar parameter allowing to write the Poisson distribution of the number of fracture centers in a given volume. One of the main issues of fracture network characterization is to identify <span class="math inline">\(P_{32}\)</span>. Many previous works (<span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>, <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>) consider <span class="math inline">\(P_{32}\)</span> as fixed albeit unknown. In addition, parts of those works are devoted to the derivation of relationships between different parameters: e.g.&nbsp;between <span class="math inline">\(P_{32}\)</span> and <span class="math inline">\(P_{10}\)</span> or between <span class="math inline">\(P_{32}\)</span> and <span class="math inline">\(P_{21}\)</span>. By this way, it is intended to identify <span class="math inline">\(P_{32}\)</span> by means of <span class="math inline">\(1D\)</span> or <span class="math inline">\(2D\)</span> samplings, for instance the number of fracture traces divided by the interval length in a scanline sampling. But this method may lose accuracy if the number of observations is small. By contrast, the present contribution aims at quantifying the uncertainty of the determination of the parameter <span class="math inline">\(P_{32}\)</span> from observations (scanline or cylindrical sampling).</p>
+</section>
+<section id="sec-P32P10" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Lineic data</h1>
+<section id="sec-dist1d" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-dist1d"><span class="header-section-number">2.1</span> Orientation and size distributions on a <span class="math inline">\(1D\)</span> well path</h2>
+<p>We consider here that the well trajectory is defined by a straight line. It is well known that any <span class="math inline">\(3D\)</span> statistics of a fracture property depending on the orientation and/or extension distributions of the fractures does not simply apply to a sampling of fractures intersecting the well path (<span class="citation" data-cites="Terzaghi65"><a href="#ref-Terzaghi65" role="doc-biblioref">[36]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>). Indeed, statistics are biased by the fact that the number of large fractures or the number of those which are the most perpendicular to the well path are over-estimated in such a sampling. Thus, the relationship between a <span class="math inline">\(3D\)</span> statistics and its <span class="math inline">\(1D\)</span> counterpart must involve a correction factor inversely proportional to the mean number of fractures of given orientation and surface crossing the well path. This number is proportional to the area of the projection of the fracture on the plane perpendicular to the well path. If <span class="math inline">\(\Theta\)</span><br>
+denotes the random acute angle between the fracture normal vector and the well direction (<span class="math inline">\(0\leq\Theta\leq\pi/2\)</span>) and <span class="math inline">\(S\)</span> the random surface of the fracture (see&nbsp;<a href="#fig-contvol" class="quarto-xref">Fig.&nbsp;1</a>), the mean number of fractures such that <span class="math inline">\(\theta\leq\Theta&lt;\theta+\ud\theta\)</span></p>
+<p>and <span class="math inline">\(s\leq S&lt;s+\ud s\)</span></p>
+<p>intersecting a well segment of length <span class="math inline">\(L\)</span> is:</p>
+<p><span id="eq-NlStheta"><span class="math display">\[
+\wideeq{\ud N_L=P_{30}\,L\,s\,\cos{\theta}\,
+\pprob{S}{s}\ud s\,\pprob{\Theta}{\theta}\ud\theta}
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(\pprobu{S}\)</span> (resp. <span class="math inline">\(\pprobu{\Theta}\)</span>) is the <span class="math inline">\(3D\)</span> p.d.f. (probability density function) of the variable <span class="math inline">\(S\)</span> (resp. <span class="math inline">\(\Theta\)</span>). Consequently, the p.d.f. of the couple <span class="math inline">\(\dep{S,\Theta}\)</span> defined on fractures intersecting the well path and denoted by <span class="math inline">\(\pprobuL{S,\Theta}\)</span> is then related to its <span class="math inline">\(3D\)</span> counterpart by:</p>
+<p><span id="eq-pSTheta1D"><span class="math display">\[
+\wideeq{\pprobL{S,\Theta}{s,\theta}=
+\frac{s\,\cos\theta}{\Esp{S\,\cos\Theta}}\,
+\pprob{S,\Theta}{s,\theta}
+=
+\frac{s}{\Esp{S}}\,\pprob{S}{s}
+\,\frac{\cos\theta}{\Esp{\cos\Theta}}\,\pprob{\Theta}{\theta}}
+\tag{4}\]</span></span></p>
+<p>The second equality of&nbsp;(<a href="#eq-pSTheta1D" class="quarto-xref">4</a>) takes advantage of the independence of <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(S\)</span> <span class="math inline">\(3D\)</span> distributions. Moreover, (<a href="#eq-pSTheta1D" class="quarto-xref">4</a>) proves that <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(S\)</span>, as variables concerning only intersecting fractures, are also independent:</p>
+<p><span id="eq-indeppSTheta1D"><span class="math display">\[
+\wideeq{\pprobL{S,\Theta}{s,\theta}=\pprobL{S}{s}\,\pprobL{\Theta}{\theta}
+\;\textrm{with}\;
+\pprobL{S}{s}=\frac{s}{\Esp{S}}\,\pprob{S}{s}
+\;\textrm{and}\;
+\pprobL{\Theta}{\theta}=\frac{\cos\theta}{\Esp{\cos\Theta}}\,\pprob{\Theta}{\theta}}
+\tag{5}\]</span></span></p>
+</section>
+<section id="sec-spatdist" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-spatdist"><span class="header-section-number">2.2</span> Density analysis: <span class="math inline">\(P_{32}\)</span> from <span class="math inline">\(P_{10}\)</span></h2>
+<section id="sec-pois1D" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-pois1D"><span class="header-section-number">2.2.1</span> Poisson process on a well path</h3>
+<p>The aim of this section is to prove that the fracture traces along the well path obey to a Poisson process if the <span class="math inline">\(3D\)</span> spatial distribution is also of Poisson type i.e.&nbsp;satisfies&nbsp;(<a href="#eq-poisvol" class="quarto-xref">1</a>). For this purpose, we build a cylindrical volume around the well path as in <span class="citation" data-cites="Zhang00"><a href="#ref-Zhang00" role="doc-biblioref">[53]</a></span> (see&nbsp;<a href="#fig-contvol" class="quarto-xref">Fig.&nbsp;1</a>). The surface of the cylinder section is denoted by <span class="math inline">\(S_c\)</span> and the height by <span class="math inline">\(L\)</span>.</p>
+<p>Assuming that <span class="math inline">\(S_c\)</span> is very large compared to the order of magnitude of the fracture surface, the probability for any fracture to cut the well path is:</p>
+<p><span id="eq-pcut"><span class="math display">\[
+\wideeq{q=\frac{\Esp{S\,\cos{\Theta}}}{S_c}=
+\frac{\Esp{S}}{S_c}\,\kappa_o
+\quad\textrm{with}\quad
+\kappa_o=\Esp{\cos{\Theta}}}
+\tag{6}\]</span></span></p>
+<p>Let <span class="math inline">\(N_L'\)</span> be the number of fractures cutting the well path among those for which the centers belong to the cylindrical volume. It is worth observing that the probability for a fracture to have its center inside the cylindrical volume while cutting the well path is equal to the probability to have its center outside while cutting the well segment contained inside the cylinder. Hence, the probability law of the random number <span class="math inline">\(N_L\)</span> of fractures cutting this segment of length <span class="math inline">\(L\)</span> is the same as that of <span class="math inline">\(N_L'\)</span>. Considering the definition of <span class="math inline">\(N_L'\)</span>, we deduce that its conditional probability given the number <span class="math inline">\(N_V\)</span> of centers inside the cylinder follows a binomial distribution:</p>
+<p><span id="eq-pnlNV"><span class="math display">\[
+\wideeq{\PProb{N_L'|N_V}{n_L|n_V}=
+\left\{
+\begin{array}{ll}
+0&amp;\textrm{if }{n_L}&gt;{n_V}\\
+{\mathcal{B}}_{{q,n_V}}\dep{n_L}=
+C_{n_V}^{n_L}\,q^{n_L}\,\dep{1-q}^{{n_V}-{n_L}}&amp;\textrm{if }{n_L}\leq {n_V}
+\end{array}
+\right.}
+\tag{7}\]</span></span></p>
+<p>where <span class="math inline">\(C_{n_V}^{n_L}=n_V!/(n_L!(n_V-n_L)!)\)</span> is the binomial coefficient and <span class="math inline">\(q\)</span> defined in&nbsp;(<a href="#eq-pcut" class="quarto-xref">6</a>). It is now possible to derive <span class="math inline">\(\PProbu{N_L}\)</span> by introducing&nbsp;(<a href="#eq-pnlNV" class="quarto-xref">7</a>) and&nbsp;(<a href="#eq-poisvol" class="quarto-xref">1</a>) in the marginal law formula <span class="citation" data-cites="Jourdain"><a href="#ref-Jourdain" role="doc-biblioref">[54]</a></span></p>
+<p><span id="eq-pnl1"><span class="math display">\[
+\wideeq{\PProb{N_L}{n_L}=\PProb{N_L'}{n_L}=
+\sum_{n_V=0}^{+\infty}
+\PProb{N_L'|N_V}{n_L|n_V}\,\PProb{N_V}{n_V}
+=
+\sum_{n_V=n_L}^{+\infty}
+{\mathcal{B}}_{{q,n_V}}\dep{n_L}\,
+{\mathcal{P}}_{P_{30}V}\dep{n_V}}
+\tag{8}\]</span></span></p>
+<p>Exploiting&nbsp;(<a href="#eq-NP32" class="quarto-xref">2</a>), (<a href="#eq-pcut" class="quarto-xref">6</a>), <span class="math inline">\(V=S_cL\)</span> and the identity <span class="math inline">\(\sum_{n=0}^{+\infty}x^n/n!=e^{x}\)</span>, (<a href="#eq-pnl1" class="quarto-xref">8</a>) becomes:</p>
+<p><span id="eq-pnl"><span class="math display">\[
+\wideeq{\PProb{N_L}{n_L}=
+e^{-P_{32}\,\kappa_o\,L/q}\,
+\frac{\dep{P_{32}\,\kappa_o\,L}^{n_L}}{{n_L}!}\;
+\sum_{{n}=0}^{+\infty}
+\frac{\Big(
+P_{32}\,\kappa_o\,L\,\dep{1-q}/{q}\Big)^{n}}{{n}!}
+=
+e^{-P_{32}\,\kappa_o\,L}\,
+\frac{\dep{P_{32}\,\kappa_o\,L}^{n_L}}{{n_L}!}
+={\mathcal{P}}_{P_{32}\kappa_oL}\dep{n_L}}
+\tag{9}\]</span></span></p>
+<p>The probability law&nbsp;(<a href="#eq-pnl" class="quarto-xref">9</a>) proves that the property of cutting the well path is a Poisson process. It follows that the mean number of traces per well unit length is consistent with the integration of&nbsp;(<a href="#eq-NlStheta" class="quarto-xref">3</a>) and highlights the correction factor between <span class="math inline">\(P_{10}\)</span> and <span class="math inline">\(P_{32}\)</span> already put in evidence in numerous works after <span class="citation" data-cites="Terzaghi65"><a href="#ref-Terzaghi65" role="doc-biblioref">[36]</a></span> (<span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>):</p>
+<p><span id="eq-P10"><span class="math display">\[
+\wideeq{P_{10}=
+\frac{\Esp{N_L}}{L}=P_{32}\,\kappa_o}
+\tag{10}\]</span></span></p>
+<p>Similarly to <span class="math inline">\(P_{32}\)</span>, <span class="math inline">\(P_{10}\)</span> plays the role of a parameter in the Poisson process characterizing the number of fracture traces on the well interval. Moreover the spacing <span class="math inline">\(\Delta\)</span> between two consecutive traces obeys to an exponential law (<span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>):</p>
+<p><span id="eq-spacing"><span class="math display">\[
+\wideeq{\pprob{\Delta}{\delta}=
+P_{10}\,e^{-P_{10}\,\delta}
+\quad(\forall \delta\geq 0)}
+\tag{11}\]</span></span></p>
+<p>As aforementioned, some field studies have put in evidence fracture spacings obeying to&nbsp;(<a href="#eq-spacing" class="quarto-xref">11</a>) (<span class="citation" data-cites="Priest76"><a href="#ref-Priest76" role="doc-biblioref">[51]</a></span>, <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>), which allows to define an observable criterion of the spatial distribution. Indeed, it is recalled in <span class="citation" data-cites="Odling99"><a href="#ref-Odling99" role="doc-biblioref">[55]</a></span> that if the latter if of Poisson type, the ratio between the standard deviation and the mean of the spacing distribution is <span class="math inline">\(1\)</span>, whereas the ratio is smaller than <span class="math inline">\(1\)</span> if the traces are more regularly spaced, and greater than <span class="math inline">\(1\)</span> if the traces are clustered.</p>
+</section>
+<section id="sec-probP32" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-probP32"><span class="header-section-number">2.2.2</span> Probability law of <span class="math inline">\(P_{32}\)</span></h3>
+<p>The expression&nbsp;(<a href="#eq-pnl" class="quarto-xref">9</a>) has been obtained under the hypothesis that <span class="math inline">\(P_{32}\)</span> was a known parameter. Assuming now that <span class="math inline">\(P_{32}\)</span> is a random variable, (<a href="#eq-pnl" class="quarto-xref">9</a>) writes:</p>
+<p><span id="eq-pnlcond"><span class="math display">\[
+\wideeq{\PProb{N_L|P_{32}}{n_L|p}=
+e^{-p\,\kappa_o\,L}\,
+\frac{\dep{p\,\kappa_o\,L}^{n_L}}{{n_L}!}}
+\tag{12}\]</span></span></p>
+<p>Invoking Bayes’ theorem <span class="citation" data-cites="Jourdain"><a href="#ref-Jourdain" role="doc-biblioref">[54]</a></span> by taking&nbsp;(<a href="#eq-pnlcond" class="quarto-xref">12</a>) as the conditional probability and considering the prior <span class="math inline">\(\pprobu{P_{32}}\)</span> and the marginal <span class="math inline">\(\PProbu{N_L}\)</span> probabilities as normalizing constants, the p.d.f. of <span class="math inline">\(P_{32}\)</span> given the number <span class="math inline">\(N_L\)</span> is obtained as the posterior probability:</p>
+<p><span id="eq-pP32n"><span class="math display">\[
+\wideeq{\pprob{P_{32}|N_L}{p|n_L}=
+e^{-p\,\kappa_o\,L}\,
+\frac{p^{n_L}\,\dep{\kappa_o\,L}^{n_L+1}}{n_L!}
+=\Gamma_{{n_L+1,\kappa_oL}}\dep{p}}
+\tag{13}\]</span></span></p>
+<p>where <span class="math inline">\(\Gamma_{{n_L+1,\kappa_o L}}\)</span> denotes the p.d.f. of the gamma type <span class="citation" data-cites="Jourdain"><a href="#ref-Jourdain" role="doc-biblioref">[54]</a></span> depending on the parameters <span class="math inline">\(n_L+1\)</span> and <span class="math inline">\(\kappa_o L\)</span>. In particular, the conditional expectation, mode</p>
+<p>and standard deviation can be deduced as:</p>
+<p><span id="eq-EMVP32"><span class="math display">\[
+\wideeq{\Esp{P_{32}|N_L=n_L}=\frac{n_L+1}{\kappa_o\,L}
+\;;\quad
+\Mode{P_{32}|N_L=n_L}=\frac{n_L}{\kappa_o\,L}
+\;;\quad
+\sqrt{\Var{P_{32}|N_L=n_L}}=\frac{\sqrt{n_L+1}}{\kappa_o\,L}}
+\tag{14}\]</span></span></p>
+<p>It must be emphasized that the expectation and the mode&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) of <span class="math inline">\(P_{32}\)</span> given <span class="math inline">\(N_L\)</span> are not identical and, in particular, <span class="math inline">\(\Esp{P_{32}|N_L=0}\neq 0\)</span>. The conditional p.d.f. (<a href="#eq-pP32n" class="quarto-xref">13</a>) is represented on&nbsp;<a href="#fig-pdfP32" class="quarto-xref">Fig.&nbsp;2</a> for different values of <span class="math inline">\(L\)</span> or <span class="math inline">\(N_L\)</span> for a given expectation&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) <span class="math inline">\(\Esp{P_{32}|N_L=n_L}=1/m\)</span>. It quantitatively shows the influence of the length over which data are gathered and the number of data on the width of the p.d.f.. In particular, the ratio between the standard deviation and the expectation&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) decreases with respect to <span class="math inline">\(n_L\)</span> as <span class="math inline">\(1/\sqrt{n_L+1}\)</span>.</p>
+<p>The cumulative distribution function is:</p>
+<p><span id="eq-cdfP32"><span class="math display">\[
+\wideeq{\cdf{P_{32}|N_L}{p|n_L}=\ProbN{P_{32}\leq p|N_L=n_L}=
+\frac{1}{n_L!}\,
+\int_{t=0}^{p\,\kappa_o\,L}
+e^{-t}\,t^{n_L}\ud t
+=\frac{1}{n_L!}\,\gamma\dep{n_L+1,p\,\kappa_o\,L}}
+\tag{15}\]</span></span></p>
+<p>where <span class="math inline">\(\gamma\)</span> is the so-called incomplete gamma function:</p>
+<p><span id="eq-gamma"><span class="math display">\[
+\wideeq{\gamma(a,x)=\int_{t=0}^{x}
+e^{-t}\,t^{a-1}\ud t}
+\tag{16}\]</span></span></p>
+<p>Let us recall that the quantiles <span class="math inline">\(q_\alpha\)</span> of the law of <span class="math inline">\(P_{32}\)</span> given <span class="math inline">\(N_L\)</span> are defined by:</p>
+<p><span id="eq-qalpha"><span class="math display">\[
+\wideeq{\cdf{P_{32}|N_L}{q_\alpha|n_L}=\ProbN{P_{32}\leq q_\alpha|N_L=n_L}=\alpha}
+\tag{17}\]</span></span></p>
+<p>and can be obtained with respect to the integer <span class="math inline">\(n_L\)</span> by the resolution of:</p>
+<p><span id="eq-Qalpha"><span class="math display">\[
+\wideeq{q_\alpha=\frac{\tilde{q}_\alpha}{\kappa_o\,L}
+\quad\textrm{with}\quad
+\frac{1}{n_L!}\,\gamma\dep{n_L+1,\tilde{q}_\alpha}=\alpha}
+\tag{18}\]</span></span></p>
+</section>
+<section id="sec-MC1D" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="sec-MC1D"><span class="header-section-number">2.2.3</span> Validation by Monte Carlo simulations</h3>
+<p>The validity of the <span class="math inline">\(P_{32}\)</span> p.d.f. found in the previous paragraph is now checked by means of Monte Carlo simulations. Discrete fracture networks are randomly drawn for several values of <span class="math inline">\(P_{32}\)</span>. The number of fractures <span class="math inline">\(N_L\)</span> intersecting a well segment, which length <span class="math inline">\(L\)</span> is set to <span class="math inline">\(20\)</span> in the following simulations, is calculated for each network.</p>
+<p>The cloud of points <span class="math inline">\((N_L/L,P_{32})\)</span> can then be compared on&nbsp;<a href="#fig-quantP32Lin" class="quarto-xref">Fig.&nbsp;3</a> to the expectation of the law&nbsp;(<a href="#eq-pP32n" class="quarto-xref">13</a>) as well as to the first and ninth deciles <span class="math inline">\(q_{10}\)</span> and <span class="math inline">\(q_{90}\)</span> respectively. For sake of simplicity, fractures are sometimes modeled as disks or more generally as ellipses characterized by two radii which follow scalar distributions such as power law, lognormal or exponential laws <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>. In the simulations of&nbsp;<a href="#fig-quantP32Lin" class="quarto-xref">Fig.&nbsp;3</a>, the fractures are ellipses of aspect ratio <span class="math inline">\(1/2\)</span> which largest radius follows a lognormal distribution of mean <span class="math inline">\(1~m\)</span> and standard deviation <span class="math inline">\(0.3~m\)</span>. As regards the orientation, a bivariate normal distribution <span class="citation" data-cites="Marcotte02"><a href="#ref-Marcotte02" role="doc-biblioref">[49]</a></span> is adopted. It is recalled that such a distribution is characterized by an orthonormal frame <span class="math inline">\((\uv{r},\uv{t}_1,\uv{t}_2)\)</span> (where <span class="math inline">\(\uv{r}\)</span> is the mean pole and <span class="math inline">\((\uv{t}_1,\uv{t}_2)\)</span> is a basis of the plane tangent to the unit sphere at point <span class="math inline">\(\uv{r}\)</span>) or equivalently by three Euler angles (see&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;4</a>) as well as by two standard deviation parameters <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span> such that the orientation p.d.f. writes with respect to the unit sphere random vector <span class="math inline">\(\n\)</span>:</p>
+<p><span id="eq-bivnorm"><span class="math display">\[
+\wideeq{\ProbN{
+      c_i\leq\n\prodc\uv{t}_i\leq c_i+\ud c_i;\,
+      i=1,2}=
+    \frac{1}{2\,\pi\,s_1\,s_2\,{\mathcal{I}}\dep{s_1,s_2}}\,
+  e^{-\frac{1}{2}\,\dep{\dep{\frac{c_1}{s_1}}^2+\dep{\frac{c_2}{s_2}}^2}}\,
+  \ud c_1\,\ud c_2}
+\tag{19}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{I}}\dep{s_1,s_2}\)</span> is a normalization constant such that the integral of&nbsp;(<a href="#eq-bivnorm" class="quarto-xref">19</a>) over the unit disk <span class="math inline">\(\depa{c_1^2+c_2^2\leq 1}\)</span> is <span class="math inline">\(1\)</span>. For the simulations of&nbsp;<a href="#fig-quantP32Lin" class="quarto-xref">Fig.&nbsp;3</a>, a mean pole inclined by <span class="math inline">\(\theta=45ï¿½\)</span> with respect to the well direction <span class="math inline">\(\uv{e}_3\)</span> has been chosen and <span class="math inline">\(s_1=s_2=0.1\)</span>. Moreover, the angle <span class="math inline">\(\Psi\)</span> defining the direction of the major axis of a fracture in its plane (see&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;4</a>) is taken constant and equal to <span class="math inline">\(\pi/2\)</span>, i.e.&nbsp;the major axis belongs to the horizontal plane.</p>
+<p>As shown on&nbsp;<a href="#fig-quantP32Lin" class="quarto-xref">Fig.&nbsp;3</a>, the law&nbsp;(<a href="#eq-pP32n" class="quarto-xref">13</a>) is consistent with the Monte Carlo simulations; in particular, the proportion of points lying between the two decile curves among the <span class="math inline">\(2000\)</span> drawn fracture networks is <span class="math inline">\(79.16\%\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="sec-surf23D" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Cylindrical data</h1>
+<section id="sec-dist2d" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-dist2d"><span class="header-section-number">3.1</span> Orientation and size distributions on a cylindrical well</h2>
+<p>In this paragraph, the well is considered as a circular cylinder of radius <span class="math inline">\(R_c\)</span> and the vector <span class="math inline">\(\ve{3}\)</span> gives the direction of the axis. Because of the complexity of the intersection between a cylinder and any bounded surface representing a fracture, we limit ourselves to elliptic fractures of random major radius <span class="math inline">\(A\)</span> and small radius <span class="math inline">\(B\)</span>. As discussed in <span class="citation" data-cites="Zhang02"><a href="#ref-Zhang02" role="doc-biblioref">[48]</a></span>, the elliptical shape, albeit simple, is of great interest because of its ability to account for anisotropy in the fracture plane unlike the classically assumed circular shape</p>
+<p>To achieve the determination of such a fracture in the <span class="math inline">\(3D\)</span> space, we also have to know the center coordinates <span class="math inline">\((x_1^o,x_2^o,x_3^o)\)</span> and the angles <span class="math inline">\((\Theta,\Phi,\Psi)\)</span> defining the local frame of the ellipse: <span class="math inline">\(\Theta\)</span> still denotes the angle between the normal vector and the well direction, <span class="math inline">\(\Phi\)</span> is the angle between the projection of the normal vector onto the plane perpendicular to the well and the <span class="math inline">\(x_1\)</span> axis (directly related to the dip-azimuth if the well path is vertical) and <span class="math inline">\(\Psi\)</span> allows to determine the rotation of the fracture in its own plane (see&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;4</a>).</p>
+<p>The projection of such an ellipse onto the plane orthogonal to the well direction is an ellipse defined thanks to the quadratic form:</p>
+<p><span id="eq-projell"><span class="math display">\[
+\wideeq{\left(
+\begin{array}{c}
+x_1-x_1^o\\
+x_2-x_2^o
+\end{array}
+\right)
+\cdot
+\uu{R}
+\cdot
+\uu{H}^{-1}
+\cdot
+\uu{R}^{-1}
+\cdot
+\left(
+\begin{array}{c}
+x_1-x_1^o\\
+x_2-x_2^o
+\end{array}
+\right)
+\leq 1}
+\tag{20}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-RH"><span class="math display">\[
+\wideeq{\uu{R}=
+\left(
+\begin{array}{cc}
+\cos\Phi
+&amp;-\sin\Phi
+\\
+\sin\Phi
+&amp;\cos\Phi
+\end{array}
+\right)
+\;\textrm{ and}\;
+\uu{H}=
+\left(
+\begin{array}{cc}
+\cos^2\Theta\,\dep{A^2\,\cos^2\Psi+B^2\,\sin^2\Psi}
+&amp;\dep{A^2-B^2}\,\cos\Theta\cos\Psi\sin\Psi
+\\
+\dep{A^2-B^2}\,\cos\Theta\cos\Psi\sin\Psi
+&amp;A^2\,\sin^2\Psi+B^2\,\cos^2\Psi
+\end{array}
+\right)}
+\tag{21}\]</span></span></p>
+<p>The radii of the ellipse <span class="math inline">\(\hat{A}\)</span> and <span class="math inline">\(\hat{B}\leq \hat{A}\)</span> in the <span class="math inline">\(\dep{x_1,x_2}\)</span> plane are the square roots of the eigenvalues of <span class="math inline">\(\uu{H}\)</span>&nbsp;(<a href="#eq-RH" class="quarto-xref">21</a>) and thus do not depend on <span class="math inline">\(\Phi\)</span>:</p>
+<p><span id="eq-ApBp"><span class="math display">\[
+\wideeq{\hat{A}\dep{A,B,\Theta,\Psi}
+=\sqrt{\frac{\tr{\uu{H}}+\sqrt{\dep{\tr{\uu{H}}}^2-4\det{\uu{H}}}}{2}}
+\quad;\quad
+\hat{B}\dep{A,B,\Theta,\Psi}
+=\sqrt{\frac{\tr{\uu{H}}-\sqrt{\dep{\tr{\uu{H}}}^2-4\det{\uu{H}}}}{2}}}
+\tag{22}\]</span></span></p>
+<p>The product of the two radii, which could also have been calculated from the projection of the surface, is:</p>
+<p><span id="eq-projAB"><span class="math display">\[
+\wideeq{\hat{A}\,\hat{B}=A\,B\,\cos\Theta}
+\tag{23}\]</span></span></p>
+<p>In the case of an initial circular fracture namely <span class="math inline">\(A=B\)</span>, the simple expressions of <span class="math inline">\(\hat{A}\)</span> and <span class="math inline">\(\hat{B}\)</span> are obviously found:</p>
+<p><span id="eq-ApBpcir"><span class="math display">\[
+\wideeq{\hat{A}=A
+\quad;\quad
+\hat{B}=A\,\cos\Theta}
+\tag{24}\]</span></span></p>
+<p>As shown by&nbsp;(<a href="#eq-projell" class="quarto-xref">20</a>), the orientation of the ellipse is given by a rotation of angle <span class="math inline">\(\Phi\)</span> of the eigenvectors of <span class="math inline">\(\uu{H}\)</span>. The general expressions&nbsp;(<a href="#eq-ApBp" class="quarto-xref">22</a>) and the determination of the axis of the projected ellipse show that the shape and the orientation of the latter are not independent whereas it is the case for the ellipse in the <span class="math inline">\(3D\)</span> space.</p>
+<section id="sec-sigmapart" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="sec-sigmapart"><span class="header-section-number">3.1.1</span> Statistics on fractures cutting the well</h3>
+<p>In the sequel, we follow the reasoning presented in <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span> to calculate the surface of the domain to which the projection of the fracture center must belong so that the fracture cuts the cylinder, given the radii <span class="math inline">\(\dep{A,B}\)</span> and the angles <span class="math inline">\(\dep{\Theta,\Psi}\)</span>. As for the <span class="math inline">\(1D\)</span> case, this surface, denoted hereafter by <span class="math inline">\(\sigma\)</span>, will be very useful to define the p.d.f. of any variable over fractures intersecting at least partially the cylinder surface. The mean number of fractures such that</p>
+<p><span class="math inline">\(\theta\leq\Theta&lt;\theta+\ud\theta\)</span>,</p>
+<p><span class="math inline">\(\psi\leq\Psi&lt;\psi+\ud\psi\)</span>,</p>
+<p><span class="math inline">\(a\leq A&lt;a+\ud a\)</span>, and</p>
+<p><span class="math inline">\(b\leq B&lt;b+\ud b\)</span>, intersecting a part of the well cylinder of length <span class="math inline">\(L\)</span> is then:</p>
+<p><span id="eq-NcStheta"><span class="math display">\[
+\wideeq{\ud N_L=P_{30}\,L\,\sigma(a,b,\theta,\psi)\,
+\pprob{A,B}{a,b}\,\ud a\, \ud b
+\,\pprob{\Theta,\Psi}{\theta,\psi}\,\ud\theta\,\ud\psi}
+\tag{25}\]</span></span></p>
+<p>From the same reasoning as that leading to&nbsp;(<a href="#eq-pSTheta1D" class="quarto-xref">4</a>) in <span class="math inline">\(1D\)</span>, we write the p.d.f. of <span class="math inline">\(\dep{A,B,\Theta,\Psi}\)</span> defined on fractures intersecting the well cylinder denoted by <span class="math inline">\(\pprobuC{A,B,\Theta,\Psi}\)</span> from the <span class="math inline">\(3D\)</span> p.d.f. <span class="math inline">\(\pprobu{A,B}\)</span> and <span class="math inline">\(\pprobu{\Theta,\Psi}\)</span>:</p>
+<p><span id="eq-pSTheta2D"><span class="math display">\[
+\wideeq{\pprobC{A,B,\Theta,\Psi}{a,b,\theta,\psi}=
+\frac{\sigma}
+{\Esp{\sigma}}\,
+\,\pprob{A,B}{a,b}\,\pprob{\Theta,\Psi}{\theta,\psi}}
+\tag{26}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-Esigma"><span class="math display">\[
+\wideeq{\Esp{\sigma}=
+\int_{a,b,\theta,\psi}
+\sigma(a,b,\theta,\psi)
+\,\pprob{A,B}{a,b}\,\pprob{\Theta,\Psi}{\theta,\psi}
+\ud\theta\ud\psi\ud a\ud b}
+\tag{27}\]</span></span></p>
+<p>The expression of <span class="math inline">\(\sigma\)</span> is now presented from results in <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span> and <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>. Actually <span class="math inline">\(\sigma\)</span> depends on <span class="math inline">\((A,B,\Theta,\Psi)\)</span> through <span class="math inline">\((\hat{A},\hat{B})\)</span> given by&nbsp;(<a href="#eq-ApBp" class="quarto-xref">22</a>). Let us introduce the angle <span class="math inline">\(\Lambda\)</span></p>
+<p>such that</p>
+<p><span id="eq-coslambda"><span class="math display">\[
+\wideeq{\hat{B}=\hat{A}\,\cos\Lambda
+\quad(0\leq\Lambda\leq\pi/2)}
+\tag{28}\]</span></span></p>
+<p>It is worth noting that if <span class="math inline">\(A=B\)</span> then <span class="math inline">\(\Lambda=\Theta\)</span> because of (<a href="#eq-ApBpcir" class="quarto-xref">24</a>). The expression of <span class="math inline">\(\sigma\)</span> derived in <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span> and recalled in <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span> can be simplified using classical elliptic integrals (details can be found in appendix&nbsp;<a href="#sec-calcsurf" class="quarto-xref">5</a>):</p>
+<p><span id="eq-sig"><span class="math display">\[
+\sigma=
+\left\{
+\begin{array}{ll}
+\pi\,(\cos\Lambda\,\hat{A}^2+R_c^2)+4\,{\mathcal{E}}\dep{\sin\Lambda}\,\hat{A}\,R_c
+&amp;\textrm{if }\hat{A}\geq R_c\\
+8\,{\mathcal{E}}\dep{\sin\Lambda}\,\hat{A}\,R_c
+&amp;\textrm{if }\hat{A}\leq R_c\,\cos\Lambda\\
+8\,{\mathcal{E}}\dep{\sin\Lambda}\,\hat{A}\,R_c+{\mathcal{J}}^{-}\dep{\eta}
+&amp;\textrm{if }R_c\,\cos\Lambda&lt;\hat{A}&lt;R_c
+\end{array}
+\right.
+\tag{29}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{E}}(k)\)</span> is the complete elliptic integral of the second kind recalled in&nbsp;(<a href="#eq-ellint" class="quarto-xref">64</a>) (it can be estimated by <span class="math inline">\({\mathcal{E}}\dep{\sin\Lambda}\approx
+  \pi/2\sqrt{(1+\cos^2\Lambda)/2}\)</span> <span class="citation" data-cites="Spiegel68"><a href="#ref-Spiegel68" role="doc-biblioref">[56]</a></span> if <span class="math inline">\(\Lambda\)</span> is not in the neighborhood of <span class="math inline">\(\pi/2\)</span>), <span class="math inline">\({\mathcal{J}}^{-}\)</span> is defined in&nbsp;(<a href="#eq-defJpm" class="quarto-xref">63</a>) and <span class="math inline">\(\eta\)</span> in&nbsp;(<a href="#eq-eta" class="quarto-xref">66</a>). The exact expressions&nbsp;(<a href="#eq-sig" class="quarto-xref">29</a>) require to resort to tabulated values of elliptic integrals allowing then to perform any numerical integration scheme involving <span class="math inline">\(\sigma\)</span> such as the trapeze method, gaussian quadrature etc., to compute for example&nbsp;(<a href="#eq-Esigma" class="quarto-xref">27</a>). Nevertheless, some authors (<span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>, <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>) propose simpler approximate expressions valid only for <span class="math inline">\(\Lambda\)</span> far enough from <span class="math inline">\(\pi/2\)</span> and which can be useful in some particular cases of exact integration:</p>
+<p><span id="eq-siga"><span class="math display">\[
+\sigma\approx
+\sigma_a=
+\left\{
+\begin{array}{ll}
+\pi\,(\hat{A}+R_c)\,(\hat{B}+R_c)
+&amp;\textrm{if }\hat{A}&gt;R_c\\
+2\,\pi\,(\hat{A}+\hat{B})\,R_c
+&amp;\textrm{if }\hat{A}\leq R_c
+\end{array}
+\right.
+\tag{30}\]</span></span></p>
+<p>Unlike the <span class="math inline">\(1D\)</span> case, it must be emphasized here that the variables of shape and orientation concerning fractures intersecting the well surface are not in general independent. Indeed, the p.d.f. (<a href="#eq-pSTheta2D" class="quarto-xref">26</a>) is not necessarily the product of each marginal p.d.f. since <span class="math inline">\(\sigma\)</span>, depending on <span class="math inline">\((A,B,\Theta,\Psi)\)</span> through <span class="math inline">\((\hat{A},\hat{B})\)</span>, is not the product of a function of <span class="math inline">\((A,B)\)</span> on the one hand and a function of <span class="math inline">\((\Theta,\Psi)\)</span> on the other hand in&nbsp;(<a href="#eq-sig" class="quarto-xref">29</a>) or (<a href="#eq-siga" class="quarto-xref">30</a>). Nevertheless, let us cite two cases for which the couples <span class="math inline">\((A,B)\)</span> and <span class="math inline">\((\Theta,\Psi)\)</span> remain independent. First, if <span class="math inline">\(A\geq B\gg R_c\)</span> and <span class="math inline">\(\Theta\)</span> is far enough from <span class="math inline">\(\pi/2\)</span> then, using&nbsp;(<a href="#eq-projAB" class="quarto-xref">23</a>) and&nbsp;(<a href="#eq-coslambda" class="quarto-xref">28</a>), (<a href="#eq-sig" class="quarto-xref">29</a>) implies</p>
+<p><span id="eq-sigRfggR"><span class="math display">\[
+\wideeq{\sigma\approx\pi\,\hat{A}\,\hat{B}
+=S\,\cos\Theta}
+\tag{31}\]</span></span></p>
+<p>This means that the p.d.f.&nbsp;(<a href="#eq-pSTheta2D" class="quarto-xref">26</a>) is the same as that found in the <span class="math inline">\(1D\)</span> case&nbsp;(<a href="#eq-pSTheta1D" class="quarto-xref">4</a>), which can be explained by the fact that the well radius is so small compared to the fracture length that the well can be considered as a line <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>. The second case is obtained when <span class="math inline">\(A&lt;R_c\,\cos\Theta\)</span> and the fractures are circular (i.e.&nbsp;<span class="math inline">\(\hat{A}=A=B\)</span> and <span class="math inline">\(\Lambda=\Theta\)</span>). Under these assumptions, the surface <span class="math inline">\(\sigma\)</span> given by&nbsp;(<a href="#eq-sig" class="quarto-xref">29</a>) proves then that <span class="math inline">\(A\)</span> and <span class="math inline">\(\Theta\)</span> are independent:</p>
+<p><span id="eq-sigRfllR"><span class="math display">\[
+\wideeq{\sigma=8\,A\,R_c\,{\mathcal{E}}\dep{\sin\Theta}}
+\tag{32}\]</span></span></p>
+</section>
+<section id="sec-sigmafull" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-sigmafull"><span class="header-section-number">3.1.2</span> Fractures with full intersections</h3>
+<p>Instead of considering the population of fractures partially intersecting the cylinder, it could be interesting to focus on those characterized by a full intersection (this set is not empty if the condition <span class="math inline">\(R_c&lt;\hat{B}\)</span> is fulfilled), inducing then the definition of a new domain of surface <span class="math inline">\(\sigma^f\)</span> to which must belong the projection of the fracture center. The expression of <span class="math inline">\(\sigma^f\)</span> presented in <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span> does not seem to be right. Indeed, from calculations detailed in appendix&nbsp;<a href="#sec-calcsurf" class="quarto-xref">5</a>, it comes that:</p>
+<p><span id="eq-sigf"><span class="math display">\[
+\sigma^f=
+\left\{
+\begin{array}{ll}
+0&amp;\textrm{if }\hat{A}\,\cos\Lambda\leq R_c\\
+\textrm{else}&amp;\\
+{\mathcal{J}}^{-}\dep{\pi/2}=
+\pi\,(\cos\Lambda\,\hat{A}^2+R_c^2)-4\,{\mathcal{E}}\dep{\sin\Lambda}\,\hat{A}\,R_c
+&amp;\textrm{if }\hat{A}\,\cos^2\Lambda\geq R_c\\
+{\mathcal{J}}^{-}\dep{\xi}
+&amp;\textrm{if }\hat{A}\,\cos^2\Lambda&lt;R_c
+\end{array}
+\right.
+\tag{33}\]</span></span></p>
+<p>where the function <span class="math inline">\({\mathcal{J}}^{-}\)</span> is defined by&nbsp;(<a href="#eq-defJpm" class="quarto-xref">63</a>) and <span class="math inline">\(\xi\)</span> by&nbsp;(<a href="#eq-xi" class="quarto-xref">65</a>). From the same reasoning as that leading to&nbsp;(<a href="#eq-siga" class="quarto-xref">30</a>), when <span class="math inline">\(\Lambda\)</span> is far from to <span class="math inline">\(\pi/2\)</span>, this surface can also be roughly estimated by (<span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>, <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>):</p>
+<p><span id="eq-sigaf"><span class="math display">\[
+\wideeq{\sigma^f\approx
+\sigma^f_a=
+\left\{
+\begin{array}{ll}
+\pi\,(\hat{A}-R_c)\,(\hat{B}-R_c)&amp;\textrm{if }R_c&lt;\hat{B}\leq \hat{A}\\
+0&amp;\textrm{if }\hat{B}\leq R_c
+\end{array}
+\right.}
+\tag{34}\]</span></span></p>
+<p>As mentioned in <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>, the probability for a fracture cutting the well to fully cut it, given its orientation and length, is simply the ratio <span class="math inline">\(\sigma^f/\sigma\)</span>. Eventually, given size and orientation distributions, the proportion of fractures fully cutting the cylindrical well among the entire set cutting the well i.e.&nbsp;the probability that any trace be a full trace is then:</p>
+<p><span id="eq-probfull"><span class="math display">\[
+\wideeq{\ProbN{\textrm{trace is full}}=\frac{\Esp{\sigma^f}}{\Esp{\sigma}}}
+\tag{35}\]</span></span></p>
+<p>This result is of major interest because it can readily be compared to the empirical ratio observed on the borehole image (full trace number over total trace number). Recalling that the orientation distribution can be estimated from well traces in an easier way than the size one, (<a href="#eq-probfull" class="quarto-xref">35</a>) can somehow be used to assess the likelihood of the latter taken as an input of the model. Nevertheless, numerical simulations in <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span> showed that, in some cases, two different fracture size distributions could lead to very close trace length distributions. To improve the determination of the fracture size law which is assumed to be known for our density analysis, some specific methods can be found in the literature. For example, considering fractures as disks, an inversion method from the trace histogram on a plane outcrop is provided in <span class="citation" data-cites="Berkowitz98"><a href="#ref-Berkowitz98" role="doc-biblioref">[44]</a></span> and can be used for a cylinder if the fracture radius is much lower than the well radius. Another method, presented in <span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>, is based on a linear correlation between the fracture size and an observable property (spacing, aperture etc.) fitted by comparison between&nbsp;(<a href="#eq-probfull" class="quarto-xref">35</a>) and its empirical counterpart.</p>
+</section>
+<section id="sec-sigmadouble" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="sec-sigmadouble"><span class="header-section-number">3.1.3</span> Fractures with single or double traces</h3>
+<p>A nonempty intersection between a cylinder and an ellipse can be either a single trace (partial or full) or a double trace. The latter case occurs when the boundary of the ellipse or the projection of the ellipse onto the plane perpendicular to the cylinder axis cuts four times the cylinder. The intersections can be practically found, for instance for simulations, by inserting in&nbsp;(<a href="#eq-projell" class="quarto-xref">20</a>) the following parameterization of the well circle</p>
+<p><span id="eq-paramcerc"><span class="math display">\[
+\wideeq{x_1(t)=R_c\,\frac{1-t^2}{1+t^2}
+\quad;\quad
+x_2(t)=R_c\,\frac{2\,t}{1+t^2}}
+\tag{36}\]</span></span></p>
+<p>The equation obtained by replacing the inequality&nbsp;(<a href="#eq-projell" class="quarto-xref">20</a>) by an equality is a fourth-degree polynom in <span class="math inline">\(t\)</span>. The number of real roots determines the number of traces : four reals roots imply two traces, two real roots imply one trace and no real root corresponds either to an empty intersection between the cylinder and the ellipse or to a full intersection depending on the sign of the left hand side of&nbsp;(<a href="#eq-projell" class="quarto-xref">20</a>) applied on any point of the circle&nbsp;(<a href="#eq-paramcerc" class="quarto-xref">36</a>). The surface <span class="math inline">\(\sigma_2\)</span> of the domain to which the center of the projected ellipse must belong in order to show two traces on the well can be calculated by the procedure given in appendix&nbsp;<a href="#sec-calcsurf" class="quarto-xref">5</a> leading to:</p>
+<p><span id="eq-sigd"><span class="math display">\[
+\sigma_2=
+\left\{
+\begin{array}{ll}
+0&amp;\textrm{if }\hat{A}\,\cos^2\Lambda\geq R_c\textrm{ or }\hat{A}\leq R_c\,\cos\Lambda\\
+\textrm{else}&amp;\\
+-{\mathcal{J}}^{-}\dep{\pi/2}
+&amp;\textrm{if }\hat{A}\,\cos\Lambda\leq R_c\leq\hat{A}\\
+-{\mathcal{J}}^{-}\dep{\eta}
+&amp;\textrm{if }\hat{A}&lt;R_c\\
+{\mathcal{J}}^{-}\dep{\xi}-{\mathcal{J}}^{-}\dep{\pi/2}
+&amp;\textrm{if }\hat{A}\,\cos\Lambda&gt;R_c
+\end{array}
+\right.
+\tag{37}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{J}}^{-}\)</span> is expressed in&nbsp;(<a href="#eq-defJpm" class="quarto-xref">63</a>) (<span class="math inline">\({\mathcal{J}}^{-}\dep{\pi/2}\)</span> in&nbsp;(<a href="#eq-sigf" class="quarto-xref">33</a>)), <span class="math inline">\(\eta\)</span> in&nbsp;(<a href="#eq-eta" class="quarto-xref">66</a>) and <span class="math inline">\(\xi\)</span> in&nbsp;(<a href="#eq-xi" class="quarto-xref">65</a>). Knowing <span class="math inline">\(\sigma\)</span>&nbsp;(<a href="#eq-sig" class="quarto-xref">29</a>) and <span class="math inline">\(\sigma_2\)</span>&nbsp;(<a href="#eq-sigd" class="quarto-xref">37</a>), it is now straightforward to calculate the surface <span class="math inline">\(\sigma_1\)</span> of the domain in which the center of the projected ellipse must be located so as to generate a single trace on the well:</p>
+<p><span id="eq-sig1"><span class="math display">\[
+\wideeq{\sigma_1=\sigma-\sigma_2}
+\tag{38}\]</span></span></p>
+</section>
+</section>
+<section id="sec-P32P102D" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-P32P102D"><span class="header-section-number">3.2</span> Density analysis: <span class="math inline">\(P_{32}\)</span> from <span class="math inline">\(P_{10}\)</span></h2>
+<p>As previously put in evidence, the main difference with the lineic case is that the correction factor involved when sampling on fractures intersecting the cylindrical well depends on the fracture size distribution and not only on the orientation distribution. Whereas the latter can be rather easily estimated by fitting with sinusoids the fracture traces observed on borehole images, this is not the case concerning the size distribution. As previously mentioned, methods for estimating the latter can be found in the literature (<span class="citation" data-cites="Berkowitz98"><a href="#ref-Berkowitz98" role="doc-biblioref">[44]</a></span>, <span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span>, <span class="citation" data-cites="Priest04"><a href="#ref-Priest04" role="doc-biblioref">[43]</a></span>, <span class="citation" data-cites="Tonon07"><a href="#ref-Tonon07" role="doc-biblioref">[46]</a></span>).</p>
+<p>However this work does not aim at determining the size distribution but at estimating the fracture density probability, in particular the mean value and uncertainties, knowing the orientation and size distribution. The latter should come from hypotheses and from a preliminary work which is the subject of current research.</p>
+<section id="sec-pois2D" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-pois2D"><span class="header-section-number">3.2.1</span> Poisson process on a cylindrical well</h3>
+<p>Since a fracture can leave two traces on the well, it is necessary to distinguish the number <span class="math inline">\(N_L\)</span> of fractures which cut the well (fully or partially with one or two traces) and the number <span class="math inline">\(N_L^t\)</span> of observed traces. A fracture leaving a double trace on the well contributes only once in <span class="math inline">\(N_L\)</span> but twice in <span class="math inline">\(N_L^t\)</span>. Thus, denoting the fracture numbers having a single and a double trace respectively by <span class="math inline">\(N_1\)</span> and <span class="math inline">\(N_2\)</span>, it comes:</p>
+<p><span id="eq-N1N2"><span class="math display">\[
+\wideeq{N_L=N_1+N_2
+\quad;\quad
+N_L^t=N_1+2\,N_2}
+\tag{39}\]</span></span></p>
+<p>As regards the cylindrical data, the notion of trace within a cylinder of given length (studied interval) has to be clarified since some traces can have a part outside the studied interval. We adopt the convention to relate a trace to the studied interval if the latter contains the mid-point of the trace, which is defined as the point of curvilinear abscissa <span class="math inline">\((s_A+s_B)/2\)</span> where <span class="math inline">\(s_A\)</span> and <span class="math inline">\(s_B\)</span> are the curvilinear abscissae of the extremities, possibly outside the studied interval. Obviously this definition requires to know the whole trace. The aim of this paragraph is to find the probability of the observation namely the number of traces <span class="math inline">\(N_L^t\)</span> with respect to the fracture density <span class="math inline">\(P_{32}\)</span> considered here as a parameter of the Poisson distribution. In the case of a very small well radius compared to the fracture length, this task, developped in section&nbsp;<a href="#sec-spatdist" class="quarto-xref">2.2</a>, is rather easy because the number of traces is equal to the number of fractures cutting the well and, as the proportion of full intersections asymptotically reaches <span class="math inline">\(100\%\)</span>, the size distribution is not involved in the probability&nbsp;(<a href="#eq-pnl" class="quarto-xref">9</a>). In the present case, the task is made more complex since the relationship between the observation and the fracture density may be biased by the presence of double traces and influenced by the fracture size.</p>
+<p><span class="math inline">\(\Esp{N_L}\)</span> can be found from the knowledge of the orientation and size distributions by integration of&nbsp;(<a href="#eq-NcStheta" class="quarto-xref">25</a>) and a similar reasoning leads to <span class="math inline">\(\Esp{N_i}_{i=1,2}\)</span>:</p>
+<p><span id="eq-ENC"><span class="math display">\[
+\wideeq{\Esp{N_L}=P_{30}\,L\,\Esp{\sigma}
+\quad;\quad
+\Esp{N_i}=P_{30}\,L\,\Esp{\sigma_i}\;(i=1,2)}
+\tag{40}\]</span></span></p>
+<p>Eventually, (<a href="#eq-NP32" class="quarto-xref">2</a>) allows to write the expectations&nbsp;(<a href="#eq-ENC" class="quarto-xref">40</a>) with respect to <span class="math inline">\(P_{32}\)</span>:</p>
+<p><span id="eq-P32ENC"><span class="math display">\[
+\wideeq{\frac{\Esp{N_L}}{L}
+=P_{32}\,\kappa
+\quad\textrm{with}\quad
+\kappa=\frac{\Esp{\sigma}}{\Esp{S}}
+\quad;\quad
+\frac{\Esp{N_i}}{L}
+=P_{32}\,\kappa_i\;
+\quad\textrm{with}\quad
+\kappa_{i}=\frac{\Esp{\sigma_{i}}}{\Esp{S}}\;(i=1,2)}
+\tag{41}\]</span></span></p>
+<p>The ratios <span class="math inline">\(\kappa\)</span> and <span class="math inline">\(\kappa_i\)</span> play the same role as <span class="math inline">\(\kappa_o=\Esp{\cos\Theta}\)</span> in&nbsp;(<a href="#eq-P10" class="quarto-xref">10</a>). The reasoning of section&nbsp;<a href="#sec-pois1D" class="quarto-xref">2.2.1</a> leading to the probability law&nbsp;(<a href="#eq-pnl" class="quarto-xref">9</a>) can be adapted to the present case, observing that the number of fractures which centers belong the control cylinder of&nbsp;<a href="#fig-contvol" class="quarto-xref">Fig.&nbsp;1</a> and cutting the well follows the same probability law as the number of fractures leaving a trace on the studied cylinder part of length <span class="math inline">\(L\)</span> whatever the position of the center. Following then the reasoning of section&nbsp;<a href="#sec-pois1D" class="quarto-xref">2.2.1</a>, it comes out that the numbers of fractures intersecting the well or having a single trace or a double trace follow Poisson laws:</p>
+<p><span id="eq-pnli2D"><span class="math display">\[
+\wideeq{\PProb{N_L}{n_L}
+={\mathcal{P}}_{P_{32}\kappa L}\dep{n_L}
+=e^{-P_{32}\,\kappa\,L}\,
+\frac{\dep{P_{32}\,\kappa\,L}^{n_L}}{{n_L}!}
+\quad\textrm{ and}\quad
+\PProb{N_i}{n_i}
+={\mathcal{P}}_{P_{32}\kappa_i L}\dep{n_i}
+=e^{-P_{32}\,\kappa_i\,L}\,
+\frac{\dep{P_{32}\,\kappa_i\,L}^{n_i}}{{n_i}!}}
+\tag{42}\]</span></span></p>
+<p>Obviously these results can also be transposed to the number of full intersections using <span class="math inline">\(\kappa_f=\Esp{\sigma_f}/\Esp{S}\)</span> in the Poisson law. Considering the different combinations of single and double trace intersections, the probability law of the trace number then writes:</p>
+<p><span id="eq-pnt"><span class="math display">\[
+\wideeq{\PProb{N_L^t}{n_L^t}
+=\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+\PProb{N_1}{n_L^t-2\,n_2}\,\PProb{N_2}{n_2}
+=\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+{\mathcal{P}}_{P_{32}\kappa_1 L}\dep{n_L^t-2\,n_2}\,
+{\mathcal{P}}_{P_{32}\kappa_2 L}\dep{n_2}}
+\tag{43}\]</span></span></p>
+<p>where <span class="math inline">\(\lfloor x \rfloor\)</span> denotes the integer part of the positive real <span class="math inline">\(x\)</span>.</p>
+<p>It is useful to remark that <span class="math inline">\(\kappa=\kappa_1+\kappa_2\)</span> thanks to&nbsp;(<a href="#eq-sig1" class="quarto-xref">38</a>) and&nbsp;(<a href="#eq-P32ENC" class="quarto-xref">41</a>) and to introduce the probabilities to have a double or a single trace for a fracture cutting the well respectively denoted by <span class="math inline">\(r\)</span> and <span class="math inline">\(1-r\)</span>:</p>
+<p><span id="eq-probsd"><span class="math display">\[
+\wideeq{\ProbN{\textrm{2 traces}}=\frac{\Esp{\sigma_2}}{\Esp{\sigma}}=\frac{\kappa_2}{\kappa}=r
+\quad;\quad
+\ProbN{\textrm{1 trace}}=\frac{\Esp{\sigma_1}}{\Esp{\sigma}}=\frac{\kappa_1}{\kappa}=1-r}
+\tag{44}\]</span></span></p>
+<p>Indeed, after simple algebraic manipulations, (<a href="#eq-pnt" class="quarto-xref">43</a>) can be rewritten</p>
+<p><span id="eq-pnt2"><span class="math display">\[
+\wideeq{\PProb{N_L^t}{n_L^t}
+=
+\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+{\mathcal{B}}_{{r,n_L^t-n_2}}\dep{n_2}\,
+{\mathcal{P}}_{P_{32}\kappa L}\dep{n_L^t-n_2}}
+\tag{45}\]</span></span></p>
+<p>where <span class="math inline">\({\mathcal{B}}_{{r,n_L^t-n_2}}\)</span> denotes the binomial probability of parameters <span class="math inline">\(r\)</span> and <span class="math inline">\(n_L^t-n_2\)</span> already introduced in&nbsp;(<a href="#eq-pnlNV" class="quarto-xref">7</a>).</p>
+</section>
+<section id="sec-probP32_2D" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-probP32_2D"><span class="header-section-number">3.2.2</span> Probability law of <span class="math inline">\(P_{32}\)</span></h3>
+<p>A first simple approach to analyze <span class="math inline">\(P_{32}\)</span> is to focus only on full intersections observed on borehole images. In this case, all the reasoning presented in section&nbsp;<a href="#sec-probP32" class="quarto-xref">2.2.2</a> is still valid provided that <span class="math inline">\(\kappa_o\)</span> be replaced by <span class="math inline">\(\kappa_f\)</span> and that the number of traces be understood as the number of full traces. Nevertheless, considering cases for which the fracture length are of the same order of magnitude as the well radius, full traces may not exist or at least be so few that the <span class="math inline">\(P_{32}\)</span> estimate would not be reliable. Consequently, it is worth providing a <span class="math inline">\(P_{32}\)</span> estimate based on partial intersection analysis. The probability law of <span class="math inline">\(P_{32}\)</span> in the cylindrical case follows from&nbsp;(<a href="#eq-pnt2" class="quarto-xref">45</a>) by analogy with the reasoning allowing to deduce&nbsp;(<a href="#eq-pP32n" class="quarto-xref">13</a>) from&nbsp;(<a href="#eq-pnlcond" class="quarto-xref">12</a>) namely as a posterior probability obtained by normalizing&nbsp;(<a href="#eq-pnt2" class="quarto-xref">45</a>) thanks to the identity <span class="math inline">\(\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+{\mathcal{B}}_{{r,n_L^t-n_2}}\dep{n_2}=(1-(-r)^{n_L^t+1})/(1+r)\)</span></p>
+<p><span id="eq-pP32n2D"><span class="math display">\[
+\wideeq{\pprob{P_{32}|N_L^t}{p|n_L^t}=
+\frac{1+r}{1-(-r)^{n_L^t+1}}\,
+\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+{\mathcal{B}}_{{r,n_L^t-n_2}}\dep{n_2}\,
+\Gamma_{{n_L^t-n_2+1,\kappa L}}\dep{p}}
+\tag{46}\]</span></span></p>
+<p>with <span class="math inline">\(\Gamma_{n,\lambda}(p)=e^{-\lambda p}\lambda^n p^{n-1}/(n-1)!\)</span> already introduced in&nbsp;(<a href="#eq-pP32n" class="quarto-xref">13</a>). The expectation and standard deviation are then given by:</p>
+<p><span id="eq-EVP32_2D"><span class="math display">\[
+\wideeq{\Esp{P_{32}|N_L^t=n_L^t}=
+\frac{n_L^t+1-f(n_L^t,r)}{\kappa\,L}\,
+\quad;\quad
+\sqrt{\Var{P_{32}|N_L^t=n_L^t}}=
+\frac{\sqrt{n_L^t+1-f(n_L^t,r)}}{\kappa\,L}\,}
+\tag{47}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-fnr"><span class="math display">\[
+\wideeq{f(n_L^t,r)=
+\frac{r\,\depc{n_L^t\,\dep{1+r}\,\dep{1+(-r)^{n_L^t}}-\dep{1-r}\,\dep{1-(-r)^{n_L^t}}}}
+{\dep{1+r}^2\,\dep{1-(-r)^{n_L^t+1}}}}
+\tag{48}\]</span></span></p>
+<p>The expressions&nbsp;(1) differ from&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) by the term <span class="math inline">\(f(n_L^t,r)\)</span>&nbsp;(<a href="#eq-fnr" class="quarto-xref">48</a>) which appears as a correction due to the presence of double traces. Indeed, in the absence of the latters (<span class="math inline">\(r=0\)</span>) or if they are simply just ignored, meaning that the traces are supposed to come from different fractures, this correction term vanishes. Ignoring double traces when <span class="math inline">\(r\)</span> is far from <span class="math inline">\(0\)</span> could lead to an important error in the <span class="math inline">\(P_{32}\)</span> estimate. Neglecting the terms <span class="math inline">\(r^{n_L^t}\)</span> for a large number of observations and <span class="math inline">\(r&lt;1\)</span>, (<a href="#eq-fnr" class="quarto-xref">48</a>) and&nbsp;(1) become:</p>
+<p><span id="eq-fnrinf"><span class="math display">\[
+\wideeq{f(n_L^t,r){\underset{n_L^t\to\infty}{\approx}}\;
+\frac{r}{1+r}\,n_L^t-\frac{r\,\dep{1-r}}{\dep{1+r}^2}}
+\tag{49}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-EVP32_2Dinf"><span class="math display">\[
+\wideeq{\Esp{P_{32}|N_L^t=n_L^t}{\underset{n_L^t\to\infty}{\approx}}
+\frac{1}{\kappa\,L}\,
+\dep{\frac{n_L^t}{1+r}+\frac{1+3\,r}{\dep{1+r}^2}}
+\;;\;
+\sqrt{\Var{P_{32}|N_L^t=n_L^t}}{\underset{n_L^t\to\infty}{\approx}}
+\frac{1}{\kappa\,L}\,
+\sqrt{\frac{n_L^t}{1+r}+\frac{1+3\,r}{\dep{1+r}^2}}}
+\tag{50}\]</span></span></p>
+<p>Keeping only the term in <span class="math inline">\(n_L^t\)</span> for large values, the expressions&nbsp;(<a href="#eq-EVP32_2Dinf" class="quarto-xref">50</a>) show that the ratio between the standard deviation and the expectation still varies as <span class="math inline">\(1/\sqrt{n_L^t}\)</span> and that the expectation and standard deviation could be deduced from&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) by a correction on the trace number of <span class="math inline">\(1/(1+r)=(\kappa_1+\kappa_2)/(\kappa_1+2\kappa_2)\)</span>. This term exactly corresponds to the ratio between the mean fracture number intersecting the well and the mean trace number taking into account the double traces. This asymptotical behavior is obviously not valid for a small number of observed traces along <span class="math inline">\(L\)</span>. The determination of quantiles as defined in&nbsp;(<a href="#eq-qalpha" class="quarto-xref">17</a>) requires now to derive the cumulative distribution function associated with&nbsp;(<a href="#eq-pP32n2D" class="quarto-xref">46</a>):</p>
+<p><span id="eq-cdfP32n2D"><span class="math display">\[
+\wideeq{\cdf{P_{32}|N_L^t}{p|n_L^t}=
+\frac{1+r}{1-(-r)^{n_L^t+1}}\,
+\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+\frac{{\mathcal{B}}_{{r,n_L^t-n_2}}\dep{n_2}}{\dep{n_L^t-n_2}!}\,
+\gamma\dep{n_L^t-n_2+1,p\,\kappa\,L}}
+\tag{51}\]</span></span></p>
+<p>with the incomplete gamma function introduced in&nbsp;(<a href="#eq-gamma" class="quarto-xref">16</a>). Unlike the lineic case, the quantiles can not be simply deduced from tabulations of <span class="math inline">\(\gamma\)</span>. Nevertheless, it is still possible to normalize them</p>
+<p><span id="eq-Qalpha2D"><span class="math display">\[
+\wideeq{q_\alpha=\frac{\tilde{q}_\alpha}{\kappa\,L}
+\quad\textrm{with}\quad
+\frac{1+r}{1-(-r)^{n_L^t+1}}\,
+\sum_{n_2=0}^{\lfloor n_L^t/2 \rfloor}
+\frac{{\mathcal{B}}_{{r,n_L^t-n_2}}\dep{n_2}}{\dep{n_L^t-n_2}!}\,
+\gamma\dep{n_L^t-n_2+1,\tilde{q}_\alpha}
+=\alpha}
+\tag{52}\]</span></span></p>
+<p>so that <span class="math inline">\(\tilde{q}_\alpha=\tilde{q}_\alpha(r,n_L^t)\)</span> do not depend on <span class="math inline">\(\kappa\)</span> and <span class="math inline">\(L\)</span>. The normalized quantiles can be searched by means of an iterative method such as a Newton-Raphson scheme:</p>
+<p><span id="eq-qnewton"><span class="math display">\[
+\wideeq{\tilde{q}_\alpha^{0}=\Esp{P_{32}|N_L^t=n_L^t;\kappa\,L=1}
+\quad\textrm{and}\quad
+\tilde{q}_\alpha^{i+1}=\tilde{q}_\alpha^{i}
+-\frac{\cdf{P_{32}|N_L^t}{\tilde{q}_\alpha^{i}|n_L^t;\kappa\,L=1}-\alpha}
+{\pprob{P_{32}|N_L^t}{\tilde{q}_\alpha^{i}|n_L^t;\kappa\,L=1}}}
+\tag{53}\]</span></span></p>
+<p>Let us now consider a study case in which the well radius is <span class="math inline">\(R_c=0.1~m\)</span>, the analyzed length is <span class="math inline">\(L=20~m\)</span>, and the number of observed traces is <span class="math inline">\(N_L^t=20\)</span>. The major radius <span class="math inline">\(A\)</span> of the ellipse follows a lognormal distribution of mean <span class="math inline">\(1~m\)</span> and standard deviation <span class="math inline">\(0.1~m\)</span> and the aspect ratio is <span class="math inline">\(0.3\)</span>. The distribution of the fracture normal is of bivariate normal type&nbsp;(<a href="#eq-bivnorm" class="quarto-xref">19</a>) such that the mean pole is inclined by <span class="math inline">\(\theta=80ï¿½\)</span> with respect to the well direction (the fractures are almost parallel to the well axis) and the deviations are <span class="math inline">\(s_1=s_2=0.1\)</span>. The major axis of the ellipse belongs to the plane orthogonal to the well (<span class="math inline">\(\Psi=\pi/2\)</span> on&nbsp;<a href="#fig-coorsph" class="quarto-xref">Fig.&nbsp;4</a>). After computations of <span class="math inline">\(\Esp{\sigma}\)</span> (<a href="#eq-Esigma" class="quarto-xref">27</a>) and <span class="math inline">\(\Esp{\sigma_i}\)</span> performed by means of gaussian quadrature with ten points along each dimension of integration, the previous data lead to a ratio <span class="math inline">\(r=34.4\%\)</span> and to <span class="math inline">\(\kappa=0.174\)</span> allowing then to draw the p.d.f. of&nbsp;<a href="#fig-pdfLinCyl" class="quarto-xref">Fig.&nbsp;5</a>. The discrepancy between the two curves allows to quantify the error made by neglecting the double traces in the reasoning, in other words by considering that the number of traces is equal to the number of fractures intersecting the cylinder. The normalized histogram also presented on&nbsp;<a href="#fig-pdfLinCyl" class="quarto-xref">Fig.&nbsp;5</a> corresponds to numbers of discrete fracture networks generated in the validation process of section&nbsp;<a href="#sec-MC2D" class="quarto-xref">3.2.3</a> and satisfying the same number of traces (here <span class="math inline">\(20\)</span>) for different <span class="math inline">\(P_{32}\)</span> intervals. This empirical p.d.f. shows a good agreement with the theoretical p.d.f.&nbsp;(<a href="#eq-pP32n2D" class="quarto-xref">46</a>) taking into account the double trace correction.</p>
+</section>
+<section id="sec-MC2D" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-MC2D"><span class="header-section-number">3.2.3</span> Validation by Monte Carlo simulations</h3>
+<p>Similarly to the lineic case in section&nbsp;<a href="#sec-MC1D" class="quarto-xref">2.2.3</a>, the conditional p.d.f. of <span class="math inline">\(P_{32}\)</span> given a trace number on a segment of the cylindrical well is compared to Monte Carlo simulations. In particular, the technique allowing to take into account the effect of double traces on the density has to be confronted with simulations. That is why the size and orientation numerical parameters of the considered fracture set are chosen identical to those used in section&nbsp;<a href="#sec-probP32_2D" class="quarto-xref">3.2.2</a> for which the mean proportion of fractures having a double trace is <span class="math inline">\(34.4\%\)</span>. About <span class="math inline">\(2000\)</span> fracture networks are drawn for different values of <span class="math inline">\(P_{32}\)</span> such that the maximum number of traces is <span class="math inline">\(24\)</span> along a segment of length <span class="math inline">\(L=20\)</span> i.e. <span class="math inline">\(0\leq N_L^t/L\leq 1.2\)</span>. For a given fracture network, the number of (full, partial or double) traces is computed by means of the procedure presented in section&nbsp;<a href="#sec-sigmadouble" class="quarto-xref">3.1.3</a>. The corresponding couples <span class="math inline">\((N_L^t/L,P_{32})\)</span> are plotted on&nbsp;<a href="#fig-quantP32Cyl" class="quarto-xref">Fig.&nbsp;6</a> as well as the expectations and the <span class="math inline">\(1^{\mathrm{st}}\)</span> and <span class="math inline">\(9^{\mathrm{th}}\)</span> deciles of <span class="math inline">\(P_{32}\)</span> given the number of traces per unit length <span class="math inline">\(N_L^t/L\)</span> according to three models:</p>
+<ul>
+<li>[(<span class="math inline">\(M1\)</span>)] this model takes into account the effect of double traces, hence the expectation is calculated by&nbsp;(1) and the quantiles by&nbsp;(<a href="#eq-Qalpha2D" class="quarto-xref">52</a>),</li>
+<li>[(<span class="math inline">\(M2\)</span>)] this model ignores the possibility of having double traces and thus considers a bijection between the set of traces and the set of intersecting fractures (this amounts to take <span class="math inline">\(r=0\)</span> in
+<ol class="example" type="1">
+<li>and (<a href="#eq-Qalpha2D" class="quarto-xref">52</a>)) but still takes into account the effect of the fracture size distribution through the coefficient <span class="math inline">\(\kappa\)</span>,</li>
+</ol></li>
+<li>[(<span class="math inline">\(M3\)</span>)] this model is based on the lineic results&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) and&nbsp;(<a href="#eq-Qalpha" class="quarto-xref">18</a>) and differs from <span class="math inline">\(M2\)</span> by the fact that the correction due to the fracture size is neglected.</li>
+</ul>
+<p>The proportion of points lying between the two decile curves of the <span class="math inline">\(M1\)</span> model is <span class="math inline">\(80,96\%\)</span> and only <span class="math inline">\(60\%\)</span> between the curves of <span class="math inline">\(M2\)</span>. Moreover, <a href="#fig-quantP32Cyl" class="quarto-xref">Fig.&nbsp;6</a> shows again the error made by neglecting the decrease of density estimate due to the presence of double traces. Nevertheless it is worth recalling that, besides the assumption of an elliptic shape of the fractures, <span class="math inline">\(M1\)</span> and <span class="math inline">\(M2\)</span> models require the knowledge of the fracture size distribution. Although the issue of relating the trace length distribution to that of the fractures has already been solved in <span class="citation" data-cites="Berkowitz98"><a href="#ref-Berkowitz98" role="doc-biblioref">[44]</a></span> in the case of circular fractures intersecting a plane, it may not be so obvious to transpose this result to a cylindrical well. A numerical treatment of this issue is the subject of a current work. But, without any information about the fracture size, the only available model is <span class="math inline">\(M3\)</span>, which only takes into account the correction due to the observed orientations as if the traces were full, generated by very large fractures. Obviously, the <a href="#fig-quantP32Cyl" class="quarto-xref">Fig.&nbsp;6</a> shows that this model can not be satisfactory for the fracture set considered here. Indeed, the correction due to the fact that the fractures are almost aligned with the well leads to considerably overestimate the actual <span class="math inline">\(P_{32}\)</span> density.</p>
+</section>
+</section>
+</section>
+<section id="sec-appliDFN" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Application: uncertainty on the fracture number in a D.F.N.</h1>
+<p>As already stated, the knowledge of the density, among other characteristics of the fracture network, allows to study the percolation and transport properties of fractured rocks either by numerical (<span class="citation" data-cites="Koudina98"><a href="#ref-Koudina98" role="doc-biblioref">[11]</a></span>, <span class="citation" data-cites="Bourbiaux98"><a href="#ref-Bourbiaux98" role="doc-biblioref">[12]</a></span>, <span class="citation" data-cites="Sarda01"><a href="#ref-Sarda01" role="doc-biblioref">[13]</a></span>, <span class="citation" data-cites="Lange01"><a href="#ref-Lange01" role="doc-biblioref">[14]</a></span>, <span class="citation" data-cites="Bourbiaux02"><a href="#ref-Bourbiaux02" role="doc-biblioref">[15]</a></span>, <span class="citation" data-cites="Garcia07"><a href="#ref-Garcia07" role="doc-biblioref">[16]</a></span>) or<br>
+theoretical methods (<span class="citation" data-cites="Berkowitz95"><a href="#ref-Berkowitz95" role="doc-biblioref">[17]</a></span>, <span class="citation" data-cites="deDreuzy01a"><a href="#ref-deDreuzy01a" role="doc-biblioref">[18]</a></span>, <span class="citation" data-cites="deDreuzy01b"><a href="#ref-deDreuzy01b" role="doc-biblioref">[19]</a></span>, <span class="citation" data-cites="Fokker01"><a href="#ref-Fokker01" role="doc-biblioref">[20]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="TIPM07"><a href="#ref-TIPM07" role="doc-biblioref">[22]</a></span>). Thus, the uncertainty on the density should have repercussions on any subsequent calculations depending on this density. To illustrate the consequence of the uncertainty on <span class="math inline">\(P_{32}\)</span>, let us consider the problem of the generation of a D.F.N. consistent with well data and more precisely the number of fractures <span class="math inline">\(N_V\)</span> in a given volume <span class="math inline">\(V\)</span>. In order to create the D.F.N. corresponding to a given fracture set, it is necessary to give the size and orientation distributions, whatever how they have been calibrated or even postulated. As already recalled, well data can be used to identify the orientation distribution whereas they are often insufficient to calibrate the size and outcrop data may be needed. Provided that these two distributions be known, the <span class="math inline">\(3D\)</span> density is still needed and it is assumed here that it has to be deduced from a scanline sampling of <span class="math inline">\(n_L\)</span> traces observed over an interval of length <span class="math inline">\(L\)</span>. As shown in section&nbsp;<a href="#sec-probP32" class="quarto-xref">2.2.2</a>, <span class="math inline">\(P_{32}\)</span> is unknown and thus must be considered as a random variable following the law&nbsp;(<a href="#eq-pP32n" class="quarto-xref">13</a>) depending on the correction factor <span class="math inline">\(\kappa_o\)</span>&nbsp;(<a href="#eq-P10" class="quarto-xref">10</a>) introduced in&nbsp;(<a href="#eq-pcut" class="quarto-xref">6</a>). The probability law of <span class="math inline">\(N_V\)</span> given <span class="math inline">\(N_L\)</span> is then obtained by the following marginal law:</p>
+<p><span id="eq-pNvMarg"><span class="math display">\[
+\wideeq{\PProb{N_V|N_L}{n_V|n_L}=
+\int_{p=0}^{+\infty}
+\PProb{N_V|P_{32}}{n_V|p}
+\pprob{P_{32}|N_L}{p|n_L}
+\ud p}
+\tag{54}\]</span></span></p>
+<p>It is worth noting that (<a href="#eq-pNvMarg" class="quarto-xref">54</a>) rigorously applies if the observed fractures do not have to be taken into account in the number <span class="math inline">\(N_V\)</span>. Otherwise, <span class="math inline">\(\PProbu{N_V|P_{32}}\)</span> should be replaced by the probability of <span class="math inline">\(N_V\)</span> conditioned to <span class="math inline">\(P_{32}\)</span> as well as <span class="math inline">\(N_L\)</span>. This conditional probability would then differ from the Poisson distribution because <span class="math inline">\(N_L\)</span>&nbsp;fractures among <span class="math inline">\(N_V\)</span> are already known <span class="citation" data-cites="Andersson84"><a href="#ref-Andersson84" role="doc-biblioref">[57]</a></span>. Nevertheless, if the generation volume size is such that <span class="math inline">\(N_V\)</span> is large enough with respect to <span class="math inline">\(N_L\)</span>, these two laws are only slightly different. Recalling that the probability of <span class="math inline">\(N_V\)</span> given <span class="math inline">\(P_{32}\)</span> is of Poisson type&nbsp;(<a href="#eq-poisvol" class="quarto-xref">1</a>) where <span class="math inline">\(P_{30}\)</span> is replaced by&nbsp;(<a href="#eq-NP32" class="quarto-xref">2</a>), the law of <span class="math inline">\(N_V\)</span> given <span class="math inline">\(N_L\)</span> writes after calculation:</p>
+<p><span id="eq-pNvMarg2"><span class="math display">\[
+\wideeq{\PProb{N_V|N_L}{n_V|n_L}
+=C_{n_V+n_L}^{n_L}
+\frac{V^{n_V}
+\,\dep{\kappa_o\,L\,\Esp{S}}^{n_L+1}}
+{\dep{V+\kappa_o\,L\,\Esp{S}}^{n_V+n_L+1}}}
+\tag{55}\]</span></span></p>
+<p>It appears on&nbsp;(<a href="#eq-pNvMarg2" class="quarto-xref">55</a>) that the conditional law of <span class="math inline">\(N_V\)</span> given the trace number on a scanline interval is not of Poisson type. The expectation and standard deviation of such a discrete law are:</p>
+<p><span id="eq-EVNvNl"><span class="math display">\[
+\wideeq{\Esp{N_V|N_L=n_L}=\frac{\dep{n_L+1}\,V}{\kappa_o\,L\,\Esp{S}}
+\;;\quad
+\sqrt{\Var{N_V|N_L=n_L}}=\frac{\sqrt{\dep{n_L+1}\,V\,
+\dep{V+\kappa_o\,L\,\Esp{S}}}}{\kappa_o\,L\,\Esp{S}}}
+\tag{56}\]</span></span></p>
+<p>By contrast, the point of view consisting in neglecting the random character of <span class="math inline">\(P_{32}\)</span> and choosing an estimate <span class="math inline">\(p^{est}\)</span> as if it was deterministic obviously makes <span class="math inline">\(N_V\)</span> follow the initially assumed Poisson law for which the expectation and standard deviation are given by:</p>
+<p><span id="eq-EVNvNlPois"><span class="math display">\[
+\wideeq{\Esp{N_V|P_{32}=p^{est}}=\frac{p^{est}\,V}{\Esp{S}}
+\;;\quad
+\sqrt{\Var{N_V|P_{32}=p^{est}}}=\sqrt{\frac{p^{est}\,V}{\Esp{S}}}}
+\tag{57}\]</span></span></p>
+<p>For instance, <span class="math inline">\(p^{est}\)</span> could be chosen as the empirical mean of <span class="math inline">\(P_{10}\)</span> corrected by <span class="math inline">\(\kappa_o\)</span>&nbsp;(<a href="#eq-P10" class="quarto-xref">10</a>) namely <span class="math inline">\(p^{est}=n_L/(\kappa_o L)\)</span> or it could also be estimated by the expectation&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>) namely <span class="math inline">\(p^{est}=(n_L+1)/(\kappa_o L)\)</span>. The ratio between the standard deviation and the expectation in&nbsp;(<a href="#eq-EVNvNlPois" class="quarto-xref">57</a>) varies in <span class="math inline">\(1/\sqrt{V}\)</span>, which simply recalls that the uncertainty on <span class="math inline">\(N_V\)</span> relatively to its mean value decreases when the generation volume grows in a Poisson process considering <span class="math inline">\(P_{32}\)</span> as a fixed value. Moreover, it is pointed out in <span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span> that, for large density values, the ratio <span class="math inline">\(N_V/V\)</span> tends towards a continuous variable following a normal distribution. On the contrary, if the random character of <span class="math inline">\(P_{32}\)</span> is taken into account according to the fact that the only observation is <span class="math inline">\(N_L=n_L\)</span>, the ratio between the standard deviation and the expectation given by&nbsp;(<a href="#eq-EVNvNl" class="quarto-xref">56</a>) tends towards a finite value <span class="math inline">\(1/\sqrt{n_L+1}\)</span> when <span class="math inline">\(V\)</span> tends towards infinity. This means that, for large values of <span class="math inline">\(V\)</span>, an increase of the latter does not significantly reduce the uncertainty on <span class="math inline">\(N_V\)</span>. As expected, the only way to reduce this uncertainty is then to get more observed data. By the way, the number of observed traces which is necessary to reach a given ratio <span class="math inline">\(\rho\)</span> between the standard deviation and the expectation is:</p>
+<p><span id="eq-nlrat"><span class="math display">\[
+\wideeq{n_L=\dep{1+\frac{\kappa_o\,L\,\Esp{S}}{V}}\,\rho^{-2}-1}
+\tag{58}\]</span></span></p>
+<p>The two laws coming from the two approches to characterize the probability of <span class="math inline">\(N_V\)</span> are presented on&nbsp;<a href="#fig-pdfNv" class="quarto-xref">Fig.&nbsp;7</a> with numerical values which are representative of a common case of petroleum reservoir engineering (<span class="math inline">\(10\)</span>&nbsp;observed traces on <span class="math inline">\(10~m\)</span>, <span class="math inline">\(\kappa_o=1\)</span>, <span class="math inline">\(\Esp{S}=10~m^2\)</span> and <span class="math inline">\(V=4000~m^3\)</span>): the first one (solid curve) conditioned to the observation <span class="math inline">\(N_L\)</span> and following the law&nbsp;(<a href="#eq-pNvMarg2" class="quarto-xref">55</a>) and the second one considering the two aforementioned fixed values of <span class="math inline">\(P_{32}\)</span> (dashed curves) and following a Poisson distribution. This figure clearly highlights the additional uncertainty introduced by the fact that <span class="math inline">\(P_{32}\)</span> is not precisely calibrated by a small number of traces on a well interval. Indeed, it appears that, to be consistent with the fixed well data, the range of possible values for <span class="math inline">\(N_V\)</span> is very large (between about <span class="math inline">\(200\)</span> and <span class="math inline">\(700\)</span>&nbsp;fractures) and should be taken into account for subsequent calculations as percolation thresholds or effective permeabilities. By contrast, the two other curves show a reduction of the range of possible values of <span class="math inline">\(N_V\)</span> by considering that <span class="math inline">\(P_{32}\)</span> is fixed and this relative reduction would even be more obvious for larger values of <span class="math inline">\(V\)</span>. Hence, the model with fixed <span class="math inline">\(P_{32}\)</span> could prevent the user from retaining values of <span class="math inline">\(N_V\)</span> which could be consistent with the well data.</p>
+</section>
+<section id="sec-conclu" class="level1 unnumbered">
+<h1 class="unnumbered">Conclusions and further works</h1>
+<p>In this paper, the probability law of the <span class="math inline">\(P_{32}\)</span> density conditioned to the number of traces observed within a well log interval has been derived. The model is based under the following assumptions: fractures are planar, the spatial distribution of their centers is of Poisson type and the orientation and size distributions are independent. Moreover, the studied well interval is assumed to be such that the spatial, size and orientation distributions can be considered as homogeneous. In the case of a lineic model of well, it is shown that the <span class="math inline">\(P_{32}\)</span> law is of the gamma type. The latter depends only on the number of traces, the length of the analyzed well segment and a correction factor which takes into account the probability law of the inclination of fractures with respect to the well direction. The second model considers the well as a cylinder on which partial fracture traces can be observed and assumes that fractures are elliptical. This model leads to a probability law of the <span class="math inline">\(P_{32}\)</span> density which writes as a linear combination of gamma probability density functions depending on the number of traces, the length of the analyzed well segment as well as correction factors. These factors depend not only on the fracture orientation but also on the size distribution unlike the lineic case. Indeed, they require the calculation of surfaces of domains to which the projection of a fracture center must belong to intersect the cylinder along one or two traces. Explicit relationships are provided between those surfaces and a priori assumed fracture size. It is believed that the present closed-form results should improve the efficiency of methods estimating the <span class="math inline">\(3D\)</span> fracture density from well data. In particular, one could readily compute the p.d.f. of the <span class="math inline">\(P_{32}\)</span> measure of density from a <span class="math inline">\(P_{10}\)</span> value of a moving window log, without the need to generate discrete fracture networks in Monte Carlo simulations. In complement to the results of many previous works related to this issue (<span class="citation" data-cites="Dershowitz85"><a href="#ref-Dershowitz85" role="doc-biblioref">[37]</a></span>, <span class="citation" data-cites="Dershowitz92"><a href="#ref-Dershowitz92" role="doc-biblioref">[38]</a></span>, <span class="citation" data-cites="Mauldon94"><a href="#ref-Mauldon94" role="doc-biblioref">[39]</a></span>, <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>, <span class="citation" data-cites="Wang05"><a href="#ref-Wang05" role="doc-biblioref">[40]</a></span>, <span class="citation" data-cites="Gupta06"><a href="#ref-Gupta06" role="doc-biblioref">[47]</a></span>), the present work adds a contribution to the quantification of the estimate uncertainty by providing a probability density function of the <span class="math inline">\(3D\)</span> Poisson model density parameter given the well observation.</p>
+<p>The proposed method requires the preliminary knowledge of the orientation distribution of the fractures which can be identified by various techniques (<span class="citation" data-cites="Fisher87"><a href="#ref-Fisher87" role="doc-biblioref">[50]</a></span>, <span class="citation" data-cites="Marcotte02"><a href="#ref-Marcotte02" role="doc-biblioref">[49]</a></span>). More generally, a cluster algorithm should be employed to determine fracture sets within which it is reasonable to assume independency between orientation and size distributions. Note that when the well radius is small compared to the fracture size, the size distribution itself is not needed to apply the lineic model. However, the latter is explicitly needed when the fracture size is of the same order of magnitude as the well radius. Unlike the orientation, the determination of the fracture size distribution remains a very difficult task. Indeed, well data are generally too scarce to infer precise information about the fracture <span class="math inline">\(3D\)</span> size and the only available methods to relate the latter to the trace distribution concern traces on plane outcrops (e.g. <span class="citation" data-cites="Berkowitz98"><a href="#ref-Berkowitz98" role="doc-biblioref">[44]</a></span>, <span class="citation" data-cites="Priest04"><a href="#ref-Priest04" role="doc-biblioref">[43]</a></span>, <span class="citation" data-cites="LaPointe02"><a href="#ref-LaPointe02" role="doc-biblioref">[45]</a></span> and <span class="citation" data-cites="Tonon07"><a href="#ref-Tonon07" role="doc-biblioref">[46]</a></span> for circular fractures, <span class="citation" data-cites="Zhang02"><a href="#ref-Zhang02" role="doc-biblioref">[48]</a></span> for elliptic ones and <span class="citation" data-cites="Jimenez06"><a href="#ref-Jimenez06" role="doc-biblioref">[58]</a></span> for a method to estimate the trace distribution itself). Even if these methods can be extended to the case of a cylindrical well surface if the traces are small enough compared to the well radius, they can not be used if this last condition is not satisfied, which is often the case concerning pervasive fractures involved in fluid flows. Another attempt to characterize the <span class="math inline">\(3D\)</span> size distribution from well data developed in <span class="citation" data-cites="Ozkaya03"><a href="#ref-Ozkaya03" role="doc-biblioref">[25]</a></span> is based on the assumption of a known (e.g.&nbsp;linear) relationship between the size of circular fractures and observable quantities such as the aperture or the spacing. Nevertheless, the issue of finding a robust method providing as precise information as possible about the <span class="math inline">\(3D\)</span> size distribution from well data without any assumed correlation with other variables may still need to be studied. Finally let us add that, among the basic assumptions allowing to derive the results of this paper, the Poisson spatial distribution of fracture centers deserves to be released. Indeed, although this distribution<br>
+has been identified from a large number of field study (<span class="citation" data-cites="Priest76"><a href="#ref-Priest76" role="doc-biblioref">[51]</a></span>, <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span>, <span class="citation" data-cites="Sisavath04"><a href="#ref-Sisavath04" role="doc-biblioref">[21]</a></span>), it is suspected to be limited to low density networks <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span>. It would thus be very interesting to consider correlations between fracture center positions such as in fractal models <span class="citation" data-cites="Darcel03c"><a href="#ref-Darcel03c" role="doc-biblioref">[59]</a></span> or fracture networks such that the spacing on a well path follows other laws than the exponential one&nbsp;(<a href="#eq-spacing" class="quarto-xref">11</a>) characteristic of a Poisson process (e.g.&nbsp;lognormal in <span class="citation" data-cites="Rives92"><a href="#ref-Rives92" role="doc-biblioref">[52]</a></span>).</p>
+</section>
+<section id="sec-calcsurf" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Calculation of surfaces</h1>
+<p>It is recalled that <span class="math inline">\(R_c\)</span> denotes the well radius and <span class="math inline">\(\hat{A}\)</span> and <span class="math inline">\(\hat{B}=\hat{A}\cos\Lambda\)</span> with <span class="math inline">\(\Lambda\in[0,\pi/2]\)</span> respectively the major and minor radii of the ellipse obtained by projection of the fracture onto the plane perpendicular to the well direction. The section&nbsp;<a href="#sec-surf23D" class="quarto-xref">3</a> highlights the correction factors involved when sampling fractures on a cylinder. The determination of the correction factors is based on the calculation of the following surfaces: the surface <span class="math inline">\(\sigma\)</span> of the domain to which must belong the center of the projected elliptic fracture to cut the well circle (projection of the cylinder boundary) (<a href="#eq-sig" class="quarto-xref">29</a>), the surface <span class="math inline">\(\sigma^f\)</span> of the domain to which must belong the center of the projected fracture to contain entirely the well circle&nbsp;(<a href="#eq-sigf" class="quarto-xref">33</a>) and the surface <span class="math inline">\(\sigma_2\)</span> of the domain to which must belong the center of the projected fracture to leave two traces on the well circle&nbsp;(<a href="#eq-sigd" class="quarto-xref">37</a>). The point of view in these definitions is that of an ellipse moving in the reference frame of the well circle. As suggested in <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, it reveals convenient to adopt the point of view of a circle moving in the reference frame of a motionless ellipse. It follows that, for instance, <span class="math inline">\(\sigma\)</span> can also be seen as the area of the domain to which the circle center must belong in the reference frame of the elliptic surface so that the latter cuts it. Indeed, the two domains involved in the two definitions of <span class="math inline">\(\sigma\)</span> are identical but centered respectively on the circle center and the ellipse center. The same reasoning can hold for <span class="math inline">\(\sigma^f\)</span> and <span class="math inline">\(\sigma_2\)</span>. Eventually, the determination of the boundary of the domains involved here suggests considering extreme cases with the curves described by the center of the circle when the latter is tangent to the ellipse.</p>
+<section id="sec-rollcircle" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-rollcircle"><span class="header-section-number">5.1</span> Curves defined by a circle rolling on an ellipse</h2>
+<p>Two cases can be considered: either the circle <code>rolls'' on the external side of the ellipse boundary or it</code>rolls’’ on the internal side of the ellipse boundary. Let us introduce the following parameterization of the ellipse <span class="math inline">\(M(\alpha)\)</span>, its corresponding outward normal vector <span class="math inline">\(N(\alpha)\)</span> and the curvature radius <span class="math inline">\(\rho(\alpha)\)</span> with <span class="math inline">\(\alpha\in[-\pi,\pi]\)</span>:</p>
+<p><span id="eq-Mt"><span class="math display">\[
+\wideeq{M(\alpha)=
+\hat{A}\left(
+\begin{array}{c}
+\sin{\alpha}\\
+\cos\Lambda\cos{\alpha}
+\end{array}
+\right)
+\;\textrm{;}\;
+N(\alpha)=
+\left(
+\begin{array}{c}
+\frac{\cos\Lambda\sin{\alpha}}{\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}}\\
+\frac{\cos{\alpha}}{\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}}
+\end{array}
+\right)
+\;\textrm{;}\;
+\rho(\alpha)=\frac{\dep{1-\sin^2\Lambda\,\sin^2{\alpha}}^{3/2}}{\cos\Lambda}\hat{A}}
+\tag{59}\]</span></span></p>
+<p>The curvature radius reaches its minimum at <span class="math inline">\(\rho(\pi/2)=\hat{A}\cos^2\Lambda\)</span> and its maximum at <span class="math inline">\(\rho(0)=\hat{A}/\cos\Lambda\)</span>. The curves described by the center of a circle of radius <span class="math inline">\(R_c\)</span> rolling outside (<span class="math inline">\(m^+\)</span>) or inside (<span class="math inline">\(m^-\)</span>) the ellipse are parameterized by:</p>
+<p><span id="eq-mt"><span class="math display">\[
+\wideeq{m^\epsilon(\alpha)=\left(
+\begin{array}{c}
+\dep{\hat{A}+\epsilon\frac{R_c\,\cos\Lambda}
+{\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}}}\,\sin{\alpha}\\
+\dep{\hat{A}\,\cos\Lambda+\epsilon\frac{R_c}
+{\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}}}\,\cos{\alpha}
+\end{array}
+\right)
+\quad;\quad
+\epsilon\equiv +\textrm{ or }-}
+\tag{60}\]</span></span></p>
+<p>where <span class="math inline">\(\epsilon\equiv+\)</span> for the outside curve and <span class="math inline">\(\epsilon\equiv-\)</span> for the inside one. It is worth remarking that the parametric curves defined by&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>) admit the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> axes as symmetry axes, which means that only <span class="math inline">\(\alpha\in[0,\pi/2]\)</span> should be studied. To calculate surfaces bounded by those curves or parts of them, it will prove useful to introduce</p>
+<p><span id="eq-detmmpdef"><span class="math display">\[
+\wideeq{j^\epsilon\dep{\alpha}=4\times
+\dep{-\frac{1}{2}\,\det\dep{m^\epsilon(\alpha),{m^\epsilon}'(\alpha)}}}
+\tag{61}\]</span></span></p>
+<p>which rewrites, using&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>)</p>
+<p><span id="eq-detmmp"><span class="math display">\[
+\wideeq{j^\epsilon\dep{\alpha}=
+2\cos\Lambda\,\hat{A}^2+\frac{2\cos\Lambda}{1-\sin^2\Lambda\,\sin^2{\alpha}}\,R_c^2
++\epsilon
+\dep{4\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}-
+\frac{2\sin^2\Lambda\dep{\cos{2\alpha}+\sin^2\Lambda\,\sin^4{\alpha}}}
+{\dep{1-\sin^2\Lambda\,\sin^2{\alpha}}^{3/2}}}\hat{A}R_c}
+\tag{62}\]</span></span></p>
+<p>Surfaces bounded by the curves&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>) will be obtained thanks to the following primitive of&nbsp;(<a href="#eq-detmmp" class="quarto-xref">62</a>):</p>
+<p><span id="eq-defJpm"><span class="math display">\[
+\wideeq{{\mathcal{J}}^\epsilon\dep{\alpha}=
+2\alpha\cos\Lambda\,\hat{A}^2+
+2\arctan\dep{\cos\Lambda\tan\alpha}R_c^2
++\epsilon
+\dep{4{\mathcal{E}}\dep{\alpha,\sin\Lambda}
+-\frac{\sin^2\Lambda\,\sin{2\alpha}}
+{\sqrt{1-\sin^2\Lambda\,\sin^2{\alpha}}}}\hat{A}R_c}
+\tag{63}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-ellint"><span class="math display">\[
+\wideeq{{\mathcal{E}}\dep{\alpha,k}=\int_{0}^{\alpha}
+  \sqrt{1-k^2\,\sin^2\theta}\,\ud\theta
+\quad\textrm{ and }\quad
+{\mathcal{E}}\dep{k}={\mathcal{E}}\dep{\pi/2,k}}
+\tag{64}\]</span></span></p>
+<p>are respectively the incomplete and complete elliptic integrals of the second kind. The need to take care about the consistency between the sign convention adopted in&nbsp;(<a href="#eq-detmmpdef" class="quarto-xref">61</a>) and the orientation of the domain boundary in surface calculations is worth being highlighted. On the one hand, the curve described by the center of any circle rolling outside the ellipse <span class="math inline">\(m^+([-\pi,\pi])\)</span>&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>) is closed, regular, does not exhibit loops and is oriented in the clockwise direction when <span class="math inline">\(\alpha\)</span> increases. Therefore, considering the negative sign in the definition&nbsp;(<a href="#eq-detmmpdef" class="quarto-xref">61</a>), the surface of the domain surrounded by this curve is simply provided by <span class="math inline">\({\mathcal{J}}^+(\pi/2)\)</span> in&nbsp;(<a href="#eq-defJpm" class="quarto-xref">63</a>). On the other hand, the trajectory of the center of a circle rolling inside the ellipse may be described by different types of curves depending on the circle radius (see&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>).</p>
+<ul>
+<li><p>[(a)] If <span class="math inline">\(R_c\leq\hat{A}\cos^2\Lambda\)</span> (min. curvature radius), the dashed curve of&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(a) described by the center of the circle is closed, regular, does not exhibit loops and is oriented in the clockwise direction. It therefore bounds a domain of area <span class="math inline">\({\mathcal{J}}^-(\pi/2)\)</span>.</p></li>
+<li><p>[(b)] If <span class="math inline">\(R_c\geq\hat{A}\cos^2\Lambda\)</span> (min. curvature radius) and <span class="math inline">\(R_c\leq\hat{A}\cos\Lambda\)</span> (min. radius), the dashed curve of&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(b) shows singular points and loops. Invoking again the symmetries allowing to focus on <span class="math inline">\(\alpha\in[0,\pi/2]\)</span>, it comes out that the point where the curve intersects itself, obtained for <span class="math inline">\(\alpha=\xi\)</span>, belongs to the <span class="math inline">\(x\)</span> axis or equivalently <span class="math inline">\(m^-_y(\xi)=0\)</span> in&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>). This condition implies:</p>
+<p><span id="eq-xi"><span class="math display">\[
+\wideeq{\xi=\arcsin\frac{\sqrt{\hat{A}^2\,\cos^2\Lambda-R_c^2}}
+{\hat{A}\,\cos\Lambda\,\sin\Lambda}}
+\tag{65}\]</span></span></p>
+<p>At this point <span class="math inline">\(\alpha=\xi\)</span>, the circle is tangent to the ellipse in two symmetrical points with respect to the <span class="math inline">\(x\)</span> axis <span class="math inline">\(M(\xi)\)</span> and <span class="math inline">\(M(\pi-\xi)\)</span>.</p></li>
+<li><p>[(c)] If <span class="math inline">\(R_c\geq\hat{A}\cos\Lambda\)</span> (min. radius) and <span class="math inline">\(R_c\leq\hat{A}\)</span> (max. radius), the dashed curve of&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(c) shows singular points but no loops. Furthermore it is oriented in the counter-clockwise direction and thus defines a domain of area <span class="math inline">\(-{\mathcal{J}}^-(\pi/2)\)</span>.</p></li>
+<li><p>[(d)] If <span class="math inline">\(R_c\geq\hat{A}\)</span> (max. radius) and <span class="math inline">\(R_c\leq\hat{A}/\cos\Lambda\)</span> (max. curvature radius), the dashed curve of&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(d) shows singular points and loops. The situation is similar to (b) except that the intersection point belongs to the <span class="math inline">\(y\)</span> axis. The angle <span class="math inline">\(\eta\in[0,\pi/2]\)</span> for which this point is reached is then defined by <span class="math inline">\(m^-_x(\eta)=0\)</span>, which implies:</p>
+<p><span id="eq-eta"><span class="math display">\[
+\wideeq{\eta=\arcsin\frac{\sqrt{\hat{A}^2-R_c^2\,\cos^2\Lambda}}{\hat{A}\,\sin\Lambda}}
+\tag{66}\]</span></span></p>
+<p>At this point <span class="math inline">\(\alpha=\eta\)</span>, the circle is tangent to the ellipse in two symmetrical points with respect to the <span class="math inline">\(y\)</span> axis <span class="math inline">\(M(\eta)\)</span> and <span class="math inline">\(M(-\eta)\)</span>.</p></li>
+<li><p>[(e)] If <span class="math inline">\(R_c\geq\hat{A}/\cos\Lambda\)</span> (max. curvature radius), the dashed curve of&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(e) is closed, regular without loops and oriented in the clockwise direction. It therefore defines a domain of area <span class="math inline">\({\mathcal{J}}^-(\pi/2)\)</span>.</p></li>
+</ul>
+</section>
+<section id="sec-sigma" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-sigma"><span class="header-section-number">5.2</span> Calculation of <span class="math inline">\(\sigma\)</span></h2>
+<p>From now on, the reference frame is that centered on the circle center. In particular, the curves defined in the last paragraph&nbsp;<a href="#sec-rollcircle" class="quarto-xref">5.1</a> are centered on the circle center and correspond to the motion of the center of the ellipse tangent to the circle. Recalling a result of <span class="citation" data-cites="Mauldon97"><a href="#ref-Mauldon97" role="doc-biblioref">[41]</a></span>, three cases have to be distinguished to calculate the surface of the domain to which the center of the ellipse must belong to intersect the circle.</p>
+<ul>
+<li>[(a)] If <span class="math inline">\(\hat{A}\geq R_c\)</span>, the ellipse cuts the circle if and only if the ellipse center belongs to the domain bounded by the outside curve <span class="math inline">\(m^+([-\pi,\pi])\)</span>&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>) (see&nbsp;<a href="#fig-sigma" class="quarto-xref">Fig.&nbsp;9</a>(a)). Consequently, <span class="math inline">\(\sigma={\mathcal{J}}^+(\pi/2)\)</span>.</li>
+<li>[(b)] If <span class="math inline">\(\hat{A}\leq R_c\cos\Lambda\)</span>, the ellipse center must belong to the domain bounded by <span class="math inline">\(m^+([-\pi,\pi])\)</span> but must be outside the domain bounded by <span class="math inline">\(m^-([-\pi,\pi])\)</span> (see&nbsp;<a href="#fig-sigma" class="quarto-xref">Fig.&nbsp;9</a>(b)). Indeed, when the ellipse center belongs to the latter, the ellipse is entirely contained in the circle but does not cut it. The surface is then <span class="math inline">\(\sigma={\mathcal{J}}^+(\pi/2)-{\mathcal{J}}^-(\pi/2)\)</span>.</li>
+<li>[(c)] If <span class="math inline">\(R_c\cos\Lambda&lt;\hat{A}&lt;R_c\)</span>, the maximum curvature radius of the ellipse is greater than the circle radius and the difference with the previous case is that <span class="math inline">\(m^-([-\pi,\pi])\)</span> presents two intersection points and thus loops bounding three domains: a central and two symmetrical ones (see&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(d)). The domain inside which the ellipse center should be located not to intersect the circle is the central one (see&nbsp;<a href="#fig-sigma" class="quarto-xref">Fig.&nbsp;9</a>(c)) bounded by <span class="math inline">\(m^-([\eta-\pi,-\eta]\cup[\eta,\pi-\eta])\)</span> of surface <span class="math inline">\({\mathcal{J}}^-(\pi/2)-{\mathcal{J}}^-(\eta)\)</span> with <span class="math inline">\(\eta\)</span> given by&nbsp;(<a href="#eq-eta" class="quarto-xref">66</a>). Indeed, the two other domains correspond to ellipses which cut the circle along two traces and must be taken into account in <span class="math inline">\(\sigma\)</span>. Hence, the surface is <span class="math inline">\(\sigma={\mathcal{J}}^+(\pi/2)-{\mathcal{J}}^-(\pi/2)+{\mathcal{J}}^-(\eta)\)</span>.</li>
+</ul>
+<p>Finally those three results are summarized in&nbsp;(<a href="#eq-sig" class="quarto-xref">29</a>).</p>
+</section>
+<section id="sec-sigmaf" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-sigmaf"><span class="header-section-number">5.3</span> Calculation of <span class="math inline">\(\sigma^f\)</span></h2>
+<p>A full intersection means that the circle is entirely contained inside the elliptic domain. The first necessary condition is obviously that the minimum radius of the ellipse <span class="math inline">\(\hat{A}\cos\Lambda\)</span> be greater than <span class="math inline">\(R_c\)</span> otherwise <span class="math inline">\(\sigma^f=0\)</span>. Considering now <span class="math inline">\(\hat{A}\cos\Lambda&gt;R_c\)</span>, the external boundary of the domain to which the ellipse center must belong is then the curve described by <span class="math inline">\(m^-(\alpha)\)</span>&nbsp;(<a href="#eq-mt" class="quarto-xref">60</a>). Indeed, the extreme case is obtained by situations where the circle and the ellipse are tangent but it is also necessary to keep on satisfying the fact that circle should stay inside the ellipse. Two cases can arise:</p>
+<ul>
+<li>[(a)] If <span class="math inline">\(\hat{A}\cos^2\Lambda\geq R_c\)</span>, the minimum curvature radius of the ellipse (and thus the curvature radius at any point) is greater than the circle radius (see&nbsp;<a href="#fig-sigmaf" class="quarto-xref">Fig.&nbsp;10</a>(a)) which implies that the circle stays inside the ellipse when rolling on its boundary. In other words, <span class="math inline">\(m^-([-\pi,\pi])\)</span> is actually the boundary of the searched domain and its surface is <span class="math inline">\(\sigma^f={\mathcal{J}}^-(\pi/2)\)</span>.</li>
+<li>[(b)] If <span class="math inline">\(\hat{A}\cos^2\Lambda&lt;R_c\)</span>, the circle rolling inside the ellipse actually stays inside the ellipse only for <span class="math inline">\(\alpha\in[-\xi,\xi]\)</span> with <span class="math inline">\(\xi\)</span> defined in&nbsp;(<a href="#eq-xi" class="quarto-xref">65</a>) and the symmetric curve with respect to the <span class="math inline">\(x\)</span> axis (see&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(b)). Hence the surface of the crosshatched domain of&nbsp;<a href="#fig-sigmaf" class="quarto-xref">Fig.&nbsp;10</a>(b) is <span class="math inline">\(\sigma^f={\mathcal{J}}^-(\xi)\)</span>.</li>
+</ul>
+<p>Finally the expressions of <span class="math inline">\(\sigma^f\)</span> are summarized in&nbsp;(<a href="#eq-sigf" class="quarto-xref">33</a>).</p>
+</section>
+<section id="sec-sigmad" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="sec-sigmad"><span class="header-section-number">5.4</span> Calculation of <span class="math inline">\(\sigma_2\)</span></h2>
+<p>If <span class="math inline">\(R_c\)</span> is greater than the maximum curvature radius <span class="math inline">\(\hat{A}/\cos\Lambda\)</span> or lower than the minimum one <span class="math inline">\(\hat{A}\cos^2\Lambda\)</span>, the ellipse can not leave two traces (four intersection points) on the circle. If now <span class="math inline">\(R_c\)</span> lies in the range of variation of the curvature radius (<span class="math inline">\(R_c\in[\hat{A}\cos^2\Lambda,\hat{A}/\cos\Lambda]\)</span>), the curve <span class="math inline">\(m^-(\alpha)\)</span> is a candidate to characterize the extreme cases of ellipse centers leading to a double trace as long as the ellipse, tangent to the circle, actually cuts the circle in two other points. Three cases may be encountered:</p>
+<ul>
+<li>[(a)] If <span class="math inline">\(\hat{A}\cos\Lambda\leq R_c\leq\hat{A}\)</span> i.e.&nbsp;<span class="math inline">\(R_c\)</span> remains inside the range of variation of the local polar radius of the ellipse, <span class="math inline">\(m^-([-\pi,\pi])\)</span> is actually the boundary of the searched domain since any ellipse tangent to the circle cuts the latter in two other points (see&nbsp;<a href="#fig-sigmad" class="quarto-xref">Fig.&nbsp;11</a>(a)). Taking into account that this curve is oriented in the counter-clockwise direction when <span class="math inline">\(\alpha\)</span> increases (see&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(c)), it follows that <span class="math inline">\(\sigma_2=-{\mathcal{J}}^-(\pi/2)\)</span>.</li>
+<li>[(b)] If <span class="math inline">\(\hat{A}&lt;R_c\)</span>, the ellipse can cut the circle in other points than the point of contact only if <span class="math inline">\(\alpha\in[-\eta,\eta]\)</span> with <span class="math inline">\(\eta\)</span> given in&nbsp;(<a href="#eq-eta" class="quarto-xref">66</a>) and the symmetric points with respect to the <span class="math inline">\(x\)</span> axis. In other words, the boundary of the searched domain is composed of two parts: one is defined by <span class="math inline">\(m^-([-\eta,\eta])\)</span> and the other one is obtained by symmetry with respect to the <span class="math inline">\(x\)</span> axis (see&nbsp;<a href="#fig-sigmad" class="quarto-xref">Fig.&nbsp;11</a>(b)). An example of extreme case with two points of contact is reached for <span class="math inline">\(\alpha=\eta\)</span> shown on&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(d). Taking into account the counter-clockwise orientation, the surface of the bounded domain is given by <span class="math inline">\(\sigma_2=-{\mathcal{J}}^-(\eta)\)</span>.</li>
+<li>[(c)] If <span class="math inline">\(R_c&lt;\hat{A}\cos\Lambda\)</span>, the ellipse can cut the circle in other points than the point of contact only if <span class="math inline">\(\alpha\in[\xi,\pi-\xi]\)</span> with <span class="math inline">\(\xi\)</span> given in&nbsp;(<a href="#eq-xi" class="quarto-xref">65</a>) and the symmetric points with respect to the <span class="math inline">\(y\)</span> axis. The boundary of the searched domain is then composed of two parts: one is defined by <span class="math inline">\(m^-([\xi,\pi-\xi])\)</span> and the other one is obtained by symmetry with respect to the <span class="math inline">\(y\)</span> axis (see&nbsp;<a href="#fig-sigmad" class="quarto-xref">Fig.&nbsp;11</a>(c)). The case <span class="math inline">\(\alpha=\xi\)</span> corresponds to an extreme case with two points of contact shown on&nbsp;<a href="#fig-rollcircle" class="quarto-xref">Fig.&nbsp;8</a>(b). Taking into account the counter-clockwise orientation, the surface of the bounded domain is given by <span class="math inline">\(\sigma_2={\mathcal{J}}^-(\xi)-{\mathcal{J}}^-(\pi/2)\)</span>.</li>
+</ul>
+<p>Finally the expressions of <span class="math inline">\(\sigma_2\)</span> are summarized in&nbsp;(<a href="#eq-sigd" class="quarto-xref">37</a>).</p>
+</section>
+</section>
+<section id="figures" class="level1 unnumbered">
+<h1 class="unnumbered">Figures</h1>
+<div id="fig-contvol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/contvol.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contvol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Volume around the well path
+</figcaption>
+</figure>
+</div>
+<div id="fig-pdfP32" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pdfP32-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/pdfP32.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pdfP32-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: P.d.f. <span class="math inline">\(\mathsf{p}_{P_{32}|N_L}\)</span> for different values of <span class="math inline">\(L\)</span> and <span class="math inline">\(N_L\)</span> such that <span class="math inline">\(\Esp{P_{32}|N_L=n_L}=1/m\)</span>
+</figcaption>
+</figure>
+</div>
+<div id="fig-quantP32Lin" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quantP32Lin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/quantP32Lin.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quantP32Lin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Monte Carlo simulations (dots) and <span class="math inline">\(P_{32}\)</span> mean values of simulations (filled circles) compared to the expectation and <span class="math inline">\(1^{\mathrm{st}}\)</span> and <span class="math inline">\(9^{\mathrm{th}}\)</span> deciles of <span class="math inline">\(P_{32}\)</span> given the trace number on the <span class="math inline">\(1D\)</span> well (the <span class="math inline">\(P_{32}\)</span> mean values of simulations are represented by filled circles)
+</figcaption>
+</figure>
+</div>
+<div id="fig-coorsph" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coorsph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/coorsph.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coorsph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Euler angles of a fracture ellipse
+</figcaption>
+</figure>
+</div>
+<div id="fig-pdfLinCyl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pdfLinCyl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/pdfLinCyl.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pdfLinCyl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: P.d.f. <span class="math inline">\(\mathsf{p}_{P_{32}|N_L}\)</span> taking into account the double trace correction (solid line) or considering that all the traces come from different fractures (dashed line) and normalized histogram of <span class="math inline">\(P_{32}\)</span> for which discrete fracture networks have been built satisfying the same number of traces (here <span class="math inline">\(20\)</span>) along <span class="math inline">\(L=20~m\)</span>
+</figcaption>
+</figure>
+</div>
+<div id="fig-quantP32Cyl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quantP32Cyl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/quantP32Cyl.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quantP32Cyl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Monte Carlo simulations (dots) and <span class="math inline">\(P_{32}\)</span> mean values of simulations (filled circles) compared to the expectation and <span class="math inline">\(1^{\mathrm{st}}\)</span> and <span class="math inline">\(9^{\mathrm{th}}\)</span> deciles of <span class="math inline">\(P_{32}\)</span> given the trace number on the well - the solid line (<span class="math inline">\(M1\)</span>) takes into account the double traces - the dashed lines (<span class="math inline">\(M2\)</span>) ignores the double traces - the dotted line (<span class="math inline">\(M3\)</span>) corresponds to the lineic result&nbsp;(<a href="#eq-EMVP32" class="quarto-xref">14</a>)
+</figcaption>
+</figure>
+</div>
+<div id="fig-pdfNv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pdfNv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/pdfNv.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pdfNv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Probability to generate <span class="math inline">\(N_V\)</span> fractures in a volume <span class="math inline">\(V=4000~m^3\)</span> given an observation of <span class="math inline">\(N_L=10\)</span>&nbsp;traces on an interval of length <span class="math inline">\(L=10~m\)</span> (solid curve) or given an estimate of <span class="math inline">\(P_{32}\)</span> (dashed curves) (<span class="math inline">\(\kappa_o=1\)</span>, <span class="math inline">\(\Esp{S}=10~m^2\)</span>)
+</figcaption>
+</figure>
+</div>
+<div id="fig-rollcircle" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rollcircle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/rollcircle.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rollcircle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Curves described by the center of a circle rolling inside an ellipse
+</figcaption>
+</figure>
+</div>
+<div id="fig-sigma" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sigma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/sigma.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Domains of ellipse centers leading to a non empty intersection
+</figcaption>
+</figure>
+</div>
+<div id="fig-sigmaf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sigmaf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/sigmaf.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigmaf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Domains of ellipse centers leading to full traces (<span class="math inline">\(\hat{A}\,\cos\Lambda&gt;R_c\)</span>)
+</figcaption>
+</figure>
+</div>
+<div id="fig-sigmad" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sigmad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/sigmad.svg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigmad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Domains of ellipse centers leading to double traces (<span class="math inline">\(\hat{A}\,\cos^2\Lambda&lt;R_c&lt;\hat{A}/\cos\Lambda\)</span>)
+</figcaption>
+</figure>
+</div>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Stearns72" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D. W. Stearns and M. Friedman, <span>“Reservoirs in fractured rock. <span>S</span>tratigraphic oil and gas fields.”</span> <em>American Association of Petroleum Geologists Memoir</em>, vol. 16, pp. 82–106, 1972.</div>
+</div>
+<div id="ref-Nelson85" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">R. Nelson, <em>Geological analysis of naturally fractured reservoirs</em>. Houston: <span>G</span>ulf <span>P</span>ublishing, 1985.</div>
+</div>
+<div id="ref-Beliveau91a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">O. Beliveau, D. A. Payne, and M. Mundry, <span>“Analysis of the waterflood response of a naturally fractured reservoir,”</span> in <em>SPE annual technical conference and exhibition, paper 22946</em>, 1991, pp. 603–613.</div>
+</div>
+<div id="ref-Beliveau91b" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">O. Beliveau and D. A. Payne, <span>“Analysis of a tertiary <span><span class="math inline">\(CO_2\)</span></span> flood pilot in a naturally fractured reservoir,”</span> in <em>SPE annual technical conference and exhibition, paper 22947</em>, 1991, pp. 615–626.</div>
+</div>
+<div id="ref-Faure97" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">F. Faure, C. S. Bakiler, A. Kose, and G. Pellissier, <span>“Numerical simulation of <span><span class="math inline">\(CO_2\)</span></span> injection in a heavy oil fractured reservoir - <span>C</span>ase study of <span>Bati-Raman</span> field, <span>T</span>urkey,”</span> in <em><span class="math inline">\(9^{th}\)</span> european symposium on improved oil recovery, paper 032</em>, The Hague, 1997.</div>
+</div>
+<div id="ref-Narr96" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">W. Narr, <span>“Estimating average fracture spacing in subsurface rock,”</span> <em>AAPG Bulletin</em>, vol. 80, no. 10, pp. 1565–1586, 1996.</div>
+</div>
+<div id="ref-Howard90" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">J. H. Howard and R. C. Nolen-Hoeksema, <span>“Description of natural fracture systems for quantitative use in petroleum geology,”</span> <em>AAPG Bulletin</em>, vol. 74, no. 2, pp. 151–162, 1990.</div>
+</div>
+<div id="ref-Boerrigter93" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">P. M. Boerrigter, B. L. E. C. van de Leemput, J. Pieters, K. Wit, and J. G. J. Ypma, <span>“Fractured reservoir simulation: Case studies,”</span> in <em>SPE middle east oil technical conference and exhibition, paper 25615</em>, Bahrain, 1993.</div>
+</div>
+<div id="ref-Barton86" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">N. R. Barton, <span>“Deformation phenomena in jointed rock,”</span> <em>Géotechnique</em>, vol. 36, no. 2, pp. 147–167, 1986.</div>
+</div>
+<div id="ref-Goodman95" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">R. E. Goodman, <span>“Block theory and its application,”</span> <em>Géotechnique</em>, vol. 45, no. 3, pp. 383–423, 1995.</div>
+</div>
+<div id="ref-Koudina98" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">N. Koudina, R. Gonzalez Garcia, J.-F. Thovert, and P. M. Adler, <span>“Permeability of three-dimensional fracture networks,”</span> <em>Phys. Rev.</em>, vol. E57, pp. 4466–4479, 1998.</div>
+</div>
+<div id="ref-Bourbiaux98" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">B. Bourbiaux, M.-C. Cacas, S. Sarda, and J.-C. Sabathier, <span>“A rapid and efficient methodology to convert fractured reservoir images into a dual-porosity model,”</span> <em>Oil and Gas Science and Technology, Rev. IFP</em>, vol. 53, no. 6, pp. 785–799, 1998.</div>
+</div>
+<div id="ref-Sarda01" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">S. Sarda, L. Jeannin, and B. Bourbiaux, <span>“Hydraulic characterization of fractured reservoirs: Simulation on discrete fracture models,”</span> in <em>Symposium of the society of petroleum engineers</em>, Houston: SPE, Reservoir simulation., 2001.</div>
+</div>
+<div id="ref-Lange01" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">A. Lange, R. Basquet, and B. Bourbiaux, <span>“Hydraulic characterization of faults and fractures using a dual medium discrete fracture network simulator,”</span> in <em><span class="math inline">\(10^\mathrm{th}\)</span> international petroleum exhibition and conference</em>, <span>A</span>bu <span>D</span>habi: SPE, Reservoir simulation., 2002.</div>
+</div>
+<div id="ref-Bourbiaux02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">B. Bourbiaux, R. Basquet, M.-C. Cacas, and J.-M. Daniel, <span>“An integrated workflow to account for multi-scale fractures in reservoir simulation models : Implementation and benefits,”</span> in <em><span class="math inline">\(10^\mathrm{th}\)</span> international petroleum exhibition and conference</em>, <span>A</span>bu <span>D</span>habi: SPE, Reservoir simulation., 2002.</div>
+</div>
+<div id="ref-Garcia07" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">M. Garcia, F. Gouth, and O. Gosselin, <span>“Fast and efficient modeling and conditioning of naturally fractured reservoir models using static and dynamic data,”</span> in <em>SPE europec/EAGE conference and exhibition, paper 107525</em>, London, 2007.</div>
+</div>
+<div id="ref-Berkowitz95" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">B. Berkowitz, <span>“Analysis of fracture network connectivity using percolation theory,”</span> <em>Mathematical Geology</em>, vol. 27, no. 4, pp. 467–483, 1995.</div>
+</div>
+<div id="ref-deDreuzy01a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">J.-R. de Dreuzy, P. Davy, and O. Bour, <span>“Hydraulic properties of two-dimensional random fracture networks following a power law length distribution: 1-<span>E</span>ffective connectivity,”</span> <em>Water Resources Research</em>, vol. 37, no. 8, pp. 2065–2078, 2001.</div>
+</div>
+<div id="ref-deDreuzy01b" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">J.-R. de Dreuzy, P. Davy, and O. Bour, <span>“Hydraulic properties of two-dimensional random fracture networks following a power law length distribution: 2-<span>P</span>ermeability,”</span> <em>Water Resources Research</em>, vol. 37, no. 8, pp. 2079–2095, 2001.</div>
+</div>
+<div id="ref-Fokker01" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">P. A. Fokker, <span>“General anisotropic effective medium theory for the effective permeability of heterogeneous reservoirs,”</span> <em>Transport in Porous Media</em>, vol. 44, pp. 205–218, 2001.</div>
+</div>
+<div id="ref-Sisavath04" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">S. Sisavath, V. Mourzenko, P. Genthon, J.-F. Thovert, and P. M. Adler, <span>“Geometry, percolation and transport properties of fracture networks derived from line data,”</span> <em>Geophys. J. Int.</em>, vol. 157, pp. 917–934, 2004.</div>
+</div>
+<div id="ref-TIPM07" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">J.-F. Barthélémy, <span>“Effective permeability of media with a dense network of long and micro fractures,”</span> <em>Transport In Porous Media</em>, 2008.</div>
+</div>
+<div id="ref-Olarewaju97" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">J. Olarewaju, S. Ghori, A. Fuseni, and M. Wajid, <span>“Stochastic simulation of fracture density for permeability field estimation,”</span> in <em>SPE middle east oil show and conference, paper 37692</em>, Bahrain, 1997, pp. 121–136.</div>
+</div>
+<div id="ref-Wu02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">H. Wu and D. Pollard, <span>“Imaging 3-<span>D</span> fracture networks around boreholes,”</span> <em>AAPG Bulletin</em>, vol. 86, no. 4, pp. 593–604, 2002.</div>
+</div>
+<div id="ref-Ozkaya03" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">S. I. Özkaya, <span>“Fracture length estimation from borehole image logs,”</span> <em>Mathematical Geology</em>, vol. 35, no. 6, pp. 737–753, 2003.</div>
+</div>
+<div id="ref-Gauthier00" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">B. D. M. Gauthier, A. M. Zellou, A. Toublanc, M. Garcia, and J.-M. Daniel, <span>“Integrated fractured reservoir characterization: A case study in a <span>N</span>orth <span>A</span>frica field,”</span> in <em>SPE reservoir evaluation and engineering, paper 65118</em>, Paris, 2000.</div>
+</div>
+<div id="ref-Gauthier02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">B. D. M. Gauthier, M. Guiton, and M. Garcia, <span>“The characterization of a fractured reservoir: A multi-disciplinary approach with application to an offshore, <span>A</span>bu <span>D</span>habi carbonate reservoir,”</span> in <em>AAPG international conference and exhibition, paper ID56776</em>, Cairo, Egypt, 2002.</div>
+</div>
+<div id="ref-Ouenes00" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">A. Ouenes, <span>“Practical application of fuzzy logic and neural networks to fractured reservoir characterization,”</span> <em>Computers &amp; Geoscience</em>, vol. 26, no. 8, pp. 953–962, 2000.</div>
+</div>
+<div id="ref-Tran04" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">N. H. Tran, <span>“Characterisation and modelling of naturally fractured reservoirs,”</span> Ph. {D.} thesis, University of New South Wales, 2004.</div>
+</div>
+<div id="ref-Ladeira81" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">F. L. Ladeira and N. J. Price, <span>“Relationship between fracture spacing and bed thickness,”</span> <em>Journal of Structural Geology</em>, vol. 3, no. 2, pp. 179–183, 1981.</div>
+</div>
+<div id="ref-Narr84" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">W. Narr and I. Lerche, <span>“A method for estimating SubSurface fracture density in core,”</span> <em>AAPG Bulletin</em>, vol. 68, no. 5, pp. 637–648, 1984.</div>
+</div>
+<div id="ref-Narr91" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">W. Narr and J. Suppe, <span>“Joint spacing in sedimentary rocks,”</span> <em>Journal of Structural Geology</em>, vol. 13, no. 9, pp. 1037–1048, 1991.</div>
+</div>
+<div id="ref-Lisle94" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">R. J. Lisle, <span>“Detection of zones of abnormal strains in structures using gaussian curvature analysis,”</span> <em>AAPG Bulletin</em>, vol. 78, no. 12, pp. 1811–1819, 1994.</div>
+</div>
+<div id="ref-Hennings00" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">P. H. Hennings, J. E. Olson, and L. B. Thompson, <span>“Combining outcrop data and three-dimensional structural models to characterize fractured reservoirs: An example from <span>Wyoming</span>,”</span> <em>AAPG Bulletin</em>, vol. 84, no. 6, pp. 830–849, 2000.</div>
+</div>
+<div id="ref-Pohn81" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">H. A. Pohn, <span>“Joint spacing as a method of locating faults,”</span> <em>Geology</em>, vol. 9, pp. 258–261, 1981.</div>
+</div>
+<div id="ref-Terzaghi65" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">R. D. Terzaghi, <span>“Sources of error in joint surveys,”</span> <em>Géotechnique</em>, vol. 15, pp. 287–304, 1965.</div>
+</div>
+<div id="ref-Dershowitz85" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">W. S. Dershowitz, <span>“Rock joint system,”</span> Ph. {D.} Dissertation, M.I.T., Cambridge, Mass., 1985.</div>
+</div>
+<div id="ref-Dershowitz92" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">W. S. Dershowitz and H. H. Herda, <span>“Interpretation of fracture spacing and intensity,”</span> in <em>Proc. 33rd US symp. Rock mech.</em>, J. R. Tillerson and W. R. Wawersik, Eds., Rotterdam, 1992, pp. 757–766.</div>
+</div>
+<div id="ref-Mauldon94" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">M. Mauldon, <span>“Intersection probabilities of impersistent joints,”</span> <em>Int. J. Rock Mech. Min. Sc. Geomech. Abstr.</em>, vol. 31, no. 2, pp. 107–115, 1994.</div>
+</div>
+<div id="ref-Wang05" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[40] </div><div class="csl-right-inline">X. Wang, <span>“Stereological interpretation of rock fracture traces on borehole walls and other cylindrical surfaces,”</span> Ph. {D.} Dissertation, Virginia Polytech. Inst.; State Univ., 2005.</div>
+</div>
+<div id="ref-Mauldon97" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[41] </div><div class="csl-right-inline">M. Mauldon and J. G. Mauldon, <span>“Fracture sampling on a cylinder: From scanlines to boreholes and tunnels,”</span> <em>Rock Mech. Rock Engng.</em>, vol. 30, no. 3, pp. 129–144, 1997.</div>
+</div>
+<div id="ref-LaPointe93" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[42] </div><div class="csl-right-inline">P. R. La Pointe, P. C. Wallmann, and W. S. Dershowitz, <span>“Stochastic <span>E</span>stimation of <span>F</span>racture <span>S</span>ize <span>T</span>hrough <span>S</span>imulated <span>S</span>ampling,”</span> <em>Int. J. Rock Mech. Min. Sc. &amp; Geomech. Abstr.</em>, vol. 30, no. 7, pp. 1611–1617, 1993.</div>
+</div>
+<div id="ref-Priest04" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[43] </div><div class="csl-right-inline">S. D. Priest, <span>“Determination of discontinuity size distributions from scanline data,”</span> <em>Rock Mech. &amp; Rock Eng.</em>, vol. 37, no. 5, pp. 347–368, 2004.</div>
+</div>
+<div id="ref-Berkowitz98" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[44] </div><div class="csl-right-inline">B. Berkowitz and P. M. Adler, <span>“Stereological analysis of fracture network structure in geological formations,”</span> <em>J. Geophys. Res.</em>, vol. 103, no. B7, pp. 15, 339–15, 360, 1998.</div>
+</div>
+<div id="ref-LaPointe02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[45] </div><div class="csl-right-inline">P. R. La Pointe, <span>“Derivation of parent fracture population statistics from trace length measurements of fractal fracture populations,”</span> <em>Int. J. Rock Mech. Min. Sc.</em>, vol. 39, pp. 381–388, 2002.</div>
+</div>
+<div id="ref-Tonon07" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[46] </div><div class="csl-right-inline">F. Tonon and S. Chen, <span>“Closed-form and numerical solutions for the probability distribution function of fracture diameters,”</span> <em>Int. J. Rock Mech. Min. Sc.</em>, vol. 44, no. 3, pp. 332–350, 2007.</div>
+</div>
+<div id="ref-Gupta06" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[47] </div><div class="csl-right-inline">A. K. Gupta and P. M. Adler, <span>“Stereological analysis of fracture networks along cylindrical galleries,”</span> <em>Mathematical Geology</em>, vol. 38, no. 3, pp. 233–267, 2006.</div>
+</div>
+<div id="ref-Zhang02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[48] </div><div class="csl-right-inline">L. Zhang, H. H. Einstein, and W. S. Dershowitz, <span>“Stereological relationship between trace length and size distribution of elliptical discontinuities,”</span> <em>Géotechnique</em>, vol. 52, no. 6, pp. 419–433, 2002.</div>
+</div>
+<div id="ref-Marcotte02" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[49] </div><div class="csl-right-inline">H. Marcotte and E. Henry, <span>“Automatic joint set clustering using a mixture of bivariate normal distributions,”</span> <em>Int. J. Rock Mech. Min. Sc.</em>, vol. 39, pp. 323–334, 2002.</div>
+</div>
+<div id="ref-Fisher87" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[50] </div><div class="csl-right-inline">N. I. Fisher, T. Lewis, and B. J. J. Embleton, <em>Statistical analysis of spherical data</em>. Cambridge University Press, 1987.</div>
+</div>
+<div id="ref-Priest76" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[51] </div><div class="csl-right-inline">S. D. Priest and J. A. Hudson, <span>“Discontinuity spacings in rock,”</span> <em>Int. J. Rock Mech. Min. Sc. Geomech. Abstr.</em>, vol. 13, pp. 135–148, 1976.</div>
+</div>
+<div id="ref-Rives92" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[52] </div><div class="csl-right-inline">T. Rives, M. Razack, J.-P. Petit, and K. D. Rawnsley, <span>“Joint spacing: Analogue and numerical simulations,”</span> <em>Journal of Structural Geology</em>, vol. 14, no. 8/9, pp. 925–937, 1992.</div>
+</div>
+<div id="ref-Zhang00" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[53] </div><div class="csl-right-inline">L. Zhang and H. H. Einstein, <span>“Estimating the intensity of rock discontinuities,”</span> <em>Int. J. Rock Mech. Min. Sc.</em>, vol. 37, pp. 819–837, 2000.</div>
+</div>
+<div id="ref-Jourdain" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[54] </div><div class="csl-right-inline">B. Jourdain, <em>Probabilités et statistique</em>. Cours de l’École Nationale des Ponts et Chaussées, 2005.</div>
+</div>
+<div id="ref-Odling99" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[55] </div><div class="csl-right-inline">N. E. Odling <em>et al.</em>, <span>“Variations in fracture system geometry and their implications for fluid flow in fractured hydrocarbon reservoirs,”</span> <em>Petroleum Geoscience</em>, vol. 5, pp. 373–384, 1999.</div>
+</div>
+<div id="ref-Spiegel68" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[56] </div><div class="csl-right-inline">M. R. Spiegel, <em>Mathematical handbook of formulas and tables</em>. New-York: <span>S</span>chaum’s <span>O</span>utline <span>S</span>eries, <span>M</span>c<span>G</span>raw-<span>H</span>ill, 1968.</div>
+</div>
+<div id="ref-Andersson84" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[57] </div><div class="csl-right-inline">J. Andersson, A. M. Shapiro, and J. Bear, <span>“A stochastic model of a fractured rock conditioned by measured information,”</span> <em>Water Resources Research</em>, vol. 20, no. 1, pp. 79–88, 1984.</div>
+</div>
+<div id="ref-Jimenez06" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[58] </div><div class="csl-right-inline">R. Jimenez-Rodriguez and N. Sitar, <span>“Inference of discontinuity trace length distributions using statistical graphical models,”</span> <em>Int. J. Rock Mech. Min. Sc.</em>, vol. 43, no. 6, pp. 877–893, 2006.</div>
+</div>
+<div id="ref-Darcel03c" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[59] </div><div class="csl-right-inline">C. Darcel, O. Bour, and P. Davy, <span>“Stereological analysis of fractal fracture networks,”</span> <em>J. Geophys. Res.</em>, vol. 108, no. B9, 2451, 2003.</div>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jfbarthelemy.github.io/index.html</loc>
-    <lastmod>2026-06-23T10:42:41.179Z</lastmod>
+    <lastmod>2026-06-23T13:28:48.723Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/teaching.html</loc>
-    <lastmod>2026-06-23T10:42:41.181Z</lastmod>
+    <lastmod>2026-06-23T13:28:48.810Z</lastmod>
   </url>
   <url>
-    <loc>https://jfbarthelemy.github.io/software/mpcm.html</loc>
-    <lastmod>2026-06-23T10:42:41.181Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software/chemistrylab.html</loc>
-    <lastmod>2026-06-23T10:42:41.179Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software.html</loc>
-    <lastmod>2026-06-23T10:42:41.179Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software/tensnd.html</loc>
-    <lastmod>2026-06-23T10:42:41.181Z</lastmod>
+    <loc>https://jfbarthelemy.github.io/postprints.html</loc>
+    <lastmod>2026-06-23T13:28:48.723Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/software/echoes.html</loc>
-    <lastmod>2026-06-23T10:42:41.181Z</lastmod>
+    <lastmod>2026-06-23T13:28:48.810Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/tensnd.html</loc>
+    <lastmod>2026-06-23T13:28:48.810Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software.html</loc>
+    <lastmod>2026-06-23T13:28:48.809Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/chemistrylab.html</loc>
+    <lastmod>2026-06-23T13:28:48.809Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/mpcm.html</loc>
+    <lastmod>2026-06-23T13:28:48.810Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/about.html</loc>
-    <lastmod>2026-06-23T10:42:41.173Z</lastmod>
+    <lastmod>2026-06-23T13:28:48.717Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/publications.html</loc>
-    <lastmod>2026-06-23T10:42:41.179Z</lastmod>
+    <lastmod>2026-06-23T13:28:48.809Z</lastmod>
   </url>
 </urlset>

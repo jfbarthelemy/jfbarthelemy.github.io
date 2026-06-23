@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jean-François Barthélémy">
+<meta name="dcterms.date" content="2020-01-01">
+<meta name="keywords" content="Hill polarization tensor, transformed problem, elliptically orthotropic matrix, transversely isotropic matrix">
+
+<title>Simplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="transformhill_files/libs/clipboard/clipboard.min.js"></script>
+<script src="transformhill_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="transformhill_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="transformhill_files/libs/quarto-html/popper.min.js"></script>
+<script src="transformhill_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="transformhill_files/libs/quarto-html/anchor.min.js"></script>
+<link href="transformhill_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="transformhill_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="transformhill_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="transformhill_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="transformhill_files/libs/bootstrap/bootstrap-1fcf4b563fe088d4ff7716f12daa7d31.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+    wideeq: ["#1", 1],
+    arcosh: "\\operatorname{arcosh}",
+    dep: ["\\left({#1}\\right)", 1],
+    grando: ["{\\mathcal O}\\dep{#1}", 1],
+    n: "\\uv{n}",
+    nicefrac: ["{}^{#1}\\!/_{#2}", 2],
+    norm: ["\\left\\|{#1}\\right\\|", 1],
+    phtrans: ["{{\\vphantom{#1}}^{t}{#1}}", 1],
+    sboxtimes: "\\stackrel{s}{\\boxtimes}",
+    sotimes: "\\stackrel{s}{\\otimes}",
+    trans: ["{{}^{t}{#1}}", 1],
+    ud: "\\,\\mathrm{d}",
+    uu: ["\\boldsymbol{#1}", 1],
+    uuuu: ["\\mathbb{#1}", 1],
+    uv: ["\\underline{#1}", 1],
+    ve: ["\\uv{e}_{#1}", 1],
+    x: "\\uv{x}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-hill" id="toc-sec-hill" class="nav-link" data-scroll-target="#sec-hill"><span class="header-section-number">2</span> Transformation of the Hill polarization tensor in elasticity</a></li>
+  <li><a href="#sec-eo" id="toc-sec-eo" class="nav-link" data-scroll-target="#sec-eo"><span class="header-section-number">3</span> Application to an arbitrary ellipsoid in an elliptically orthotropic matrix</a></li>
+  <li><a href="#sec-ti" id="toc-sec-ti" class="nav-link" data-scroll-target="#sec-ti"><span class="header-section-number">4</span> Application to a spheroid in a coaxial transversely isotropic matrix</a>
+  <ul class="collapse">
+  <li><a href="#sec-proofHillTI" id="toc-sec-proofHillTI" class="nav-link" data-scroll-target="#sec-proofHillTI"><span class="header-section-number">4.1</span> Detailed construction of the Hill tensor by the transformation approach</a></li>
+  <li><a href="#sec-summaryHillTI" id="toc-sec-summaryHillTI" class="nav-link" data-scroll-target="#sec-summaryHillTI"><span class="header-section-number">4.2</span> Practical implementation and validation</a></li>
+  <li><a href="#sec-oblate" id="toc-sec-oblate" class="nav-link" data-scroll-target="#sec-oblate"><span class="header-section-number">4.3</span> Case of flat or ``penny-shaped” spheroid</a></li>
+  <li><a href="#sec-prolate" id="toc-sec-prolate" class="nav-link" data-scroll-target="#sec-prolate"><span class="header-section-number">4.4</span> Case of strongly prolate spheroid or circular cylinder</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5</span> Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#appendices" id="toc-appendices" class="nav-link" data-scroll-target="#appendices">Appendices</a></li>
+  <li><a href="#sec-tensoralgebra" id="toc-sec-tensoralgebra" class="nav-link" data-scroll-target="#sec-tensoralgebra"><span class="header-section-number">6</span> Conventions of tensor algebra</a></li>
+  <li><a href="#sec-Walpole" id="toc-sec-Walpole" class="nav-link" data-scroll-target="#sec-Walpole"><span class="header-section-number">7</span> Walpole basis</a></li>
+  <li><a href="#sec-hilliso" id="toc-sec-hilliso" class="nav-link" data-scroll-target="#sec-hilliso"><span class="header-section-number">8</span> Hill polarization tensor in an isotropic matrix</a></li>
+  <li><a href="#sec-integrals" id="toc-sec-integrals" class="nav-link" data-scroll-target="#sec-integrals"><span class="header-section-number">9</span> Calculation of integrals</a></li>
+  <li><a href="#sec-python" id="toc-sec-python" class="nav-link" data-scroll-target="#sec-python"><span class="header-section-number">10</span> Python script for the Hill tensor of a spheroid embedded in a coaxial transversely isotropic matrix</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="transformhill.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Simplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jean-François Barthélémy <a href="mailto:jean-francois.barthelemy@cerema.fr" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1968-8939" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Cerema, Project-team DIMA, 110 rue de Paris, BP 214, 77487 Provins Cedex, France
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2020</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>This work aims at proposing a general framework based on an intrinsic tensor formalism to relate Hill polarization tensors of elastic problems associated by a linear transformation without detailing the resolution of the problems. Such an approach somehow casts a new light on the calculation of some Hill tensors already known in the literature by means of other methods or other presentations. In particular it allows to avoid the calculation of any Green tensor or derivatives and it boils down to very compact expressions which are rather easy to implement. The application of the method to the case of an arbitrary ellipsoid embedded in an elliptically orthotropic matrix recalls that the Hill tensor can be built from an associated isotropic case but also puts in evidence that the elliptically orthotropic case is the only one that can be derived from an isotropic counterpart. Another application of the method shows that the Hill tensor of a spheroid embedded in a coaxial transversely isotropic matrix can be derived from an associated problem involving a sphere in a modified transversely isotropic matrix. This approach provides new simple and compact expressions for the Hill tensor from which the known limits corresponding to flat spheroid or strongly prolate shapes are retrieved.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>Hill polarization tensor, transformed problem, elliptically orthotropic matrix, transversely isotropic matrix</p>
+  </div>
+</div>
+
+</header>
+
+
+<div class="postprint-banner">
+<p><strong>Author-accepted manuscript (postprint).</strong> This is the accepted version of an article published by Elsevier in the <em>International Journal of Engineering Science</em>. The version of record is available at <a href="https://doi.org/10.1016/j.ijengsci.2020.103326">doi:10.1016/j.ijengsci.2020.103326</a>. Please cite as: J.-F. Barthélémy, “Simplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications”, <em>International Journal of Engineering Science</em> <strong>154</strong> (2020) 103326. © 2020 Elsevier Ltd.</p>
+<p>This author-accepted manuscript is made available under the <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)</a> license. <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="cc-by-nc-nd.png" height="24" alt="CC BY-NC-ND 4.0"></a></p>
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>From the pionneering works of Eshelby <span class="citation" data-cites="Eshelby57"><a href="#ref-Eshelby57" role="doc-biblioref">[1]</a></span> and Hill <span class="citation" data-cites="Hill1963"><a href="#ref-Hill1963" role="doc-biblioref">[2]</a></span>, the major role played by the Eshelby tensor or by the Hill polarization tensor corresponding to a reference behavior and an ellipsoidal inclusion has become undeniable since one or the other is the fundamental tool to build a large variety of homogenization schemes (<span class="citation" data-cites="DormieuxMicroporo"><a href="#ref-DormieuxMicroporo" role="doc-biblioref">[3]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>). However the practical calculation of the elastic Hill tensor, so called after <span class="citation" data-cites="Walpole1966"><a href="#ref-Walpole1966" role="doc-biblioref">[5]</a></span>, may not be as easy as in the framework of conduction (<span class="citation" data-cites="TIPM09"><a href="#ref-TIPM09" role="doc-biblioref">[6]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>). Indeed whereas the case of an isotropic reference medium yields an analytical expression of the Hill tensor whatever the shape of the ellipsoid, requiring at worst the evaluation of elliptic integrals (<span class="citation" data-cites="Parnell16"><a href="#ref-Parnell16" role="doc-biblioref">[7]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>), rather few analytical expressions can be derived when the reference medium is anisotropic. Among them one can cite the case of a spheroid aligned in a transversely isotropic matrix (<span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span>, <span class="citation" data-cites="Withers89"><a href="#ref-Withers89" role="doc-biblioref">[9]</a></span>, <span class="citation" data-cites="Parnell16"><a href="#ref-Parnell16" role="doc-biblioref">[7]</a></span>, <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>). Other analytical results can also be obtained for extreme shapes of ellipsoids in certain matrix anisotropy. The case of a cylinder of elliptical section in an anisotropic matrix is treated in <span class="citation" data-cites="Suvorov2002"><a href="#ref-Suvorov2002" role="doc-biblioref">[11]</a></span> with simplified formulation when the behavior is orthotropic of axes aligned with those of the cylinder. The first order expansion of the Hill tensor of a long cylinder of very flat elliptical section, often referred to as a two-dimensional crack, aligned with the axes of an orthotropic matrix is developed in <span class="citation" data-cites="Laws77"><a href="#ref-Laws77" role="doc-biblioref">[12]</a></span> and extended in <span class="citation" data-cites="Gruescu05"><a href="#ref-Gruescu05" role="doc-biblioref">[13]</a></span> to the case of a cylinder rotated around its axis and <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span> presents the corresponding solution to the problem of a penny-shaped crack in the plane of a transversely isotropic matrix. Beyond the calculation of Hill tensors or crack compliance contributions, it is worth mentioning that the complete displacement, strain and stress field solutions in an anisotropic matrix embedding a two-dimensional crack have been derived (<span class="citation" data-cites="Mauge94a"><a href="#ref-Mauge94a" role="doc-biblioref">[14]</a></span>, <span class="citation" data-cites="Mauge94b"><a href="#ref-Mauge94b" role="doc-biblioref">[15]</a></span>, <span class="citation" data-cites="Tsukrov2000"><a href="#ref-Tsukrov2000" role="doc-biblioref">[16]</a></span>). Besides these analytical solutions, some numerical strategies have also been developed to determine the Hill tensor or its first order expansion with respect to the aspect ratio for a crack. These strategies often start from expressions under the form of integrals over the unit sphere obtained after a reasoning based on Fourier transform (<span class="citation" data-cites="Faivre71"><a href="#ref-Faivre71" role="doc-biblioref">[17]</a></span>, <span class="citation" data-cites="Mura87"><a href="#ref-Mura87" role="doc-biblioref">[18]</a></span>) of plane-wave expansion (<span class="citation" data-cites="Willis77"><a href="#ref-Willis77" role="doc-biblioref">[19]</a></span>), extended to the case of 2D or 3D cracks (<span class="citation" data-cites="Laws77"><a href="#ref-Laws77" role="doc-biblioref">[12]</a></span>, <span class="citation" data-cites="Huang98"><a href="#ref-Huang98" role="doc-biblioref">[20]</a></span>, <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span>). Such integrals may be well suited for classical (<span class="citation" data-cites="Ghahremani77"><a href="#ref-Ghahremani77" role="doc-biblioref">[22]</a></span>, <span class="citation" data-cites="Gavazzi90"><a href="#ref-Gavazzi90" role="doc-biblioref">[23]</a></span>) or adaptive gaussian cubature (<span class="citation" data-cites="Meso07"><a href="#ref-Meso07" role="doc-biblioref">[24]</a></span>) but resolutions based on the Cauchy residue theorem have also been considered (<span class="citation" data-cites="Mura87"><a href="#ref-Mura87" role="doc-biblioref">[18]</a></span>, <span class="citation" data-cites="Suvorov2002"><a href="#ref-Suvorov2002" role="doc-biblioref">[11]</a></span>, <span class="citation" data-cites="Masson08"><a href="#ref-Masson08" role="doc-biblioref">[25]</a></span>, <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span>). This latter technique allows to improve a lot the calculation time in the full anisotropic case but may lead to problems of accuracy in the vicinity of material symmetry leading to multiple poles in Cauchy residue theorem.</p>
+<p>A very fruitful idea to reach new families of elastic solutions has been developed thanks to the concept of transformed problems (<span class="citation" data-cites="Pouya2000"><a href="#ref-Pouya2000" role="doc-biblioref">[26]</a></span>, <span class="citation" data-cites="Pouya06"><a href="#ref-Pouya06" role="doc-biblioref">[27]</a></span>, <span class="citation" data-cites="Pouya2011"><a href="#ref-Pouya2011" role="doc-biblioref">[28]</a></span>). By introducing a consistent set of relationships between the parameters defining associated problems (position, stiffness and boundary conditions), the solution fields (displacement, strain and stress) of both problems can be deduced the ones from the others, the objective being that one of them is much easier to solve. As a consequence, it is possible to build new elementary solutions such as the Green tensors corresponding to several types of matrix behavior, among which the ellipsoidal anisotropy (<span class="citation" data-cites="Pouya2007c"><a href="#ref-Pouya2007c" role="doc-biblioref">[29]</a></span>) and transformed transversely isotropic one <span class="citation" data-cites="Pouya2007b"><a href="#ref-Pouya2007b" role="doc-biblioref">[30]</a></span>. Another consequence put in evidence in <span class="citation" data-cites="Pouya2000"><a href="#ref-Pouya2000" role="doc-biblioref">[26]</a></span> and <span class="citation" data-cites="Pouya06"><a href="#ref-Pouya06" role="doc-biblioref">[27]</a></span> is the possibility to derive the Eshelby tensor of a given problem from that of a simpler one after a complete analysis of the set of equations at stake.</p>
+<p>The objective of the present paper is to derive relationships between Hill tensors of associated problems by a simplified approach, without resorting to the resolution of the Green tensor and without any reference to the fundamental equations of the inclusion problems. Then some applications are detailed emphasizing on the strength of the method to produce rather simple and compact expressions of the Hill tensor. In <a href="#sec-hill" class="quarto-xref">Section&nbsp;2</a>, the relationship between associated Hill tensors are derived in an intrinsic tensor formalism from the formula expressed as an integral over the unit sphere. The instrinsic tensor formalism simplifies the identification of the transformed Hill tensor from the initial one. This relationship between Hill tensors is then leveraged in <a href="#sec-eo" class="quarto-xref">Section&nbsp;3</a> as an alternative to the method used in <span class="citation" data-cites="Sevostianov2020"><a href="#ref-Sevostianov2020" role="doc-biblioref">[31]</a></span> to derive a compact intrinsic expression of the Hill tensor related to an arbitrary ellipsoid embedded in an elliptically orthotropic matrix. It is finally exploited in <a href="#sec-ti" class="quarto-xref">Section&nbsp;4</a> to revisit the problem of the spheroid embedded in a transversely isotropic matrix of same symmetry axis. Although the solution to the Hill and Eshelby tensors has already been obtained by other methods (<span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span>, <span class="citation" data-cites="Withers89"><a href="#ref-Withers89" role="doc-biblioref">[9]</a></span>, <span class="citation" data-cites="Parnell16"><a href="#ref-Parnell16" role="doc-biblioref">[7]</a></span>, <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>), the present one offers another demonstration leading to new compact expressions validated against the same example as in <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span> or <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>. Finally the limit cases of a penny-shaped crack and a circular cylinder are retrieved.</p>
+</section>
+<section id="sec-hill" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Transformation of the Hill polarization tensor in elasticity</h1>
+<p>The tensor conventions adopted in this paper are inspired from the presentation proposed in <span class="citation" data-cites="BrisardBlog"><a href="#ref-BrisardBlog" role="doc-biblioref">[32]</a></span> and are recalled in <a href="#sec-tensoralgebra" class="quarto-xref">Section&nbsp;6</a>.</p>
+<p>Among the different expressions of the Hill polarization tensor obtained by means of a reasoning based on Fourier transform or plane-wave decompostion (<span class="citation" data-cites="Willis77"><a href="#ref-Willis77" role="doc-biblioref">[19]</a></span>,<span class="citation" data-cites="Mura87"><a href="#ref-Mura87" role="doc-biblioref">[18]</a></span>), the most judicious for the present developments is</p>
+<p><span id="eq-Hill"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})=\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+(\uu{A}^{-1}\cdot\uv{\zeta})\sotimes
+\Big((\uu{A}^{-1}\cdot\uv{\zeta})\cdot\uuuu{C}
+\cdot(\uu{A}^{-1}\cdot\uv{\zeta})\Big)^{-1}
+\sotimes(\uu{A}^{-1}\cdot\uv{\zeta})
+\ud S_{\zeta}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{C}\)</span> is the stiffness tensor of the reference medium and <span class="math inline">\(\uu{A}\)</span> is the inversible (not necessarily symmetric) second-order tensor allowing to define the ellipsoid <span class="math inline">\(\mathcal{E}_{\uu{A}}\)</span> associated to <span class="math inline">\(\uuuu{P}(\uu{A},\uuuu{C})\)</span> as</p>
+<p><span id="eq-ellipsoid"><span class="math display">\[
+\x\in\mathcal{E}_{\uu{A}}
+\quad\Leftrightarrow\quad
+\x\cdot(\trans{\uu{A}}\cdot\uu{A})^{-1}\cdot\x\leq 1
+\tag{2}\]</span></span></p>
+<p>It follows from the definition <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;2</a> that the radii and axes of the ellipsoid are respectively given by the square roots of the eigen values and eigen vectors of <span class="math inline">\(\trans{\uu{A}}\cdot\uu{A}\)</span>.</p>
+<p>The tensor formalism and the properties of the products <span class="math inline">\(\sotimes\)</span> and <span class="math inline">\(\sboxtimes\)</span> introduced in <a href="#sec-tensoralgebra" class="quarto-xref">Section&nbsp;6</a> allow to rewrite <a href="#eq-Hill" class="quarto-xref">Eq.&nbsp;1</a> under the form</p>
+<p><span id="eq-Hillmod"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})=\frac{1}{4\pi}
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1}):
+\left[
+\int_{\norm{\uv{\zeta}}=1}
+\uv{\zeta}\sotimes
+\left(\uv{\zeta}\cdot
+\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}:\uuuu{C}:
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})
+\cdot\uv{\zeta}\right)^{-1}
+\sotimes\uv{\zeta}
+\ud S_{\zeta}\right]
+:\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}
+\tag{3}\]</span></span></p>
+<p>All the strategy relies on the possibility to transform the integrand into a similar one but associated to another stiffness tensor <span class="math inline">\(\uuuu{\tilde{C}}\)</span> which would allow a simple (ideally analytical) calculation of the corresponding Hill tensor, for example an isotropic stiffness if possible. In other words, the idea is to be able to identify an inversible second-order tensor <span class="math inline">\(\tilde{\uu{A}}\)</span> and a positive definite fourth-order tensor <span class="math inline">\(\tilde{\uuuu{C}}\)</span> satisfying a relationship of the form</p>
+<p><span id="eq-CCp"><span class="math display">\[
+\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}:\uuuu{C}:
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})
+=
+\trans{(\tilde{\uu{A}}^{-1}\sboxtimes\tilde{\uu{A}}^{-1})}:\uuuu{\tilde{C}}:
+(\tilde{\uu{A}}^{-1}\sboxtimes\tilde{\uu{A}}^{-1})
+\tag{4}\]</span></span></p>
+<p>or</p>
+<p><span id="eq-CCp2"><span class="math display">\[
+\uuuu{C}
+=
+\phtrans{\Big[(\uu{\tilde{A}}^{-1}\cdot\uu{A})\sboxtimes
+(\uu{\tilde{A}}^{-1}\cdot\uu{A})\Big]}
+:\uuuu{\tilde{C}}:
+\Big[(\uu{\tilde{A}}^{-1}\cdot\uu{A})\sboxtimes
+(\uu{\tilde{A}}^{-1}\cdot\uu{A})\Big]
+\tag{5}\]</span></span></p>
+<p>such that <span class="math inline">\(\uuuu{P}(\tilde{\uu{A}},\uuuu{\tilde{C}})\)</span> is easily reachable. This entails the general relationship</p>
+<p><span id="eq-Hilltrans"><span class="math display">\[
+(\uu{A}\sboxtimes\uu{A}):
+\uuuu{P}(\uu{A},\uuuu{C}):
+\trans{(\uu{A}\sboxtimes\uu{A})}
+=
+(\uu{\tilde{A}}\sboxtimes\uu{\tilde{A}}):
+\uuuu{P}(\uu{\tilde{A}},\uuuu{\tilde{C}}):
+\trans{(\uu{\tilde{A}}\sboxtimes\uu{\tilde{A}})}
+\tag{6}\]</span></span></p>
+<p>or</p>
+<p><span id="eq-Hilltrans2"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})
+=
+\Big[(\uu{A}^{-1}\cdot\uu{\tilde{A}})\sboxtimes
+(\uu{A}^{-1}\cdot\uu{\tilde{A}})\Big]:
+\uuuu{P}(\uu{\tilde{A}},\uuuu{\tilde{C}}):
+\phtrans{\Big[(\uu{A}^{-1}\cdot\uu{\tilde{A}})\sboxtimes
+(\uu{A}^{-1}\cdot\uu{\tilde{A}})\Big]}
+\tag{7}\]</span></span></p>
+<p>It is worth noting that the transformation <a href="#eq-Hilltrans2" class="quarto-xref">Eq.&nbsp;7</a> somehow corresponds to the elastic counterpart of a result presented in <span class="citation" data-cites="AnisoRocks2019"><a href="#ref-AnisoRocks2019" role="doc-biblioref">[33]</a></span> in the framework of conduction. Knowing <span class="math inline">\(\uuuu{P}(\uu{A},\uuuu{C})\)</span>, the calculation of concentration and stiffness or compliance contribution tensors related to the ellipsoid defined by <span class="math inline">\(\uu{A}\)</span> embedded in a matrix of stiffness <span class="math inline">\(\uuuu{C}\)</span> is straightforward (<span class="citation" data-cites="DormieuxMicroporo"><a href="#ref-DormieuxMicroporo" role="doc-biblioref">[3]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>).</p>
+<p>In particular for <span class="math inline">\(\tilde{\uu{A}}=\uu{1}\)</span>, <a href="#eq-Hilltrans2" class="quarto-xref">Eq.&nbsp;7</a> rewrites</p>
+<p><span id="eq-Hillsph"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})=
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1}):
+\uuuu{P}(\uu{1},\uuuu{\tilde{C}})
+:\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}
+\textrm{ with }
+\uuuu{\tilde{C}}=\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}:\uuuu{C}:
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})
+\tag{8}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{P}(\uu{1},\uuuu{\tilde{C}})\)</span> corresponds to the Hill tensor related to a sphere embedded in a medium of stiffness <span class="math inline">\(\uuuu{\tilde{C}}\)</span>. The relationship <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a> illustrates that the calculation of an arbitrary Hill tensor always boils down to the calculation of an associated one related to a sphere, as already put in evidence in <span class="citation" data-cites="Pouya2000"><a href="#ref-Pouya2000" role="doc-biblioref">[26]</a></span> and <span class="citation" data-cites="Pouya06"><a href="#ref-Pouya06" role="doc-biblioref">[27]</a></span> on the Eshelby tensor after a reasoning based on an analysis of the equations of the initial and transformed elastic problems. This ascertainment implies interesting consequences for numerical or analytical methods. Indeed, when a numerical method such as those proposed in <span class="citation" data-cites="Ghahremani77"><a href="#ref-Ghahremani77" role="doc-biblioref">[22]</a></span>, <span class="citation" data-cites="Mura87"><a href="#ref-Mura87" role="doc-biblioref">[18]</a></span>, <span class="citation" data-cites="Gavazzi90"><a href="#ref-Gavazzi90" role="doc-biblioref">[23]</a></span> or <span class="citation" data-cites="Masson08"><a href="#ref-Masson08" role="doc-biblioref">[25]</a></span> is required, <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a> proves that the numerical strategy may only focus on the spherical inclusion and the application of the adequate transformation. Moreover, especially when searching for the simplest analytical expression if it exists, the interest of the spherical shape relies on the fact that the integration over the unit sphere in <a href="#eq-Hill" class="quarto-xref">Eq.&nbsp;1</a> is made easier since <span class="math inline">\(\uu{A}^{-1}\cdot\uv{\zeta}\)</span> with <span class="math inline">\(\uu{A}=\uu{1}\)</span> simply describes the unit sphere. This advantage is even clearer on the other classical form of the Hill tensor derived from <a href="#eq-Hill" class="quarto-xref">Eq.&nbsp;1</a> by change of variable (see <span class="citation" data-cites="Mura87"><a href="#ref-Mura87" role="doc-biblioref">[18]</a></span>)</p>
+<p><span id="eq-Hillbis"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\sotimes
+(\uv{\xi}\cdot\uuuu{C}
+\cdot\uv{\xi})^{-1}
+\sotimes\uv{\xi}}{\norm{\uu{A}\cdot\uv{\xi}}^3}
+\ud S_{\xi}
+\tag{9}\]</span></span></p>
+<p>It is obviously clear that the spherical shape allows the economy of the denominator of the integrand in <a href="#eq-Hillbis" class="quarto-xref">Eq.&nbsp;9</a> generally responsible for terms to the power <span class="math inline">\(3/2\)</span> which may hinder the search for compact analytical solutions.</p>
+</section>
+<section id="sec-eo" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Application to an arbitrary ellipsoid in an elliptically orthotropic matrix</h1>
+<p>The elliptically orthotropic or Saint Venant material as presented in <span class="citation" data-cites="Pouya06"><a href="#ref-Pouya06" role="doc-biblioref">[27]</a></span>, <span class="citation" data-cites="Pouya2007"><a href="#ref-Pouya2007" role="doc-biblioref">[34]</a></span> and <span class="citation" data-cites="Sevostianov2020"><a href="#ref-Sevostianov2020" role="doc-biblioref">[31]</a></span> can be written in the present formalism</p>
+<p><span id="eq-eo"><span class="math display">\[
+\uuuu{C}=\lambda\,\uu{D}\otimes\uu{D}+2\,\mu\,\uu{D}\sboxtimes\uu{D}
+\tag{10}\]</span></span></p>
+<p>where <span class="math inline">\(\uu{D}\)</span> is a symmetric positive definite second-order tensor (see <span class="citation" data-cites="Pouya2007"><a href="#ref-Pouya2007" role="doc-biblioref">[34]</a></span> for detailed conditions ensuring the positive definite character of <span class="math inline">\(\uuuu{C}\)</span>). It is clear that the isotropic case is retrieved for <span class="math inline">\(\uu{D}=\uu{1}\)</span> and Lam'e moduli <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span>.</p>
+<p>The properties of tensor operators allow to write the left hand side of <a href="#eq-CCp" class="quarto-xref">Eq.&nbsp;4</a> with an elliptically orthotropic stiffness <a href="#eq-eo" class="quarto-xref">Eq.&nbsp;10</a> as</p>
+<p><span id="eq-Dp"><span class="math display">\[
+\trans{(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})}:\uuuu{C}:
+(\uu{A}^{-1}\sboxtimes\uu{A}^{-1})
+=
+\lambda\,
+\uu{D}'
+\otimes
+\uu{D}'
++2\,\mu\,
+\uu{D}'
+\sboxtimes
+\uu{D}'
+\quad\textrm{with}\quad
+\uu{D}'=\trans{\uu{A}^{-1}}\cdot\uu{D}\cdot\uu{A}^{-1}
+\tag{11}\]</span></span></p>
+<p>By means of the eigen values <span class="math inline">\(d_i&gt;0\)</span> and the orthonormal frame of eigen vectors <span class="math inline">\((\uv{E}_i)_{i=1,2,3}\)</span> of <span class="math inline">\(\uu{D}\)</span>, the following second-order tensors are defined</p>
+<p><span id="eq-halfD"><span class="math display">\[
+\uu{D}^{\nicefrac{1}{2}}=
+\sum_{i=1}^3\sqrt{d_i}\uv{E}_i\otimes\uv{E}_i
+\quad\textrm{;}\quad
+\uu{D}^{-\nicefrac{1}{2}}=
+\sum_{i=1}^3\frac{1}{\sqrt{d_i}}\uv{E}_i\otimes\uv{E}_i
+\quad\textrm{;}\quad
+\tilde{\uu{A}}=\uu{A}\cdot\uu{D}^{-\nicefrac{1}{2}}
+\tag{12}\]</span></span></p>
+<p>It then follows that <span class="math inline">\(\uu{D}'\)</span> in <a href="#eq-Dp" class="quarto-xref">Eq.&nbsp;11</a> rewrites <span class="math inline">\(\uu{D}'=\trans{\tilde{\uu{A}}^{-1}}\cdot\tilde{\uu{A}}^{-1}\)</span> so that <a href="#eq-CCp" class="quarto-xref">Eq.&nbsp;4</a> is satisfied with <span class="math inline">\(\tilde{\uu{A}}\)</span> defined in <a href="#eq-halfD" class="quarto-xref">Eq.&nbsp;12</a> and <span class="math inline">\(\uuuu{\tilde{C}}\)</span> as the isotropic counterpart of <a href="#eq-eo" class="quarto-xref">Eq.&nbsp;10</a></p>
+<p><span id="eq-iso"><span class="math display">\[
+\uuuu{\tilde{C}}=\lambda\,\uu{1}\otimes\uu{1}+2\,\mu\,\uu{1}\sboxtimes\uu{1}
+\tag{13}\]</span></span></p>
+<p>Finally the introduction of <a href="#eq-CCp" class="quarto-xref">Eq.&nbsp;4</a> in <a href="#eq-Hillmod" class="quarto-xref">Eq.&nbsp;3</a> with <span class="math inline">\(\tilde{\uu{A}}\)</span> defined in <a href="#eq-halfD" class="quarto-xref">Eq.&nbsp;12</a> and <span class="math inline">\(\uuuu{\tilde{C}}\)</span> defined in <a href="#eq-iso" class="quarto-xref">Eq.&nbsp;13</a> yields</p>
+<p><span id="eq-Hilliso"><span class="math display">\[
+\uuuu{P}(\uu{A},\uuuu{C})=
+(\uu{D}^{-\nicefrac{1}{2}}\sboxtimes\uu{D}^{-\nicefrac{1}{2}}):
+\uuuu{P}(\tilde{\uu{A}},\uuuu{\tilde{C}})
+:(\uu{D}^{-\nicefrac{1}{2}}\sboxtimes\uu{D}^{-\nicefrac{1}{2}})
+\tag{14}\]</span></span></p>
+<p>where <span class="math inline">\(\uuuu{P}(\tilde{\uu{A}},\uuuu{\tilde{C}})\)</span> is easily calculated since <span class="math inline">\(\uuuu{\tilde{C}}\)</span> is isotropic (see <a href="#sec-hilliso" class="quarto-xref">Section&nbsp;8</a>). This formula corresponds to a synthetic intrinsic expression of a result presented in a different way in <span class="citation" data-cites="Sevostianov2020"><a href="#ref-Sevostianov2020" role="doc-biblioref">[31]</a></span>.</p>
+<p>Conversely, starting from an isotropic tensor <span class="math inline">\(\uuuu{\tilde{C}}\)</span> of the form <a href="#eq-iso" class="quarto-xref">Eq.&nbsp;13</a>, il follows from <a href="#eq-CCp2" class="quarto-xref">Eq.&nbsp;5</a> that the methodology presented in <a href="#sec-hill" class="quarto-xref">Section&nbsp;2</a> is only able to reach an elliptically orthotropic material and no other kind of symmetry as already put in evidence in <span class="citation" data-cites="Pouya2000"><a href="#ref-Pouya2000" role="doc-biblioref">[26]</a></span> and <span class="citation" data-cites="Pouya06"><a href="#ref-Pouya06" role="doc-biblioref">[27]</a></span>.</p>
+</section>
+<section id="sec-ti" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Application to a spheroid in a coaxial transversely isotropic matrix</h1>
+<p>The Hill polarization tensor corresponding to a transversely isotropic matrix embedding a coaxial spheroid has been derived in <span class="citation" data-cites="Withers89"><a href="#ref-Withers89" role="doc-biblioref">[9]</a></span> (and synthetically recalled in <span class="citation" data-cites="Parnell16"><a href="#ref-Parnell16" role="doc-biblioref">[7]</a></span>) by a method based on the explicit use of the Green tensor and its derivatives for a transversely isotropic material. The same problem has been addressed in <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span> providing formulas depending on integrals remaining unevaluated except for the extreme case of penny-shaped cracks. Another method has been proposed in <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span> and <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span> starting from an integral over the unit sphere involving the Green tensor and its derivatives. This section aims at taking advantage of the relationship <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a> to obtain new expressions of this Hill tensor based on a calculation made on an associated problem with a spherical shape.</p>
+<section id="sec-proofHillTI" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-proofHillTI"><span class="header-section-number">4.1</span> Detailed construction of the Hill tensor by the transformation approach</h2>
+<p>To begin with, the considered spheroid here is such that the tensor <span class="math inline">\(\uu{A}\)</span> of <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;2</a> writes in the orthonormal frame <span class="math inline">\((\ve{i})_{i=1,2,3}\)</span></p>
+<p><span id="eq-spheroid"><span class="math display">\[
+\uu{A}=a\,(\ve{1}\otimes\ve{1}+\ve{2}\otimes\ve{2})+
+c\,\ve{3}\otimes\ve{3}
+\tag{15}\]</span></span></p>
+<p>It is clear from <a href="#eq-Hill" class="quarto-xref">Eq.&nbsp;1</a> that the Hill tensor is insensitive to any homothety applied to <span class="math inline">\(\uu{A}\)</span> so that <a href="#eq-spheroid" class="quarto-xref">Eq.&nbsp;15</a> can be equivalently replaced by</p>
+<p><span id="eq-spheroid2"><span class="math display">\[
+\uu{A}=\ve{1}\otimes\ve{1}+\ve{2}\otimes\ve{2}+
+\omega\,\ve{3}\otimes\ve{3}
+\quad\textrm{ with }\quad
+\omega=\frac{c}{a}
+\tag{16}\]</span></span></p>
+<p>This spheroid is embedded in an infinite transversely isotropic matrix such that <span class="math inline">\(\ve{3}\)</span> also corresponds to the symmetry axis of the material. The stiffness tensor is then defined by 5 independent components in this frame <span class="math inline">\(C_{1111}\)</span>, <span class="math inline">\(C_{1122}\)</span>, <span class="math inline">\(C_{1133}\)</span>, <span class="math inline">\(C_{3333}\)</span> and <span class="math inline">\(C_{2323}\)</span> and can be decomposed on the Walpole basis associated with the direction <span class="math inline">\(\ve{3}\)</span> (see <a href="#sec-Walpole" class="quarto-xref">Section&nbsp;7</a>) as</p>
+<p><span id="eq-CWalpole"><span class="math display">\[
+\uuuu{C}=
+C_{3333}\,\uuuu{E}_{1}
++ (C_{1111}+C_{1122})\,\uuuu{E}_{2}
++ \sqrt{2}\,C_{1133}\,(\uuuu{E}_{3}
++ \uuuu{E}_{4})
++ (C_{1111}-C_{1122})\,\uuuu{E}_{5}
++ 2\,C_{2323}\,\uuuu{E}_{6}
+\tag{17}\]</span></span></p>
+<p>An efficient strategy of calculation of <span class="math inline">\(\uuuu{P}=\uuuu{P}(\uu{A},\uuuu{C})\)</span> now relies on the use of the relationship <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a>. This means that the only difficulty consists in the calculation of the associated Hill tensor for a sphere <span class="math inline">\(\uuuu{\tilde{P}}=\uuuu{P}(\uu{1},\uuuu{\tilde{C}})\)</span> in which <span class="math inline">\(\uuuu{\tilde{C}}\)</span> defined by <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a> remains transversely isotropic in the same frame as <span class="math inline">\(\uuuu{C}\)</span> with components such that</p>
+<p><span id="eq-CvsCt"><span class="math display">\[
+\tilde{C}_{ijkl}=\frac{C_{ijkl}}
+{\omega^{\delta_{i3}+\delta_{j3}+\delta_{k3}+\delta_{l3}}}
+\quad\textrm{ (no summation over repeated indices)}
+\tag{18}\]</span></span></p>
+<p>where <span class="math inline">\(\delta_{ij}\)</span> is the Kronecker delta, which means that the exponent of <span class="math inline">\(\omega\)</span> is simply the number of occurences of the index 3 in <span class="math inline">\((i,j,k,l)\)</span>. In other words the counterpart of the decomposition <a href="#eq-CWalpole" class="quarto-xref">Eq.&nbsp;17</a> is</p>
+<p><span id="eq-CtWalpole"><span class="math display">\[
+\uuuu{\tilde{C}}=
+\frac{C_{3333}}{\omega^4}\,\uuuu{E}_{1}
++ (C_{1111}+C_{1122})\,\uuuu{E}_{2}
++ \sqrt{2}\,\frac{C_{1133}}{\omega^2}\,(\uuuu{E}_{3}
++ \uuuu{E}_{4})
++ (C_{1111}-C_{1122})\,\uuuu{E}_{5}
++ 2\,\frac{C_{2323}}{\omega^2}\,\uuuu{E}_{6}
+\tag{19}\]</span></span></p>
+<p>It follows from <a href="#eq-Hillsph" class="quarto-xref">Eq.&nbsp;8</a> that a similar relationship can be written between <span class="math inline">\(\uuuu{P}\)</span> and <span class="math inline">\(\uuuu{\tilde{P}}\)</span> i.e. <span class="math inline">\(P_{ijkl}=\tilde{P}_{ijkl}/\omega^{\alpha(i,j,k,l)}\)</span>. This means that <span class="math inline">\(\uuuu{P}\)</span> can be decomposed in the Walpole basis associated to <span class="math inline">\(\ve{3}\)</span> thanks to the corresponding components <span class="math inline">\((\tilde{p}_i)_{i=1\ldots 6}\)</span> of <span class="math inline">\(\uuuu{\tilde{P}}\)</span> that remain to be identified</p>
+<p><span id="eq-PWalpole"><span class="math display">\[
+\uuuu{P}=
+\frac{\tilde{p}_1}{\omega^4}\,\uuuu{E}_{1}
++ \tilde{p}_2\,\uuuu{E}_{2}
++ \frac{\tilde{p}_3}{\omega^2}\,(\uuuu{E}_{3}
++ \uuuu{E}_{4})
++ \tilde{p}_5\,\uuuu{E}_{5}
++ \frac{\tilde{p}_6}{\omega^2}\,\uuuu{E}_{6}
+\quad\textrm{ with }
+\tilde{p}_4=\tilde{p}_3
+\textrm{ by symmetry}
+\tag{20}\]</span></span></p>
+<p>Adopting as integration variables the classical spherical angles <span class="math inline">\((\theta,\varphi)\)</span> where <span class="math inline">\(\theta\)</span> is the colatitude and <span class="math inline">\(\varphi\)</span> the longitude as well as the change of variable <span class="math inline">\(z=\cos{\theta}\)</span>, <a href="#eq-Hill" class="quarto-xref">Eq.&nbsp;1</a> allows to write <span class="math inline">\(\uuuu{P}(\uu{1},\uuuu{\tilde{C}})\)</span> under the form</p>
+<p><span id="eq-Hillzphi"><span class="math display">\[
+\uuuu{\tilde{P}}=\uuuu{P}(\uu{1},\uuuu{\tilde{C}})=\frac{1}{4\pi}
+\int_{z=-1}^{1}
+\int_{\varphi=0}^{2\pi}
+\uv{\zeta}(z,\varphi)
+\sotimes
+\uu{\tilde{N}}(z,\varphi)
+\sotimes
+\uv{\zeta}(z,\varphi)
+\ud \varphi \ud z
+\tag{21}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-uphiK"><span class="math display">\[
+\uv{\zeta}(z,\varphi)=z\,\ve{3}+
+\sqrt{1-z^2}\,\left(\cos{\varphi}\,\ve{1}+\sin{\varphi}\,\ve{2}\right)
+\quad\textrm{ and }\quad
+\uu{\tilde{N}}(z,\varphi)=
+\Big(
+\uv{\zeta}(z,\varphi)
+\cdot
+\uuuu{\tilde{C}}
+\cdot
+\uv{\zeta}(z,\varphi)
+\Big)^{-1}
+\tag{22}\]</span></span></p>
+<p>Due to the geometrical and material symmetries of revolution around <span class="math inline">\(\ve{3}\)</span> of the problem, the integration over <span class="math inline">\(\varphi\)</span> in <a href="#eq-Hillzphi" class="quarto-xref">Eq.&nbsp;21</a> is no other than the integration of the rotation around <span class="math inline">\(\ve{3}\)</span> of the fourth-order tensor integrand taken at <span class="math inline">\(\varphi=0\)</span>. In addition it can be decomposed in the Walpole basis as</p>
+<p><span id="eq-Hillphi"><span class="math display">\[
+\frac{1}{4\pi}
+\int_{\varphi=0}^{2\pi}
+\uv{\zeta}(z,\varphi)
+\sotimes
+\uu{\tilde{N}}(z,\varphi)
+\sotimes
+\uv{\zeta}(z,\varphi)
+\ud \varphi
+=
+\tilde{p}_1^z\,\uuuu{E}_{1}
++ \tilde{p}_2^z\,\uuuu{E}_{2}
++ \tilde{p}_3^z\,(\uuuu{E}_{3} + \uuuu{E}_{4})
++ \tilde{p}_5^z\,\uuuu{E}_{5}
++ \tilde{p}_6^z\,\uuuu{E}_{6}
+\tag{23}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-pt1"><span class="math display">\[
+\tilde{p}_1^z= \frac{z^2\,\tilde{N}_{33}(z,0)}{2}
+\tag{24}\]</span></span></p>
+<p><span id="eq-pt2"><span class="math display">\[
+\tilde{p}_2^z= \frac{(1-z^2)\,\tilde{N}_{11}(z,0)}{4}
+\tag{25}\]</span></span></p>
+<p><span id="eq-pt3"><span class="math display">\[
+\tilde{p}_3^z= \tilde{p}_4^z=
+\frac{z\sqrt{1-z^2}\,\tilde{N}_{13}(z,0)}{2\sqrt{2}}
+\tag{26}\]</span></span></p>
+<p><span id="eq-pt5"><span class="math display">\[
+\tilde{p}_5^z= \frac{(1-z^2)\,\tilde{N}_{11}(z,0)
++(1-z^2)\,\tilde{N}_{22}(z,0)}{8}
+\tag{27}\]</span></span></p>
+<p><span id="eq-pt6"><span class="math display">\[
+\tilde{p}_6^z= \frac{z^2\,\tilde{N}_{11}(z,0)
++z^2\,\tilde{N}_{22}(z,0)
++(1-z^2)\,\tilde{N}_{33}(z,0)
++2\,z\sqrt{1-z^2}\,\tilde{N}_{13}(z,0)}{8}
+\tag{28}\]</span></span></p>
+<p>The determination of <span class="math inline">\(\uuuu{\tilde{P}}\)</span><a href="#eq-Hillzphi" class="quarto-xref">Eq.&nbsp;21</a> is achieved by an integration of <a href="#eq-Hillphi" class="quarto-xref">Eq.&nbsp;23</a> over <span class="math inline">\(z\)</span>, which means an integration over <span class="math inline">\(z\)</span> of the components <a href="#eq-pt1" class="quarto-xref">Eq.&nbsp;24</a><a href="#eq-pt6" class="quarto-xref">28</a>. To this aim, the following components of <span class="math inline">\(\uu{\tilde{N}}(z,0)\)</span> are needed</p>
+<p><span id="eq-N11"><span class="math display">\[
+\tilde{N}_{11}(z,0)=
+\frac{z^2\,(\tilde{C}_{3333}-\tilde{C}_{2323})
++\tilde{C}_{2323}
+}{q(z)}
+\tag{29}\]</span></span></p>
+<p><span id="eq-N33"><span class="math display">\[
+\tilde{N}_{33}(z,0)=
+\frac{z^2\,(\tilde{C}_{2323}-\tilde{C}_{1111})
++\tilde{C}_{1111}
+}{q(z)}
+\tag{30}\]</span></span></p>
+<p><span id="eq-N13"><span class="math display">\[
+\tilde{N}_{13}(z,0)=
+\frac{-z\sqrt{1-z^2}\,(\tilde{C}_{1133}+\tilde{C}_{2323})
+}{q(z)}
+\tag{31}\]</span></span></p>
+<p><span id="eq-N22"><span class="math display">\[
+\tilde{N}_{22}(z,0)=
+\frac{1}{r(z)}
+\tag{32}\]</span></span></p>
+<p>where</p>
+<p><span id="eq-qz"><span class="math display">\[
+q(z)=
+\Big(z^2+\eta_1^2\,(1-z^2) \Big)
+\,\Big(z^2+\eta_2^2\,(1-z^2) \Big)
+\,\tilde{C}_{2323}\,\tilde{C}_{3333}
+\tag{33}\]</span></span></p>
+<p>with <span class="math inline">\(\eta_1\)</span> and <span class="math inline">\(\eta_2\)</span> complex numbers obtained by taking the square roots (according to the convention specified in <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a>) of the two roots of the quadratic polynomial</p>
+<p><span id="eq-polyq"><span class="math display">\[
+Z^2\,\tilde{C}_{2323}\,\tilde{C}_{3333}
++Z\,(\tilde{C}_{1133}^2+2\,\tilde{C}_{1133}\,\tilde{C}_{2323}-
+\,\tilde{C}_{1111}\,\tilde{C}_{3333})
++\tilde{C}_{1111}\,\tilde{C}_{2323}=0
+\tag{34}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-rz"><span class="math display">\[
+r(z)=
+\Big(z^2+\eta_3^2\,(1-z^2) \Big)
+\,\tilde{C}_{2323}
+\quad\textrm{ with }\quad
+\eta_3=\sqrt{\frac{\tilde{C}_{1111}-\tilde{C}_{1122}}{2\,\tilde{C}_{2323}}}
+\tag{35}\]</span></span></p>
+<p>Note that <span class="math inline">\(\eta_1\)</span> and <span class="math inline">\(\eta_2\)</span> are similar to <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> defined in <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span> and <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span>, the difference here being that the polynomial <a href="#eq-polyq" class="quarto-xref">Eq.&nbsp;34</a> is expressed with components of <span class="math inline">\(\uuuu{\tilde{C}}\)</span> and not <span class="math inline">\(\uuuu{C}\)</span>.</p>
+<p>The introduction of <a href="#eq-N11" class="quarto-xref">Eq.&nbsp;29</a><a href="#eq-N22" class="quarto-xref">32</a> in <a href="#eq-pt1" class="quarto-xref">Eq.&nbsp;24</a><a href="#eq-pt6" class="quarto-xref">28</a> and the integration <span class="math inline">\(z\)</span> bring up integrals as those resolved in <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a>. It follows that the Walpole components of <span class="math inline">\(\uuuu{\tilde{P}}\)</span> are given by</p>
+<p><span id="eq-fpt1"><span class="math display">\[
+\tilde{p}_1= \frac{
+(\tilde{C}_{2323}-\tilde{C}_{1111})\,\mathcal{J}_4
++\tilde{C}_{1111}\,\mathcal{J}_2
+}
+{2\,\tilde{C}_{2323}\,\tilde{C}_{3333}}
+\tag{36}\]</span></span></p>
+<p><span id="eq-fpt2"><span class="math display">\[
+\tilde{p}_2= \frac{
+(\tilde{C}_{2323}-\tilde{C}_{3333})\,\mathcal{J}_4
++(\tilde{C}_{3333}-2\,\tilde{C}_{2323})\,\mathcal{J}_2
++\tilde{C}_{2323}\,\mathcal{J}_0
+}{4\,\tilde{C}_{2323}\,\tilde{C}_{3333}}
+\tag{37}\]</span></span></p>
+<p><span id="eq-fpt3"><span class="math display">\[
+\tilde{p}_3= \tilde{p}_4=
+\frac{
+(\tilde{C}_{2323}+\tilde{C}_{1133})\,
+(\mathcal{J}_4-\mathcal{J}_2)
+}{2\sqrt{2}\,\tilde{C}_{2323}\,\tilde{C}_{3333}}
+\tag{38}\]</span></span></p>
+<p><span id="eq-fpt5"><span class="math display">\[
+\tilde{p}_5=
+\frac{\tilde{p}_2}{2}+
+\frac{
+\mathcal{I}_0-\mathcal{I}_2
+}{8\,\tilde{C}_{2323}}
+\tag{39}\]</span></span></p>
+<p><span id="eq-fpt6"><span class="math display">\[
+\tilde{p}_6=
+\frac{
+(\tilde{C}_{1111}+\tilde{C}_{3333}+2\,\tilde{C}_{1133})\,\mathcal{J}_4
+-2\,(\tilde{C}_{1111}+\tilde{C}_{1133})\,\mathcal{J}_2
++\tilde{C}_{1111}\,\mathcal{J}_0
+}{8\,\tilde{C}_{2323}\,\tilde{C}_{3333}}
++\frac{\mathcal{I}_2}{8\,\tilde{C}_{2323}}
+\tag{40}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{J}_k\)</span> (<span class="math inline">\(k\in\{0,2,4\}\)</span>) and <span class="math inline">\(\mathcal{I}_k\)</span> (<span class="math inline">\(k\in\{0,2\}\)</span>) respectively stand for <span class="math inline">\(\mathcal{J}_k(\eta_1,\eta_2)\)</span> and <span class="math inline">\(\mathcal{I}_k(\eta_3)\)</span> as defined in <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a>. As shown in <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span>, the real positive definite nature of <span class="math inline">\(\uuuu{\tilde{C}}\)</span> implies that either <span class="math inline">\(\eta_1\)</span> and <span class="math inline">\(\eta_2\)</span> are both strictly positive real numbers or form a couple of conjugate complex numbers of strictly positive real part and non-zero imaginary part. This ensures the real character of expressions of the integrals in <a href="#tbl-I024" class="quarto-xref">Table&nbsp;1</a> and <a href="#tbl-J024" class="quarto-xref">Table&nbsp;2</a>. The Hill tensor <span class="math inline">\(\uuuu{P}\)</span> is finally obtained by <a href="#eq-PWalpole" class="quarto-xref">Eq.&nbsp;20</a> with the components <a href="#eq-fpt1" class="quarto-xref">Eq.&nbsp;36</a><a href="#eq-fpt6" class="quarto-xref">40</a>.</p>
+</section>
+<section id="sec-summaryHillTI" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-summaryHillTI"><span class="header-section-number">4.2</span> Practical implementation and validation</h2>
+<p>Now that the Hill tensor <span class="math inline">\(\uuuu{P}\)</span> is fully determined, the strategy to derive it may be even more practically described from the initial stiffness tensor <span class="math inline">\(\uuuu{C}\)</span> and the aspect ratio <span class="math inline">\(\omega\)</span> by following the successive steps.</p>
+<ol type="1">
+<li><p>Find the square roots <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> of the roots of the polynomial</p>
+<p><span id="eq-polyeta"><span class="math display">\[
+Z^2\,C_{2323}\,C_{3333}
++Z\,(C_{1133}^2+2\,C_{1133}\,C_{2323}-
+\,C_{1111}\,C_{3333})
++C_{1111}\,C_{2323}=0
+\tag{41}\]</span></span></p>
+<p>in other words</p>
+<p><span id="eq-gamma12"><span class="math display">\[
+\gamma_1=\sqrt{
+\frac{C_{1111}\,C_{3333}-C_{1133}^2-2\,C_{1133}\,C_{2323}
++\sqrt{\Delta}}
+{2\,C_{2323}\,C_{3333}}}
+\;\textrm{;}\;
+\gamma_2=\sqrt{
+\frac{C_{1111}\,C_{3333}-C_{1133}^2-2\,C_{1133}\,C_{2323}
+-\sqrt{\Delta}}
+{2\,C_{2323}\,C_{3333}}}
+\tag{42}\]</span></span></p>
+<p>with the square root defined under the convention of <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a> and</p>
+<p><span id="eq-Delta"><span class="math display">\[
+\Delta=(C_{1111}\,C_{3333}-C_{1133}^2)\,
+(C_{1111}\,C_{3333}-C_{1133}^2-4\,C_{1133}\,C_{2323}-4\,C_{2323}^2)
+\tag{43}\]</span></span></p>
+<p>and define</p>
+<p><span id="eq-gamma3"><span class="math display">\[
+\gamma_3=\sqrt{\frac{C_{1111}-C_{1122}}{2\,C_{2323}}}
+\tag{44}\]</span></span></p>
+<p>Here <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> are introduced with the same definition in <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span> and <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span> i.e.&nbsp;in an equation involving this time the actual stiffness <span class="math inline">\(\uuuu{C}\)</span>. It follows again that <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> are both strictly positive real numbers or form a couple of conjugate complex numbers of strictly positive real part and non-zero imaginary part. In fact it is straightforward to verify that <span class="math inline">\(\gamma_i\)</span> (<span class="math inline">\(i\in\{1,2,3\}\)</span>) are related to <span class="math inline">\(\eta_i\)</span> by <span class="math inline">\(\eta_i=\omega\,\gamma_i\)</span>.</p></li>
+<li><p>Calculate from the integrals of <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a> the values</p>
+<p><span id="eq-MN"><span class="math display">\[
+\mathcal{J}_k=\mathcal{J}_k(\omega\,\gamma_1,\omega\,\gamma_2)
+\quad(k\in\{0,2,4\})
+\quad\textrm{ and }\quad
+\mathcal{I}_k=\mathcal{I}_k(\omega\,\gamma_3)
+\quad(k\in\{0,2\})
+\tag{45}\]</span></span></p></li>
+<li><p>Calculate the Hill tensor by its Walpole decomposition (see <a href="#sec-Walpole" class="quarto-xref">Section&nbsp;7</a>)</p>
+<p><span id="eq-PWalpole2"><span class="math display">\[
+\uuuu{P}=
+p_1\,\uuuu{E}_{1}
++ p_2\,\uuuu{E}_{2}
++ p_3\,(\uuuu{E}_{3}
++ \uuuu{E}_{4})
++ p_5\,\uuuu{E}_{5}
++ p_6\,\uuuu{E}_{6}
+\tag{46}\]</span></span></p>
+<p>with</p>
+<p><span id="eq-p1"><span class="math display">\[
+p_1= \frac{
+(C_{2323}-\omega^2\,C_{1111})\,\mathcal{J}_4
++\omega^2\,C_{1111}\,\mathcal{J}_2
+}{2\,C_{2323}\,C_{3333}}
+\tag{47}\]</span></span></p>
+<p><span id="eq-p2"><span class="math display">\[
+p_2= \omega^2\,\frac{
+(\omega^2\,C_{2323}-C_{3333})\,\mathcal{J}_4
++(C_{3333}-2\,\omega^2\,C_{2323})\,\mathcal{J}_2
++\omega^2\,C_{2323}\,\mathcal{J}_0
+}{4\,C_{2323}\,C_{3333}}
+\tag{48}\]</span></span></p>
+<p><span id="eq-p3"><span class="math display">\[
+p_3= p_4=
+\frac{
+\omega^2\,(C_{2323}+C_{1133})\,(\mathcal{J}_4-\mathcal{J}_2)
+}{2\sqrt{2}\,\,C_{2323}\,C_{3333}}
+\tag{49}\]</span></span></p>
+<p><span id="eq-p5"><span class="math display">\[
+p_5=
+\frac{p_2}{2}
++
+\frac{
+\omega^2\,(\mathcal{I}_0-\mathcal{I}_2)
+}{8\,C_{2323}}
+\tag{50}\]</span></span></p>
+<p><span id="eq-p6"><span class="math display">\[
+p_6=
+\frac{
+(\omega^4\,C_{1111}+C_{3333}+2\,\omega^2\,C_{1133})\,\mathcal{J}_4
+-2\,\omega^2\,(\omega^2\,C_{1111}+C_{1133})\,\mathcal{J}_2
++\omega^4\,C_{1111}\,\mathcal{J}_0
+}{8\,C_{2323}\,C_{3333}}
++\frac{\mathcal{I}_2}{8\,C_{2323}}
+\tag{51}\]</span></span></p></li>
+</ol>
+<p>The Eshelby tensor associated to <span class="math inline">\(\uuuu{P}\)</span> is obtained by <span class="math inline">\(\uuuu{S}=\uuuu{P}:\uuuu{C}\)</span>. In order to validate the calculation of the Hill or equivalently the Eshelby tensor, the hereabove expressions are applied to the case proposed in <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span> or <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span> illustrating the dependence of the components of <span class="math inline">\(\uuuu{S}\)</span> on the aspect ratio of a spheroid embedded in a transversely isotropic matrix of same axis. The results of calculation presented in <a href="#fig-EshelbyTI" class="quarto-xref">Fig.&nbsp;1</a> show a perfect consistency with the corresponding figure in <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span> or <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>. The related Python script is provided in <a href="#sec-python" class="quarto-xref">Section&nbsp;10</a>.</p>
+<div id="fig-EshelbyTI" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-EshelbyTI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/EshelbyTI.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-EshelbyTI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Components of the Eshelby tensor of a spheroid in a transversely isotropic matrix of stiffness components after <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span>: <span class="math inline">\(C_{1111}=2.179\)</span>, <span class="math inline">\(C_{1122}=0.579\)</span>, <span class="math inline">\(C_{1133}=0.689\)</span>, <span class="math inline">\(C_{3333}=10.345\)</span>, <span class="math inline">\(C_{2323}=1.\)</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-oblate" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-oblate"><span class="header-section-number">4.3</span> Case of flat or ``penny-shaped” spheroid</h2>
+<p>Beyond the simplicity of implementation, the expressions <a href="#eq-p1" class="quarto-xref">Eq.&nbsp;47</a><a href="#eq-p6" class="quarto-xref">51</a> together with the integrals evaluated and expanded in <a href="#sec-integrals" class="quarto-xref">Section&nbsp;9</a> are well adapted to the determination of the Taylor expansion of <span class="math inline">\(\uuuu{P}\)</span> in the case of a flat spheroid modelling a crack. Indeed as put in evidence in <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span>, <span class="citation" data-cites="Nemat99"><a href="#ref-Nemat99" role="doc-biblioref">[35]</a></span>, <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span>, <span class="citation" data-cites="DormieuxMicroporo"><a href="#ref-DormieuxMicroporo" role="doc-biblioref">[3]</a></span>, <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span> and <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span>, the first order expansion is needed to derive the concentration and contribution tensors or overall energy in this case and writes</p>
+<p><span id="eq-dlP"><span class="math display">\[
+\uuuu{P}=\uuuu{P}^0+\omega\,\uuuu{P}^1+\grando{\omega^2}
+\quad\textrm{with}\quad
+\uuuu{P}^0=\ve{3}\sotimes
+\left(\ve{3}\cdot\uuuu{C}\cdot\ve{3}\right)^{-1}\sotimes\ve{3}
+=\frac{1}{C_{3333}}\,\uuuu{E}_{1}
++ \frac{1}{2\,C_{2323}}\,\uuuu{E}_{6}
+\tag{52}\]</span></span></p>
+<p>and <span class="math inline">\(\uuuu{P}^1\)</span>, already expressed in <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span>, <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span>, <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span> and <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span>, retrieved here by its Walpole components</p>
+<p><span id="eq-obp1"><span class="math display">\[
+p^1_1=
+\frac{\pi}{2\,(\gamma_1+\gamma_2)}\,
+\frac{C_{1111}-(\gamma_1^2+\gamma_1\,\gamma_2+\gamma_2^2)\,C_{2323}}
+{C_{2323}\,C_{3333}}
+\tag{53}\]</span></span></p>
+<p><span id="eq-obp2"><span class="math display">\[
+p^1_2=
+\frac{\pi}{4\,(\gamma_1+\gamma_2)}\,\left(
+\frac{1}
+{\gamma_1\,\gamma_2\,C_{3333}}
++
+\frac{1}
+{C_{2323}}
+\right)
+\tag{54}\]</span></span></p>
+<p><span id="eq-obp3"><span class="math display">\[
+p^1_3=
+-\frac{\sqrt{2}\,\pi}{4\,(\gamma_1+\gamma_2)}\,\frac{C_{1133}+C_{2323}}
+{C_{2323}\,C_{3333}}
+\tag{55}\]</span></span></p>
+<p><span id="eq-obp5"><span class="math display">\[
+p^1_5=
+\frac{\pi}{8}\,\left(
+\frac{1}
+{\gamma_1\,\gamma_2\,(\gamma_1+\gamma_2)\,C_{3333}}
++
+\left(\frac{1}{\gamma_1+\gamma_2}+\frac{1}{\gamma_3}\right)
+\,\frac{1}{C_{2323}}
+\right)
+\tag{56}\]</span></span></p>
+<p><span id="eq-obp6"><span class="math display">\[
+p^1_6=
+\frac{\pi}{8}\,\left(
+\frac{C_{1111}-2\,\gamma_1\,\gamma_2\,C_{1133}
+-\gamma_1\,\gamma_2\,
+(\gamma_1^2+\gamma_1\,\gamma_2+\gamma_2^2)\,C_{3333}
+}{\gamma_1\,\gamma_2\,(\gamma_1+\gamma_2)\,C_{2323}\,C_{3333}}
+-\frac{\gamma_3}{C_{2323}}
+\right)
+\tag{57}\]</span></span></p>
+<p>Interestingly the <a href="#eq-obp1" class="quarto-xref">Eq.&nbsp;53</a><a href="#eq-obp6" class="quarto-xref">57</a> can even be directly compactedly expressed in terms of the sole components of <span class="math inline">\(\uuuu{C}\)</span> by observing on the one hand that <span class="math inline">\(\gamma_3\)</span> is given by <a href="#eq-gamma3" class="quarto-xref">Eq.&nbsp;44</a> and on the other hand that <span class="math inline">\(\gamma_1^2\)</span> and <span class="math inline">\(\gamma_2^2\)</span> are solutions to <a href="#eq-polyeta" class="quarto-xref">Eq.&nbsp;41</a> so that</p>
+<p><span id="eq-g12pg22"><span class="math display">\[
+\gamma_1^2+\gamma_2^2= \frac{C_{1111}\,C_{3333}-C_{1133}^2-2\,C_{1133}\,C_{2323}
+}{C_{2323}\,C_{3333}}
+\tag{58}\]</span></span></p>
+<p><span id="eq-g12g22"><span class="math display">\[
+\gamma_1^2\,\gamma_2^2= \frac{C_{1111}}{C_{3333}}
+\tag{59}\]</span></span></p>
+<p><span id="eq-g1g2"><span class="math display">\[
+\gamma_1\,\gamma_2= \sqrt{\frac{C_{1111}}{C_{3333}}}
+\tag{60}\]</span></span></p>
+<p><span id="eq-g1pg2"><span class="math display">\[
+\gamma_1+\gamma_2= \sqrt{\gamma_1^2+\gamma_2^2+2\,\gamma_1\,\gamma_2}
+=\sqrt{\frac{C_{1111}\,C_{3333}-C_{1133}^2-2\,C_{1133}\,C_{2323}
+}{C_{2323}\,C_{3333}}
++2\sqrt{\frac{C_{1111}}{C_{3333}}}
+}
+\tag{61}\]</span></span></p>
+<p>In fact the interest of the expansion <a href="#eq-dlP" class="quarto-xref">Eq.&nbsp;52</a> relies on its link with the fourth-order crack compliance contribution which is given by a limit implying the asymptotically singular inverse of the second Hill tensor (<span class="citation" data-cites="Laws77"><a href="#ref-Laws77" role="doc-biblioref">[12]</a></span>, <span class="citation" data-cites="Laws85"><a href="#ref-Laws85" role="doc-biblioref">[8]</a></span>)</p>
+<p><span id="eq-H"><span class="math display">\[
+\uuuu{H}=\lim_{\omega\to 0}\omega\,\uuuu{Q}^{-1}
+\quad\textrm{with}\quad
+\uuuu{Q}=\uuuu{C}-\uuuu{C}:\uuuu{P}:\uuuu{C}
+\tag{62}\]</span></span></p>
+<p>The limit <a href="#eq-H" class="quarto-xref">Eq.&nbsp;62</a> is shown in <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span> to depend only on <span class="math inline">\(\uuuu{P}^1\)</span> and not <span class="math inline">\(\uuuu{P}^0\)</span> and more specifically on a restriction of <span class="math inline">\(\uuuu{C}:\uuuu{P}^1:\uuuu{C}\)</span> corresponding to out-of-plane components. An interpretation of the result of <span class="citation" data-cites="IJSS09"><a href="#ref-IJSS09" role="doc-biblioref">[21]</a></span> in the framework of Walpole decomposition leads to the conclusion that the indices of non-zero components of <span class="math inline">\(\lim_{\omega\to 0}\omega\uuuu{Q}^{-1}\)</span> are the same as those of <span class="math inline">\(\uuuu{P}^0\)</span> in <a href="#eq-dlP" class="quarto-xref">Eq.&nbsp;52</a>, i.e.&nbsp;after straightforward calculation</p>
+<p><span id="eq-HW"><span class="math display">\[
+\uuuu{H}=\lim_{\omega\to 0}\omega\,\uuuu{Q}^{-1}
+=-\frac{1}{C_{3333}^2\,p^1_1+2\,C_{1133}^2\,p^1_2
++2\sqrt{2}\,C_{3333}\,C_{1133}\,p^1_3}
+\,\uuuu{E}_{1}
+-\frac{1}{4\,C_{2323}^2\,p^1_6}\,\uuuu{E}_{6}
+\tag{63}\]</span></span></p>
+<p>where <span class="math inline">\(p^1_1\)</span>, <span class="math inline">\(p^1_2\)</span>, <span class="math inline">\(p^1_3\)</span> and <span class="math inline">\(p^1_6\)</span> are given in <a href="#eq-obp1" class="quarto-xref">Eq.&nbsp;53</a>, <a href="#eq-obp2" class="quarto-xref">Eq.&nbsp;54</a>, <a href="#eq-obp3" class="quarto-xref">Eq.&nbsp;55</a> and <a href="#eq-obp6" class="quarto-xref">Eq.&nbsp;57</a>. It must be noted that this crack contribution tensor has been first derived with other notations and material set of parameters in <span class="citation" data-cites="Hoenig1978"><a href="#ref-Hoenig1978" role="doc-biblioref">[36]</a></span> in a more general case of elliptical crack, using a different reasoning based on linear elastic fracture mechanics. In the circular case the present approach is consistent with the result of <span class="citation" data-cites="Hoenig1978"><a href="#ref-Hoenig1978" role="doc-biblioref">[36]</a></span>.</p>
+</section>
+<section id="sec-prolate" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-prolate"><span class="header-section-number">4.4</span> Case of strongly prolate spheroid or circular cylinder</h2>
+<p>Limits can also be obtained for the case of a strongly prolate spheroid tending towards a circular cylinder of axis aligned to that of the material symmetry. Taking advantage of the expansions <a href="#eq-proI0" class="quarto-xref">Eq.&nbsp;122</a><a href="#eq-proI4" class="quarto-xref">124</a> and <a href="#eq-proJ0" class="quarto-xref">Eq.&nbsp;125</a><a href="#eq-proJ4" class="quarto-xref">127</a> in <a href="#eq-p1" class="quarto-xref">Eq.&nbsp;47</a><a href="#eq-p6" class="quarto-xref">51</a> as well as <a href="#eq-g12pg22" class="quarto-xref">Eq.&nbsp;58</a> and <a href="#eq-g12g22" class="quarto-xref">Eq.&nbsp;59</a>, the formulas derived in <span class="citation" data-cites="Sevostianov2005"><a href="#ref-Sevostianov2005" role="doc-biblioref">[10]</a></span> and <span class="citation" data-cites="Kachanov18"><a href="#ref-Kachanov18" role="doc-biblioref">[4]</a></span> are retrieved</p>
+<p><span id="eq-prop1"><span class="math display">\[
+p_1=
+  \grando{\frac{1}{\omega^2}}
+\tag{64}\]</span></span></p>
+<p><span id="eq-prop2"><span class="math display">\[
+p_2=
+\frac{1}{2\,C_{1111}}
+  +\grando{\frac{1}{\omega^2}}
+\tag{65}\]</span></span></p>
+<p><span id="eq-prop3"><span class="math display">\[
+p_3=
+  \grando{\frac{1}{\omega^2}}
+\tag{66}\]</span></span></p>
+<p><span id="eq-prop5"><span class="math display">\[
+p_5=
+\frac{1}{4\,C_{1111}}+\frac{1}{2\,(C_{1111}-C_{1122})}
+  +\grando{\frac{1}{\omega^2}}
+\tag{67}\]</span></span></p>
+<p><span id="eq-prop6"><span class="math display">\[
+p_6= \frac{1}{4\,C_{2323}}
+  +\grando{\frac{1}{\omega^2}}
+\tag{68}\]</span></span></p>
+</section>
+</section>
+<section id="conclusion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Conclusion</h1>
+<p>The technique of transformation initially designed in the literature to build the complete solution of an elastic problem from that of an associated simpler one is exploited in this paper directly on the integral expression of the Hill tensor rather than on the equations of the elastic problem. This idea immediately leads to a relationship between Hill tensors of different problems involving transformed sitffness as well as transformed ellipsoidal shape. It follows an immediate application to any behavior which is accessible through a linear transformation of an isotropic matrix, namely the case of elliptically orthotropic matrix. It is shown that the Hill tensor can be expressed as a compact formula involving intrinsic tensor operations. The idea is also leveraged to build an alternative demonstration for the determination of the Hill tensor of a spheroid embedded in a transversely isotropic matrix of same axis. New expressions, which can be very easily implemented, are derived in Walpole decomposition and validated against already published results.</p>
+</section>
+<section id="acknowledgements" class="level1 unnumbered">
+<h1 class="unnumbered">Acknowledgements</h1>
+<p>Fruitful discussions with Prof.&nbsp;Albert Giraud (GeoRessources Laboratory, Universit'e de Lorraine) and Prof.&nbsp;Igor Sevostianov (New Mexico State University) are gratefully acknowledged.</p>
+<p>The author thanks Cerema and Universit'e Gustave Eiffel for allowing the creation of the joint research team entitled “'Equipe de Recherche Commune sur les Mat'eriaux pour une Construction Durable (ERC MCD)”, within which these research works were carried out.</p>
+</section>
+<section id="appendices" class="level1 unnumbered">
+<h1 class="unnumbered">Appendices</h1>
+
+</section>
+<section id="sec-tensoralgebra" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Conventions of tensor algebra</h1>
+<p>Even if an intrinsic formalism is privileged in the paper, it may be instructive when necessary in this section to refer to an index notation always related to a given orthonormal frame <span class="math inline">\((\ve{i})_{i=1,2,3}\)</span>.</p>
+<p>The first notion that is useful to precise is that of the double-dot product since two definitions can be introduced as explained in <span class="citation" data-cites="BrisardBlog"><a href="#ref-BrisardBlog" role="doc-biblioref">[32]</a></span> (<a href="https://sbrisard.github.io/category/tensor-algebra.html" class="uri">https://sbrisard.github.io/category/tensor-algebra.html</a>). The one adopted here is such that if <span class="math inline">\(\uu{a}\)</span> and <span class="math inline">\(\uu{b}\)</span> are two second-order tensors and <span class="math inline">\(\uuuu{T}\)</span> is a fourth-order tensor</p>
+<p><span id="eq-doubledot"><span class="math display">\[
+\uu{a}:\uu{b}=a_{ij}\,b_{ij}
+\quad\textrm{and}\quad
+\uuuu{T}:\uu{a}=T_{ijkl}\,a_{kl}\,\ve{i}\otimes\ve{j}
+\tag{69}\]</span></span></p>
+<p>where the Einstein notation of repeated indices is used and <span class="math inline">\(\otimes\)</span> denotes the classical tensor product. This means that the double-dot product does not apply successively to the closest indices but somehow to the couple of the two last indices of the tensor to the left with the couple of the two first indices of the tensor to the right. It follows that the components of the transpose tensor <span class="math inline">\(\trans{\uuuu{T}}\)</span> such that <span class="math inline">\(\trans{\uuuu{T}}:\uu{a}=\uu{a}:\uuuu{T}\)</span> write <span class="math inline">\(\left(\trans{\uuuu{T}}\right)_{ijkl}=T_{klij}\)</span>.</p>
+<p>The notation <span class="math inline">\(\sotimes\)</span> indicates a tensor product followed by a symmetrization over the last index of the tensor to the left of the product and the first index of the tensor to the right. For instance, if <span class="math inline">\(\uv{u}\)</span> and <span class="math inline">\(\uv{v}\)</span> are first-order tensors (i.e.&nbsp;vectors)</p>
+<p><span id="eq-sotimes"><span class="math display">\[
+\uv{u}\sotimes\uv{v}=\frac{\uv{u}\otimes\uv{v}+\uv{v}\otimes\uv{u}}{2}
+\tag{70}\]</span></span></p>
+<p>This tensor product can of course be generalized to combinations involving higher order tensors as for instance</p>
+<p><span id="eq-sotimesho"><span class="math display">\[
+\uv{u}\sotimes\uu{a}\sotimes\uv{v}=
+\frac{u_i\,a_{jk}\,v_l+u_i\,a_{jl}\,v_k+u_j\,a_{ik}\,v_l+u_j\,a_{il}\,v_k}{4}
+\,\ve{i}\otimes\ve{j}\otimes\ve{k}\otimes\ve{l}
+\tag{71}\]</span></span></p>
+<p>Another useful operator introduced in <span class="citation" data-cites="BrisardBlog"><a href="#ref-BrisardBlog" role="doc-biblioref">[32]</a></span> is the modified tensor product denoted by <span class="math inline">\(\boxtimes\)</span>. The fourth-order tensor <span class="math inline">\(\uu{a}\boxtimes\uu{b}\)</span> (where <span class="math inline">\(\uu{a}\)</span> and <span class="math inline">\(\uu{b}\)</span> are two second-order tensors) is defined by its operation over any second-order tensor <span class="math inline">\(\uu{p}\)</span> and by its components</p>
+<p><span id="eq-boxtimes"><span class="math display">\[
+(\uu{a}\boxtimes\uu{b}):\uu{p}=\uu{a}\cdot\uu{p}\cdot\trans{\uu{b}}
+=a_{ik}\,p_{kl}\,b_{jl}\,\ve{i}\otimes\ve{j}
+\quad\Leftrightarrow\quad
+\left(\uu{a}\boxtimes\uu{b}\right)_{ijkl}=a_{ik}\,b_{jl}
+\tag{72}\]</span></span></p>
+<p>A symmetrized version of <span class="math inline">\(\boxtimes\)</span> denoted by <span class="math inline">\(\sboxtimes\)</span> can also be introduced. It operates as</p>
+<p><span id="eq-sboxtimes"><span class="math display">\[
+(\uu{a}\sboxtimes\uu{b}):\uu{p}=
+(\uu{a}\boxtimes\uu{b}):\left(\frac{\uu{p}+\trans{\uu{p}}}{2}\right)
+=\uu{a}\cdot\left(\frac{\uu{p}+\trans{\uu{p}}}{2}\right)\cdot\trans{\uu{b}}
+\quad\Leftrightarrow\quad
+(\uu{a}\sboxtimes\uu{b})_{ijkl}=\frac{a_{ik}\,b_{jl}+a_{il}\,b_{jk}}{2}
+\tag{73}\]</span></span></p>
+<p>It follows from these definitions that the fourth-order identity, as an operator over second-order tensors, writes <span class="math inline">\(\uuuu{1}=\uu{1}\boxtimes\uu{1}\)</span> where <span class="math inline">\(\uu{1}\)</span> is the second-order identity. The fourth-order operator allowing to extract the symmetric part of a second-order tensor writes <span class="math inline">\(\uuuu{I}=\uu{1}\sboxtimes\uu{1}\)</span>. The latter tensor, which obviously complies with the conditions of minor symmetries, is classically used to play the role of fourth-order identity operating over symmetric second-order tensors.</p>
+<p>Some remarkable relationships result from the previous definitions</p>
+<p><span id="eq-abuv"><span class="math display">\[
+(\uu{a}\boxtimes\uu{b}):(\uv{u}\otimes\uv{v})=
+(\uu{a}\cdot\uv{u})\otimes(\uu{b}\cdot\uv{v})
+\tag{74}\]</span></span></p>
+<p><span id="eq-abcd"><span class="math display">\[
+(\uu{a}\boxtimes\uu{b}):(\uu{c}\boxtimes\uu{d})=
+(\uu{a}\cdot\uu{c})\boxtimes(\uu{b}\cdot\uu{d})
+\tag{75}\]</span></span></p>
+<p><span id="eq-asbcsd"><span class="math display">\[
+(\uu{a}\sboxtimes\uu{b}):(\uu{c}\sboxtimes\uu{d})=
+\frac{(\uu{a}\cdot\uu{c})\sboxtimes(\uu{b}\cdot\uu{d})+
+(\uu{a}\cdot\uu{d})\sboxtimes(\uu{b}\cdot\uu{c})}{2}
+\tag{76}\]</span></span></p>
+<p><span id="eq-aabb"><span class="math display">\[
+(\uu{a}\sboxtimes\uu{a}):(\uu{b}\sboxtimes\uu{b})=
+(\uu{a}\cdot\uu{b})\sboxtimes(\uu{a}\cdot\uu{b})
+\tag{77}\]</span></span></p>
+<p><span id="eq-transboxtimes"><span class="math display">\[
+\trans{(\uu{a}\boxtimes\uu{b})}=\trans{\uu{a}}\boxtimes\trans{\uu{b}}
+\tag{78}\]</span></span></p>
+<p><span id="eq-transsboxtimes"><span class="math display">\[
+\trans{(\uu{a}\sboxtimes\uu{a})}=\trans{\uu{a}}\sboxtimes\trans{\uu{a}}
+\tag{79}\]</span></span></p>
+<p><span id="eq-neq-transsboxtimes"><span class="math display">\[
+\textrm{but generally }\quad
+\trans{(\uu{a}\sboxtimes\uu{b})}\neq\trans{\uu{a}}\sboxtimes\trans{\uu{b}}
+\tag{80}\]</span></span></p>
+<p><span id="eq-invboxtimes"><span class="math display">\[
+(\uu{a}\boxtimes\uu{b})^{-1}=\uu{a}^{-1}\boxtimes\uu{b}^{-1}
+\tag{81}\]</span></span></p>
+<p><span id="eq-invsboxtimes"><span class="math display">\[
+(\uu{a}\sboxtimes\uu{a})^{-1}=\uu{a}^{-1}\sboxtimes\uu{a}^{-1}
+\quad\textrm{ only in the sense of operators on symmetric second-order tensors}
+\tag{82}\]</span></span></p>
+<p><span id="eq-neqinvsboxtimes"><span class="math display">\[
+\textrm{but generally }\quad
+(\uu{a}\sboxtimes\uu{b})^{-1}\neq\uu{a}^{-1}\sboxtimes\uu{b}^{-1}
+\tag{83}\]</span></span></p>
+</section>
+<section id="sec-Walpole" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Walpole basis</h1>
+<p>The Walpole basis <span class="citation" data-cites="Walpole84"><a href="#ref-Walpole84" role="doc-biblioref">[37]</a></span> allowing to write any fourth-order transversely isotropic relatively to a an axis oriented by the unit vector <span class="math inline">\(\n\)</span> is composed of the six following tensors built from <span class="math inline">\(\uu{1}_n=\n\otimes\n\)</span> and <span class="math inline">\(\uu{1}_T=\uu{1}-\uu{1}_n\)</span></p>
+<p><span id="eq-Walpole1"><span class="math display">\[
+\uuuu{E}_1=\uu{1}_n\otimes\uu{1}_n
+\quad\textrm{ ; }\quad
+\uuuu{E}_2=\frac{\uu{1}_T\otimes\uu{1}_T}{2}
+\textrm{ ; }
+\uuuu{E}_3=\frac{\uu{1}_n\otimes\uu{1}_T}{\sqrt{2}}
+\quad\textrm{ ; }\quad
+\uuuu{E}_4=\frac{\uu{1}_T\otimes\uu{1}_n}{\sqrt{2}}
+\tag{84}\]</span></span></p>
+<p><span id="eq-Walpole2"><span class="math display">\[
+\uuuu{E}_5=\uu{1}_T\sboxtimes\uu{1}_T-\frac{\uu{1}_T\otimes\uu{1}_T}{2}
+\textrm{ ; }
+\uuuu{E}_6=\uu{1}_T\sboxtimes\uu{1}_n+\uu{1}_n\sboxtimes\uu{1}_T
+\tag{85}\]</span></span></p>
+<p>Any transversely isotropic fourth-order tensor can be decomposed as</p>
+<p><span id="eq-DecompositionIsotTransverse"><span class="math display">\[
+{\uuuu{L}} = {\ell}_{1}\,{\uuuu{E}}_{1} + {\ell}_{2}\,{\uuuu{E}}_{2} +
+{\ell}_{3}\,{\uuuu{E}}_{3}+ {\ell}_{4}\,{\uuuu{E}}_{4}+ {\ell}_{5}\,{\uuuu{E}}_{5}+
+{\ell}_{6}\,{\uuuu{E}}_{6}
+\tag{86}\]</span></span></p>
+<p>The six parameters can be conveniently gathered in a triplet composed of a <span class="math inline">\(2 \times 2\)</span> matrix containing the four first parameters <span class="math inline">\(\ell_i\)</span> (<span class="math inline">\(1\leq i \leq 4\)</span>) and the two last parameters <span class="math inline">\(\ell_5\)</span> and <span class="math inline">\(\ell_6\)</span></p>
+<p><span id="eq-DecompositionIsotTransverseMat"><span class="math display">\[
+\uuuu{L} \equiv \left( L , {\ell}_{5} , {\ell}_{6}
+\right) , \quad
+L = \left(
+      \begin{array}{cc}
+        {\ell}_{1} &amp; {\ell}_{3} \\
+        {\ell}_{4} &amp; {\ell}_{2} \\
+      \end{array}
+    \right)
+\tag{87}\]</span></span></p>
+<p>Such a synthetic notation allows simple calculations of products and inverses which consist in classical matrix or scalar products and inverses</p>
+<p><span id="eq-DecompositionIsotTransverseProd"><span class="math display">\[
+\uuuu{L} : \uuuu{M} \equiv \left( L M , {\ell}_{5} m_5 , {\ell}_{6} m_6
+\right)
+\tag{88}\]</span></span></p>
+<p><span id="eq-InverseItransverse"><span class="math display">\[
+{\uuuu{L}}^{-1} \equiv \left( {L}^{-1} , \frac{1}{{\ell}_{5}} , \frac{1}{{\ell}_{6}}
+\right)
+\tag{89}\]</span></span></p>
+</section>
+<section id="sec-hilliso" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Hill polarization tensor in an isotropic matrix</h1>
+<p>The Hill tensor of an arbitrary ellipsoid embedded in an isotropic matrix of Lam'e moduli <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> is shown to write under the form in the elastic case (see <span class="citation" data-cites="ViscousEshelby2016"><a href="#ref-ViscousEshelby2016" role="doc-biblioref">[38]</a></span>)</p>
+<p><span id="eq-Piso"><span class="math display">\[
+\uuuu{P}=
+\frac{1}{\lambda+2\,\mu}
+\uuuu{U}
++\frac{1}{\mu}(\uuuu{V}-\uuuu{U})
+\tag{90}\]</span></span></p>
+<p>where the tensors <span class="math inline">\(\uuuu{U}\)</span> and <span class="math inline">\(\uuuu{V}\)</span>, depending only on the ellipsoidal tensor <span class="math inline">\(\uu{A}\)</span> of <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;2</a>, are given by</p>
+<p><span id="eq-tensU"><span class="math display">\[
+\uuuu{U}=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}\otimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\xi}
+=
+\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\frac{
+(\uu{A}^{-1}\cdot\uv{\zeta})
+\otimes
+(\uu{A}^{-1}\cdot\uv{\zeta})
+\otimes
+(\uu{A}^{-1}\cdot\uv{\zeta})
+\otimes
+(\uu{A}^{-1}\cdot\uv{\zeta})
+}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^4}
+\ud S_{\zeta}
+\tag{91}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-tensV"><span class="math display">\[
+\uuuu{V}=\frac{\det{\uu{A}}}{4\pi}
+\int_{\norm{\uv{\xi}}=1}
+\frac{\uv{\xi}\sotimes\uu{1}\sotimes\uv{\xi}}
+{\norm{\uu{A}\cdot\uv{\xi}}^3}\ud S_{\xi}
+=
+\frac{1}{4\pi}
+\int_{\norm{\uv{\zeta}}=1}
+\frac{
+(\uu{A}^{-1}\cdot\uv{\zeta})
+\sotimes
+\uu{1}
+\sotimes
+(\uu{A}^{-1}\cdot\uv{\zeta})
+}{\norm{\uu{A}^{-1}\cdot\uv{\zeta}}^2}
+\ud S_{\zeta}
+\tag{92}\]</span></span></p>
+<p>In the case of a spherical inclusion, <span class="math inline">\(\uuuu{U}\)</span> and <span class="math inline">\(\uuuu{V}\)</span> are simply decomposed as</p>
+<p><span id="eq-UViso"><span class="math display">\[
+\uuuu{U}=\frac{1}{3}\uuuu{J}+\frac{2}{15}\uuuu{K}
+\quad\textrm{ and }\quad
+\uuuu{V}=\frac{1}{3}\uuuu{I}
+\quad\textrm{ where }\quad
+\uuuu{I}=\uu{1}\sboxtimes\uu{1}
+\quad\textrm{ ; }\quad
+\uuuu{J}=\frac{1}{3}\uu{1}\otimes\uu{1}
+\quad\textrm{ ; }\quad
+\uuuu{K}=\uuuu{I}-\uuuu{J}
+\tag{93}\]</span></span></p>
+<p>For an arbitrary ellipsoid of radii <span class="math inline">\(a\geq b \geq c\)</span> renamed <span class="math inline">\(\rho_1=a\)</span>, <span class="math inline">\(\rho_2=b\)</span>, <span class="math inline">\(\rho_3=c\)</span> whenever an index notation is preferable, the tensor <a href="#eq-ellipsoid" class="quarto-xref">Eq.&nbsp;2</a> is diagonalized as <span class="math inline">\(\uu{A}=\sum_{i=1}^3\rho_i\ve{i}\otimes\ve{i}\)</span> where the axes are given by the orthonormal frame of eigenvectors <span class="math inline">\((\ve{i})_{i=1,2,3}\)</span> in which the components of <span class="math inline">\(\uuuu{U}\)</span> and <span class="math inline">\(\uuuu{V}\)</span> are conveniently expressed</p>
+<p><span id="eq-Uiiii"><span class="math display">\[
+U_{iiii}=\frac{3(I_i-\rho_i^2I_{ii})}{2}
+\quad\forall\, i\in\{1,2,3\}
+\tag{94}\]</span></span></p>
+<p><span id="eq-Uiijj"><span class="math display">\[
+U_{iijj}=U_{ijij}=U_{ijji}=\frac{I_j-\rho_i^2I_{ij}}{2}
+=\frac{I_i-\rho_j^2I_{ij}}{2}
+\quad\forall\, i\neq j\in\{1,2,3\}
+\tag{95}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-Viiii"><span class="math display">\[
+V_{iiii}=I_i\quad\forall\, i\in\{1,2,3\}
+\tag{96}\]</span></span></p>
+<p><span id="eq-Viijj"><span class="math display">\[
+V_{ijij}=V_{ijji}=\frac{I_i+I_j}{4}
+\quad\forall\, i\neq j\in\{1,2,3\}
+\tag{97}\]</span></span></p>
+<p>where the coefficients <span class="math inline">\(I_i\)</span> and <span class="math inline">\(I_{ij}\)</span> are given by <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<ul>
+<li><p>if <span class="math inline">\(a &gt; b &gt; c\)</span></p>
+<p><span id="eq-I1"><span class="math display">\[
+I_1=\frac{a\,b\,c}{(a^2-b^2)\sqrt{a^2-c^2}}\,
+\left(\mathcal{F}-\mathcal{E}\right)
+\tag{98}\]</span></span></p>
+<p><span id="eq-I3"><span class="math display">\[
+I_3=\frac{a\,b\,c}{(b^2-c^2)\sqrt{a^2-c^2}}\,
+\left(\frac{b\sqrt{a^2-c^2}}{a\,c}-
+\mathcal{E}\right)
+\tag{99}\]</span></span></p>
+<p><span id="eq-I2"><span class="math display">\[
+I_2=1-I_1-I_3
+\tag{100}\]</span></span></p>
+<p><span id="eq-Iii"><span class="math display">\[
+\begin{aligned}
+I_{ij}&amp;=&amp;\frac{I_j-I_i}{\rho_i^2-\rho_j^2}\quad\forall\, i\neq j\in\{1,2,3\}\\
+I_{ii}&amp;=&amp;\frac{1}{3}\left(
+\frac{1}{\rho_i^2}-
+\sum_{j\neq i}I_{ij} \right)
+\quad\forall\, i\in\{1,2,3\}
+\end{aligned}
+\tag{101}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{F}=\mathcal{F}(\theta,\kappa)\)</span> and <span class="math inline">\(\mathcal{E}=\mathcal{E}(\theta,\kappa)\)</span> are respectively the elliptic integrals of the first and second kinds of amplitude and parameter</p>
+<p><span id="eq-ampmod"><span class="math display">\[
+\theta=\arcsin{\sqrt{1-\frac{c^2}{a^2}}}
+\quad;\quad
+\kappa=\sqrt{\frac{a^2-b^2}{a^2-c^2}}
+\tag{102}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a &gt; b = c\)</span> (prolate spheroid)</p>
+<p><span id="eq-I23pro"><span class="math display">\[
+I_2=I_3=a\,
+\frac{a\sqrt{a^2-c^2}-c^2\,\arcosh{(a/c)}}
+{2\left(a^2-c^2\right)^{3/2}}
+\tag{103}\]</span></span></p>
+<p><span id="eq-I1pro"><span class="math display">\[
+I_1=1-2\,I_3
+\tag{104}\]</span></span></p>
+<p><span id="eq-I1ipro"><span class="math display">\[
+I_{1i}=I_{i1}=\frac{I_i-I_1}{a^2-\rho_i^2}\quad
+\forall\, i\in\{2,3\}
+\tag{105}\]</span></span></p>
+<p><span id="eq-Iijpro"><span class="math display">\[
+I_{ij}=\frac{1}{4}
+\left(\frac{1}{c^2}-I_{31} \right)
+\quad\forall\, i,j\in\{2,3\}
+\tag{106}\]</span></span></p>
+<p><span id="eq-I11pro"><span class="math display">\[
+I_{11}=\frac{1}{3}
+\left(\frac{1}{a^2}-2\,I_{31} \right)
+\tag{107}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a = b &gt; c\)</span> (oblate spheroid)</p>
+<p><span id="eq-I12ob"><span class="math display">\[
+I_1=I_2=c\,
+\frac{a^2\,\arccos{(c/a)}-c\sqrt{a^2-c^2}}
+{2\left(a^2-c^2\right)^{3/2}}
+\tag{108}\]</span></span></p>
+<p><span id="eq-I3ob"><span class="math display">\[
+I_3=1-2\,I_1
+\tag{109}\]</span></span></p>
+<p><span id="eq-I3iob"><span class="math display">\[
+I_{3i}=I_{i3}=\frac{I_3-I_i}{\rho_i^2-c^2}\quad
+\forall\, i\in\{1,2\}
+\tag{110}\]</span></span></p>
+<p><span id="eq-Iijob"><span class="math display">\[
+I_{ij}=\frac{1}{4}
+\left(\frac{1}{a^2}-I_{31} \right)
+\quad\forall\, i,j\in\{1,2\}
+\tag{111}\]</span></span></p>
+<p><span id="eq-I33ob"><span class="math display">\[
+I_{33}=\frac{1}{3}
+\left(\frac{1}{c^2}-2\,I_{31} \right)
+\tag{112}\]</span></span></p></li>
+<li><p>if <span class="math inline">\(a = b = c\)</span> (sphere)</p>
+<p><span id="eq-I123sph"><span class="math display">\[
+I_1=I_2=I_3=\frac{1}{3}
+\tag{113}\]</span></span></p>
+<p><span id="eq-Iijsph"><span class="math display">\[
+I_{ij}=\frac{1}{5\,a^2}\quad\forall\, i,j\in\{1,2,3\}
+\tag{114}\]</span></span></p></li>
+</ul>
+</section>
+<section id="sec-integrals" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Calculation of integrals</h1>
+<p>The following integrals should be considered with care due to the complex nature of some parameters requiring precisions regarding the determination of the principal value chosen for multivalued complex functions which are involved in the solutions. The conventions adopted in the following are consistent with the library of .</p>
+<ul>
+<li>The square root, denoted by <span class="math inline">\(\sqrt{\phantom{Z}}\)</span>, has one branch cut, from <span class="math inline">\(0\)</span> along the negative real axis to <span class="math inline">\(-\infty\)</span>, continuous from above. This implies that <span class="math inline">\(\sqrt{Z}\)</span> is always a complex number of phase belonging to <span class="math inline">\(]-\frac{\pi}{2},\frac{\pi}{2}]\)</span> and consequently of positive real part.</li>
+<li>The inverse hyperbolic cosine, denoted by <span class="math inline">\(\arcosh{}\)</span>, has one branch cut, extending left from <span class="math inline">\(1\)</span> along the real axis to <span class="math inline">\(-\infty\)</span>, continuous from above. Note also that <span class="math inline">\(\arcosh{Z}=\ln{(Z+\sqrt{Z^2-1})}\)</span> where the principal value of the logarithm is chosen such that the imaginary part has the smallest value and belongs to <span class="math inline">\(]-\frac{\pi}{2},\frac{\pi}{2}]\)</span> with the same branch cut as the square root.</li>
+</ul>
+<p>Once these precisions have been formulated, the results of the following integrals for <span class="math inline">\(k\in\{0,2,4\}\)</span> are provided without any ambiguity in <a href="#tbl-I024" class="quarto-xref">Table&nbsp;1</a> and <a href="#tbl-J024" class="quarto-xref">Table&nbsp;2</a></p>
+<p><span id="eq-IJk"><span class="math display">\[
+\mathcal{I}_k(\eta)=
+  \int_{z=-1}^1\frac{z^k}{z^2+\eta^2\,(1-z^2)}\ud z
+  \quad\textrm{ and }\quad
+  \mathcal{J}_k(\eta_1,\eta_2)=
+  \int_{z=-1}^1\frac{z^k}{\Big(z^2+\eta_1^2\,(1-z^2)\Big)
+  \Big(z^2+\eta_2^2\,(1-z^2)\Big)}\ud z
+\tag{115}\]</span></span></p>
+<div id="tbl-I024" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-I024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Calculation of integrals <span class="math inline">\(\mathcal{I}_k(\eta)\)</span>
+</figcaption>
+<div aria-describedby="tbl-I024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{I}_0(\eta)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{I}_2(\eta)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{I}_4(\eta)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">if <span class="math inline">\(\eta=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{5}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">if <span class="math inline">\(\eta\neq 1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\,\frac{\arcosh{\eta}}{\eta\sqrt{\eta^2-1}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\,\frac{\eta\,\arcosh{\eta}-\sqrt{\eta^2-1}}{(\eta^2-1)^{\frac{3}{2}}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{3}\,\frac{3\,\eta^3\,\arcosh{\eta}+(1-4\,\eta^2)\sqrt{\eta^2-1}}{(\eta^2-1)^{\frac{5}{2}}}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-J024" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-J024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Calculation of integrals <span class="math inline">\(\mathcal{J}_k(\eta_1,\eta_2)\)</span>
+</figcaption>
+<div aria-describedby="tbl-J024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{J}_0(\eta_1,\eta_2)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{J}_2(\eta_1,\eta_2)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathcal{J}_4(\eta_1,\eta_2)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">if <span class="math inline">\(\eta_1=\eta_2=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{3}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{5}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">if <span class="math inline">\(\eta_1=\eta_2\neq 1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{\arcosh{\eta_1}+\eta_1\sqrt{\eta_1^2-1}}{\eta_1^3\sqrt{\eta_1^2-1}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{\eta_1\sqrt{\eta_1^2-1}-\arcosh{\eta_1}}{\eta_1\,(\eta_1^2-1)^{\frac{3}{2}}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(2+\eta_1^2)\sqrt{\eta_1^2-1}-3\,\eta_1\,\arcosh{\eta_1}}{(\eta_1^2-1)^{\frac{5}{2}}}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">if <span class="math inline">\(\eta_1\neq\eta_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(\eta_1^2-1)\,\mathcal{I}_0(\eta_1)-(\eta_2^2-1)\,\mathcal{I}_0(\eta_2)}{\eta_2^2-\eta_1^2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(\eta_1^2-1)\,\mathcal{I}_2(\eta_1)-(\eta_2^2-1)\,\mathcal{I}_2(\eta_2)}{\eta_2^2-\eta_1^2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{(\eta_1^2-1)\,\mathcal{I}_4(\eta_1)-(\eta_2^2-1)\,\mathcal{I}_4(\eta_2)}{\eta_2^2-\eta_1^2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>In order to derive the Taylor expansion of the Hill tensor for a flat spheroid or a circular cylinder, expansions or limits of the previous expressions are needed. Note that in the following <span class="math inline">\(\omega\)</span> representing an aspect ratio is a positive number, <span class="math inline">\(\gamma\)</span> is assumed to be a positive real number and <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> are either positive real numbers or conjugate complex numbers of strictly positive real part and non-zero imaginary part. These conditions ensure that the herebelow expansions are real.</p>
+<p>In the vicinity of <span class="math inline">\(\omega=0\)</span>, the expressions of <a href="#tbl-I024" class="quarto-xref">Table&nbsp;1</a> become</p>
+<p><span id="eq-obI0"><span class="math display">\[
+\mathcal{I}_0(\omega\,\gamma)= \frac{\pi}{\gamma\,\omega}-2+\frac{\pi\,\gamma}{2}\,\omega
++\grando{\omega^2}
+\tag{116}\]</span></span></p>
+<p><span id="eq-obI2"><span class="math display">\[
+\mathcal{I}_2(\omega\,\gamma)= 2-\pi\,\gamma\,\omega
++\grando{\omega^2}
+\tag{117}\]</span></span></p>
+<p><span id="eq-obI4"><span class="math display">\[
+\mathcal{I}_4(\omega\,\gamma)= \frac{2}{3}+\grando{\omega^2}
+\tag{118}\]</span></span></p>
+<p>and the expressions of <a href="#tbl-J024" class="quarto-xref">Table&nbsp;2</a> become</p>
+<p><span id="eq-obJ0"><span class="math display">\[
+\mathcal{J}_0(\omega\,\gamma_1,\omega\,\gamma_2)=
+\frac{\pi}{\gamma_1\,\gamma_2\,(\gamma_1+\gamma_2)\,\omega^3}
++\frac{\pi}{2\,(\gamma_1+\gamma_2)\,\omega}
+-\frac{2}{3}
++\frac{\pi\,(\gamma_1^2+\gamma_1\,\gamma_2+\gamma_2^2)}{8\,(\gamma_1+\gamma_2)}\,\omega
++\grando{\omega^2}
+\tag{119}\]</span></span></p>
+<p><span id="eq-obJ2"><span class="math display">\[
+\mathcal{J}_2(\omega\,\gamma_1,\omega\,\gamma_2)=
+\frac{\pi}{(\gamma_1+\gamma_2)\,\omega}-2
++\frac{\pi\,(\gamma_1^2+\gamma_1\,\gamma_2+\gamma_2^2)}{2\,(\gamma_1+\gamma_2)}\,\omega
++\grando{\omega^2}
+\tag{120}\]</span></span></p>
+<p><span id="eq-obJ4"><span class="math display">\[
+\mathcal{J}_4(\omega\,\gamma_1,\omega\,\gamma_2)=
+2-\frac{\pi\,(\gamma_1^2+\gamma_1\,\gamma_2+\gamma_2^2)}{\gamma_1+\gamma_2}\,\omega
++\grando{\omega^2}
+\tag{121}\]</span></span></p>
+<p>Conversely, when <span class="math inline">\(\omega\to\infty\)</span>, the integrals become</p>
+<p><span id="eq-proI0"><span class="math display">\[
+\mathcal{I}_0(\omega\,\gamma)=
+\frac{2\,\ln{(2\,\gamma\,\omega)}}{\gamma^2\,\omega^2}
++\grando{\frac{1}{\omega^4}}
+\tag{122}\]</span></span></p>
+<p><span id="eq-proI2"><span class="math display">\[
+\mathcal{I}_2(\omega\,\gamma)=
+\frac{2\,(\ln{(2\,\gamma\,\omega)}-1)}{\gamma^2\,\omega^2}
++\grando{\frac{1}{\omega^4}}
+\tag{123}\]</span></span></p>
+<p><span id="eq-proI4"><span class="math display">\[
+\mathcal{I}_4(\omega\,\gamma)=
+\frac{2\,(3\,\ln{(2\,\gamma\,\omega)}-4)}{3\,\gamma^2\,\omega^2}
++\grando{\frac{1}{\omega^4}}
+\tag{124}\]</span></span></p>
+<p>and</p>
+<p><span id="eq-proJ0"><span class="math display">\[
+\mathcal{J}_0(\omega\,\gamma_1,\omega\,\gamma_2)=
+\frac{2\,(\ln{\gamma_1}-\ln{\gamma_2})}{(\gamma_1^2-\gamma_2^2)\,\omega^2}
++\frac{2\,\Big(\gamma_1^2\,\ln{(2\,\gamma_2\,\omega)}
+-\gamma_2^2\,\ln{(2\,\gamma_1\,\omega)}\Big)+\gamma_1^2-\gamma_2^2}
+{2\,\gamma_1^2\,\gamma_2^2\,(\gamma_1^2-\gamma_2^2)\,\omega^4}
++\grando{\frac{1}{\omega^6}}
+\tag{125}\]</span></span></p>
+<p><span id="eq-proJ2"><span class="math display">\[
+\mathcal{J}_2(\omega\,\gamma_1,\omega\,\gamma_2)=
+\frac{2\,(\ln{\gamma_1}-\ln{\gamma_2})}{(\gamma_1^2-\gamma_2^2)\,\omega^2}
++\frac{2\,\Big(\gamma_2^2\,\ln{(2\,\gamma_1\,\omega)}
+-\gamma_1^2\,\ln{(2\,\gamma_2\,\omega)}\Big)+\gamma_1^2-\gamma_2^2}
+{2\,\gamma_1^2\,\gamma_2^2\,(\gamma_1^2-\gamma_2^2)\,\omega^4}
++\grando{\frac{1}{\omega^6}}
+\tag{126}\]</span></span></p>
+<p><span id="eq-proJ4"><span class="math display">\[
+\mathcal{J}_4(\omega\,\gamma_1,\omega\,\gamma_2)=
+\frac{2\,(\ln{\gamma_1}-\ln{\gamma_2})}{(\gamma_1^2-\gamma_2^2)\,\omega^2}
++\frac{6\,\Big(\gamma_2^2\,\ln{(2\,\gamma_1\,\omega)}
+-\gamma_1^2\,\ln{(2\,\gamma_2\,\omega)}\Big)+5\,(\gamma_1^2-\gamma_2^2)}
+{2\,\gamma_1^2\,\gamma_2^2\,(\gamma_1^2-\gamma_2^2)\,\omega^4}
++\grando{\frac{1}{\omega^6}}
+\tag{127}\]</span></span></p>
+</section>
+<section id="sec-python" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Python script for the Hill tensor of a spheroid embedded in a coaxial transversely isotropic matrix</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#! /usr/bin/env python</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">''' Elastic Hill tensor of a spheroid in a coaxial TI matrix '''</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, cmath <span class="im">as</span> cm, numpy <span class="im">as</span> np, matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>EPSILON<span class="op">=</span><span class="fl">1.e-6</span> <span class="op">;</span> sqrt2<span class="op">=</span>math.sqrt(<span class="fl">2.</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">''' Walpole basis '''</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span>np.array([<span class="fl">0.</span>,<span class="fl">0.</span>,<span class="fl">1.</span>]) <span class="op">;</span> In<span class="op">=</span>np.einsum(<span class="st">'i,j'</span>,n,n) <span class="op">;</span> It<span class="op">=</span>np.eye(<span class="dv">3</span>)<span class="op">-</span>In</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>E1<span class="op">=</span>np.einsum(<span class="st">'ij,kl'</span>,In,In) <span class="op">;</span> E2<span class="op">=</span><span class="fl">0.5</span><span class="op">*</span>np.einsum(<span class="st">'ij,kl'</span>,It,It)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>E3<span class="op">=</span>np.einsum(<span class="st">'ij,kl'</span>,In,It)<span class="op">/</span>sqrt2 <span class="op">;</span> E4<span class="op">=</span>np.einsum(<span class="st">'ij,kl'</span>,It,In)<span class="op">/</span>sqrt2</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>E5<span class="op">=</span><span class="fl">0.5</span><span class="op">*</span>(np.einsum(<span class="st">'ik,jl'</span>,It,It)<span class="op">+</span>np.einsum(<span class="st">'il,jk'</span>,It,It))<span class="op">-</span>E2</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>E6<span class="op">=</span><span class="fl">0.5</span><span class="op">*</span>(np.einsum(<span class="st">'ik,jl'</span>,It,In)<span class="op">+</span>np.einsum(<span class="st">'il,jk'</span>,It,In)<span class="op">+\</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        np.einsum(<span class="st">'ik,jl'</span>,In,It)<span class="op">+</span>np.einsum(<span class="st">'il,jk'</span>,In,It))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">''' Particular integrals '''</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> I0(eta):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of 1/[ z^2 + eta^2*(1-z^2) ] from -1 to 1 '''</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    k2<span class="op">=</span>eta<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">2.</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> <span class="dv">2</span><span class="op">*</span>cm.acosh(eta)<span class="op">/</span>(eta<span class="op">*</span>cm.sqrt(k2))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> I2(eta):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of z^2/[ z^2 + eta^2*(1-z^2) ] from -1 to 1 '''</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    k2<span class="op">=</span>eta<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">2.</span><span class="op">/</span><span class="fl">3.</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> <span class="dv">2</span><span class="op">*</span>(eta<span class="op">*</span>cm.acosh(eta)<span class="op">-</span>cm.sqrt(k2))<span class="op">/</span>k2<span class="op">**</span><span class="fl">1.5</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> I4(eta):</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of z^4/[ z^2 + eta^2*(1-z^2) ] from -1 to 1 '''</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    k2<span class="op">=</span>eta<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.4</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> <span class="dv">2</span><span class="op">*</span>(eta<span class="op">**</span><span class="dv">3</span><span class="op">*</span>cm.acosh(eta)<span class="op">-</span>(<span class="dv">1</span><span class="op">+</span><span class="dv">4</span><span class="op">*</span>k2<span class="op">/</span><span class="dv">3</span>)<span class="op">*</span>cm.sqrt(k2))<span class="op">/</span>k2<span class="op">**</span><span class="fl">2.5</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> J0(eta1,eta2):</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of 1/[ (z^2 + eta1^2*(1-z^2)) * (z^2 + eta2^2*(1-z^2)) ] from -1 to 1 '''</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    eta12<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span> <span class="op">;</span> eta22<span class="op">=</span>eta2<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(eta12<span class="op">-</span>eta22)<span class="op">&lt;</span>EPSILON:</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        k2<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span> <span class="op">;</span> sqk2<span class="op">=</span>cm.sqrt(k2)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">2.</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> (cm.acosh(eta1)<span class="op">+</span>eta1<span class="op">*</span>sqk2)<span class="op">/</span>(sqk2<span class="op">*</span>eta1<span class="op">**</span><span class="dv">3</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ((<span class="dv">1</span><span class="op">-</span>eta12)<span class="op">*</span>I0(eta1)<span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>eta22)<span class="op">*</span>I0(eta2))<span class="op">/</span>(eta22<span class="op">-</span>eta12)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> J2(eta1,eta2):</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of z^2/[ (z^2 + eta1^2*(1-z^2)) * (z^2 + eta2^2*(1-z^2)) ] from -1 to 1 '''</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    eta12<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span> <span class="op">;</span> eta22<span class="op">=</span>eta2<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(eta12<span class="op">-</span>eta22)<span class="op">&lt;</span>EPSILON:</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        k2<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span> <span class="op">;</span> sqk2<span class="op">=</span>cm.sqrt(k2)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">2.</span><span class="op">/</span><span class="fl">3.</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> (<span class="op">-</span>cm.acosh(eta1)<span class="op">+</span>eta1<span class="op">*</span>sqk2)<span class="op">/</span>(sqk2<span class="op">**</span><span class="dv">3</span><span class="op">*</span>eta1)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ((<span class="dv">1</span><span class="op">-</span>eta12)<span class="op">*</span>I2(eta1)<span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>eta22)<span class="op">*</span>I2(eta2))<span class="op">/</span>(eta22<span class="op">-</span>eta12)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> J4(eta1,eta2):</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Integral of z^4/[ (z^2 + eta1^2*(1-z^2)) * (z^2 + eta2^2*(1-z^2)) ] from -1 to 1 '''</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    eta12<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span> <span class="op">;</span> eta22<span class="op">=</span>eta2<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(eta12<span class="op">-</span>eta22)<span class="op">&lt;</span>EPSILON:</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        k2<span class="op">=</span>eta1<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">1</span> <span class="op">;</span> sqk2<span class="op">=</span>cm.sqrt(k2)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">2.</span><span class="op">/</span><span class="fl">5.</span> <span class="cf">if</span> <span class="bu">abs</span>(k2)<span class="op">&lt;</span>EPSILON <span class="cf">else</span> (<span class="op">-</span><span class="dv">3</span><span class="op">*</span>eta1<span class="op">*</span>cm.acosh(eta1)<span class="op">+</span>(<span class="dv">2</span><span class="op">+</span>eta1<span class="op">**</span><span class="dv">2</span>)<span class="op">*</span>sqk2)<span class="op">/</span>(sqk2<span class="op">**</span><span class="dv">5</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ((<span class="dv">1</span><span class="op">-</span>eta12)<span class="op">*</span>I4(eta1)<span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>eta22)<span class="op">*</span>I4(eta2))<span class="op">/</span>(eta22<span class="op">-</span>eta12)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Hill_TI(omega,C1111,C1122,C1133,C3333,C2323):</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Calculation of Hill tensor '''</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    om2<span class="op">=</span>omega<span class="op">**</span><span class="dv">2</span> <span class="op">;</span> om4<span class="op">=</span>omega<span class="op">**</span><span class="dv">4</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    a<span class="op">=</span>C2323<span class="op">*</span>C3333 <span class="op">;</span> b<span class="op">=</span>C1133<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>C1133<span class="op">*</span>C2323<span class="op">-</span>C1111<span class="op">*</span>C3333 <span class="op">;</span> c<span class="op">=</span>C1111<span class="op">*</span>C2323 <span class="op">;</span> sqd<span class="op">=</span>cm.sqrt(b<span class="op">**</span><span class="dv">2</span><span class="op">-</span><span class="dv">4</span><span class="op">*</span>a<span class="op">*</span>c)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    gamma1,gamma2<span class="op">=</span>cm.sqrt((<span class="op">-</span>b<span class="op">+</span>sqd)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>a)),cm.sqrt((<span class="op">-</span>b<span class="op">-</span>sqd)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>a))</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    eta1<span class="op">=</span>omega<span class="op">*</span>gamma1 <span class="op">;</span> eta2<span class="op">=</span>omega<span class="op">*</span>gamma2 <span class="op">;</span> eta3<span class="op">=</span>omega<span class="op">*</span>cm.sqrt((C1111<span class="op">-</span>C1122)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>C2323))</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    coef<span class="op">=</span>C2323<span class="op">*</span>C3333 <span class="op">;</span> j0<span class="op">=</span>J0(eta1,eta2)<span class="op">/</span>coef <span class="op">;</span> j2<span class="op">=</span>J2(eta1,eta2)<span class="op">/</span>coef <span class="op">;</span> j4<span class="op">=</span>J4(eta1,eta2)<span class="op">/</span>coef</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    i0<span class="op">=</span>I0(eta3)<span class="op">/</span>C2323 <span class="op">;</span> i2<span class="op">=</span>I2(eta3)<span class="op">/</span>C2323</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' Walpole components of Hill tensor '''</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    P1<span class="op">=</span>np.real(((C2323<span class="op">-</span>om2<span class="op">*</span>C1111)<span class="op">*</span>j4<span class="op">+</span>om2<span class="op">*</span>C1111<span class="op">*</span>j2)<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    P2<span class="op">=</span>np.real(om2<span class="op">*</span>((om2<span class="op">*</span>C2323<span class="op">-</span>C3333)<span class="op">*</span>j4<span class="op">+</span>(C3333<span class="op">-</span><span class="dv">2</span><span class="op">*</span>om2<span class="op">*</span>C2323)<span class="op">*</span>j2<span class="op">+</span>om2<span class="op">*</span>C2323<span class="op">*</span>j0)<span class="op">/</span><span class="dv">4</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    P3<span class="op">=</span>np.real(om2<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>cm.sqrt(<span class="fl">2.</span>))<span class="op">*</span>(C2323<span class="op">+</span>C1133)<span class="op">*</span>(j4<span class="op">-</span>j2))</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    P5<span class="op">=</span>np.real(P2<span class="op">/</span><span class="dv">2</span><span class="op">+</span>om2<span class="op">*</span>(i0<span class="op">-</span>i2)<span class="op">/</span><span class="dv">8</span>)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    P6<span class="op">=</span>np.real(((om4<span class="op">*</span>C1111<span class="op">+</span>C3333<span class="op">+</span><span class="dv">2</span><span class="op">*</span>om2<span class="op">*</span>C1133)<span class="op">*</span>j4<span class="op">-</span><span class="dv">2</span><span class="op">*</span>om2<span class="op">*</span>(om2<span class="op">*</span>C1111<span class="op">+</span>C1133)<span class="op">*</span>j2<span class="op">+</span>om4<span class="op">*</span>C1111<span class="op">*</span>j0<span class="op">+</span>i2)<span class="op">/</span><span class="dv">8</span>)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    P<span class="op">=</span>P1<span class="op">*</span>E1<span class="op">+</span>P2<span class="op">*</span>E2<span class="op">+</span>P3<span class="op">*</span>(E3<span class="op">+</span>E4)<span class="op">+</span>P5<span class="op">*</span>E5<span class="op">+</span>P6<span class="op">*</span>E6</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> P</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co">Construction of the same graph as Fig.1 of</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co">I. Sevostianov, N. Yilmaz, V. Kushch, V. Levin,</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="co">Effective elastic properties of matrix composites with transversely-isotropic phases,</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co">Int. J. Solids Struct. 42 (2) (2005) 455–476 (jan 2005).</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co">'''</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>C1111<span class="op">=</span><span class="fl">2.179</span> <span class="op">;</span> C1122<span class="op">=</span><span class="fl">0.579</span> <span class="op">;</span> C1133<span class="op">=</span><span class="fl">0.689</span> <span class="op">;</span> C3333<span class="op">=</span><span class="fl">10.345</span> <span class="op">;</span> C2323<span class="op">=</span><span class="fl">1.</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>C1<span class="op">=</span>C3333 <span class="op">;</span> C2<span class="op">=</span>C1111<span class="op">+</span>C1122 <span class="op">;</span> C3<span class="op">=</span>sqrt2<span class="op">*</span>C1133 <span class="op">;</span> C5<span class="op">=</span>C1111<span class="op">-</span>C1122 <span class="op">;</span> C6<span class="op">=</span><span class="dv">2</span><span class="op">*</span>C2323</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>C<span class="op">=</span>C1<span class="op">*</span>E1<span class="op">+</span>C2<span class="op">*</span>E2<span class="op">+</span>C3<span class="op">*</span>(E3<span class="op">+</span>E4)<span class="op">+</span>C5<span class="op">*</span>E5<span class="op">+</span>C6<span class="op">*</span>E6</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>txi<span class="op">=</span>np.logspace(<span class="op">-</span><span class="fl">2.</span>,<span class="fl">2.</span>,<span class="dv">100</span>)</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>tS1111<span class="op">=</span>[] <span class="op">;</span> tS3333<span class="op">=</span>[] <span class="op">;</span> tS1122<span class="op">=</span>[] <span class="op">;</span> tS1133<span class="op">=</span>[] <span class="op">;</span> tS3311<span class="op">=</span>[] <span class="op">;</span> tS1313<span class="op">=</span>[]</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xi <span class="kw">in</span> txi:</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    P<span class="op">=</span>Hill_TI(<span class="fl">1.</span><span class="op">/</span>xi,C1111,C1122,C1133,C3333,C2323) <span class="op">;</span> S<span class="op">=</span>np.einsum(<span class="st">'ijmn,mnkl'</span>,P,C)</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    tS1111.append(S[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]) <span class="op">;</span> tS3333.append(S[<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>]) <span class="op">;</span> tS1122.append(S[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    tS1133.append(S[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">2</span>]) <span class="op">;</span> tS3311.append(S[<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>]) <span class="op">;</span> tS1313.append(S[<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>])</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS1111,color<span class="op">=</span><span class="st">'red'</span>,marker<span class="op">=</span><span class="st">'o'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{1111}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS3333,color<span class="op">=</span><span class="st">'fuchsia'</span>,marker<span class="op">=</span><span class="st">'d'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{3333}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS1122,color<span class="op">=</span><span class="st">'blue'</span>,marker<span class="op">=</span><span class="st">'+'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{1122}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS1133,color<span class="op">=</span><span class="st">'lime'</span>,marker<span class="op">=</span><span class="st">'x'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{1133}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS3311,color<span class="op">=</span><span class="st">'brown'</span>,marker<span class="op">=</span><span class="st">'s'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{3311}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>plt.semilogx(txi,tS1313,color<span class="op">=</span><span class="st">'cyan'</span>,marker<span class="op">=</span><span class="st">'h'</span>,label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">S_</span><span class="op">{1313}</span><span class="dv">$</span><span class="vs">"</span>,markevery<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)<span class="op">;</span>plt.grid(<span class="va">True</span>,which<span class="op">=</span><span class="st">'both'</span>)</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">xi=</span><span class="ch">\f</span><span class="vs">rac</span><span class="op">{1}</span><span class="vs">{</span><span class="er">\</span><span class="vs">omega}</span><span class="dv">$</span><span class="vs">"</span>) <span class="op">;</span> plt.ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">S_{ijkl}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-Eshelby57" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J. D. Eshelby, <span>“<span class="nocase">The determination of the elastic field of an ellipsoidal inclusion, and related problems</span>,”</span> <em>Proc. R. Soc. London. Ser. A. Math. Phys. Sci.</em>, vol. 241, no. 1226, pp. 376–396, Aug. 1957, doi: <a href="https://doi.org/10.1098/rspa.1957.0133">10.1098/rspa.1957.0133</a>.</div>
+</div>
+<div id="ref-Hill1963" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">R. Hill, <span>“<span class="nocase">Elastic properties of reinforced solids: Some theoretical principles</span>,”</span> <em>J. Mech. Phys. Solids</em>, vol. 11, no. 5, pp. 357–372, Sep. 1963, doi: <a href="https://doi.org/10.1016/0022-5096(63)90036-X">10.1016/0022-5096(63)90036-X</a>.</div>
+</div>
+<div id="ref-DormieuxMicroporo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">L. Dormieux, D. Kondo, and F.-J. Ulm, <em><span>Microporomechanics</span></em>. Chichester, UK: John Wiley <span>&amp;</span> Sons, Ltd, 2006. doi: <a href="https://doi.org/10.1002/0470032006">10.1002/0470032006</a>.</div>
+</div>
+<div id="ref-Kachanov18" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">M. Kachanov and I. Sevostianov, <em><span class="nocase">Micromechanics of Materials, with Applications</span></em>, vol. 249. in Solid mechanics and its applications, vol. 249. Cham: Springer International Publishing, 2018. doi: <a href="https://doi.org/10.1007/978-3-319-76204-3">10.1007/978-3-319-76204-3</a>.</div>
+</div>
+<div id="ref-Walpole1966" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">L. J. Walpole, <span>“<span class="nocase">On bounds for the overall elastic moduli of inhomogeneous systems - I</span>,”</span> <em>J. Mech. Phys. Solids</em>, vol. 14, no. 3, pp. 151–162, May 1966, doi: <a href="https://doi.org/10.1016/0022-5096(66)90035-4">10.1016/0022-5096(66)90035-4</a>.</div>
+</div>
+<div id="ref-TIPM09" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">J.-F. Barthélémy, <span>“<span class="nocase">Effective Permeability of Media with a Dense Network of Long and Micro Fractures</span>,”</span> <em>Transp. Porous Media</em>, vol. 76, no. 1, pp. 153–178, Jan. 2009, doi: <a href="https://doi.org/10.1007/s11242-008-9241-9">10.1007/s11242-008-9241-9</a>.</div>
+</div>
+<div id="ref-Parnell16" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">W. J. Parnell, <span>“<span class="nocase">The Eshelby, Hill, Moment and Concentration Tensors for Ellipsoidal Inhomogeneities in the Newtonian Potential Problem and Linear Elastostatics</span>,”</span> <em>J. Elast.</em>, vol. 125, no. 2, pp. 231–294, Dec. 2016, doi: <a href="https://doi.org/10.1007/s10659-016-9573-6">10.1007/s10659-016-9573-6</a>.</div>
+</div>
+<div id="ref-Laws85" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">N. Laws, <span>“<span class="nocase">A short note on penny-shaped cracks in transversely isotropic materials</span>,”</span> <em>Mech. Mater.</em>, vol. 4, pp. 209–212, 1985.</div>
+</div>
+<div id="ref-Withers89" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">P. J. Withers, <span>“<span class="nocase">The determination of the elastic field of an ellipsoidal inclusion in a transversely isotropic medium, and its relevance to composite materials</span>,”</span> <em>Philos. Mag. A</em>, vol. 59, no. 4, pp. 759–781, Apr. 1989, doi: <a href="https://doi.org/10.1080/01418618908209819">10.1080/01418618908209819</a>.</div>
+</div>
+<div id="ref-Sevostianov2005" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">I. Sevostianov, N. Yilmaz, V. Kushch, and V. Levin, <span>“<span class="nocase">Effective elastic properties of matrix composites with transversely-isotropic phases</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 42, no. 2, pp. 455–476, Jan. 2005, doi: <a href="https://doi.org/10.1016/j.ijsolstr.2004.06.047">10.1016/j.ijsolstr.2004.06.047</a>.</div>
+</div>
+<div id="ref-Suvorov2002" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">A. P. Suvorov and G. J. Dvorak, <span>“<span class="nocase">Rate form of the Eshelby and Hill tensors</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 39, pp. 5659–5678, 2002, doi: <a href="https://doi.org/10.1016/S0020-7683(02)00369-4">10.1016/S0020-7683(02)00369-4</a>.</div>
+</div>
+<div id="ref-Laws77" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">N. Laws, <span>“<span class="nocase">A note on interaction energies associated with cracks in anisotropic solids</span>,”</span> <em>Philos. Mag.</em>, vol. 36, no. 2, pp. 367–372, 1977.</div>
+</div>
+<div id="ref-Gruescu05" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">C. Gruescu, V. Montchiet, and D. Kondo, <span>“<span class="nocase">Eshelby tensor for a crack in an orthotropic elastic medium</span>,”</span> <em>C. R. M<span class="nocase">é</span>canique</em>, vol. 333, pp. 467–473, 2005.</div>
+</div>
+<div id="ref-Mauge94a" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">C. Mauge and M. Kachanov, <span>“<span class="nocase">Effective elastic properties of an anisotropic material with arbitrarily oriented interacting cracks</span>,”</span> <em>J. Mech. Phys. Solids</em>, vol. 42, no. 4, pp. 561–584, 1994, doi: <a href="https://doi.org/10.1016/0022-5096(94)90052-3">10.1016/0022-5096(94)90052-3</a>.</div>
+</div>
+<div id="ref-Mauge94b" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">C. Mauge and M. Kachanov, <span>“<span class="nocase">Anisotropic material with interacting arbitrarily oriented cracks. Stress intensity factors and crack-microcrack interactions</span>,”</span> <em>Int. J. Fract.</em>, vol. 65, no. 2, pp. 115–139, 1994, doi: <a href="https://doi.org/10.1007/BF00032283">10.1007/BF00032283</a>.</div>
+</div>
+<div id="ref-Tsukrov2000" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline">I. Tsukrov and M. Kachanov, <span>“<span class="nocase">Effective moduli of an anisotropic material with elliptical holes of arbitrary orientational distribution</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 37, no. 41, pp. 5919–5941, Oct. 2000, doi: <a href="https://doi.org/10.1016/S0020-7683(99)00244-9">10.1016/S0020-7683(99)00244-9</a>.</div>
+</div>
+<div id="ref-Faivre71" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">G. Faivre, <span>“<span class="nocase">H<span class="nocase">é</span>t<span class="nocase">é</span>rog<span class="nocase">é</span>n<span class="nocase">é</span>it<span class="nocase">é</span>s ellipso<span class="nocase">ï</span>dales dans un milieu <span class="nocase">é</span>lastique anisotrope</span>,”</span> <em>J. Phys.</em>, vol. 32, no. 4, pp. 325–331, 1971, doi: <a href="https://doi.org/10.1051/jphys:01971003204032500">10.1051/jphys:01971003204032500</a>.</div>
+</div>
+<div id="ref-Mura87" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">T. Mura, <em><span class="nocase">Micromechanics of Defects in Solids, Second Edition</span></em>. Kluwer Academic, 1987. doi: <a href="https://doi.org/10.1002/zamm.19890690204">10.1002/zamm.19890690204</a>.</div>
+</div>
+<div id="ref-Willis77" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">J. R. Willis, <span>“<span class="nocase">Bounds and self-consistent estimates for the overall properties of anisotropic composites</span>,”</span> <em>J. Mech. Phys. Solids</em>, vol. 25, no. 3, pp. 185–202, 1977.</div>
+</div>
+<div id="ref-Huang98" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">J. H. Huang and H.-K. Liu, <span>“<span class="nocase">On a flat ellipsoidal inclusion or crack in three-dimensional anisotropic media</span>,”</span> <em>Int. J. Eng. Sci.</em>, vol. 36, no. 2, pp. 143–155, Jan. 1998, doi: <a href="https://doi.org/10.1016/S0020-7225(97)00046-3">10.1016/S0020-7225(97)00046-3</a>.</div>
+</div>
+<div id="ref-IJSS09" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">J.-F. Barthélémy, <span>“<span class="nocase">Compliance and Hill polarization tensor of a crack in an anisotropic matrix</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 46, no. 22–23, pp. 4064–4072, 2009, doi: <a href="https://doi.org/10.1016/j.ijsolstr.2009.08.003">10.1016/j.ijsolstr.2009.08.003</a>.</div>
+</div>
+<div id="ref-Ghahremani77" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">F. Ghahremani, <span>“<span class="nocase">Numerical evaluation of the stresses and strains in ellipsoidal inclusions in an anisotropic elastic material</span>,”</span> <em>Mech. Res. Commun.</em>, vol. 4, no. 2, pp. 89–91, Jan. 1977, doi: <a href="https://doi.org/10.1016/0093-6413(77)90018-0">10.1016/0093-6413(77)90018-0</a>.</div>
+</div>
+<div id="ref-Gavazzi90" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">A. C. Gavazzi and D. C. Lagoudas, <span>“<span class="nocase">On the numerical evaluation of Eshelby’s tensor and its application to elastoplastic fibrous composites</span>,”</span> <em>Comput. Mech.</em>, vol. 7, no. 1, pp. 13–19, 1990, doi: <a href="https://doi.org/10.1007/BF00370053">10.1007/BF00370053</a>.</div>
+</div>
+<div id="ref-Meso07" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline">J.-F. Barthélémy, <span>“<span class="nocase">Mechanical and hydraulic effective properties of an anisotropic fractured medium</span>,”</span> in <em>Part. Contin. Asp. Mesomech. MESO2007</em>, Giens, France, 2007.</div>
+</div>
+<div id="ref-Masson08" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">R. Masson, <span>“<span class="nocase">New explicit expressions of the Hill polarization tensor for general anisotropic elastic solids</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 45, pp. 757–769, 2008.</div>
+</div>
+<div id="ref-Pouya2000" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">A. Pouya, <span>“<span class="nocase">Une transformation du probl<span class="nocase">è</span>me d’<span class="nocase">é</span>lasticit<span class="nocase">é</span> lin<span class="nocase">é</span>aire en vue d’application au probl<span class="nocase">è</span>me de l’inclusion et aux fonctions de Green</span>,”</span> <em>Comptes Rendus l’Acad<span class="nocase">é</span>mie des Sci. - Ser. IIB - Mech.</em>, vol. 328, no. 6, pp. 437–443, Jun. 2000, doi: <a href="https://doi.org/10.1016/S1620-7742(00)00030-1">10.1016/S1620-7742(00)00030-1</a>.</div>
+</div>
+<div id="ref-Pouya06" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">A. Pouya and A. Zaoui, <span>“<span class="nocase">A transformation of elastic boundary value problems with application to anisotropic behavior</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 43, pp. 4937–4956, 2006, doi: <a href="https://doi.org/10.1016/j.ijsolstr.2005.06.046">10.1016/j.ijsolstr.2005.06.046</a>.</div>
+</div>
+<div id="ref-Pouya2011" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">A. Pouya, <span>“<span class="nocase">Ellipsoidal anisotropy in linear elasticity: Approximation models and analytical solutions</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 48, no. 14–15, pp. 2245–2254, 2011, doi: <a href="https://doi.org/10.1016/j.ijsolstr.2011.03.028">10.1016/j.ijsolstr.2011.03.028</a>.</div>
+</div>
+<div id="ref-Pouya2007c" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">A. Pouya, <span>“<span class="nocase">Fonction de Green pour les mat<span class="nocase">é</span>riaux <span class="nocase">à</span> anisotropie ellipso<span class="nocase">ï</span>dale</span>,”</span> <em>Comptes Rendus M<span class="nocase">é</span>canique</em>, vol. 335, no. 7, pp. 407–413, Jul. 2007, doi: <a href="https://doi.org/10.1016/j.crme.2007.05.001">10.1016/j.crme.2007.05.001</a>.</div>
+</div>
+<div id="ref-Pouya2007b" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">A. Pouya, <span>“<span class="nocase">Green’s function solution and displacement potentials for Transformed Transversely Isotropic materials</span>,”</span> <em>Eur. J. Mech. A/Solids</em>, vol. 26, no. 3, pp. 491–502, 2007, doi: <a href="https://doi.org/10.1016/j.euromechsol.2006.09.002">10.1016/j.euromechsol.2006.09.002</a>.</div>
+</div>
+<div id="ref-Sevostianov2020" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">I. Sevostianov and V. I. Kushch, <span>“<span class="nocase">Compliance contribution tensor of an arbitrarily oriented ellipsoidal inhomogeneity embedded in an orthotropic elastic material</span>,”</span> <em>Int. J. Eng. Sci.</em>, vol. 149, p. 103222, 2020, doi: <a href="https://doi.org/10.1016/j.ijengsci.2020.103222">10.1016/j.ijengsci.2020.103222</a>.</div>
+</div>
+<div id="ref-BrisardBlog" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">S. Brisard, <span>“<span class="nocase">S<span class="nocase">é</span>bastien Brisard’s blog. https://sbrisard.github.io</span>.”</span> Available: <a href="https://sbrisard.github.io/">https://sbrisard.github.io/</a></div>
+</div>
+<div id="ref-AnisoRocks2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">A. Giraud <em>et al.</em>, <span>“<span class="nocase">Effective electrical conductivity of transversely isotropic rocks with arbitrarily oriented ellipsoidal inclusions</span>,”</span> <em>Mech. Mater.</em>, vol. 133, no. November 2018, pp. 174–192, Jun. 2019, doi: <a href="https://doi.org/10.1016/j.mechmat.2019.03.011">10.1016/j.mechmat.2019.03.011</a>.</div>
+</div>
+<div id="ref-Pouya2007" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline">A. Pouya, <span>“<span class="nocase">Ellipsoidal Anisotropies in Linear Elasticity: Extension of Saint Venant’s Work to Phenomenological Modeling of Materials</span>,”</span> <em>Int. J. Damage Mech.</em>, vol. 16, no. 1, pp. 95–126, Jan. 2007, doi: <a href="https://doi.org/10.1177/1056789507065895">10.1177/1056789507065895</a>.</div>
+</div>
+<div id="ref-Nemat99" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline">S. Nemat-Nasser and M. Hori, <span>“<span class="nocase">Micromechanics: Overall Properties of Heterogeneous Materials 2nd Edition</span>,”</span> 1999.</div>
+</div>
+<div id="ref-Hoenig1978" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">A. Hoenig, <span>“<span class="nocase">The behavior of a flat elliptical crack in an anisotropic elastic body</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 14, no. 11, pp. 925–934, 1978, doi: <a href="https://doi.org/10.1016/0020-7683(78)90068-9">10.1016/0020-7683(78)90068-9</a>.</div>
+</div>
+<div id="ref-Walpole84" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">L. J. Walpole, <span>“<span class="nocase">Fourth-rank tensors of the thirty-two crystal classes: multiplication tables</span>,”</span> <em>Proc. R. Soc. London. A. Math. Phys. Sci.</em>, vol. 391, no. 1800, pp. 149–179, Jan. 1984, doi: <a href="https://doi.org/10.1098/rspa.1984.0008">10.1098/rspa.1984.0008</a>.</div>
+</div>
+<div id="ref-ViscousEshelby2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">J.-F. Barthélémy, A. Giraud, F. Lavergne, and J. Sanahuja, <span>“<span class="nocase">The Eshelby inclusion problem in ageing linear viscoelasticity</span>,”</span> <em>Int. J. Solids Struct.</em>, vol. 97–98, pp. 530–542, Oct. 2016, doi: <a href="https://doi.org/10.1016/j.ijsolstr.2016.06.035">10.1016/j.ijsolstr.2016.06.035</a>.</div>
+</div>
+<div id="ref-Kellogg29" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">O. D. Kellogg, <em><span class="nocase">Potential theory</span></em>. Berlin : Springer-Verlag, 1929.</div>
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Note that <span class="math inline">\(I_i\)</span> and <span class="math inline">\(I_{ij}\)</span> are adapted from those provided in <span class="citation" data-cites="Kellogg29"><a href="#ref-Kellogg29" role="doc-biblioref">[39]</a></span> and <span class="citation" data-cites="Eshelby57"><a href="#ref-Eshelby57" role="doc-biblioref">[1]</a></span>: they differ by a factor of <span class="math inline">\(4\pi/3\)</span> for <span class="math inline">\(I_{ij}\)</span> with <span class="math inline">\(i\neq j\)</span> and by <span class="math inline">\(4\pi\)</span> for the others<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
