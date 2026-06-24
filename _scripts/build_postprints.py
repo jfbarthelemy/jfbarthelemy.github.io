@@ -19,7 +19,10 @@ import os, shutil, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.dirname(HERE)                       # repo root (jfbarthelemy.github.io)
-ARTICLES = os.path.expanduser("~/articles")
+if sys.platform.startswith("win"):
+    ARTICLES = os.path.join(os.path.expanduser("~"), "Documents", "CTOA", "Articles")
+else:
+    ARTICLES = os.path.expanduser("~/articles")
 sys.path.insert(0, HERE)
 from postprints_data import POSTPRINTS            # noqa: E402
 
