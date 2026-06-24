@@ -44,7 +44,7 @@
 <path transform="matrix(1,0,0,-1,92.003,112.662)" stroke-width=".79701" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#008000" d="M-11.63443-15.9825C-.21579-18.06044 12.5571-16.93425 21.86536-13.02888"/>
 <path transform="matrix(1,0,0,-1,92.003,112.662)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M0 73.64737C30.19008 55.65846 54.66327 8.10344 54.66327-32.57138"/>
 <path transform="matrix(1,0,0,-1,92.003,112.662)" stroke-width=".3985" stroke-linecap="butt" stroke-dasharray="2.98883,2.98883" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M-29.086-39.95613C15.04887-47.98775 63.8483-36.60979 79.91226-14.54236"/>
-<use data-text="&#x1d703;" xlink:href="#font_1_3169" transform="matrix(9.96264,0,0,-9.96264,97.211,60.329004)" fill="#008000"/>
+<use data-text="&#x1d703;" xlink:href="#font_1_3169" transform="matrix(9.96264,0,0,-9.96264,97.61,60.329004)" fill="#008000"/>
 <path transform="matrix(1,0,0,-1,92.003,112.662)" stroke-width=".79701" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#008000" d="M0 73.64737C9.59291 67.93138 19.02405 58.90675 27.33163 47.49496"/>
 <path transform="matrix(1,0,0,-1,92.003,112.662)" stroke-width=".79701" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M27.33492 47.5004 49.48032 17.07893"/>
 <path transform="matrix(.5885,.80847,.80847,-.5885,141.4833,95.58307)" d="M2.59026 0-1.55415 2.0722 0 0-1.55415-2.0722"/>
@@ -83,5 +83,5 @@
 <use data-text="&#x1d44f;" xlink:href="#font_1_2503" transform="matrix(9.96264,0,0,-9.96264,130.726,19.001999)"/>
 <use data-text="=" xlink:href="#font_1_62" transform="matrix(9.96264,0,0,-9.96264,138.16809,19.001999)"/>
 <use data-text="&#x1d702;" xlink:href="#font_1_3168" transform="matrix(9.96264,0,0,-9.96264,147.7621,19.001999)"/>
-<use data-text="&#x1d44e;" xlink:href="#font_1_2502" transform="matrix(9.96264,0,0,-9.96264,154.40718,19.001999)"/>
+<use data-text="&#x1d44e;" xlink:href="#font_1_2502" transform="matrix(9.96264,0,0,-9.96264,154.00867,19.001999)"/>
 </svg>
