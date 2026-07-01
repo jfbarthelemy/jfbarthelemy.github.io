@@ -25,9 +25,9 @@ analytical homogenization models for random heterogeneous media.
 ### Documentation
 
 Full documentation and examples are available at
-[echoes.barthelemy.xyz](https://echoes.barthelemy.xyz/).
+[jfbarthelemy.github.io/echoes](https://jfbarthelemy.github.io/echoes/).
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=quarto)](https://echoes.barthelemy.xyz/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=quarto)](https://jfbarthelemy.github.io/echoes/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19679057.svg)](https://doi.org/10.5281/zenodo.19679057)

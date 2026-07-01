@@ -14,7 +14,7 @@ Course on scientific computing with Julia: interpolation, integration, linear sy
 ordinary differential equations, and numerical methods. Includes lectures, tutorials and
 Jupyter notebooks.
 
-[{{< iconify simple-icons codeberg >}} Accéder au cours](https://enpc-casc.codeberg.page/){.jfb-btn .jfb-btn-primary}
+[{{< iconify simple-icons github >}} Accéder au cours](https://enpc-casc.github.io/){.jfb-btn .jfb-btn-primary}
 :::
 
 ## Past courses
