@@ -46,7 +46,7 @@
     "href": "software/echoes.html",
     "title": "echoes",
     "section": "",
-    "text": "echoes (Extended Calculator of HOmogEnization Schemes) implements a wide range of analytical homogenization models for random heterogeneous media.\n\nKey features\n\nDilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes\nEllipsoidal and crack-like heterogeneities\nElasticity, thermal conductivity, and linear viscoelasticity\nDerivatives of effective properties with respect to phase parameters (essential for secant-based nonlinear homogenization)\nPython interface with supporting modules\n\n\n\nDocumentation\nFull documentation and examples are available at echoes.barthelemy.xyz.\n\n\nLinks"
+    "text": "echoes (Extended Calculator of HOmogEnization Schemes) implements a wide range of analytical homogenization models for random heterogeneous media.\n\nKey features\n\nDilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes\nEllipsoidal and crack-like heterogeneities\nElasticity, thermal conductivity, and linear viscoelasticity\nDerivatives of effective properties with respect to phase parameters (essential for secant-based nonlinear homogenization)\nPython interface with supporting modules\n\n\n\nDocumentation\nFull documentation and examples are available at jfbarthelemy.github.io/echoes.\n\n\nLinks"
   },
   {
     "objectID": "software/tensnd.html",
