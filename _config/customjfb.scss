@@ -102,11 +102,9 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500
   @import url($web-font-path);
 }
 
-// Subtle background gradient
-$body-bg-image: radial-gradient(ellipse at top, lighten($bleu_light_C, 3%), $white) !default;
-
+// Unified light background
 body {
-  background-image: $body-bg-image;
+  background-color: #f5f7fb;
 }
 
 // Cards
