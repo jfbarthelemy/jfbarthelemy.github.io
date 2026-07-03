@@ -53,7 +53,7 @@
     "href": "software/tensnd.html",
     "title": "TensND.jl",
     "section": "",
-    "text": "TensND.jl provides structured tensor types for multi-linear algebra with built-in symmetries and automatic index conventions (base-1), fully compatible with automatic differentiation via ForwardDiff.\n\nKey features\n\nIsotropic tensors (TensISO) — fully symmetric with minimal storage\nWalpole basis (TensWalpole) — standard orthonormal basis for symmetric 4th-order tensors\nOrthotropic tensors (TensOrtho) — material symmetry classes\nGeneral tensors — flexible indexed storage\nForwardDiff-compatible — all operations support dual numbers for AD\nBase-1 indexing — natural tensor index convention (e₁, e₂, …)\n\n\n\nInstallation\nusing Pkg\nPkg.Registry.add(RegistrySpec(url=\"https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry\"))\nPkg.add(\"TensND\")\n\n\nLinks"
+    "text": "TensND.jl provides structured tensor types for multi-linear algebra with built-in symmetries and automatic index conventions (base-1), fully compatible with automatic differentiation via ForwardDiff.\n\nKey features\n\nIsotropic tensors (TensISO) — fully symmetric with minimal storage\nWalpole basis (TensWalpole) — standard orthonormal basis for symmetric 4th-order tensors\nOrthotropic tensors (TensOrtho) — material symmetry classes\nGeneral tensors — flexible indexed storage\nForwardDiff-compatible — all operations support dual numbers for AD\nBase-1 indexing — natural tensor index convention (e₁, e₂, …)\n\n\n\nInstallation\nusing Pkg\nPkg.Registry.add(RegistrySpec(url=\"https://github.com/MicroPoroChemoMechanics/MPCM-Registry\"))\nPkg.add(\"TensND\")\n\n\nLinks"
   },
   {
     "objectID": "software.html",
@@ -67,14 +67,14 @@
     "href": "software/chemistrylab.html",
     "title": "ChemistryLab.jl",
     "section": "",
-    "text": "ChemistryLab.jl is a Julia package for computational chemistry and materials science, featuring Gibbs-energy minimization, phase equilibria, and reaction kinetics. Part of the MicroPoroChemoMechanics ecosystem.\n\nInstallation\nusing Pkg\nPkg.Registry.add(RegistrySpec(url=\"https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry\"))\nPkg.add(\"ChemistryLab\")\n\n\nKey features\n\nGibbs energy minimization using interior-point solver (OptimaSolver.jl backend)\nPhase equilibrium computations with multiple constraints\nChemical kinetics and reaction rate laws\nFull ForwardDiff compatibility for sensitivity analysis\n\n\n\nLinks"
+    "text": "ChemistryLab.jl is a Julia package for computational chemistry and materials science, featuring Gibbs-energy minimization, phase equilibria, and reaction kinetics. Part of the MicroPoroChemoMechanics ecosystem.\n\nInstallation\nusing Pkg\nPkg.Registry.add(RegistrySpec(url=\"https://github.com/MicroPoroChemoMechanics/MPCM-Registry\"))\nPkg.add(\"ChemistryLab\")\n\n\nKey features\n\nGibbs energy minimization using interior-point solver (OptimaSolver.jl backend)\nPhase equilibrium computations with multiple constraints\nChemical kinetics and reaction rate laws\nFull ForwardDiff compatibility for sensitivity analysis\n\n\n\nLinks"
   },
   {
     "objectID": "software/mpcm.html",
     "href": "software/mpcm.html",
     "title": "MicroPoroChemoMechanics",
     "section": "",
-    "text": "MicroPoroChemoMechanics is a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. Every package is ForwardDiff-compatible, dimensionally aware via DynamicQuantities, and designed to compose cleanly with the SciML ecosystem.\nAll packages are registered in the dedicated MPCM-Registry and hosted on Codeberg."
+    "text": "MicroPoroChemoMechanics is a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. Every package is ForwardDiff-compatible, dimensionally aware via DynamicQuantities, and designed to compose cleanly with the SciML ecosystem.\nAll packages are registered in the dedicated MPCM-Registry and hosted on GitHub."
   },
   {
     "objectID": "software/mpcm.html#core-packages",
@@ -95,7 +95,7 @@
     "href": "software/mpcm.html#backend-packages",
     "title": "MicroPoroChemoMechanics",
     "section": "Backend packages",
-    "text": "Backend packages\n\nOptimaSolver.jl\nPrimal-dual interior-point solver for Gibbs-energy minimization with diagonal Hessian structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend for ChemistryLab.jl equilibrium computations.\n \n\n\nDECUHR.jl\nPure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for automatic adaptive integration of functions with vertex singularities over hyper-rectangles. Exposed as a pluggable algorithm for the SciML Integrals.jl ecosystem.\n \n\n Organization on Codeberg"
+    "text": "Backend packages\n\nOptimaSolver.jl\nPrimal-dual interior-point solver for Gibbs-energy minimization with diagonal Hessian structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend for ChemistryLab.jl equilibrium computations.\n \n\n\nDECUHR.jl\nPure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for automatic adaptive integration of functions with vertex singularities over hyper-rectangles. Exposed as a pluggable algorithm for the SciML Integrals.jl ecosystem.\n \n\n Organization on GitHub"
   },
   {
     "objectID": "about.html",
