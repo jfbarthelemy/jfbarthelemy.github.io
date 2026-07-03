@@ -17,7 +17,7 @@ Part of the **[MicroPoroChemoMechanics](../software/mpcm.qmd)** ecosystem.
 
 ```julia
 using Pkg
-Pkg.Registry.add(RegistrySpec(url="https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry"))
+Pkg.Registry.add(RegistrySpec(url="https://github.com/MicroPoroChemoMechanics/MPCM-Registry"))
 Pkg.add("ChemistryLab")
 ```
 
@@ -30,5 +30,5 @@ Pkg.add("ChemistryLab")
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.codeberg.page/ChemistryLab.jl/)
-[![Repository](https://img.shields.io/badge/Codeberg-ChemistryLab.jl-181717?logo=codeberg)](https://codeberg.org/MicroPoroChemoMechanics/ChemistryLab.jl)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/ChemistryLab.jl/)
+[![Repository](https://img.shields.io/badge/GitHub-ChemistryLab.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/ChemistryLab.jl)

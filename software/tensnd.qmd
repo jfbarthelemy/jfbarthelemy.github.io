@@ -26,11 +26,11 @@ differentiation via ForwardDiff.
 
 ```julia
 using Pkg
-Pkg.Registry.add(RegistrySpec(url="https://codeberg.org/MicroPoroChemoMechanics/MPCM-Registry"))
+Pkg.Registry.add(RegistrySpec(url="https://github.com/MicroPoroChemoMechanics/MPCM-Registry"))
 Pkg.add("TensND")
 ```
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.codeberg.page/TensND.jl/)
-[![Repository](https://img.shields.io/badge/Codeberg-TensND.jl-181717?logo=codeberg)](https://codeberg.org/MicroPoroChemoMechanics/TensND.jl)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/TensND.jl/)
+[![Repository](https://img.shields.io/badge/GitHub-TensND.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/TensND.jl)
