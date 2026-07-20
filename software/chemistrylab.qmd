@@ -2,7 +2,6 @@
 title: "ChemistryLab.jl"
 description: >
   A Julia package providing computational tools for chemistry and materials science.
-  Now hosted on Codeberg and registered in MPCM-Registry.
 categories: [Julia, Chemistry, Materials Science]
 image: "../images/logo_chemistrylab.png"
 ---
