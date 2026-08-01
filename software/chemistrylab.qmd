@@ -1,34 +1,58 @@
 ---
 title: "ChemistryLab.jl"
 description: >
-  A Julia package providing computational tools for chemistry and materials science.
-  Now hosted on Codeberg and registered in MPCM-Registry.
+  A Julia computational chemistry toolkit — formula handling, species management,
+  stoichiometric matrices, thermodynamic databases and chemical equilibrium.
+  Initially aimed at low-carbon cementitious materials and aqueous solutions.
 categories: [Julia, Chemistry, Materials Science]
 image: "../images/logo_chemistrylab.png"
 ---
 
 ![](../images/logo_chemistrylab.png){.jfb-page-logo}
 
-**ChemistryLab.jl** is a Julia package for computational chemistry and materials science,
-featuring Gibbs-energy minimization, phase equilibria, and reaction kinetics.
-Part of the **[MicroPoroChemoMechanics](../software/mpcm.qmd)** ecosystem.
-
-### Installation
-
-```julia
-using Pkg
-Pkg.Registry.add(RegistrySpec(url="https://github.com/MicroPoroChemoMechanics/MPCM-Registry"))
-Pkg.add("ChemistryLab")
-```
+**ChemistryLab.jl** is a computational chemistry toolkit. Although initially dedicated to
+low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides
+chemical formula handling, species management, stoichiometric matrix construction, activity
+models, thermodynamic equilibrium and database interoperability. Developed with Anthony Soive
+and released under LGPL v2.1+.
+Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 ### Key features
 
-- Gibbs energy minimization using interior-point solver (OptimaSolver.jl backend)
-- Phase equilibrium computations with multiple constraints
-- Chemical kinetics and reaction rate laws
-- Full ForwardDiff compatibility for sensitivity analysis
+- **Chemical formula handling** — creation, conversion and display with charge management,
+  Unicode and Phreeqc notations
+- **Species management** — `Species` and `CemSpecies` types for solution and solid phases,
+  with requalification via `with_class`
+- **Stoichiometric matrices** — automatic construction for reaction and equilibrium analysis
+- **Database interoperability** — import and merge ThermoFun (`.json`) and Cemdata (`.dat`) data
+- **Solid solutions** — ideal (`IdealSolidSolutionModel`) or non-ideal binary
+  (`RedlichKisterModel`) mineral mixing phases
+- **Activity models** — `DiluteSolutionModel`, `HKFActivityModel` (extended Debye–Hückel B-dot)
+  and `DaviesActivityModel`
+- **Chemical equilibrium** — equilibrium compositions by Gibbs energy minimization
+  (`equilibrate`, `ChemicalSystem`, `ChemicalState`)
+- **ForwardDiff compatibility** — sensitivity analysis through the whole pipeline
+
+### Installation
+
+ChemistryLab.jl is registered in Julia's General registry:
+
+```julia
+using Pkg
+Pkg.add("ChemistryLab")
+```
+
+Solving an equilibrium requires an optimization backend, loaded on demand through a package
+extension — either the default Ipopt one or the Julia-native interior-point solver:
+
+```julia
+using Optimization, OptimizationIpopt   # default backend
+# or
+using OptimaSolver                      # Julia-native interior-point backend
+```
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/ChemistryLab.jl/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/ChemistryLab.jl/stable/)
 [![Repository](https://img.shields.io/badge/GitHub-ChemistryLab.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/ChemistryLab.jl)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17756074-blue)](https://doi.org/10.5281/zenodo.17756074)

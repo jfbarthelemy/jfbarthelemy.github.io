@@ -1,36 +1,43 @@
 ---
 title: "TensND.jl"
 description: >
-  Julia package for structured tensor types with built-in symmetries.
-  Isotropic, Walpole, orthotropic, and general tensors with ForwardDiff support.
+  Julia package for symbolic and numerical tensor calculations of any order and dimension
+  in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.
 categories: [Julia, Tensors, Linear Algebra]
 image: "../images/logo_tensnd.png"
 ---
 
 ![](../images/logo_tensnd.png){.jfb-page-logo}
 
-**TensND.jl** provides structured tensor types for multi-linear algebra with built-in
-symmetries and automatic index conventions (base-1), fully compatible with automatic
-differentiation via ForwardDiff.
+**TensND.jl** performs tensor calculations of any order and dimension in arbitrary coordinate
+systems (cartesian, polar, cylindrical, spherical, spheroidal or user-defined). It supports
+both symbolic computation (SymPy.jl, Symbolics.jl) and numerical evaluation with automatic
+differentiation (ForwardDiff.jl). The implementation is inspired by the Maple library
+[Tens3d](http://jean.garrigues.perso.centrale-marseille.fr/tens3d.html) by Jean Garrigues.
+Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 ### Key features
 
-- **Isotropic tensors** (`TensISO`) — fully symmetric with minimal storage
-- **Walpole basis** (`TensWalpole`) — standard orthonormal basis for symmetric 4th-order tensors
-- **Orthotropic tensors** (`TensOrtho`) — material symmetry classes
-- **General tensors** — flexible indexed storage
-- **ForwardDiff-compatible** — all operations support dual numbers for AD
-- **Base-1 indexing** — natural tensor index convention (e₁, e₂, …)
+- **Basis types** — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)
+- **Tensor algebra** — products (`⊗`, `⊗ˢ`, `⊠`, `⊠ˢ`, `⋅`, `⊡`, `⊙`), change of basis, variance management
+- **Structured tensors** — isotropic (`TensISO`), transversely isotropic (`TensTI{4}`, `TensTI`)
+  and orthotropic (`TensOrtho`), with compact storage and efficient algebra
+- **Symmetry projection** — closest ISO, TI or ORTHO tensor, with rotation optimised via NLopt.jl
+- **Differential operators** — gradient, symmetric gradient, divergence, Laplacian and Hessian
+  in curvilinear coordinates, symbolically or numerically
+- **Generic type system** — `Float64`, symbolic types (`Sym`, `Num`) and `ForwardDiff.Dual`
 
 ### Installation
 
+TensND.jl is registered in Julia's General registry:
+
 ```julia
 using Pkg
-Pkg.Registry.add(RegistrySpec(url="https://github.com/MicroPoroChemoMechanics/MPCM-Registry"))
 Pkg.add("TensND")
 ```
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/TensND.jl/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/TensND.jl/stable/)
 [![Repository](https://img.shields.io/badge/GitHub-TensND.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/TensND.jl)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17985768-blue)](https://doi.org/10.5281/zenodo.17985768)

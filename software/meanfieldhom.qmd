@@ -1,0 +1,66 @@
+---
+title: "MeanFieldHom.jl"
+description: >
+  Julia framework for mean-field homogenization of heterogeneous materials.
+  Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity
+  and all classical schemes, with ForwardDiff sensitivities.
+categories: [Julia, Micromechanics, Homogenization]
+image: "../images/logo_mfh.png"
+---
+
+![](../images/logo_mfh.png){.jfb-page-logo}
+
+**MeanFieldHom.jl** predicts the effective elastic, transport and viscoelastic properties
+of a heterogeneous material from the properties, shapes, orientations and volume fractions
+of the phases of its microstructure. All the ingredients — inclusion morphologies, localization
+tensors and homogenization schemes — live under a common abstraction hierarchy with a shared
+numerical core and a central dispatch mechanism.
+Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensND.jl](tensnd.qmd)**.
+
+### Key features
+
+- **Hill polarization tensors** — ellipsoidal inclusions and infinite cylinders, 2D and 3D,
+  isotropic, anisotropic or transversely isotropic coaxial matrices
+- **Cracks** — crack-opening-displacement tensor, compliance contribution, stress and
+  displacement intensity factors for elliptic and ribbon cracks
+- **Transport** — second-order Hill tensor with a closed form for any matrix anisotropy
+- **Layered inclusions** — `n`-layer composite spheres and confocal spheroids with imperfect
+  interfaces (perfect, spring, membrane, Kapitza, surface-conductive)
+- **Homogenization schemes** — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis,
+  self-consistent and asymmetric self-consistent, differential
+- **Ageing linear viscoelasticity** — Volterra operators with structured ISO/TI/orthotropic
+  kernel storage, available to every scheme
+- **Finite-element inclusions** — Eshelby problem solved numerically (3-D elliptical crack,
+  sphere with an off-centre core) behind a two-backend contract
+- **Prototyping-oriented** — `ForwardDiff` sensitivities with respect to fractions, moduli and
+  inclusion geometry, plus symbolic simplification via `SymPy` and `Symbolics`
+
+### Installation
+
+`MeanFieldHom.jl` is not (yet) registered in the General registry; install it directly
+from GitHub:
+
+```julia
+using Pkg
+Pkg.add(url = "https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl")
+```
+
+Optional package extensions activate on weak dependencies:
+[DECUHR.jl](https://github.com/MicroPoroChemoMechanics/DECUHR.jl) with
+Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for
+the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), and two finite-element
+backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl.
+
+### Documentation
+
+Full documentation is available at
+[MicroPoroChemoMechanics.github.io/MeanFieldHom.jl](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/),
+including a gallery of complete micromechanical models in the
+[Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/applications/cement_paste/)
+section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in
+concrete, quasi-brittle strength, bituminous mixtures and ageing creep.
+
+### Links
+
+[![Docs](https://img.shields.io/badge/docs-dev-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/)
+[![Repository](https://img.shields.io/badge/GitHub-MeanFieldHom.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl)

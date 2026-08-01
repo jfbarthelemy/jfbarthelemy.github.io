@@ -1,16 +1,46 @@
 ---
 title: "Software Libraries"
 listing:
-  type: grid
-  contents:
-    - software/echoes.qmd
-    - software/tensnd.qmd
-    - software/chemistrylab.qmd
-    - software/mpcm.qmd
-  sort: false
-  fields: [title, image, description, categories]
-  grid-columns: 2
-  max-description-length: 300
+  - id: standalone
+    type: grid
+    contents:
+      - software/echoes.qmd
+    sort: false
+    fields: [title, image, description, categories]
+    grid-columns: 2
+    max-description-length: 300
+  - id: mpcm-packages
+    type: grid
+    contents:
+      - software/tensnd.qmd
+      - software/chemistrylab.qmd
+      - software/meanfieldhom.qmd
+    sort: false
+    fields: [title, image, description, categories]
+    grid-columns: 2
+    max-description-length: 300
 ---
 
 A selection of academic freeware or open-source scientific libraries I develop and maintain.
+
+## Standalone projects
+
+::: {#standalone}
+:::
+
+## MicroPoroChemoMechanics
+
+![](images/logo_org.png){.jfb-page-logo}
+
+**[MicroPoroChemoMechanics](software/mpcm.qmd)** is a GitHub organisation of which I am one of
+the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous
+reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic
+poromechanical response. The three packages below are its core; two further backend packages
+(OptimaSolver.jl and DECUHR.jl) are described on the
+[organisation page](software/mpcm.qmd).
+
+[{{< iconify mdi sitemap >}} Organisation overview](software/mpcm.qmd){.jfb-btn .jfb-btn-primary}
+[{{< iconify mdi github >}} MicroPoroChemoMechanics on GitHub](https://github.com/MicroPoroChemoMechanics){.jfb-btn .jfb-btn-outline}
+
+::: {#mpcm-packages}
+:::
