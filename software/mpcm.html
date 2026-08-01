@@ -2,21 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A Julia ecosystem for the coupled chemo-mechanics of porous reactive media. Structured tensors, mean-field homogenisation, computational chemistry, and adaptive cubature algorithms — all integrated and registered in MPCM-Registry.">
+<meta name="description" content="A GitHub organisation hosting a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media: structured tensors, computational chemistry, mean-field homogenisation, and the numerical backends they rely on.">
 
 <title>MicroPoroChemoMechanics – Jean-François Barthélémy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -41,14 +44,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-06df1809c378c4d422611db7dbb77227.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-92065a9b9fee8e98976da5d64c0b1590.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -289,7 +292,6 @@ ul.task-list li input[type="checkbox"] {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io" title="View source" class="quarto-navigation-tool px-1" aria-label="View source"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -304,9 +306,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#core-packages" id="toc-core-packages" class="nav-link active" data-scroll-target="#core-packages">Core packages</a></li>
-  <li><a href="#in-development" id="toc-in-development" class="nav-link" data-scroll-target="#in-development">In development</a>
+  <li><a href="#core-packages" id="toc-core-packages" class="nav-link active" data-scroll-target="#core-packages">Core packages</a>
   <ul class="collapse">
+  <li><a href="#tensnd.jl" id="toc-tensnd.jl" class="nav-link" data-scroll-target="#tensnd.jl">TensND.jl</a></li>
+  <li><a href="#chemistrylab.jl" id="toc-chemistrylab.jl" class="nav-link" data-scroll-target="#chemistrylab.jl">ChemistryLab.jl</a></li>
   <li><a href="#meanfieldhom.jl" id="toc-meanfieldhom.jl" class="nav-link" data-scroll-target="#meanfieldhom.jl">MeanFieldHom.jl</a></li>
   </ul></li>
   <li><a href="#backend-packages" id="toc-backend-packages" class="nav-link" data-scroll-target="#backend-packages">Backend packages</a>
@@ -314,8 +317,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#optimasolver.jl" id="toc-optimasolver.jl" class="nav-link" data-scroll-target="#optimasolver.jl">OptimaSolver.jl</a></li>
   <li><a href="#decuhr.jl" id="toc-decuhr.jl" class="nav-link" data-scroll-target="#decuhr.jl">DECUHR.jl</a></li>
   </ul></li>
+  <li><a href="#installation-and-registry" id="toc-installation-and-registry" class="nav-link" data-scroll-target="#installation-and-registry">Installation and registry</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software/mpcm.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
@@ -334,7 +338,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    <p>A Julia ecosystem for the coupled chemo-mechanics of porous reactive media. Structured tensors, mean-field homogenisation, computational chemistry, and adaptive cubature algorithms — all integrated and registered in MPCM-Registry.</p>
+    <p>A GitHub organisation hosting a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media: structured tensors, computational chemistry, mean-field homogenisation, and the numerical backends they rely on.</p>
   </div>
 </div>
 
@@ -352,21 +356,24 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/logo_org.png" class="jfb-page-logo img-fluid"></p>
-<p><strong>MicroPoroChemoMechanics</strong> is a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. Every package is <code>ForwardDiff</code>-compatible, dimensionally aware via <code>DynamicQuantities</code>, and designed to compose cleanly with the SciML ecosystem.</p>
-<p>All packages are registered in the dedicated <a href="https://github.com/MicroPoroChemoMechanics/MPCM-Registry">MPCM-Registry</a> and hosted on <a href="https://github.com/MicroPoroChemoMechanics">GitHub</a>.</p>
+<p><strong>MicroPoroChemoMechanics</strong> is a <a href="https://github.com/MicroPoroChemoMechanics">GitHub organisation</a> of which I am one of the owners. It hosts a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. The packages are designed to compose cleanly: they share conventions, are <code>ForwardDiff</code>-compatible, and plug into the SciML ecosystem.</p>
 <hr>
 <section id="core-packages" class="level2">
 <h2 class="anchored" data-anchor-id="core-packages">Core packages</h2>
-<p>See individual package pages: <a href="../software/tensnd.html">TensND.jl</a> and <a href="../software/chemistrylab.html">ChemistryLab.jl</a>.</p>
-<hr>
+<section id="tensnd.jl" class="level3">
+<h3 class="anchored" data-anchor-id="tensnd.jl"><a href="../software/tensnd.html">TensND.jl</a></h3>
+<p><img src="../images/logo_tensnd.png" class="jfb-page-logo img-fluid"></p>
+<p><strong>Symbolic and numerical tensor calculations</strong> of any order and dimension in arbitrary coordinate systems, with structured isotropic, transversely isotropic and orthotropic types and curvilinear differential operators. It is the tensor foundation of the whole ecosystem.</p>
 </section>
-<section id="in-development" class="level2">
-<h2 class="anchored" data-anchor-id="in-development">In development</h2>
+<section id="chemistrylab.jl" class="level3">
+<h3 class="anchored" data-anchor-id="chemistrylab.jl"><a href="../software/chemistrylab.html">ChemistryLab.jl</a></h3>
+<p><img src="../images/logo_chemistrylab.png" class="jfb-page-logo img-fluid"></p>
+<p><strong>Computational chemistry toolkit</strong> — chemical formula handling, species management, stoichiometric matrices, ThermoFun/Cemdata database interoperability, activity models and thermodynamic equilibrium by Gibbs energy minimisation. Dimensionally aware via <code>DynamicQuantities</code>.</p>
+</section>
 <section id="meanfieldhom.jl" class="level3">
-<h3 class="anchored" data-anchor-id="meanfieldhom.jl">MeanFieldHom.jl</h3>
+<h3 class="anchored" data-anchor-id="meanfieldhom.jl"><a href="../software/meanfieldhom.html">MeanFieldHom.jl</a></h3>
 <p><img src="../images/logo_mfh.png" class="jfb-page-logo img-fluid"></p>
-<p><strong>Mean-field homogenisation framework</strong> for heterogeneous materials. Hill polarisation tensors for ellipsoidal inclusions and infinite cylinders, crack-opening-displacement tensors with stress and displacement intensity factors, second-order Hill tensors for transport problems, and layered-sphere composite models.</p>
-<p>Currently in active development with full type-generic support (Float64, Complex, Dual, SymPy).</p>
+<p><strong>Mean-field homogenisation framework</strong> for heterogeneous materials: Hill polarisation tensors for ellipsoidal inclusions and infinite cylinders, crack-opening-displacement tensors with stress and displacement intensity factors, second-order Hill tensors for transport problems, layered spheres and confocal spheroids with imperfect interfaces, ageing linear viscoelasticity, and all the classical schemes.</p>
 <hr>
 </section>
 </section>
@@ -382,10 +389,16 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Pure-Julia port</strong> of the DECUHR algorithm (Espelid &amp; Genz, 1994) for automatic adaptive integration of functions with vertex singularities over hyper-rectangles. Exposed as a pluggable algorithm for the SciML <strong>Integrals.jl</strong> ecosystem.</p>
 <p><a href="https://MicroPoroChemoMechanics.github.io/DECUHR.jl/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=julia.png" class="img-fluid" alt="Docs"></a> <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl"><img src="https://img.shields.io/badge/GitHub-DECUHR.jl-181717?logo=github" class="img-fluid" alt="Repository"></a></p>
 <hr>
+</section>
+</section>
+<section id="installation-and-registry" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-registry">Installation and registry</h2>
+<p>TensND.jl, ChemistryLab.jl, OptimaSolver.jl and DECUHR.jl are registered in Julia’s <strong>General registry</strong> and installed with a plain <code>Pkg.add</code>. MeanFieldHom.jl is not registered yet and is installed from its repository URL (see its <a href="../software/meanfieldhom.html">page</a>).</p>
+<p>The dedicated <a href="https://github.com/MicroPoroChemoMechanics/MPCM-Registry">MPCM-Registry</a> is <strong>deprecated</strong> and kept only as a frozen historical snapshot; if you added it in the past, remove it with <code>Pkg.Registry.rm("MPCM-Registry")</code>.</p>
+<hr>
 <p><a href="https://github.com/MicroPoroChemoMechanics" class="jfb-btn jfb-btn-primary"><iconify-icon role="img" inline="" icon="mdi:github" aria-label="Icon github from mdi Iconify.design set." title="Icon github from mdi Iconify.design set."></iconify-icon> Organization on GitHub</a></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -807,4 +820,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software/mpcm.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+</body></html>

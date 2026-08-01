@@ -2,21 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A Julia package providing computational tools for chemistry and materials science.">
+<meta name="description" content="A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.">
 
 <title>ChemistryLab.jl – Jean-François Barthélémy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -76,14 +79,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-06df1809c378c4d422611db7dbb77227.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-92065a9b9fee8e98976da5d64c0b1590.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -323,7 +326,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io" title="View source" class="quarto-navigation-tool px-1" aria-label="View source"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -338,11 +340,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key features</a></li>
+  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key features</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software/chemistrylab.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
@@ -360,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    <p>A Julia package providing computational tools for chemistry and materials science.</p>
+    <p>A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.</p>
   </div>
 </div>
 
@@ -378,25 +380,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="../images/logo_chemistrylab.png" class="jfb-page-logo img-fluid"></p>
-<p><strong>ChemistryLab.jl</strong> is a Julia package for computational chemistry and materials science, featuring Gibbs-energy minimization, phase equilibria, and reaction kinetics. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.Registry.<span class="fu">add</span>(<span class="fu">RegistrySpec</span>(url<span class="op">=</span><span class="st">"https://github.com/MicroPoroChemoMechanics/MPCM-Registry"</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"ChemistryLab"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
+<p><strong>ChemistryLab.jl</strong> is a computational chemistry toolkit. Although initially dedicated to low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides chemical formula handling, species management, stoichiometric matrix construction, activity models, thermodynamic equilibrium and database interoperability. Developed with Anthony Soive and released under LGPL v2.1+. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li>Gibbs energy minimization using interior-point solver (OptimaSolver.jl backend)</li>
-<li>Phase equilibrium computations with multiple constraints</li>
-<li>Chemical kinetics and reaction rate laws</li>
-<li>Full ForwardDiff compatibility for sensitivity analysis</li>
+<li><strong>Chemical formula handling</strong> — creation, conversion and display with charge management, Unicode and Phreeqc notations</li>
+<li><strong>Species management</strong> — <code>Species</code> and <code>CemSpecies</code> types for solution and solid phases, with requalification via <code>with_class</code></li>
+<li><strong>Stoichiometric matrices</strong> — automatic construction for reaction and equilibrium analysis</li>
+<li><strong>Database interoperability</strong> — import and merge ThermoFun (<code>.json</code>) and Cemdata (<code>.dat</code>) data</li>
+<li><strong>Solid solutions</strong> — ideal (<code>IdealSolidSolutionModel</code>) or non-ideal binary (<code>RedlichKisterModel</code>) mineral mixing phases</li>
+<li><strong>Activity models</strong> — <code>DiluteSolutionModel</code>, <code>HKFActivityModel</code> (extended Debye–Hückel B-dot) and <code>DaviesActivityModel</code></li>
+<li><strong>Chemical equilibrium</strong> — equilibrium compositions by Gibbs energy minimization (<code>equilibrate</code>, <code>ChemicalSystem</code>, <code>ChemicalState</code>)</li>
+<li><strong>ForwardDiff compatibility</strong> — sensitivity analysis through the whole pipeline</li>
 </ul>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>ChemistryLab.jl is registered in Julia’s General registry:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"ChemistryLab"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Solving an equilibrium requires an optimization backend, loaded on demand through a package extension — either the default Ipopt one or the Julia-native interior-point solver:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span>, <span class="bu">OptimizationIpopt</span>   <span class="co"># default backend</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OptimaSolver</span>                      <span class="co"># Julia-native interior-point backend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>
-<p><a href="https://MicroPoroChemoMechanics.github.io/ChemistryLab.jl/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=julia.png" class="img-fluid" alt="Docs"></a> <a href="https://github.com/MicroPoroChemoMechanics/ChemistryLab.jl"><img src="https://img.shields.io/badge/GitHub-ChemistryLab.jl-181717?logo=github" class="img-fluid" alt="Repository"></a></p>
+<p><a href="https://MicroPoroChemoMechanics.github.io/ChemistryLab.jl/stable/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=julia.png" class="img-fluid" alt="Docs"></a> <a href="https://github.com/MicroPoroChemoMechanics/ChemistryLab.jl"><img src="https://img.shields.io/badge/GitHub-ChemistryLab.jl-181717?logo=github" class="img-fluid" alt="Repository"></a> <a href="https://doi.org/10.5281/zenodo.17756074"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17756074-blue" class="img-fluid" alt="DOI"></a></p>
 
 
 </section>
@@ -820,4 +830,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software/chemistrylab.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+</body></html>

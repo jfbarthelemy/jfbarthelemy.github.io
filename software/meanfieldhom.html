@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Julia package for symbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.">
+<meta name="description" content="Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities.">
 
-<title>TensND.jl – Jean-François Barthélémy</title>
+<title>MeanFieldHom.jl – Jean-François Barthélémy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -342,6 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key features</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
   <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
   </ul>
 </nav>
@@ -352,17 +353,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TensND.jl</h1>
+<h1 class="title">MeanFieldHom.jl</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Julia</div>
-    <div class="quarto-category">Tensors</div>
-    <div class="quarto-category">Linear Algebra</div>
+    <div class="quarto-category">Micromechanics</div>
+    <div class="quarto-category">Homogenization</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    <p>Julia package for symbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.</p>
+    <p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities.</p>
   </div>
 </div>
 
@@ -379,28 +380,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><img src="../images/logo_tensnd.png" class="jfb-page-logo img-fluid"></p>
-<p><strong>TensND.jl</strong> performs tensor calculations of any order and dimension in arbitrary coordinate systems (cartesian, polar, cylindrical, spherical, spheroidal or user-defined). It supports both symbolic computation (SymPy.jl, Symbolics.jl) and numerical evaluation with automatic differentiation (ForwardDiff.jl). The implementation is inspired by the Maple library <a href="http://jean.garrigues.perso.centrale-marseille.fr/tens3d.html">Tens3d</a> by Jean Garrigues. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
+<p><img src="../images/logo_mfh.png" class="jfb-page-logo img-fluid"></p>
+<p><strong>MeanFieldHom.jl</strong> predicts the effective elastic, transport and viscoelastic properties of a heterogeneous material from the properties, shapes, orientations and volume fractions of the phases of its microstructure. All the ingredients — inclusion morphologies, localization tensors and homogenization schemes — live under a common abstraction hierarchy with a shared numerical core and a central dispatch mechanism. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem, built on <strong><a href="../software/tensnd.html">TensND.jl</a></strong>.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li><strong>Basis types</strong> — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)</li>
-<li><strong>Tensor algebra</strong> — products (<code>⊗</code>, <code>⊗ˢ</code>, <code>⊠</code>, <code>⊠ˢ</code>, <code>⋅</code>, <code>⊡</code>, <code>⊙</code>), change of basis, variance management</li>
-<li><strong>Structured tensors</strong> — isotropic (<code>TensISO</code>), transversely isotropic (<code>TensTI{4}</code>, <code>TensTI</code>) and orthotropic (<code>TensOrtho</code>), with compact storage and efficient algebra</li>
-<li><strong>Symmetry projection</strong> — closest ISO, TI or ORTHO tensor, with rotation optimised via NLopt.jl</li>
-<li><strong>Differential operators</strong> — gradient, symmetric gradient, divergence, Laplacian and Hessian in curvilinear coordinates, symbolically or numerically</li>
-<li><strong>Generic type system</strong> — <code>Float64</code>, symbolic types (<code>Sym</code>, <code>Num</code>) and <code>ForwardDiff.Dual</code></li>
+<li><strong>Hill polarization tensors</strong> — ellipsoidal inclusions and infinite cylinders, 2D and 3D, isotropic, anisotropic or transversely isotropic coaxial matrices</li>
+<li><strong>Cracks</strong> — crack-opening-displacement tensor, compliance contribution, stress and displacement intensity factors for elliptic and ribbon cracks</li>
+<li><strong>Transport</strong> — second-order Hill tensor with a closed form for any matrix anisotropy</li>
+<li><strong>Layered inclusions</strong> — <code>n</code>-layer composite spheres and confocal spheroids with imperfect interfaces (perfect, spring, membrane, Kapitza, surface-conductive)</li>
+<li><strong>Homogenization schemes</strong> — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis, self-consistent and asymmetric self-consistent, differential</li>
+<li><strong>Ageing linear viscoelasticity</strong> — Volterra operators with structured ISO/TI/orthotropic kernel storage, available to every scheme</li>
+<li><strong>Finite-element inclusions</strong> — Eshelby problem solved numerically (3-D elliptical crack, sphere with an off-centre core) behind a two-backend contract</li>
+<li><strong>Prototyping-oriented</strong> — <code>ForwardDiff</code> sensitivities with respect to fractions, moduli and inclusion geometry, plus symbolic simplification via <code>SymPy</code> and <code>Symbolics</code></li>
 </ul>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>TensND.jl is registered in Julia’s General registry:</p>
+<p><code>MeanFieldHom.jl</code> is not (yet) registered in the General registry; install it directly from GitHub:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"TensND"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(url <span class="op">=</span> <span class="st">"https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Optional package extensions activate on weak dependencies: <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl">DECUHR.jl</a> with Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), and two finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl.</p>
+</section>
+<section id="documentation" class="level3">
+<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<p>Full documentation is available at <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/">MicroPoroChemoMechanics.github.io/MeanFieldHom.jl</a>, including a gallery of complete micromechanical models in the <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/applications/cement_paste/">Applications</a> section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in concrete, quasi-brittle strength, bituminous mixtures and ageing creep.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>
-<p><a href="https://MicroPoroChemoMechanics.github.io/TensND.jl/stable/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=julia.png" class="img-fluid" alt="Docs"></a> <a href="https://github.com/MicroPoroChemoMechanics/TensND.jl"><img src="https://img.shields.io/badge/GitHub-TensND.jl-181717?logo=github" class="img-fluid" alt="Repository"></a> <a href="https://doi.org/10.5281/zenodo.17985768"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.17985768-blue" class="img-fluid" alt="DOI"></a></p>
+<p><a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/"><img src="https://img.shields.io/badge/docs-dev-blue?logo=julia.png" class="img-fluid" alt="Docs"></a> <a href="https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl"><img src="https://img.shields.io/badge/GitHub-MeanFieldHom.jl-181717?logo=github" class="img-fluid" alt="Repository"></a></p>
 
 
 </section>

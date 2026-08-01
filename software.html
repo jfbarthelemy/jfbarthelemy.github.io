@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -42,14 +45,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-06df1809c378c4d422611db7dbb77227.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-601905fe6bb7a175f158e9a71fd66ce0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-92065a9b9fee8e98976da5d64c0b1590.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e6921007b5f14aa52321e196d7666a9d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-standalone .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -93,7 +97,35 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-standalone'] = new List('listing-standalone', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-mpcm-packages .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-mpcm-packages'] = new List('listing-mpcm-packages', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -113,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -347,7 +379,6 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io" title="View source" class="quarto-navigation-tool px-1" aria-label="View source"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -357,11 +388,18 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#standalone-projects" id="toc-standalone-projects" class="nav-link active" data-scroll-target="#standalone-projects">Standalone projects</a></li>
+  <li><a href="#microporochemomechanics" id="toc-microporochemomechanics" class="nav-link" data-scroll-target="#microporochemomechanics">MicroPoroChemoMechanics</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -371,7 +409,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -384,13 +422,11 @@ window.Quarto = {
 
 
 <p>A selection of academic freeware or open-source scientific libraries I develop and maintain.</p>
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<section id="standalone-projects" class="level2">
+<h2 class="anchored" data-anchor-id="standalone-projects">Standalone projects</h2>
+<div id="listing-standalone" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="QyUyQiUyQiUyQ1B5dGhvbiUyQ01pY3JvbWVjaGFuaWNzJTJDSG9tb2dlbml6YXRpb24=" data-listing-file-modified-sort="1784640012355" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
+<div class="g-col-1" data-index="0" data-categories="QyUyQiUyQiUyQ1B5dGhvbiUyQ01pY3JvbWVjaGFuaWNzJTJDSG9tb2dlbml6YXRpb24=" data-listing-file-modified-sort="1785596678872" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
 <a href="./software/echoes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -417,7 +453,18 @@ echoes
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNUZW5zb3JzJTJDTGluZWFyJTIwQWxnZWJyYQ==" data-listing-file-modified-sort="1784640012355" data-listing-reading-time-sort="1" data-listing-word-count-sort="76">
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="microporochemomechanics" class="level2">
+<h2 class="anchored" data-anchor-id="microporochemomechanics">MicroPoroChemoMechanics</h2>
+<p><img src="images/logo_org.png" class="jfb-page-logo img-fluid"></p>
+<p><strong><a href="./software/mpcm.html">MicroPoroChemoMechanics</a></strong> is a GitHub organisation of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The three packages below are its core; two further backend packages (OptimaSolver.jl and DECUHR.jl) are described on the <a href="./software/mpcm.html">organisation page</a>.</p>
+<p><a href="./software/mpcm.html" class="jfb-btn jfb-btn-primary"><iconify-icon role="img" inline="" icon="mdi:sitemap" aria-label="Icon sitemap from mdi Iconify.design set." title="Icon sitemap from mdi Iconify.design set."></iconify-icon> Organisation overview</a> <a href="https://github.com/MicroPoroChemoMechanics" class="jfb-btn jfb-btn-outline"><iconify-icon role="img" inline="" icon="mdi:github" aria-label="Icon github from mdi Iconify.design set." title="Icon github from mdi Iconify.design set."></iconify-icon> MicroPoroChemoMechanics on GitHub</a></p>
+<div id="listing-mpcm-packages" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-2">
+<div class="g-col-1" data-index="0" data-categories="SnVsaWElMkNUZW5zb3JzJTJDTGluZWFyJTIwQWxnZWJyYQ==" data-listing-file-modified-sort="1785596678872" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
 <a href="./software/tensnd.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -437,12 +484,12 @@ TensND.jl
 
 </div>
 <div class="card-text listing-description delink">
-<p>Julia package for structured tensor types with built-in symmetries. Isotropic, Walpole, orthotropic, and general tensors with ForwardDiff support.</p>
+<p>Julia package for symbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNDaGVtaXN0cnklMkNNYXRlcmlhbHMlMjBTY2llbmNl" data-listing-file-modified-sort="1784640012354" data-listing-reading-time-sort="1" data-listing-word-count-sort="52">
+<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNDaGVtaXN0cnklMkNNYXRlcmlhbHMlMjBTY2llbmNl" data-listing-file-modified-sort="1785596678871" data-listing-reading-time-sort="2" data-listing-word-count-sort="213">
 <a href="./software/chemistrylab.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -462,41 +509,45 @@ ChemistryLab.jl
 
 </div>
 <div class="card-text listing-description delink">
-<p>A Julia package providing computational tools for chemistry and materials science.</p>
+<p>A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.</p>
 </div>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="SnVsaWElMkNIb21vZ2VuaXphdGlvbiUyQ0NoZW1pc3RyeSUyQ01hdGVyaWFscyUyMFNjaWVuY2U=" data-listing-file-modified-sort="1784640012355" data-listing-reading-time-sort="1" data-listing-word-count-sort="156">
-<a href="./software/mpcm.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNNaWNyb21lY2hhbmljcyUyQ0hvbW9nZW5pemF0aW9u" data-listing-file-modified-sort="1785596678872" data-listing-reading-time-sort="2" data-listing-word-count-sort="277">
+<a href="./software/meanfieldhom.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="./images/logo_org.png" class="thumbnail-image card-img" style="height: 150px;">
+<img loading="lazy" src="./images/logo_mfh.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-MicroPoroChemoMechanics
+MeanFieldHom.jl
 </h5>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
 
+<div class="listing-category" onclick="window.quartoListingCategory('TWljcm9tZWNoYW5pY3M='); return false;">Micromechanics</div>
+
 <div class="listing-category" onclick="window.quartoListingCategory('SG9tb2dlbml6YXRpb24='); return false;">Homogenization</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Q2hlbWlzdHJ5'); return false;">Chemistry</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('TWF0ZXJpYWxzJTIwU2NpZW5jZQ=='); return false;">Materials Science</div>
 
 </div>
 <div class="card-text listing-description delink">
-<p>A Julia ecosystem for the coupled chemo-mechanics of porous reactive media. Structured tensors, mean-field homogenisation, computational chemistry, and adaptive cubature algorithms — all integrated and registered in MPCM-Registry.</p>
+<p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities.</p>
 </div>
 </div>
 </div></a>
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -915,4 +966,4 @@ MicroPoroChemoMechanics
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+</body></html>
