@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities.">
+<meta name="description" content="Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.">
 
 <title>MeanFieldHom.jl – Jean-François Barthélémy</title>
 <style>
@@ -358,12 +358,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-category">Julia</div>
     <div class="quarto-category">Micromechanics</div>
     <div class="quarto-category">Homogenization</div>
+    <div class="quarto-category">Machine Learning</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    <p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities.</p>
+    <p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.</p>
   </div>
 </div>
 
@@ -391,7 +392,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Layered inclusions</strong> — <code>n</code>-layer composite spheres and confocal spheroids with imperfect interfaces (perfect, spring, membrane, Kapitza, surface-conductive)</li>
 <li><strong>Homogenization schemes</strong> — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis, self-consistent and asymmetric self-consistent, differential</li>
 <li><strong>Ageing linear viscoelasticity</strong> — Volterra operators with structured ISO/TI/orthotropic kernel storage, available to every scheme</li>
+<li><strong>Open inclusion contract</strong> — any morphology joins every scheme through one of three entry gates (Hill tensor, localization tensors, contribution tensors), whatever computed the answer; the two below are its current tenants, not its limits</li>
 <li><strong>Finite-element inclusions</strong> — Eshelby problem solved numerically (3-D elliptical crack, sphere with an off-centre core) behind a two-backend contract</li>
+<li><strong>Neural-surrogate inclusions</strong> — a trained multilayer perceptron standing in for the Eshelby response, differentiable with respect to the morphology itself and orders of magnitude cheaper than the finite-element solve it replaces</li>
 <li><strong>Prototyping-oriented</strong> — <code>ForwardDiff</code> sensitivities with respect to fractions, moduli and inclusion geometry, plus symbolic simplification via <code>SymPy</code> and <code>Symbolics</code></li>
 </ul>
 </section>
@@ -400,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>MeanFieldHom.jl</code> is not (yet) registered in the General registry; install it directly from GitHub:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(url <span class="op">=</span> <span class="st">"https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Optional package extensions activate on weak dependencies: <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl">DECUHR.jl</a> with Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), and two finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl.</p>
+<p>Optional package extensions activate on weak dependencies: <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl">DECUHR.jl</a> with Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), two finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with Optimisers.jl and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them: the trained network carries no machine-learning dependency.</p>
 </section>
 <section id="documentation" class="level3">
 <h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
