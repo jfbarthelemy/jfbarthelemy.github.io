@@ -3,8 +3,9 @@ title: "MeanFieldHom.jl"
 description: >
   Julia framework for mean-field homogenization of heterogeneous materials.
   Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity
-  and all classical schemes, with ForwardDiff sensitivities.
-categories: [Julia, Micromechanics, Homogenization]
+  and all classical schemes, with ForwardDiff sensitivities. Morphologies without a
+  closed form enter by finite elements or a neural surrogate.
+categories: [Julia, Micromechanics, Homogenization, Machine Learning]
 image: "../images/logo_mfh.png"
 ---
 
@@ -30,8 +31,14 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
   self-consistent and asymmetric self-consistent, differential
 - **Ageing linear viscoelasticity** — Volterra operators with structured ISO/TI/orthotropic
   kernel storage, available to every scheme
+- **Open inclusion contract** — any morphology joins every scheme through one of three entry
+  gates (Hill tensor, localization tensors, contribution tensors), whatever computed the
+  answer; the two below are its current tenants, not its limits
 - **Finite-element inclusions** — Eshelby problem solved numerically (3-D elliptical crack,
   sphere with an off-centre core) behind a two-backend contract
+- **Neural-surrogate inclusions** — a trained multilayer perceptron standing in for the
+  Eshelby response, differentiable with respect to the morphology itself and orders of
+  magnitude cheaper than the finite-element solve it replaces
 - **Prototyping-oriented** — `ForwardDiff` sensitivities with respect to fractions, moduli and
   inclusion geometry, plus symbolic simplification via `SymPy` and `Symbolics`
 
@@ -48,8 +55,10 @@ Pkg.add(url = "https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl")
 Optional package extensions activate on weak dependencies:
 [DECUHR.jl](https://github.com/MicroPoroChemoMechanics/DECUHR.jl) with
 Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for
-the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), and two finite-element
-backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl.
+the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), two finite-element
+backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with Optimisers.jl
+and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them:
+the trained network carries no machine-learning dependency.
 
 ### Documentation
 
