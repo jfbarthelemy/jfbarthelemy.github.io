@@ -1,5 +1,5 @@
 ---
-title: "MeanFieldHom.jl"
+title: "MeanFieldHomogenization.jl"
 description: >
   Julia framework for mean-field homogenization of heterogeneous materials.
   Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity
@@ -11,7 +11,7 @@ image: "../images/logo_mfh.png"
 
 ![](../images/logo_mfh.png){.jfb-page-logo}
 
-**MeanFieldHom.jl** predicts the effective elastic, transport and viscoelastic properties
+**MeanFieldHomogenization.jl** predicts the effective elastic, transport and viscoelastic properties
 of a heterogeneous material from the properties, shapes, orientations and volume fractions
 of the phases of its microstructure. All the ingredients — inclusion morphologies, localization
 tensors and homogenization schemes — live under a common abstraction hierarchy with a shared
@@ -44,12 +44,11 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
 
 ### Installation
 
-`MeanFieldHom.jl` is not (yet) registered in the General registry; install it directly
-from GitHub:
+`MeanFieldHomogenization.jl` is registered in Julia's General registry:
 
 ```julia
 using Pkg
-Pkg.add(url = "https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl")
+Pkg.add("MeanFieldHomogenization")
 ```
 
 Optional package extensions activate on weak dependencies:
@@ -63,13 +62,13 @@ the trained network carries no machine-learning dependency.
 ### Documentation
 
 Full documentation is available at
-[MicroPoroChemoMechanics.github.io/MeanFieldHom.jl](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/),
+[MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/),
 including a gallery of complete micromechanical models in the
-[Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/applications/cement_paste/)
+[Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/cement_paste/)
 section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in
 concrete, quasi-brittle strength, bituminous mixtures and ageing creep.
 
 ### Links
 
-[![Docs](https://img.shields.io/badge/docs-dev-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/MeanFieldHom.jl/dev/)
-[![Repository](https://img.shields.io/badge/GitHub-MeanFieldHom.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/MeanFieldHom.jl)
+[![Docs](https://img.shields.io/badge/docs-dev-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/)
+[![Repository](https://img.shields.io/badge/GitHub-MeanFieldHomogenization.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/MeanFieldHomogenization.jl)

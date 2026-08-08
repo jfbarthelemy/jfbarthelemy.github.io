@@ -37,7 +37,7 @@ stoichiometric matrices, ThermoFun/Cemdata database interoperability, activity m
 thermodynamic equilibrium by Gibbs energy minimisation. Dimensionally aware via
 `DynamicQuantities`.
 
-### [MeanFieldHom.jl](meanfieldhom.qmd)
+### [MeanFieldHomogenization.jl](meanfieldhom.qmd)
 
 ![](../images/logo_mfh.png){.jfb-page-logo}
 
@@ -73,9 +73,9 @@ Exposed as a pluggable algorithm for the SciML **Integrals.jl** ecosystem.
 
 ## Installation and registry
 
-TensND.jl, ChemistryLab.jl, OptimaSolver.jl and DECUHR.jl are registered in Julia's **General
-registry** and installed with a plain `Pkg.add`. MeanFieldHom.jl is not registered yet and is
-installed from its repository URL (see its [page](meanfieldhom.qmd)).
+TensND.jl, ChemistryLab.jl, OptimaSolver.jl, DECUHR.jl and MeanFieldHomogenization.jl are
+registered in Julia's **General registry** and installed with a plain `Pkg.add` (see
+MeanFieldHomogenization.jl's [page](meanfieldhom.qmd) for details).
 
 The dedicated [MPCM-Registry](https://github.com/MicroPoroChemoMechanics/MPCM-Registry) is
 **deprecated** and kept only as a frozen historical snapshot; if you added it in the past,
