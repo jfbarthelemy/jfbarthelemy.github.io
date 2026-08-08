@@ -8,6 +8,8 @@ project:
 website:
   title: "Jean-François Barthélémy"
   favicon: images/id_jfb_cartoon.png
+  repo-url: https://github.com/jfbarthelemy/jfbarthelemy.github.io
+  repo-actions: [source]
   navbar:
     background: primary
     right:
