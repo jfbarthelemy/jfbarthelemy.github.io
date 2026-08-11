@@ -72,3 +72,4 @@ concrete, quasi-brittle strength, bituminous mixtures and ageing creep.
 
 [![Docs](https://img.shields.io/badge/docs-dev-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/)
 [![Repository](https://img.shields.io/badge/GitHub-MeanFieldHomogenization.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/MeanFieldHomogenization.jl)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21884243-blue)](https://doi.org/10.5281/zenodo.21884243)
