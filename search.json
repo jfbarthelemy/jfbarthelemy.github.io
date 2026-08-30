@@ -1,10 +1,94 @@
 [
   {
-    "objectID": "software/tensnd.html",
-    "href": "software/tensnd.html",
-    "title": "TensND.jl",
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software Libraries",
     "section": "",
-    "text": "TensND.jl performs tensor calculations of any order and dimension in arbitrary coordinate systems (cartesian, polar, cylindrical, spherical, spheroidal or user-defined). It supports both symbolic computation (SymPy.jl, Symbolics.jl) and numerical evaluation with automatic differentiation (ForwardDiff.jl). The implementation is inspired by the Maple library Tens3d by Jean Garrigues. Part of the MicroPoroChemoMechanics ecosystem.\n\nKey features\n\nBasis types — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)\nTensor algebra — products (⊗, ⊗ˢ, ⊠, ⊠ˢ, ⋅, ⊡, ⊙), change of basis, variance management\nStructured tensors — isotropic (TensISO), transversely isotropic (TensTI{4}, TensTI) and orthotropic (TensOrtho), with compact storage and efficient algebra\nSymmetry projection — closest ISO, TI or ORTHO tensor, with rotation optimised via NLopt.jl\nDifferential operators — gradient, symmetric gradient, divergence, Laplacian and Hessian in curvilinear coordinates, symbolically or numerically\nGeneric type system — Float64, symbolic types (Sym, Num) and ForwardDiff.Dual\n\n\n\nInstallation\nTensND.jl is registered in Julia’s General registry:\nusing Pkg\nPkg.add(\"TensND\")\n\n\nLinks"
+    "text": "A selection of academic freeware or open-source scientific libraries I develop and maintain."
+  },
+  {
+    "objectID": "software.html#microporochemomechanics",
+    "href": "software.html#microporochemomechanics",
+    "title": "Software Libraries",
+    "section": "MicroPoroChemoMechanics",
+    "text": "MicroPoroChemoMechanics\n\nMicroPoroChemoMechanics is a GitHub organization of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The three packages below are its core; two further backend packages (OptimaSolver.jl and DECUHR.jl) are described on the [organization page (software/mpcm.qmd).\n Organisation overview  MicroPoroChemoMechanics on GitHub\n\n\n\n\n\n\n\n\n\n\nTensND.jl\n\n\n\nJulia\n\nTensors\n\nLinear Algebra\n\n\n\nJulia package for symbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.\n\n\n\n\n\n\n\n\n\n\n\n\nChemistryLab.jl\n\n\n\nJulia\n\nChemistry\n\nMaterials Science\n\n\n\nA Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.\n\n\n\n\n\n\n\n\n\n\n\n\nMeanFieldHomogenization.jl\n\n\n\nJulia\n\nMicromechanics\n\nHomogenization\n\nMachine Learning\n\n\n\nJulia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "software.html#standalone-projects",
+    "href": "software.html#standalone-projects",
+    "title": "Software Libraries",
+    "section": "Standalone projects",
+    "text": "Standalone projects\n\n\n\n\n\n\n\n\n\n\nechoes\n\n\n\nC++\n\nPython\n\nMicromechanics\n\nHomogenization\n\n\n\nA C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "École Nationale des Ponts et Chaussées — 1st year\nCourse on scientific computing with Julia: interpolation, integration, linear systems, ordinary differential equations, and numerical methods. Includes lectures, tutorials and Jupyter notebooks.\n Accéder au cours"
+  },
+  {
+    "objectID": "teaching.html#current-course",
+    "href": "teaching.html#current-course",
+    "title": "Teaching",
+    "section": "",
+    "text": "École Nationale des Ponts et Chaussées — 1st year\nCourse on scientific computing with Julia: interpolation, integration, linear systems, ordinary differential equations, and numerical methods. Includes lectures, tutorials and Jupyter notebooks.\n Accéder au cours"
+  },
+  {
+    "objectID": "teaching.html#past-courses",
+    "href": "teaching.html#past-courses",
+    "title": "Teaching",
+    "section": "Past courses",
+    "text": "Past courses\n\n\n\nMécanique des milieux continus (2002–2022)\nÉcole Nationale des Ponts et Chaussées — 1st year\nTutorials on continuum mechanics for solids and fluids.\n\n\n\n\nMécanique numérique (2003–2005)\nÉcole Nationale des Ponts et Chaussées — 2nd year\nTutorials on numerical mechanics problems.\n\n\n\n\nMécanique des milieux poreux (2003)\nÉcole Nationale d’Ingénieurs de Tunis (ENIT) — Master (DEA MS2)\nCourse on porous media mechanics covering flow through porous materials, consolidation, and coupled hydro-mechanical processes."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jean-François Barthélémy",
+    "section": "",
+    "text": "I am a researcher at Cerema (Centre d’Études et d’Expertise sur les Risques, l’Environnement, la Mobilité et l’Aménagement), affiliated with the UMR MCD (Unité Mixte de Recherche Matériaux et Durabilité des Constructions, Université Gustave Eiffel)."
+  },
+  {
+    "objectID": "index.html#research-interests",
+    "href": "index.html#research-interests",
+    "title": "Jean-François Barthélémy",
+    "section": "Research Interests",
+    "text": "Research Interests\nMy work lies at the intersection of theoretical mechanics, materials science, and scientific computing. The main topics are:\n\nMicromechanics and homogenization — analytical and semi-analytical methods for predicting effective properties of heterogeneous materials (composites, geomaterials, cracked media)\nEshelby-based models — dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes for ellipsoidal and crack-like inclusions\nNonlinear and viscoelastic behavior — extension of homogenization methods to nonlinear elasticity and linear viscoelasticity\nScientific software development — open-source libraries in Julia and C++ for computational micromechanics (see Software)\n\n\n Software  Teaching  Publications"
+  },
+  {
+    "objectID": "software/mpcm.html",
+    "href": "software/mpcm.html",
+    "title": "MicroPoroChemoMechanics",
+    "section": "",
+    "text": "MicroPoroChemoMechanics is a GitHub organisation of which I am one of the owners. It hosts a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. The packages are designed to compose cleanly: they share conventions, are ForwardDiff-compatible, and plug into the SciML ecosystem."
+  },
+  {
+    "objectID": "software/mpcm.html#core-packages",
+    "href": "software/mpcm.html#core-packages",
+    "title": "MicroPoroChemoMechanics",
+    "section": "Core packages",
+    "text": "Core packages\n\nTensND.jl\n\nSymbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured isotropic, transversely isotropic and orthotropic types and curvilinear differential operators. It is the tensor foundation of the whole ecosystem.\n\n\nChemistryLab.jl\n\nComputational chemistry toolkit — chemical formula handling, species management, stoichiometric matrices, ThermoFun/Cemdata database interoperability, activity models and thermodynamic equilibrium by Gibbs energy minimisation. Dimensionally aware via DynamicQuantities.\n\n\nMeanFieldHomogenization.jl\n\nMean-field homogenisation framework for heterogeneous materials: Hill polarisation tensors for ellipsoidal inclusions and infinite cylinders, crack-opening-displacement tensors with stress and displacement intensity factors, second-order Hill tensors for transport problems, layered spheres and confocal spheroids with imperfect interfaces, ageing linear viscoelasticity, and all the classical schemes."
+  },
+  {
+    "objectID": "software/mpcm.html#backend-packages",
+    "href": "software/mpcm.html#backend-packages",
+    "title": "MicroPoroChemoMechanics",
+    "section": "Backend packages",
+    "text": "Backend packages\n\nOptimaSolver.jl\nPrimal-dual interior-point solver for Gibbs-energy minimization with diagonal Hessian structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend for ChemistryLab.jl equilibrium computations.\n \n\n\nDECUHR.jl\nPure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for automatic adaptive integration of functions with vertex singularities over hyper-rectangles. Exposed as a pluggable algorithm for the SciML Integrals.jl ecosystem."
+  },
+  {
+    "objectID": "software/mpcm.html#installation-and-registry",
+    "href": "software/mpcm.html#installation-and-registry",
+    "title": "MicroPoroChemoMechanics",
+    "section": "Installation and registry",
+    "text": "Installation and registry\nTensND.jl, ChemistryLab.jl, OptimaSolver.jl, DECUHR.jl and MeanFieldHomogenization.jl are registered in Julia’s General registry and installed with a plain Pkg.add (see MeanFieldHomogenization.jl’s page for details).\nThe dedicated MPCM-Registry is deprecated and kept only as a frozen historical snapshot; if you added it in the past, remove it with Pkg.Registry.rm(\"MPCM-Registry\").\n\n Organization on GitHub"
+  },
+  {
+    "objectID": "software/echoes.html",
+    "href": "software/echoes.html",
+    "title": "echoes",
+    "section": "",
+    "text": "echoes (Extended Calculator of HOmogEnization Schemes) implements a wide range of analytical homogenization models for random heterogeneous media.\n\nKey features\n\nDilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes\nEllipsoidal and crack-like heterogeneities\nElasticity, thermal conductivity, and linear viscoelasticity\nDerivatives of effective properties with respect to phase parameters (essential for secant-based nonlinear homogenization)\nPython interface with supporting modules\n\n\n\nDocumentation\nFull documentation and examples are available at jfbarthelemy.github.io/echoes.\n\n\nLinks"
   },
   {
     "objectID": "software/meanfieldhom.html",
@@ -21,32 +105,11 @@
     "text": "ChemistryLab.jl is a computational chemistry toolkit. Although initially dedicated to low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides chemical formula handling, species management, stoichiometric matrix construction, activity models, thermodynamic equilibrium and database interoperability. Developed with Anthony Soive and released under LGPL v2.1+. Part of the MicroPoroChemoMechanics ecosystem.\n\nKey features\n\nChemical formula handling — creation, conversion and display with charge management, Unicode and Phreeqc notations\nSpecies management — Species and CemSpecies types for solution and solid phases, with requalification via with_class\nStoichiometric matrices — automatic construction for reaction and equilibrium analysis\nDatabase interoperability — import and merge ThermoFun (.json) and Cemdata (.dat) data\nSolid solutions — ideal (IdealSolidSolutionModel) or non-ideal binary (RedlichKisterModel) mineral mixing phases\nActivity models — DiluteSolutionModel, HKFActivityModel (extended Debye–Hückel B-dot) and DaviesActivityModel\nChemical equilibrium — equilibrium compositions by Gibbs energy minimization (equilibrate, ChemicalSystem, ChemicalState)\nForwardDiff compatibility — sensitivity analysis through the whole pipeline\n\n\n\nInstallation\nChemistryLab.jl is registered in Julia’s General registry:\nusing Pkg\nPkg.add(\"ChemistryLab\")\nSolving an equilibrium requires an optimization backend, loaded on demand through a package extension — either the default Ipopt one or the Julia-native interior-point solver:\nusing Optimization, OptimizationIpopt   # default backend\n# or\nusing OptimaSolver                      # Julia-native interior-point backend\n\n\nLinks"
   },
   {
-    "objectID": "software.html",
-    "href": "software.html",
-    "title": "Software Libraries",
+    "objectID": "software/tensnd.html",
+    "href": "software/tensnd.html",
+    "title": "TensND.jl",
     "section": "",
-    "text": "A selection of academic freeware or open-source scientific libraries I develop and maintain."
-  },
-  {
-    "objectID": "software.html#standalone-projects",
-    "href": "software.html#standalone-projects",
-    "title": "Software Libraries",
-    "section": "Standalone projects",
-    "text": "Standalone projects\n\n\n\n\n\n\n\n\n\n\nechoes\n\n\n\nC++\n\nPython\n\nMicromechanics\n\nHomogenization\n\n\n\nA C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "software.html#microporochemomechanics",
-    "href": "software.html#microporochemomechanics",
-    "title": "Software Libraries",
-    "section": "MicroPoroChemoMechanics",
-    "text": "MicroPoroChemoMechanics\n\nMicroPoroChemoMechanics is a GitHub organization of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The three packages below are its core; two further backend packages (OptimaSolver.jl and DECUHR.jl) are described on the [organization page (software/mpcm.qmd).\n Organisation overview  MicroPoroChemoMechanics on GitHub\n\n\n\n\n\n\n\n\n\n\nTensND.jl\n\n\n\nJulia\n\nTensors\n\nLinear Algebra\n\n\n\nJulia package for symbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.\n\n\n\n\n\n\n\n\n\n\n\n\nChemistryLab.jl\n\n\n\nJulia\n\nChemistry\n\nMaterials Science\n\n\n\nA Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.\n\n\n\n\n\n\n\n\n\n\n\n\nMeanFieldHomogenization.jl\n\n\n\nJulia\n\nMicromechanics\n\nHomogenization\n\nMachine Learning\n\n\n\nJulia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "postprints.html",
-    "href": "postprints.html",
-    "title": "Postprints",
-    "section": "",
-    "text": "The author-accepted manuscripts (postprints) below are freely available as interactive HTML and downloadable PDF, re-typeset from the original sources into a neutral, self-contained layout. Each carries the full citation, DOI to the version of record, and is released under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 license. The published version of record remains with the respective publisher.\n\n\n\n\n\nCompliance of a crack embedded in a transformed transversely isotropic material\nJ.-F. Barthélémy, I. Sevostianov, A. Giraud, E. N. Vilchevskaya\nMath. Mech. Solids · 2024\n\n HTML  PDF  DOI\n\n\n\n\n\n\nMicromechanical modeling of a cracked elliptically orthotropic medium\nJ.-F. Barthélémy, I. Sevostianov, A. Giraud\nInt. J. Eng. Sci. · 2021\n\n HTML  PDF  DOI\n\n\n\n\n\n\nThe Eshelby problem of the confocal N-layer spheroid with imperfect interfaces and the notion of equivalent particle in thermal conduction\nJ.-F. Barthélémy, F. Bignonnet\nInt. J. Eng. Sci. · 2020\n\n HTML  PDF  DOI\n\n\n\n\n\n\nSimplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications\nJ.-F. Barthélémy\nInt. J. Eng. Sci. · 2020\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEffective properties of ageing linear viscoelastic media with spheroidal inhomogeneities\nJ.-F. Barthélémy, A. Giraud, J. Sanahuja, I. Sevostianov\nInt. J. Eng. Sci. · 2019\n\n HTML  PDF  DOI\n\n\n\n\n\n\nThe Eshelby inclusion problem in ageing linear viscoelasticity\nJ.-F. Barthélémy, A. Giraud, F. Lavergne, J. Sanahuja\nInt. J. Solids Struct. · 2016\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEstimates of fracture density and uncertainties from well data\nJ.-F. Barthélémy, M. L. E. Guiton, J.-M. Daniel\nInt. J. Rock Mech. Min. Sci. · 2009\n\n HTML  PDF  DOI\n\n\n\n\n\n\nCompliance and Hill polarization tensor of a crack in an anisotropic matrix\nJ.-F. Barthélémy\nInt. J. Solids Struct. · 2009\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEffective permeability of media with a dense network of long and micro fractures\nJ.-F. Barthélémy\nTransport in Porous Media · 2008\n\n HTML  PDF  DOI"
+    "text": "TensND.jl performs tensor calculations of any order and dimension in arbitrary coordinate systems (cartesian, polar, cylindrical, spherical, spheroidal or user-defined). It supports both symbolic computation (SymPy.jl, Symbolics.jl) and numerical evaluation with automatic differentiation (ForwardDiff.jl). The implementation is inspired by the Maple library Tens3d by Jean Garrigues. Part of the MicroPoroChemoMechanics ecosystem.\n\nKey features\n\nBasis types — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)\nTensor algebra — products (⊗, ⊗ˢ, ⊠, ⊠ˢ, ⋅, ⊡, ⊙), change of basis, variance management\nStructured tensors — isotropic (TensISO), transversely isotropic (TensTI{4}, TensTI) and orthotropic (TensOrtho), with compact storage and efficient algebra\nSymmetry projection — closest ISO, TI or ORTHO tensor, with rotation optimised via NLopt.jl\nDifferential operators — gradient, symmetric gradient, divergence, Laplacian and Hessian in curvilinear coordinates, symbolically or numerically\nGeneric type system — Float64, symbolic types (Sym, Num) and ForwardDiff.Dual\n\n\n\nInstallation\nTensND.jl is registered in Julia’s General registry:\nusing Pkg\nPkg.add(\"TensND\")\n\n\nLinks"
   },
   {
     "objectID": "about.html",
@@ -68,6 +131,13 @@
     "title": "About",
     "section": "Research Interests",
     "text": "Research Interests\nMy work lies at the intersection of theoretical mechanics, materials science, and scientific computing. The main topics are:\n\nMicromechanics and homogenization — analytical and semi-analytical methods for predicting effective properties of heterogeneous materials (composites, geomaterials, cracked media)\nEshelby-based models — dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes for ellipsoidal and crack-like inclusions\nNonlinear and viscoelastic behavior — extension of homogenization methods to nonlinear elasticity and linear viscoelasticity\nScientific software development — open-source libraries in Julia and C++ for computational micromechanics (see Software)"
+  },
+  {
+    "objectID": "postprints.html",
+    "href": "postprints.html",
+    "title": "Postprints",
+    "section": "",
+    "text": "The author-accepted manuscripts (postprints) below are freely available as interactive HTML and downloadable PDF, re-typeset from the original sources into a neutral, self-contained layout. Each carries the full citation, DOI to the version of record, and is released under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 license. The published version of record remains with the respective publisher.\n\n\n\n\n\nCompliance of a crack embedded in a transformed transversely isotropic material\nJ.-F. Barthélémy, I. Sevostianov, A. Giraud, E. N. Vilchevskaya\nMath. Mech. Solids · 2024\n\n HTML  PDF  DOI\n\n\n\n\n\n\nMicromechanical modeling of a cracked elliptically orthotropic medium\nJ.-F. Barthélémy, I. Sevostianov, A. Giraud\nInt. J. Eng. Sci. · 2021\n\n HTML  PDF  DOI\n\n\n\n\n\n\nThe Eshelby problem of the confocal N-layer spheroid with imperfect interfaces and the notion of equivalent particle in thermal conduction\nJ.-F. Barthélémy, F. Bignonnet\nInt. J. Eng. Sci. · 2020\n\n HTML  PDF  DOI\n\n\n\n\n\n\nSimplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications\nJ.-F. Barthélémy\nInt. J. Eng. Sci. · 2020\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEffective properties of ageing linear viscoelastic media with spheroidal inhomogeneities\nJ.-F. Barthélémy, A. Giraud, J. Sanahuja, I. Sevostianov\nInt. J. Eng. Sci. · 2019\n\n HTML  PDF  DOI\n\n\n\n\n\n\nThe Eshelby inclusion problem in ageing linear viscoelasticity\nJ.-F. Barthélémy, A. Giraud, F. Lavergne, J. Sanahuja\nInt. J. Solids Struct. · 2016\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEstimates of fracture density and uncertainties from well data\nJ.-F. Barthélémy, M. L. E. Guiton, J.-M. Daniel\nInt. J. Rock Mech. Min. Sci. · 2009\n\n HTML  PDF  DOI\n\n\n\n\n\n\nCompliance and Hill polarization tensor of a crack in an anisotropic matrix\nJ.-F. Barthélémy\nInt. J. Solids Struct. · 2009\n\n HTML  PDF  DOI\n\n\n\n\n\n\nEffective permeability of media with a dense network of long and micro fractures\nJ.-F. Barthélémy\nTransport in Porous Media · 2008\n\n HTML  PDF  DOI"
   },
   {
     "objectID": "publications.html",
@@ -166,75 +236,5 @@
     "title": "Publications",
     "section": " Software and numerical libraries",
     "text": "Software and numerical libraries\n\n\n[1] Barthélémy J-F. TensND.jl: Package allowing tensor calculations in arbitrary coordinate systems 2026. https://doi.org/10.5281/ZENODO.17985768.\n\n\n[2] Barthélémy J-F. Echoes: Extended Calculator of HOmogEnization Schemes 2026. https://doi.org/10.5281/ZENODO.19679057.\n\n\n[3] Barthélémy J-F, Soive A. ChemistryLab.jl: Numerical laboratory for computational chemistry 2026. https://doi.org/10.5281/ZENODO.17756074."
-  },
-  {
-    "objectID": "teaching.html",
-    "href": "teaching.html",
-    "title": "Teaching",
-    "section": "",
-    "text": "École Nationale des Ponts et Chaussées — 1st year\nCourse on scientific computing with Julia: interpolation, integration, linear systems, ordinary differential equations, and numerical methods. Includes lectures, tutorials and Jupyter notebooks.\n Accéder au cours"
-  },
-  {
-    "objectID": "teaching.html#current-course",
-    "href": "teaching.html#current-course",
-    "title": "Teaching",
-    "section": "",
-    "text": "École Nationale des Ponts et Chaussées — 1st year\nCourse on scientific computing with Julia: interpolation, integration, linear systems, ordinary differential equations, and numerical methods. Includes lectures, tutorials and Jupyter notebooks.\n Accéder au cours"
-  },
-  {
-    "objectID": "teaching.html#past-courses",
-    "href": "teaching.html#past-courses",
-    "title": "Teaching",
-    "section": "Past courses",
-    "text": "Past courses\n\n\n\nMécanique des milieux continus (2002–2022)\nÉcole Nationale des Ponts et Chaussées — 1st year\nTutorials on continuum mechanics for solids and fluids.\n\n\n\n\nMécanique numérique (2003–2005)\nÉcole Nationale des Ponts et Chaussées — 2nd year\nTutorials on numerical mechanics problems.\n\n\n\n\nMécanique des milieux poreux (2003)\nÉcole Nationale d’Ingénieurs de Tunis (ENIT) — Master (DEA MS2)\nCourse on porous media mechanics covering flow through porous materials, consolidation, and coupled hydro-mechanical processes."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jean-François Barthélémy",
-    "section": "",
-    "text": "I am a researcher at Cerema (Centre d’Études et d’Expertise sur les Risques, l’Environnement, la Mobilité et l’Aménagement), affiliated with the UMR MCD (Unité Mixte de Recherche Matériaux et Durabilité des Constructions, Université Gustave Eiffel)."
-  },
-  {
-    "objectID": "index.html#research-interests",
-    "href": "index.html#research-interests",
-    "title": "Jean-François Barthélémy",
-    "section": "Research Interests",
-    "text": "Research Interests\nMy work lies at the intersection of theoretical mechanics, materials science, and scientific computing. The main topics are:\n\nMicromechanics and homogenization — analytical and semi-analytical methods for predicting effective properties of heterogeneous materials (composites, geomaterials, cracked media)\nEshelby-based models — dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes for ellipsoidal and crack-like inclusions\nNonlinear and viscoelastic behavior — extension of homogenization methods to nonlinear elasticity and linear viscoelasticity\nScientific software development — open-source libraries in Julia and C++ for computational micromechanics (see Software)\n\n\n Software  Teaching  Publications"
-  },
-  {
-    "objectID": "software/mpcm.html",
-    "href": "software/mpcm.html",
-    "title": "MicroPoroChemoMechanics",
-    "section": "",
-    "text": "MicroPoroChemoMechanics is a GitHub organisation of which I am one of the owners. It hosts a collection of Julia packages for multiscale modelling of porous reactive materials — from molecular-level thermodynamic equilibrium to macroscopic poromechanical response. The packages are designed to compose cleanly: they share conventions, are ForwardDiff-compatible, and plug into the SciML ecosystem."
-  },
-  {
-    "objectID": "software/mpcm.html#core-packages",
-    "href": "software/mpcm.html#core-packages",
-    "title": "MicroPoroChemoMechanics",
-    "section": "Core packages",
-    "text": "Core packages\n\nTensND.jl\n\nSymbolic and numerical tensor calculations of any order and dimension in arbitrary coordinate systems, with structured isotropic, transversely isotropic and orthotropic types and curvilinear differential operators. It is the tensor foundation of the whole ecosystem.\n\n\nChemistryLab.jl\n\nComputational chemistry toolkit — chemical formula handling, species management, stoichiometric matrices, ThermoFun/Cemdata database interoperability, activity models and thermodynamic equilibrium by Gibbs energy minimisation. Dimensionally aware via DynamicQuantities.\n\n\nMeanFieldHomogenization.jl\n\nMean-field homogenisation framework for heterogeneous materials: Hill polarisation tensors for ellipsoidal inclusions and infinite cylinders, crack-opening-displacement tensors with stress and displacement intensity factors, second-order Hill tensors for transport problems, layered spheres and confocal spheroids with imperfect interfaces, ageing linear viscoelasticity, and all the classical schemes."
-  },
-  {
-    "objectID": "software/mpcm.html#backend-packages",
-    "href": "software/mpcm.html#backend-packages",
-    "title": "MicroPoroChemoMechanics",
-    "section": "Backend packages",
-    "text": "Backend packages\n\nOptimaSolver.jl\nPrimal-dual interior-point solver for Gibbs-energy minimization with diagonal Hessian structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend for ChemistryLab.jl equilibrium computations.\n \n\n\nDECUHR.jl\nPure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for automatic adaptive integration of functions with vertex singularities over hyper-rectangles. Exposed as a pluggable algorithm for the SciML Integrals.jl ecosystem."
-  },
-  {
-    "objectID": "software/mpcm.html#installation-and-registry",
-    "href": "software/mpcm.html#installation-and-registry",
-    "title": "MicroPoroChemoMechanics",
-    "section": "Installation and registry",
-    "text": "Installation and registry\nTensND.jl, ChemistryLab.jl, OptimaSolver.jl, DECUHR.jl and MeanFieldHomogenization.jl are registered in Julia’s General registry and installed with a plain Pkg.add (see MeanFieldHomogenization.jl’s page for details).\nThe dedicated MPCM-Registry is deprecated and kept only as a frozen historical snapshot; if you added it in the past, remove it with Pkg.Registry.rm(\"MPCM-Registry\").\n\n Organization on GitHub"
-  },
-  {
-    "objectID": "software/echoes.html",
-    "href": "software/echoes.html",
-    "title": "echoes",
-    "section": "",
-    "text": "echoes (Extended Calculator of HOmogEnization Schemes) implements a wide range of analytical homogenization models for random heterogeneous media.\n\nKey features\n\nDilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes\nEllipsoidal and crack-like heterogeneities\nElasticity, thermal conductivity, and linear viscoelasticity\nDerivatives of effective properties with respect to phase parameters (essential for secant-based nonlinear homogenization)\nPython interface with supporting modules\n\n\n\nDocumentation\nFull documentation and examples are available at jfbarthelemy.github.io/echoes.\n\n\nLinks"
   }
 ]
