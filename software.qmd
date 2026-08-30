@@ -23,11 +23,6 @@ listing:
 
 A selection of academic freeware or open-source scientific libraries I develop and maintain.
 
-## Standalone projects
-
-::: {#standalone}
-:::
-
 ## MicroPoroChemoMechanics
 
 ![](images/logo_org.png){.jfb-page-logo}
@@ -38,4 +33,9 @@ A selection of academic freeware or open-source scientific libraries I develop a
 [{{< iconify mdi github >}} MicroPoroChemoMechanics on GitHub](https://github.com/MicroPoroChemoMechanics){.jfb-btn .jfb-btn-outline}
 
 ::: {#mpcm-packages}
+:::
+
+## Standalone projects
+
+::: {#standalone}
 :::
