@@ -14,7 +14,7 @@ nocite: |
   - @lozinguezPCCI2017, @barthelemyPASICAM2011, @barthelemyIFP2006, @barthelemyPhD2005
   - @etcheverryRISQUE2012
   - @barthelemyBREV2009
-  - @tensnd, @echoes, @chemistrylab
+  - @echoes, @tensnd, @chemistrylab, @meanfieldhomogenization
 ---
 
 {{< include _includes/_postprints_featured.qmd >}}
