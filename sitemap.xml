@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jfbarthelemy.github.io/software.html</loc>
-    <lastmod>2026-08-31T14:30:39.853Z</lastmod>
+    <loc>https://jfbarthelemy.github.io/about.html</loc>
+    <lastmod>2026-09-10T12:08:40.580Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/teaching.html</loc>
-    <lastmod>2026-08-31T14:30:39.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/index.html</loc>
-    <lastmod>2026-08-31T14:30:39.764Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software/mpcm.html</loc>
-    <lastmod>2026-08-31T14:30:39.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software/echoes.html</loc>
-    <lastmod>2026-08-31T14:30:39.854Z</lastmod>
+    <lastmod>2026-09-10T12:08:40.683Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/software/meanfieldhom.html</loc>
-    <lastmod>2026-08-31T14:30:39.854Z</lastmod>
+    <lastmod>2026-09-10T12:08:40.683Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/mpcm.html</loc>
+    <lastmod>2026-09-10T12:08:40.683Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/software/chemistrylab.html</loc>
-    <lastmod>2026-08-31T14:30:39.853Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/software/tensnd.html</loc>
-    <lastmod>2026-08-31T14:30:39.854Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jfbarthelemy.github.io/about.html</loc>
-    <lastmod>2026-08-31T14:30:39.759Z</lastmod>
+    <lastmod>2026-09-10T12:08:40.682Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/postprints.html</loc>
-    <lastmod>2026-08-31T14:30:39.764Z</lastmod>
+    <lastmod>2026-09-10T12:08:40.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/index.html</loc>
+    <lastmod>2026-09-10T12:08:40.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/echoes.html</loc>
+    <lastmod>2026-09-10T12:08:40.683Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software/tensnd.html</loc>
+    <lastmod>2026-09-10T12:08:40.683Z</lastmod>
   </url>
   <url>
     <loc>https://jfbarthelemy.github.io/publications.html</loc>
-    <lastmod>2026-08-31T14:30:39.853Z</lastmod>
+    <lastmod>2026-09-10T12:08:40.682Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jfbarthelemy.github.io/software.html</loc>
+    <lastmod>2026-09-10T12:08:40.682Z</lastmod>
   </url>
 </urlset>
