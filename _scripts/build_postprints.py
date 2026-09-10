@@ -39,7 +39,15 @@ def deploy(entry):
     src = os.path.join(ARTICLES, entry["dir"], "Webpublish", "web")
     dst = os.path.join(SITE, "postprints", slug)
     if not os.path.isdir(src):
-        sys.exit(f"  ✗ missing source bundle: {src}")
+        # The article's own working copy is not on this machine (moved, or built
+        # elsewhere) — keep whatever was deployed last time rather than blocking every
+        # other postprint's card/link-map regeneration on it.
+        if os.path.isdir(dst):
+            print(f"  ~ {slug:<28} source bundle missing ({src}) — keeping the last deploy")
+        else:
+            print(f"  ✗ {slug:<28} source bundle missing ({src}) — no previous deploy either, "
+                  f"its card will 404")
+        return None
     shutil.rmtree(dst, ignore_errors=True)
     os.makedirs(dst)
 
@@ -116,7 +124,7 @@ def gen_featured(items):
 ::: {{.pp-featured}}
 ##### {{{{< iconify mdi:file-document-multiple-outline >}}}} Open-access postprints
 
-Author-accepted manuscripts of {len(items)} selected journal articles are freely available
+Author-accepted manuscripts of selected journal articles are freely available
 (HTML + PDF, CC BY-NC-ND license):
 
 ::: {{.pp-chips}}

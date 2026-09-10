@@ -4,6 +4,24 @@
 
 ::: {.g-col-12 .g-col-md-6 .g-col-lg-4}
 ::: {.pp-card}
+[![](/postprints/sifaniso/thumb.png){.pp-thumb}](/postprints/sifaniso/)
+
+[Displacement and stress intensity factors of elliptical and ribbon-like cracks in a transformed transversely isotropic matrix](/postprints/sifaniso/){.pp-title}
+
+[J.-F. Barthélémy]{.pp-authors}
+
+[Int. J. Solids Struct. · 2026]{.pp-badge}
+
+::: {.pp-btns}
+[{{< iconify mdi:web >}} HTML](/postprints/sifaniso/){.jfb-btn .jfb-btn-outline}
+[{{< iconify mdi:file-pdf-box >}} PDF](/postprints/sifaniso/sifaniso.pdf){.jfb-btn .jfb-btn-outline}
+[{{< ai doi >}} DOI](https://doi.org/10.1016/j.ijsolstr.2026.114293){.jfb-btn .jfb-btn-outline}
+:::
+:::
+:::
+
+::: {.g-col-12 .g-col-md-6 .g-col-lg-4}
+::: {.pp-card}
 [![](/postprints/crackintrati/thumb.png){.pp-thumb}](/postprints/crackintrati/)
 
 [Compliance of a crack embedded in a transformed transversely isotropic material](/postprints/crackintrati/){.pp-title}

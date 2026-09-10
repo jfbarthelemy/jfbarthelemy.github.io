@@ -81,4 +81,10 @@ POSTPRINTS = [
         authors="J.-F. Barthélémy",
         journal="Transport in Porous Media", year=2008, doi="10.1007/s11242-008-9241-9",
     ),
+    dict(
+        dir="SifAniso", slug="sifaniso", key="barthelemyIJSS2026",
+        title="Displacement and stress intensity factors of elliptical and ribbon-like cracks in a transformed transversely isotropic matrix",
+        authors="J.-F. Barthélémy",
+        journal="Int. J. Solids Struct.", year=2026, doi="10.1016/j.ijsolstr.2026.114293",
+    ),
 ]

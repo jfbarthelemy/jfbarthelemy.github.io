@@ -3,10 +3,11 @@
 ::: {.pp-featured}
 ##### {{< iconify mdi:file-document-multiple-outline >}} Open-access postprints
 
-Author-accepted manuscripts of 9 selected journal articles are freely available
+Author-accepted manuscripts of selected journal articles are freely available
 (HTML + PDF, CC BY-NC-ND license):
 
 ::: {.pp-chips}
+[Int. J. Solids Struct. 2026](/postprints/sifaniso/){.pp-chip}
 [Math. Mech. Solids 2024](/postprints/crackintrati/){.pp-chip}
 [Int. J. Eng. Sci. 2021](/postprints/crackineo/){.pp-chip}
 [Int. J. Eng. Sci. 2020](/postprints/nlayer_spheroid_conduction/){.pp-chip}
