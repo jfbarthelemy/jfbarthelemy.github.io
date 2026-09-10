@@ -6,3 +6,12 @@
 
 CLAUDE.md
 .claude
+
+# Python cache (e.g. _scripts/__pycache__/, from running build_postprints.py)
+__pycache__/
+*.pyc
+
+# editor / OS temp files
+.DS_Store
+*.swp
+*~
