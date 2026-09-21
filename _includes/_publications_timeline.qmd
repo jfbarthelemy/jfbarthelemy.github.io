@@ -23,6 +23,38 @@
 :::
 :::
 
+::: {#ref-barthelemy2026a .pub-item data-family="software" data-group="log" data-year="2026"}
+[DECUHR.jl: Adaptive cubature for vertex singularities](https://doi.org/10.5281/ZENODO.22878393){.pub-title}
+
+[**J.-F. Barthélémy**]{.pub-authors}
+
+[v0.2.1 · Zenodo]{.pub-venue}
+
+::: {.pub-tags}
+[Software]{.pub-tag .pub-tag-software}
+:::
+
+::: {.pub-links}
+[DOI](https://doi.org/10.5281/ZENODO.22878393){.pub-link} [Zenodo](https://zenodo.org/doi/10.5281/zenodo.22878393){.pub-link}
+:::
+:::
+
+::: {#ref-barthelemy2026 .pub-item data-family="software" data-group="log" data-year="2026"}
+[OptimaSolver.jl: Julia-native primal-dual interior-point solver for Gibbs-energy minimization](https://doi.org/10.5281/ZENODO.19534031){.pub-title}
+
+[**J.-F. Barthélémy**]{.pub-authors}
+
+[v0.6.0 · Zenodo]{.pub-venue}
+
+::: {.pub-tags}
+[Software]{.pub-tag .pub-tag-software}
+:::
+
+::: {.pub-links}
+[DOI](https://doi.org/10.5281/ZENODO.19534031){.pub-link} [Zenodo](https://zenodo.org/doi/10.5281/zenodo.19534031){.pub-link}
+:::
+:::
+
 ::: {#ref-tensnd .pub-item data-family="software" data-group="log" data-year="2026"}
 [TensND.jl: Package allowing tensor calculations in arbitrary coordinate systems](https://doi.org/10.5281/zenodo.17985768){.pub-title}
 

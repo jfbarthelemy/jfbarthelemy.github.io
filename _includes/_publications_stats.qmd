@@ -3,7 +3,7 @@
 :::: {.stat-strip}
 
 ::: {.stat}
-[107]{.stat-value}
+[109]{.stat-value}
 [publications]{.stat-label}
 :::
 
