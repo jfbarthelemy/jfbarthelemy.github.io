@@ -28,7 +28,7 @@
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
-[v0.3.2 · Zenodo]{.pub-venue}
+[v0.5.0 · Zenodo]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -44,7 +44,7 @@
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
-[0.7.0]{.pub-venue}
+[v0.14.2]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -60,7 +60,7 @@
 
 [**J.-F. Barthélémy**, A. Soive]{.pub-authors}
 
-[v0.3.1 · Zenodo]{.pub-venue}
+[v0.18.0 · Zenodo]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -72,7 +72,7 @@
 :::
 
 ::: {#ref-echoes .pub-item data-family="software" data-group="log" data-year="2026"}
-[Echoes: Extended Calculator of HOmogEnization Schemes](https://doi.org/10.5281/zenodo.19679057){.pub-title}
+[Echoes: Extended Calculator of HOmogEnization Schemes](https://doi.org/10.5281/zenodo.7348758){.pub-title}
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
@@ -83,7 +83,7 @@
 :::
 
 ::: {.pub-links}
-[DOI](https://doi.org/10.5281/zenodo.19679057){.pub-link} [Docs](https://jfbarthelemy.github.io/echoes/){.pub-link}
+[DOI](https://doi.org/10.5281/zenodo.7348758){.pub-link} [Docs](https://jfbarthelemy.github.io/echoes/){.pub-link}
 :::
 :::
 
