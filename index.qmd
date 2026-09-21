@@ -1,60 +1,101 @@
 ---
 title: "Jean-François Barthélémy"
-subtitle: Researcher at Cerema / UMR MCD team
-image: "images/id_jfb_cartoon.png"
-about:
-  template: trestles
-  image-width: 8em
-  image-shape: rounded
-  links:
-    - text: "{{< ai orcid color=#A7CF36 >}} ORCID"
-      url: "https://orcid.org/0000-0002-1968-8939"
-    - text: "{{< iconify simple-icons github >}} GitHub"
-      url: "https://github.com/jfbarthelemy"
-    - text: "{{< iconify simple-icons codeberg >}} Codeberg"
-      url: "https://codeberg.org/jfbarthelemy"
-    - text: "{{< ai researchgate >}} Researchgate"
-      url: "https://www.researchgate.net/profile/Jean-Francois_Barthelemy"
-    - text: "{{< ai google-scholar >}} Google Scholar"
-      url: "https://scholar.google.com/citations?user=RVjtCiAAAAAJ&hl=en"
-    - text: "{{< ai hal >}} HAL"
-      url: "https://hal.archives-ouvertes.fr/search/index/?q=%2A&authIdHal_s=jfbarthelemy"
-    - text: "{{< ai clarivate >}} Web Of Science"
-      url: "https://www.webofscience.com/wos/author/record/449919"
-    - text: "{{< iconify devicon linkedin >}} LinkedIn"
-      url: "https://www.linkedin.com/in/jean-fran%C3%A7ois-barth%C3%A9l%C3%A9my-75b3122/"
-    - text: Email
-      icon: envelope
-      url: "mailto:jf.barthelemy@cerema.fr"
-    - text: "![](images/LogoCerema_horizontal.jpg){width=6cm}"
-      url: "https://www.cerema.fr/en"
-    - text: "![](images/UMR%20MCD-couleur-300dpi.jpg){width=6cm}"
-      url: "https://mcd.univ-gustave-eiffel.fr/"
-
+subtitle: "Researcher · Cerema / UMR MCD"
+description-meta: >
+  Researcher at Cerema and UMR MCD — micromechanics, homogenization of heterogeneous
+  materials, and open-source scientific computing.
+toc: false
 ---
 
-I am a researcher at [Cerema](https://www.cerema.fr/en) (Centre d'Études et d'Expertise
-sur les Risques, l'Environnement, la Mobilité et l'Aménagement), affiliated with the
-[UMR MCD](https://mcd.univ-gustave-eiffel.fr/) (Unité Mixte de Recherche Matériaux et
-Durabilité des Constructions, Université Gustave Eiffel).
+::::: {.hero}
 
-## Research Interests
+:::: {.hero-body}
 
-My work lies at the intersection of theoretical mechanics, materials science, and
-scientific computing. The main topics are:
+I work at the intersection of theoretical mechanics, materials science and scientific
+computing, at [Cerema](https://www.cerema.fr/en) (Centre d'Études et d'Expertise sur les
+Risques, l'Environnement, la Mobilité et l'Aménagement) and within the
+[UMR MCD](https://mcd.univ-gustave-eiffel.fr/) (Matériaux et Durabilité des Constructions,
+Université Gustave Eiffel).
 
-- **Micromechanics and homogenization** — analytical and semi-analytical methods for
-  predicting effective properties of heterogeneous materials (composites, geomaterials,
-  cracked media)
-- **Eshelby-based models** — dilute, Mori–Tanaka, self-consistent, and generalized
-  self-consistent schemes for ellipsoidal and crack-like inclusions
-- **Nonlinear and viscoelastic behavior** — extension of homogenization methods to
-  nonlinear elasticity and linear viscoelasticity
-- **Scientific software development** — open-source libraries in Julia and C++ for
-  computational micromechanics (see [Software](software.qmd))
+::: {.hero-actions}
+[{{< iconify academicons google-scholar >}} Publications](publications.qmd){.btn-jfb .btn-jfb-primary}
+[{{< iconify fluent code-block-16-regular >}} Software](software.qmd){.btn-jfb}
+[{{< iconify mdi:file-document-multiple-outline >}} Postprints](postprints.qmd){.btn-jfb}
+:::
 
-::: {.jfb-nav-buttons}
-[{{< iconify fluent code-block-16-regular >}} Software](software.qmd){.jfb-btn .jfb-btn-outline}
-[{{< bi mortarboard-fill >}} Teaching](teaching.qmd){.jfb-btn .jfb-btn-outline}
-[{{< iconify academicons google-scholar >}} Publications](publications.qmd){.jfb-btn .jfb-btn-outline}
+::: {.hero-social}
+[{{< ai orcid >}} ORCID](https://orcid.org/0000-0002-1968-8939)
+[{{< iconify simple-icons github >}} GitHub](https://github.com/jfbarthelemy)
+[{{< iconify simple-icons codeberg >}} Codeberg](https://codeberg.org/jfbarthelemy)
+[{{< ai google-scholar >}} Scholar](https://scholar.google.com/citations?user=RVjtCiAAAAAJ&hl=en)
+[{{< ai hal >}} HAL](https://hal.archives-ouvertes.fr/search/index/?q=%2A&authIdHal_s=jfbarthelemy)
+[{{< ai researchgate >}} ResearchGate](https://www.researchgate.net/profile/Jean-Francois_Barthelemy)
+[{{< ai clarivate >}} Web of Science](https://www.webofscience.com/wos/author/record/449919)
+[{{< iconify devicon linkedin >}} LinkedIn](https://www.linkedin.com/in/jean-fran%C3%A7ois-barth%C3%A9l%C3%A9my-75b3122/)
+[{{< iconify mdi:email-outline >}} Email](mailto:jf.barthelemy@cerema.fr)
+:::
+
+::::
+
+![](images/portrait.png){.hero-portrait fig-alt="Jean-François Barthélémy"}
+
+:::::
+
+::: {.affil-strip}
+[![Cerema](images/logo-cerema.jpg){.affil-logo}](https://www.cerema.fr/en)
+[![UMR MCD — Université Gustave Eiffel](images/logo-umr-mcd.png){.affil-logo}](https://mcd.univ-gustave-eiffel.fr/)
+:::
+
+{{< include _includes/_publications_stats.qmd >}}
+
+## Research interests
+
+:::: {.card-grid .card-grid-2}
+
+::: {.jfb-card}
+### Micromechanics and homogenization
+
+Analytical and semi-analytical methods for predicting the effective properties of
+heterogeneous materials — composites, geomaterials and cracked media.
+:::
+
+::: {.jfb-card}
+### Eshelby-based models
+
+Dilute, Mori–Tanaka, self-consistent and generalized self-consistent schemes for
+ellipsoidal and crack-like inclusions.
+:::
+
+::: {.jfb-card}
+### Nonlinear and viscoelastic behavior
+
+Extension of homogenization methods to nonlinear elasticity and to linear, possibly
+ageing, viscoelasticity.
+:::
+
+::: {.jfb-card}
+### Scientific software
+
+Open-source libraries in Julia and C++ for computational micromechanics — see
+[Software](software.qmd).
+:::
+
+::::
+
+## Recent publications
+
+{{< include _includes/_publications_recent.qmd >}}
+
+::: {.pub-actions}
+[{{< iconify mdi:arrow-right >}} All publications](publications.qmd){.btn-jfb}
+:::
+
+## Software
+
+I develop and maintain open-source libraries for computational micromechanics, most of them
+gathered in the [MicroPoroChemoMechanics](software/mpcm.qmd) Julia organization, alongside
+the C++/Python library [echoes](software/echoes.qmd).
+
+::: {.pub-actions}
+[{{< iconify fluent code-block-16-regular >}} Browse the software](software.qmd){.btn-jfb}
 :::

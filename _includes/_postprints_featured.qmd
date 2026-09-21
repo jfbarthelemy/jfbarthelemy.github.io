@@ -19,5 +19,5 @@ Author-accepted manuscripts of selected journal articles are freely available
 [Transport in Porous Media 2008](/postprints/permfractures/){.pp-chip}
 :::
 
-[{{< iconify mdi:arrow-right-circle >}} Browse all postprints](postprints.qmd){.jfb-btn .jfb-btn-primary}
+[{{< iconify mdi:arrow-right-circle >}} Browse all postprints](postprints.qmd){.btn-jfb .btn-jfb-primary}
 :::

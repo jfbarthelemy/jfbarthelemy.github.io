@@ -1,0 +1,26 @@
+---
+title: "DECUHR.jl"
+description: >
+  Pure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for adaptive integration of
+  functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.
+categories: [Julia, Quadrature, Numerical Analysis]
+image: "../images/logo_decuhr.svg"
+---
+
+![](../images/logo_decuhr.svg){.jfb-page-logo}
+
+**DECUHR.jl** is a pure-Julia port of the DECUHR algorithm of Espelid & Genz (1994) for the
+automatic adaptive integration of functions with vertex singularities over hyper-rectangles —
+the situation met when integrating Green functions over an inclusion.
+
+### Key features
+
+- **Vertex-singularity handling** by extrapolation, where a plain adaptive rule stalls
+- **Hyper-rectangular domains** in arbitrary dimension
+- **SciML integration** — exposed as a pluggable algorithm for
+  [Integrals.jl](https://docs.sciml.ai/Integrals/stable/)
+
+### Links
+
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/DECUHR.jl/)
+[![Repository](https://img.shields.io/badge/GitHub-DECUHR.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/DECUHR.jl)

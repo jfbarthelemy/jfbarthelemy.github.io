@@ -5,10 +5,10 @@ description: >
   stoichiometric matrices, thermodynamic databases and chemical equilibrium.
   Initially aimed at low-carbon cementitious materials and aqueous solutions.
 categories: [Julia, Chemistry, Materials Science]
-image: "../images/logo_chemistrylab.png"
+image: "../images/logo_chemistrylab.svg"
 ---
 
-![](../images/logo_chemistrylab.png){.jfb-page-logo}
+![](../images/logo_chemistrylab.svg){.jfb-page-logo}
 
 **ChemistryLab.jl** is a computational chemistry toolkit. Although initially dedicated to
 low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides

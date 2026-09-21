@@ -1,0 +1,80 @@
+/*-- scss:functions --*/
+
+// ---------------------------------------------------------------------------
+// Design tokens — "Slate & Cyan"
+//
+// Variables only — and deliberately in the `scss:functions` layer, not
+// `scss:defaults`. Quarto merges the theme files' `defaults` layers in REVERSE
+// order, so a token file listed there lands *after* the theme that uses it
+// ("Undefined variable"); `functions` is emitted before every `defaults` and is
+// not reversed. It is listed as its own layer in _quarto.yml rather than
+// `@import`-ed, because Quarto's static check does not follow an @import and
+// reports every token as "used before declaration".
+//
+// Color *roles* (background, surface, ink, accent, ...) are not defined here:
+// they are exposed to the components layer as CSS custom properties (--jfb-*)
+// declared once per theme in theme-light.scss / theme-dark.scss. This file
+// holds the raw scale both themes pick from, so a hue is written exactly once.
+// ---------------------------------------------------------------------------
+
+// --- Neutrals (slate) ------------------------------------------------------
+$jfb-n-0:       #ffffff;
+$jfb-n-25:      #f7f9fb;
+$jfb-n-50:      #ecf1f5;
+$jfb-n-100:     #dbe3e9;
+$jfb-n-200:     #c2ced7;
+$jfb-n-300:     #9aaab7;
+$jfb-n-400:     #6f8090;
+$jfb-n-500:     #54636f;
+$jfb-n-600:     #3d4a55;
+$jfb-n-700:     #27333d;
+$jfb-n-800:     #1c2731;
+$jfb-n-850:     #141c24;
+$jfb-n-900:     #0f1a24;
+$jfb-n-950:     #0b1015;
+$jfb-n-fg-dark: #e6edf3;
+
+// --- Accent: cyan-teal -----------------------------------------------------
+$jfb-teal-50:   #e3f5f7;
+$jfb-teal-200:  #7fdde4;
+$jfb-teal-300:  #45c8d2;
+$jfb-teal-400:  #2fb6c2;
+$jfb-teal-500:  #159aa6;
+$jfb-teal-600:  #0e7c86;   // 5.0:1 on white
+$jfb-teal-700:  #0a5c64;
+$jfb-teal-900:  #063e44;
+
+// --- Secondary accent: violet (echoes the Julia mark) ----------------------
+$jfb-violet-300: #c69be4;
+$jfb-violet-600: #7a46a0;
+
+// --- Julia brand colors, kept for the software section ---------------------
+$julia-blue:    #4063d8;
+$julia-green:   #389826;
+$julia-purple:  #9558b2;
+$julia-red:     #cb3c33;
+
+// --- Publication filter families ------------------------------------------
+// One hue per family. The components layer derives the pill background from
+// the same value with color-mix(), so each theme declares only the seven hues.
+$jfb-families: journal, chapter, conference, talk, report, software, oa;
+
+// --- Typography ------------------------------------------------------------
+$jfb-font-body:    "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+$jfb-font-display: "Space Grotesk", "Inter", "Segoe UI", system-ui, sans-serif;
+
+// --- Shape -----------------------------------------------------------------
+$jfb-radius-sm:   0.375rem;
+$jfb-radius:      0.625rem;
+$jfb-radius-lg:   1rem;
+$jfb-radius-pill: 999px;
+
+// --- Breakpoints -----------------------------------------------------------
+$jfb-bp-sm: 36rem;   //  576px
+$jfb-bp-md: 48rem;   //  768px
+$jfb-bp-lg: 62rem;   //  992px
+$jfb-bp-xl: 75rem;   // 1200px
+
+// --- Layout ----------------------------------------------------------------
+$jfb-content-max: 74rem;
+$jfb-prose-max:   46rem;

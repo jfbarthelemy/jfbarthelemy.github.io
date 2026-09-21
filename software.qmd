@@ -1,15 +1,9 @@
 ---
-title: "Software Libraries"
+title: "Software"
+subtitle: "Open-source scientific libraries I develop and maintain"
+toc: false
 listing:
-  - id: standalone
-    type: grid
-    contents:
-      - software/echoes.qmd
-    sort: false
-    fields: [title, image, description, categories]
-    grid-columns: 2
-    max-description-length: 300
-  - id: mpcm-packages
+  - id: mpcm-core
     type: grid
     contents:
       - software/tensnd.qmd
@@ -17,22 +11,52 @@ listing:
       - software/meanfieldhom.qmd
     sort: false
     fields: [title, image, description, categories]
-    grid-columns: 2
-    max-description-length: 300
+    grid-columns: 3
+    max-description-length: 260
+  - id: mpcm-backend
+    type: grid
+    contents:
+      - software/optimasolver.qmd
+      - software/decuhr.qmd
+    sort: false
+    fields: [title, image, description, categories]
+    grid-columns: 3
+    max-description-length: 260
+  - id: standalone
+    type: grid
+    contents:
+      - software/echoes.qmd
+    sort: false
+    fields: [title, image, description, categories]
+    grid-columns: 3
+    max-description-length: 260
 ---
 
-A selection of academic freeware or open-source scientific libraries I develop and maintain.
+Academic freeware and open-source scientific libraries, in Julia and in C++.
 
 ## MicroPoroChemoMechanics
 
-![](images/logo_org.png){.jfb-page-logo}
+![](images/logo_org.svg){.jfb-page-logo}
 
-**[MicroPoroChemoMechanics](software/mpcm.qmd)** is a GitHub organization of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The three packages below are its core; two further backend packages (OptimaSolver.jl and DECUHR.jl) are described on the [organization page (software/mpcm.qmd).
+**[MicroPoroChemoMechanics](software/mpcm.qmd)** is a GitHub organization of which I am one
+of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous
+reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic
+poromechanical response. The five packages are registered in Julia's General registry and
+install with a plain `Pkg.add`.
 
-[{{< iconify mdi sitemap >}} Organisation overview](software/mpcm.qmd){.jfb-btn .jfb-btn-primary}
-[{{< iconify mdi github >}} MicroPoroChemoMechanics on GitHub](https://github.com/MicroPoroChemoMechanics){.jfb-btn .jfb-btn-outline}
+::: {.pub-actions}
+[{{< iconify mdi sitemap >}} Organization overview](software/mpcm.qmd){.btn-jfb .btn-jfb-primary}
+[{{< iconify mdi github >}} MicroPoroChemoMechanics on GitHub](https://github.com/MicroPoroChemoMechanics){.btn-jfb}
+:::
 
-::: {#mpcm-packages}
+### Core packages
+
+::: {#mpcm-core}
+:::
+
+### Backend packages
+
+::: {#mpcm-backend}
 :::
 
 ## Standalone projects

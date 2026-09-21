@@ -4,10 +4,10 @@ description: >
   Julia package for symbolic and numerical tensor calculations of any order and dimension
   in arbitrary coordinate systems, with structured tensor types carrying built-in symmetries.
 categories: [Julia, Tensors, Linear Algebra]
-image: "../images/logo_tensnd.png"
+image: "../images/logo_tensnd.svg"
 ---
 
-![](../images/logo_tensnd.png){.jfb-page-logo}
+![](../images/logo_tensnd.svg){.jfb-page-logo}
 
 **TensND.jl** performs tensor calculations of any order and dimension in arbitrary coordinate
 systems (cartesian, polar, cylindrical, spherical, spheroidal or user-defined). It supports
@@ -22,7 +22,7 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 - **Tensor algebra** — products (`⊗`, `⊗ˢ`, `⊠`, `⊠ˢ`, `⋅`, `⊡`, `⊙`), change of basis, variance management
 - **Structured tensors** — isotropic (`TensISO`), transversely isotropic (`TensTI{4}`, `TensTI`)
   and orthotropic (`TensOrtho`), with compact storage and efficient algebra
-- **Symmetry projection** — closest ISO, TI or ORTHO tensor, with rotation optimised via NLopt.jl
+- **Symmetry projection** — closest ISO, TI or ORTHO tensor, with rotation optimized via NLopt.jl
 - **Differential operators** — gradient, symmetric gradient, divergence, Laplacian and Hessian
   in curvilinear coordinates, symbolically or numerically
 - **Generic type system** — `Float64`, symbolic types (`Sym`, `Num`) and `ForwardDiff.Dual`

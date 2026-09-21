@@ -1,0 +1,17 @@
+---
+title: "Page not found"
+subtitle: "That address does not match anything on this site."
+toc: false
+---
+
+The page you asked for may have been renamed or moved. These are the main sections:
+
+::: {.pub-actions}
+[{{< iconify mdi:home-outline >}} Home](/){.btn-jfb .btn-jfb-primary}
+[{{< iconify academicons google-scholar >}} Publications](/publications.html){.btn-jfb}
+[{{< iconify mdi:file-document-multiple-outline >}} Postprints](/postprints.html){.btn-jfb}
+[{{< iconify fluent code-block-16-regular >}} Software](/software.html){.btn-jfb}
+:::
+
+If you followed a link from elsewhere and it should work, please
+[let me know](mailto:jf.barthelemy@cerema.fr).

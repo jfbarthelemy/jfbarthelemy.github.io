@@ -1,0 +1,86 @@
+/*-- scss:defaults --*/
+
+// Shared tokens come from _config/_tokens.scss, listed ahead of this file
+// in _quarto.yml (see the note at the top of that file).
+
+$theme: "cosmo" !default;
+
+// --- Bootstrap color system ------------------------------------------------
+$white:      $jfb-n-0;
+$body-bg:    $jfb-n-25;
+$body-color: $jfb-n-900;
+
+$primary:   $jfb-teal-600;
+$secondary: $jfb-n-500;
+$success:   $julia-green;
+$info:      $jfb-violet-600;
+$warning:   #b26b00;
+$danger:    $julia-red;
+$light:     $jfb-n-50;
+$dark:      $jfb-n-900;
+
+// The palette above genuinely passes AA, so Bootstrap's contrast guard can be
+// held to the real threshold instead of the 1.8 that used to silence it.
+$min-contrast-ratio: 4.5;
+
+// --- Typography ------------------------------------------------------------
+$font-family-sans-serif: $jfb-font-body;
+$headings-font-family:   $jfb-font-display;
+$headings-font-weight:   600;
+$headings-color:         $jfb-n-900;
+$line-height-base:       1.65;
+
+// --- Links -----------------------------------------------------------------
+$link-color:       $jfb-teal-700;
+$link-hover-color: $jfb-teal-900;
+
+// --- Navbar: a light, translucent bar rather than a solid block of color ---
+$navbar-bg: rgba($jfb-n-0, 0.82);
+$navbar-fg: $jfb-n-900;
+$navbar-hl: $jfb-teal-700;
+
+// --- Shape -----------------------------------------------------------------
+$border-radius:    $jfb-radius;
+$border-radius-sm: $jfb-radius-sm;
+$border-radius-lg: $jfb-radius-lg;
+$border-color:     $jfb-n-100;
+
+/*-- scss:rules --*/
+
+:root {
+  --jfb-bg:            #{$jfb-n-25};
+  --jfb-surface:       #{$jfb-n-0};
+  --jfb-surface-2:     #{$jfb-n-50};
+  --jfb-surface-sunk:  #{$jfb-n-50};
+  --jfb-border:        #{$jfb-n-100};
+  --jfb-border-strong: #{$jfb-n-200};
+
+  --jfb-ink:           #{$jfb-n-900};
+  --jfb-ink-muted:     #{$jfb-n-500};
+  --jfb-ink-faint:     #{$jfb-n-400};
+
+  --jfb-accent:        #{$jfb-teal-600};
+  --jfb-accent-strong: #{$jfb-teal-700};
+  --jfb-accent-soft:   #{$jfb-teal-50};
+  --jfb-accent-2:      #{$jfb-violet-600};
+
+  --jfb-nav-bg:        #{rgba($jfb-n-0, 0.82)};
+  --jfb-nav-border:    #{$jfb-n-100};
+
+  --jfb-shadow-sm: 0 1px 2px rgba(15, 26, 36, 0.06), 0 1px 3px rgba(15, 26, 36, 0.05);
+  --jfb-shadow:    0 2px 4px rgba(15, 26, 36, 0.05), 0 8px 24px rgba(15, 26, 36, 0.08);
+  --jfb-shadow-lg: 0 4px 8px rgba(15, 26, 36, 0.06), 0 18px 40px rgba(15, 26, 36, 0.12);
+
+  // Publication family hues (see $jfb-families in _tokens.scss)
+  --jfb-fam-journal:    #{$jfb-teal-600};
+  --jfb-fam-chapter:    #{$jfb-violet-600};
+  --jfb-fam-conference: #3b6fd4;
+  --jfb-fam-talk:       #a85f00;
+  --jfb-fam-report:     #{$jfb-n-500};
+  --jfb-fam-software:   #2f7d32;
+  --jfb-fam-oa:         #b4520c;
+
+  --jfb-tag-tint: 12%;
+}
+
+@import "components";
