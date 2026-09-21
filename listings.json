@@ -2,10 +2,12 @@
   {
     "listing": "/software.html",
     "items": [
-      "/software/echoes.html",
       "/software/tensnd.html",
       "/software/chemistrylab.html",
-      "/software/meanfieldhom.html"
+      "/software/meanfieldhom.html",
+      "/software/optimasolver.html",
+      "/software/decuhr.html",
+      "/software/echoes.html"
     ]
   }
 ]

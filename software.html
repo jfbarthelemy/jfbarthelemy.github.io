@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Software Libraries – Jean-François Barthélémy</title>
+<title>Software – Jean-François Barthélémy</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./images/id_jfb_cartoon.png" rel="icon" type="image/png">
+<link href="./images/favicon.ico" rel="icon">
 <script src="site_libs/quarto-listing/list.min.js"></script>
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -50,9 +50,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-aa47b56d132367821519ed92f841f617.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-4f08e66db4ba71cf26875d4cf73b3a01.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-aa47b56d132367821519ed92f841f617.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d04ccdc76edb9cad0f0216e03083ac0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ac2b6e8cd9ba64951b640065885dd28b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3d04ccdc76edb9cad0f0216e03083ac0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -66,7 +66,6 @@ ul.task-list li input[type="checkbox"] {
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -82,6 +81,62 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-mpcm-core .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-mpcm-core'] = new List('listing-mpcm-core', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-mpcm-backend .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-mpcm-backend'] = new List('listing-mpcm-backend', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     const listingTargetEl = window.document.querySelector('#listing-standalone .list');
@@ -109,40 +164,10 @@ ul.task-list li input[type="checkbox"] {
       window['quarto-listing-loaded']();
     }
   })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-mpcm-packages .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-mpcm-packages'] = new List('listing-mpcm-packages', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
   </script>
-<script>
-  if (!localStorage.getItem('quarto-color-scheme')) {
-    localStorage.setItem('quarto-color-scheme', 'dark');
-  }
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -174,7 +199,10 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="_config/styles.css">
+<meta property="og:title" content="Software – Jean-François Barthélémy">
+<meta property="og:description" content="Open-source scientific libraries I develop and maintain">
+<meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_org.svg">
+<meta property="og:site_name" content="Jean-François Barthélémy">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -347,7 +375,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Jean-François Barthélémy</span>
+    <span class="navbar-title">J.-F. Barthélémy</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -365,16 +393,20 @@ window.Quarto = {
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./teaching.html"> 
-<span class="menu-text">Teaching</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./publications.html"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./postprints.html"> 
 <span class="menu-text">Postprints</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -388,28 +420,20 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#microporochemomechanics" id="toc-microporochemomechanics" class="nav-link active" data-scroll-target="#microporochemomechanics">MicroPoroChemoMechanics</a></li>
-  <li><a href="#standalone-projects" id="toc-standalone-projects" class="nav-link" data-scroll-target="#standalone-projects">Standalone projects</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
-    </div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software Libraries</h1>
+<h1 class="title">Software</h1>
+<p class="subtitle lead">Open-source scientific libraries I develop and maintain</p>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -421,19 +445,23 @@ window.Quarto = {
 </header>
 
 
-<p>A selection of academic freeware or open-source scientific libraries I develop and maintain.</p>
+<p>Academic freeware and open-source scientific libraries, in Julia and in C++.</p>
 <section id="microporochemomechanics" class="level2">
 <h2 class="anchored" data-anchor-id="microporochemomechanics">MicroPoroChemoMechanics</h2>
-<p><img src="images/logo_org.png" class="jfb-page-logo img-fluid"></p>
-<p><strong><a href="./software/mpcm.html">MicroPoroChemoMechanics</a></strong> is a GitHub organization of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The three packages below are its core; two further backend packages (OptimaSolver.jl and DECUHR.jl) are described on the [organization page (software/mpcm.qmd).</p>
-<p><a href="./software/mpcm.html" class="jfb-btn jfb-btn-primary"><iconify-icon role="img" inline="" icon="mdi:sitemap" aria-label="Icon sitemap from mdi Iconify.design set." title="Icon sitemap from mdi Iconify.design set."></iconify-icon> Organisation overview</a> <a href="https://github.com/MicroPoroChemoMechanics" class="jfb-btn jfb-btn-outline"><iconify-icon role="img" inline="" icon="mdi:github" aria-label="Icon github from mdi Iconify.design set." title="Icon github from mdi Iconify.design set."></iconify-icon> MicroPoroChemoMechanics on GitHub</a></p>
-<div id="listing-mpcm-packages" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="SnVsaWElMkNUZW5zb3JzJTJDTGluZWFyJTIwQWxnZWJyYQ==" data-listing-file-modified-sort="1789135315271" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
+<p><img src="images/logo_org.svg" class="jfb-page-logo img-fluid"></p>
+<p><strong><a href="./software/mpcm.html">MicroPoroChemoMechanics</a></strong> is a GitHub organization of which I am one of the owners. It gathers a Julia ecosystem for the coupled micro-chemo-mechanics of porous reactive media, from molecular-level thermodynamic equilibrium up to the macroscopic poromechanical response. The five packages are registered in Julia’s General registry and install with a plain <code>Pkg.add</code>.</p>
+<div class="pub-actions">
+<p><a href="./software/mpcm.html" class="btn-jfb btn-jfb-primary"><iconify-icon role="img" inline="" icon="mdi:sitemap" aria-label="Icon sitemap from mdi Iconify.design set." title="Icon sitemap from mdi Iconify.design set."></iconify-icon> Organization overview</a> <a href="https://github.com/MicroPoroChemoMechanics" class="btn-jfb"><iconify-icon role="img" inline="" icon="mdi:github" aria-label="Icon github from mdi Iconify.design set." title="Icon github from mdi Iconify.design set."></iconify-icon> MicroPoroChemoMechanics on GitHub</a></p>
+</div>
+<section id="core-packages" class="level3">
+<h3 class="anchored" data-anchor-id="core-packages">Core packages</h3>
+<div id="listing-mpcm-core" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="SnVsaWElMkNUZW5zb3JzJTJDTGluZWFyJTIwQWxnZWJyYQ==" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="1" data-listing-word-count-sort="143">
 <a href="./software/tensnd.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="./images/logo_tensnd.png" class="thumbnail-image card-img" style="height: 150px;">
+<img loading="lazy" src="./images/logo_tensnd.svg" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -454,11 +482,11 @@ TensND.jl
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNDaGVtaXN0cnklMkNNYXRlcmlhbHMlMjBTY2llbmNl" data-listing-file-modified-sort="1789135315270" data-listing-reading-time-sort="2" data-listing-word-count-sort="213">
+<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNDaGVtaXN0cnklMkNNYXRlcmlhbHMlMjBTY2llbmNl" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="2" data-listing-word-count-sort="213">
 <a href="./software/chemistrylab.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="./images/logo_chemistrylab.png" class="thumbnail-image card-img" style="height: 150px;">
+<img loading="lazy" src="./images/logo_chemistrylab.svg" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -479,11 +507,11 @@ ChemistryLab.jl
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNNaWNyb21lY2hhbmljcyUyQ0hvbW9nZW5pemF0aW9uJTJDTWFjaGluZSUyMExlYXJuaW5n" data-listing-file-modified-sort="1789135315271" data-listing-reading-time-sort="2" data-listing-word-count-sort="363">
+<div class="g-col-1" data-index="2" data-categories="SnVsaWElMkNNaWNyb21lY2hhbmljcyUyQ0hvbW9nZW5pemF0aW9uJTJDTWFjaGluZSUyMExlYXJuaW5n" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="2" data-listing-word-count-sort="363">
 <a href="./software/meanfieldhom.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="./images/logo_mfh.png" class="thumbnail-image card-img" style="height: 150px;">
+<img loading="lazy" src="./images/logo_mfh.svg" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
@@ -501,7 +529,7 @@ MeanFieldHomogenization.jl
 
 </div>
 <div class="card-text listing-description delink">
-<p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.</p>
+<p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by…</p>
 </div>
 </div>
 </div></a>
@@ -510,11 +538,70 @@ MeanFieldHomogenization.jl
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 </section>
+<section id="backend-packages" class="level3">
+<h3 class="anchored" data-anchor-id="backend-packages">Backend packages</h3>
+<div id="listing-mpcm-backend" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="SnVsaWElMkNPcHRpbWl6YXRpb24lMkNUaGVybW9keW5hbWljcw==" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="1" data-listing-word-count-sort="160">
+<a href="./software/optimasolver.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_optimasolver.svg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+OptimaSolver.jl
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('T3B0aW1pemF0aW9u'); return false;">Optimization</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('VGhlcm1vZHluYW1pY3M='); return false;">Thermodynamics</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Julia port of Allan Leal’s Optima C++ library: a primal-dual interior-point solver for Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation sensitivity matrices. The equilibrium backend of ChemistryLab.jl.</p>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="SnVsaWElMkNRdWFkcmF0dXJlJTJDTnVtZXJpY2FsJTIwQW5hbHlzaXM=" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="1" data-listing-word-count-sort="110">
+<a href="./software/decuhr.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/logo_decuhr.svg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+DECUHR.jl
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('SnVsaWE='); return false;">Julia</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhZHJhdHVyZQ=='); return false;">Quadrature</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('TnVtZXJpY2FsJTIwQW5hbHlzaXM='); return false;">Numerical Analysis</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994) for adaptive integration of functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.</p>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+</section>
 <section id="standalone-projects" class="level2">
 <h2 class="anchored" data-anchor-id="standalone-projects">Standalone projects</h2>
 <div id="listing-standalone" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-2">
-<div class="g-col-1" data-index="0" data-categories="QyUyQiUyQiUyQ1B5dGhvbiUyQ01pY3JvbWVjaGFuaWNzJTJDSG9tb2dlbml6YXRpb24=" data-listing-file-modified-sort="1789135315271" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="QyUyQiUyQiUyQ1B5dGhvbiUyQ01pY3JvbWVjaGFuaWNzJTJDSG9tb2dlbml6YXRpb24=" data-listing-file-modified-sort="1790001308914" data-listing-reading-time-sort="1" data-listing-word-count-sort="62">
 <a href="./software/echoes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -636,7 +723,7 @@ echoes
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jfbarthelemy\.github\.io\/");
+        var filterRegex = new RegExp("https:\/\/jfbarthelemy\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -964,8 +1051,21 @@ echoes
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Jean-François Barthélémy — <a href="https://www.cerema.fr/en">Cerema</a> · <a href="https://mcd.univ-gustave-eiffel.fr/">UMR MCD</a></p>
+</div>   
+    <div class="nav-footer-center">
+<p><a href="https://orcid.org/0000-0002-1968-8939">ORCID</a> · <a href="https://github.com/jfbarthelemy">GitHub</a> · <a href="https://hal.archives-ouvertes.fr/search/index/?q=%2A&amp;authIdHal_s=jfbarthelemy">HAL</a></p>
+<div class="toc-actions"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jfbarthelemy/jfbarthelemy.github.io/blob/main/software.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></div></div></footer></body></html>
+</body></html>

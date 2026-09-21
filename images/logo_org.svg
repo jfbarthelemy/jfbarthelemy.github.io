@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <title>MicroPoroChemoMechanics</title>
+  <!-- liens -->
+  <g stroke="#CCCCCC" stroke-width="16" fill="none">
+    <line x1="300" y1="150" x2="165" y2="400"/>
+    <line x1="300" y1="150" x2="435" y2="400"/>
+    <line x1="165" y1="400" x2="435" y2="400"/>
+  </g>
+  <!-- coeur Julia -->
+  <circle cx="300" cy="315" r="52" fill="#4063D8"/>
+  <!-- chimie (ChemistryLab) -->
+  <circle cx="300" cy="150" r="115" fill="#CB3C33"/>
+  <path d="M 285 85 L 315 85 L 315 125 L 355 195 Q 362 210 345 210 L 255 210 Q 238 210 245 195 L 285 125 Z" fill="#FFFFFF"/>
+  <!-- poromecanique / transport reactif (Bil : pore et menisque) -->
+  <circle cx="165" cy="400" r="115" fill="#9558B2"/>
+  <circle cx="165" cy="400" r="58" fill="#FFFFFF"/>
+  <path d="M 113 375 Q 165 418 217 375 A 58 58 0 1 1 113 375 Z" fill="#4063D8"/>
+  <!-- homogeneisation (MeanFieldHomogenization : inclusions variees) -->
+  <circle cx="435" cy="400" r="115" fill="#389826"/>
+  <ellipse cx="410" cy="368" rx="46" ry="14" fill="#FFFFFF" transform="rotate(-25 410 368)"/>
+  <circle cx="472" cy="415" r="22" fill="#FFFFFF"/>
+  <ellipse cx="410" cy="443" rx="38" ry="5" fill="#FFFFFF" transform="rotate(-15 410 443)"/>
+</svg>
