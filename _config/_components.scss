@@ -1216,3 +1216,71 @@ main.quarto-banner-title-block { padding-top: 0; }
   .ai,
   .bi { font-size: 1em; }
 }
+
+// --- The mark in the navbar ------------------------------------------------
+// A partial frame around the name: two opposite corners that open outward on
+// hover. A different motif from the ellipse around the name in the hero, so the
+// two read as a pair rather than as the same trick twice.
+//
+// Two things to know about Quarto's brand. Its `<a class="navbar-brand">` is
+// `overflow: hidden` and is laid out at the navbar's full height, so an
+// ornament hung on it is both clipped away and floating well clear of the
+// text. The ornament therefore hangs on the inner `<span class="navbar-title">`,
+// which hugs the glyphs.
+
+.navbar .navbar-brand {
+  overflow: visible;
+}
+
+.navbar .navbar-brand .navbar-title {
+  position: relative;
+  display: inline-block;
+  padding-inline: 0.15rem;
+}
+
+.navbar .navbar-brand .navbar-title::before,
+.navbar .navbar-brand .navbar-title::after {
+  content: "";
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 2px solid var(--jfb-accent);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: top 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              bottom 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              left 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              right 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.32s ease, border-color 0.32s ease;
+}
+
+.navbar .navbar-brand .navbar-title::before {
+  top: -0.16rem;
+  left: -0.26rem;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 3px;
+}
+
+.navbar .navbar-brand .navbar-title::after {
+  bottom: -0.16rem;
+  right: -0.26rem;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 3px;
+  border-color: color-mix(in srgb, var(--jfb-accent-2) 80%, transparent);
+}
+
+.navbar .navbar-brand:hover .navbar-title::before,
+.navbar .navbar-brand:focus-visible .navbar-title::before {
+  top: -0.32rem;
+  left: -0.46rem;
+  opacity: 1;
+}
+
+.navbar .navbar-brand:hover .navbar-title::after,
+.navbar .navbar-brand:focus-visible .navbar-title::after {
+  bottom: -0.32rem;
+  right: -0.46rem;
+  opacity: 1;
+}
