@@ -22,6 +22,26 @@ three reports with the PhD thesis.
 The script refuses to write anything if the bibliography is inconsistent — an entry without a
 year, a title or an author, or a file whose `@record` count does not match what pandoc converted.
 
+### Software versions come from the DOI, not from the `.bib`
+
+The `.bib` files are exported from Zotero and are never edited here, so the `version` field of
+a `@software` entry is a snapshot frozen at export time — `15_log.bib` still said `v0.3.1` for
+ChemistryLab long after 0.18. The DOI next to it is not frozen: a Zenodo deposit has a
+*concept* DOI that always resolves to the newest release.
+
+So for every `@software` entry the generator asks DataCite what version that DOI points at
+today, and uses that instead. If the entry cites a *version* DOI rather than the concept — as
+the echoes entry does — its `IsVersionOf` is followed to the concept first, so the answer is
+still the latest. The string is normalized on the way (`v0.18.0+doc1` → `0.18.0`; the `+doc1`
+comes from a documentation-only re-tag).
+
+Any failure — no network, a DOI absent from DataCite, a malformed answer — is caught, warns,
+and keeps the `.bib` value. `--offline` skips the lookups entirely for a run that must not
+touch the network.
+
+This adds **no network dependency to the site build**: `make publications` is a local
+authoring step whose output you commit, and CI only runs `quarto render`.
+
 Generated (do **not** edit by hand):
 
 - `_includes/_publications_timeline.qmd` — the whole timeline, grouped by year.

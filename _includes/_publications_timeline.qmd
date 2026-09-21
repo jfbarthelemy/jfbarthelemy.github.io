@@ -28,7 +28,7 @@
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
-[v0.3.2 · Zenodo]{.pub-venue}
+[v0.5.0 · Zenodo]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -44,7 +44,7 @@
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
-[0.7.0]{.pub-venue}
+[v0.14.2]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -60,7 +60,7 @@
 
 [**J.-F. Barthélémy**, A. Soive]{.pub-authors}
 
-[v0.3.1 · Zenodo]{.pub-venue}
+[v0.18.0 · Zenodo]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
