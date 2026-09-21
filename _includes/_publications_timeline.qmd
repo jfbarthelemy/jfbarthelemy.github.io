@@ -23,7 +23,7 @@
 :::
 :::
 
-::: {#ref-barthelemy2026a .pub-item data-family="software" data-group="log" data-year="2026"}
+::: {#ref-decuhr .pub-item data-family="software" data-group="log" data-year="2026"}
 [DECUHR.jl: Adaptive cubature for vertex singularities](https://doi.org/10.5281/ZENODO.22878393){.pub-title}
 
 [**J.-F. Barthélémy**]{.pub-authors}
@@ -39,7 +39,7 @@
 :::
 :::
 
-::: {#ref-barthelemy2026 .pub-item data-family="software" data-group="log" data-year="2026"}
+::: {#ref-optimasolver .pub-item data-family="software" data-group="log" data-year="2026"}
 [OptimaSolver.jl: Julia-native primal-dual interior-point solver for Gibbs-energy minimization](https://doi.org/10.5281/ZENODO.19534031){.pub-title}
 
 [**J.-F. Barthélémy**]{.pub-authors}
