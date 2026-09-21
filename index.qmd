@@ -1,6 +1,8 @@
 ---
 title: "Jean-François Barthélémy"
 subtitle: "Researcher · Cerema / UMR MCD"
+# The hero is built around the title block, so no banner here.
+title-block-banner: false
 description-meta: >
   Researcher at Cerema and UMR MCD — micromechanics, homogenization of heterogeneous
   materials, and open-source scientific computing.

@@ -63,6 +63,9 @@ format:
     include-in-header: _config/head.html
     include-after-body: _config/enhance.html
     toc: false
+    # A tinted band under the navbar carrying the page title and its subtitle.
+    # Disabled on the home page, whose title block is the hero itself.
+    title-block-banner: true
     page-layout: full
     code-overflow: wrap
     anchor-sections: true
