@@ -48,9 +48,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3d04ccdc76edb9cad0f0216e03083ac0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ac2b6e8cd9ba64951b640065885dd28b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-3d04ccdc76edb9cad0f0216e03083ac0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-aa7fe0d530b9b255de0908ff92a58e12.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-b180b00aacfa33330e8db383b7a513eb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-aa7fe0d530b9b255de0908ff92a58e12.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -300,32 +300,33 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page">
+      <h1 class="title">Teaching</h1>
+            <p class="subtitle lead">Courses and tutorials, mostly at the École Nationale des Ponts et Chaussées</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta column-page">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
-
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Teaching</h1>
-<p class="subtitle lead">Courses and tutorials, mostly at the École Nationale des Ponts et Chaussées</p>
-</div>
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta column-page">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
 
 
 <section id="current-course" class="level2">
@@ -363,6 +364,54 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 </main> <!-- /main -->
+<script>
+// Site-wide progressive enhancement: a reveal on scroll and a count-up on the
+// home-page figures. Both are added from here and never from the markup, so a
+// reader without JavaScript sees the finished page rather than an empty one.
+// Both are skipped outright when the reader asks for reduced motion.
+(function () {
+  "use strict";
+
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  ready(function () {
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm || !("IntersectionObserver" in window)) return;
+
+    // ── reveal ────────────────────────────────────────────────────────────
+    // Cards only. The 107 timeline entries are deliberately left out: a page
+    // where every line fades in as you scroll reads as a gimmick, not a design.
+    var targets = document.querySelectorAll(
+      ".jfb-card, .course-card, .pp-card, .stat, .quarto-grid-item"
+    );
+    if (targets.length) {
+      Array.prototype.forEach.call(targets, function (el) { el.classList.add("jfb-reveal"); });
+      var revealer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("is-in");
+          revealer.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -6% 0px", threshold: 0.04 });
+      Array.prototype.forEach.call(targets, function (el) { revealer.observe(el); });
+      // Safety net: whatever is still hidden after six seconds is shown anyway,
+      // so a mis-set observer can never swallow the content. Long enough for the
+      // effect to play, short enough that nobody waits on it.
+      setTimeout(function () {
+        Array.prototype.forEach.call(targets, function (el) { el.classList.add("is-in"); });
+      }, 6000);
+    }
+
+    // No count-up on the figures. Animating them means that, for a moment,
+    // the page states a number of publications that is false — and a slow or
+    // throttled frame loop can leave it there. A decoration is not worth a
+    // wrong figure.
+  });
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
