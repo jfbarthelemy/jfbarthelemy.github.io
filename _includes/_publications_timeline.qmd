@@ -72,7 +72,7 @@
 :::
 
 ::: {#ref-echoes .pub-item data-family="software" data-group="log" data-year="2026"}
-[Echoes: Extended Calculator of HOmogEnization Schemes](https://doi.org/10.5281/zenodo.19679057){.pub-title}
+[Echoes: Extended Calculator of HOmogEnization Schemes](https://doi.org/10.5281/zenodo.7348758){.pub-title}
 
 [**J.-F. Barthélémy**]{.pub-authors}
 
@@ -83,7 +83,7 @@
 :::
 
 ::: {.pub-links}
-[DOI](https://doi.org/10.5281/zenodo.19679057){.pub-link} [Docs](https://jfbarthelemy.github.io/echoes/){.pub-link}
+[DOI](https://doi.org/10.5281/zenodo.7348758){.pub-link} [Docs](https://jfbarthelemy.github.io/echoes/){.pub-link}
 :::
 :::
 
