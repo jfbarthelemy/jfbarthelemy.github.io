@@ -32,3 +32,4 @@ license and ships the upstream copyright notice unmodified.
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/DECUHR.jl/)
 [![Repository](https://img.shields.io/badge/GitHub-DECUHR.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/DECUHR.jl)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.22878393-blue)](https://doi.org/10.5281/zenodo.22878393)
