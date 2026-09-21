@@ -51,7 +51,9 @@ and all the classical schemes.
 
 ## Backend packages
 
-### OptimaSolver.jl
+### [OptimaSolver.jl](optimasolver.qmd)
+
+![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
 **Primal-dual interior-point solver** for Gibbs-energy minimization with diagonal Hessian
 structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend
@@ -60,7 +62,9 @@ for ChemistryLab.jl equilibrium computations.
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/OptimaSolver.jl/)
 [![Repository](https://img.shields.io/badge/GitHub-OptimaSolver.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/OptimaSolver.jl)
 
-### DECUHR.jl
+### [DECUHR.jl](decuhr.qmd)
+
+![](../images/logo_decuhr.svg){.jfb-page-logo}
 
 **Pure-Julia port** of the DECUHR algorithm (Espelid & Genz, 1994) for automatic
 adaptive integration of functions with vertex singularities over hyper-rectangles.
