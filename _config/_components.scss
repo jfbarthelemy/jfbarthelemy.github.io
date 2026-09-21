@@ -599,17 +599,6 @@ main.content:has(.hero) {
   &:hover::before { transform: scale(1.35); }
 }
 
-.pub-date {
-  display: block;
-  font-family: $jfb-font-display;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  font-variant-numeric: tabular-nums;
-  color: var(--jfb-ink-faint);
-  margin-bottom: 0.1rem;
-}
-
 .pub-title {
   display: block;
   font-family: $jfb-font-display;
@@ -1038,6 +1027,8 @@ main.content:has(.hero) .quarto-title-block .quarto-title .title {
   display: inline-block;
 }
 
+// The teal ellipse rests visible: invisible until hovered, nobody ever
+// discovers it, and the target is only as wide as the name.
 main.content:has(.hero) .quarto-title .title::before,
 main.content:has(.hero) .quarto-title .title::after {
   content: "";
@@ -1045,23 +1036,25 @@ main.content:has(.hero) .quarto-title .title::after {
   inset: -0.13em -0.44em;
   border: 2px solid var(--jfb-accent);
   border-radius: 50%;
-  opacity: 0;
-  transform: scale(0.93) rotate(-3deg);
+  opacity: 0.42;
+  transform: scale(0.985) rotate(-2.2deg);
   transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
   z-index: -1;
 }
 
+// The violet one only comes in on hover — that is the movement.
 main.content:has(.hero) .quarto-title .title::after {
   inset: -0.29em -0.7em;
   border-color: color-mix(in srgb, var(--jfb-accent-2) 70%, transparent);
-  transform: scale(0.89) rotate(4deg);
+  opacity: 0;
+  transform: scale(0.89) rotate(5deg);
   transition-delay: 0.07s;
 }
 
 main.content:has(.hero) .quarto-title .title:hover::before {
-  opacity: 0.9;
-  transform: scale(1) rotate(-1.5deg);
+  opacity: 0.95;
+  transform: scale(1.02) rotate(-1deg);
 }
 
 main.content:has(.hero) .quarto-title .title:hover::after {

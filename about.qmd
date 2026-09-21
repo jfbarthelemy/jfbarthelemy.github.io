@@ -1,7 +1,6 @@
 ---
 title: "About"
 subtitle: "Research, affiliations and background"
-toc: true
 ---
 
 I am a researcher at [Cerema](https://www.cerema.fr/en) (Centre d'Études et d'Expertise sur

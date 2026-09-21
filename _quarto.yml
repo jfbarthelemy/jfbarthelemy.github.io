@@ -16,13 +16,19 @@ website:
   favicon: images/favicon.ico
   open-graph: true
   repo-url: https://github.com/jfbarthelemy/jfbarthelemy.github.io
-  repo-actions: [source]
+  # No `repo-actions`: it renders a "View source" link at the foot of the
+  # sidebar. The same link belongs in the navbar tools, beside the search and
+  # the theme switch, as an icon.
   search:
     location: navbar
     type: overlay
   navbar:
     title: "J.-F. Barthélémy"
     background: light
+    tools:
+      - icon: github
+        href: https://github.com/jfbarthelemy/jfbarthelemy.github.io
+        text: "Source on GitHub"
     right:
       - href: index.qmd
         text: Home

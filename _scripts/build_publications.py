@@ -133,52 +133,55 @@ def format_authors(entry: dict) -> str:
 
 
 def format_venue(entry: dict) -> str:
+    """The reference line, in the shape a reference is usually written.
+
+    Journal articles come out as `Journal 341 (2026) 114293` — venue, volume,
+    year in parentheses, pages — which is how the field writes them; the other
+    kinds follow the same logic, with the year always in parentheses at the end
+    of what identifies the work.
+    """
     kind = entry.get("type")
     container = entry.get("container-title")
-    parts: list[str] = []
+    year = issued_parts(entry)[0]
+    y = f"({year})" if year else ""
+
+    def join(*bits):
+        return " ".join(str(b) for b in bits if b)
 
     if kind == "article-journal":
-        if container:
-            parts.append(container)
-        volume, issue = entry.get("volume"), entry.get("issue") or entry.get("number")
-        if volume and issue:
-            parts.append(f"{volume}({issue})")
-        elif volume:
-            parts.append(str(volume))
-        if entry.get("page"):
-            parts.append(str(entry["page"]))
+        volume = entry.get("volume")
+        issue = entry.get("issue") or entry.get("number")
+        vol = f"{volume}({issue})" if volume and issue else (str(volume) if volume else "")
+        out = join(container, vol, y, entry.get("page"))
     elif kind == "chapter":
-        if container:
-            parts.append(f"In: {container}")
-        if entry.get("publisher"):
-            parts.append(entry["publisher"])
+        head = f"In: {container}" if container else ""
+        out = ", ".join(b for b in (head, entry.get("publisher")) if b)
+        out = join(out, y, entry.get("page"))
     elif kind == "paper-conference":
-        if container:
-            parts.append(container)
-        if entry.get("publisher-place"):
-            parts.append(entry["publisher-place"])
+        out = ", ".join(b for b in (container, entry.get("publisher-place")) if b)
+        out = join(out, y)
     elif kind in ("report", "thesis"):
-        if entry.get("genre"):
-            parts.append(entry["genre"])
-        if entry.get("publisher"):
-            parts.append(entry["publisher"])
+        bits = [entry.get("genre"), entry.get("publisher")]
         if kind == "report" and entry.get("number"):
-            parts.append(f"no. {entry['number']}")
+            bits.append(f"no. {entry['number']}")
+        out = join(", ".join(b for b in bits if b), y)
     elif kind == "patent":
-        if entry.get("genre"):
-            parts.append(entry["genre"])
+        bits = [entry.get("genre")]
         if entry.get("number"):
-            parts.append(f"no. {entry['number']}")
+            bits.append(f"no. {entry['number']}")
+        out = join(", ".join(b for b in bits if b), y)
     elif kind == "software":
+        bits = []
         version = normalize_version(entry.get("version"))
         if version:
-            parts.append(f"v{version}")
+            bits.append(f"v{version}")
         if entry.get("publisher"):
-            parts.append(entry["publisher"])
-    elif container:
-        parts.append(container)
+            bits.append(entry["publisher"])
+        out = join(", ".join(bits), y)
+    else:
+        out = join(container, y)
 
-    return escape_md(" · ".join(str(p) for p in parts if p))
+    return escape_md(re.sub(r"\s+", " ", out).strip())
 
 
 # --------------------------------------------------------------------------
@@ -369,11 +372,6 @@ def render_entry(e: dict) -> list[str]:
         attrs.append('data-oa="1"')
 
     out = [f"::: {{{' '.join(attrs)}}}"]
-    # The year on every entry, not only in the section heading: once a filter
-    # or a search is on, the headings a reader can see no longer bracket what
-    # is left. On a wide screen it sits in the rail gutter, on a narrow one it
-    # becomes a pill above the title.
-    out.append(f"[{e['year']}]{{.pub-date}}")
     out.append("")
     if target:
         out.append(f"[{e['title']}]({target}){{.pub-title}}")
