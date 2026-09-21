@@ -1,0 +1,162 @@
+<script>
+// Progressive enhancement for the publications timeline.
+//
+// The page ships the complete list; this script only adds the filter chips,
+// the search box and the live count. With JavaScript disabled nothing is
+// hidden and every one of the references stays readable.
+//
+// The family keys and labels below must match FAMILIES in
+// _scripts/publications_meta.py.
+(function () {
+  "use strict";
+
+  var FAMILIES = [
+    ["journal", "Journal articles"],
+    ["chapter", "Book chapters"],
+    ["conference", "Conference papers"],
+    ["talk", "Talks & posters"],
+    ["report", "Reports & patents"],
+    ["software", "Software"]
+  ];
+
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  ready(function () {
+    var mount = document.getElementById("pub-toolbar");
+    var timeline = document.querySelector(".pub-timeline:not(.pub-timeline-flat)");
+    if (!mount || !timeline) return;
+
+    var items = Array.prototype.slice.call(timeline.querySelectorAll(".pub-item"));
+    if (!items.length) return;
+
+    // Cache the searchable text once.
+    items.forEach(function (el) {
+      el.dataset.text = (el.textContent || "").toLowerCase().replace(/\s+/g, " ");
+    });
+
+    var selected = new Set();
+    var oaOnly = false;
+    var query = "";
+
+    mount.className = "pub-toolbar";
+    mount.setAttribute("role", "group");
+    mount.setAttribute("aria-label", "Filter publications");
+
+    function countOf(predicate) {
+      return items.filter(predicate).length;
+    }
+
+    function chip(label, count, onToggle, key) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "pub-filter";
+      b.setAttribute("aria-pressed", "false");
+      if (key) b.dataset.family = key;
+      b.appendChild(document.createTextNode(label + " "));
+      var c = document.createElement("span");
+      c.className = "pub-filter-count";
+      c.textContent = count;
+      b.appendChild(c);
+      b.addEventListener("click", function () {
+        var on = b.getAttribute("aria-pressed") === "true";
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        onToggle(!on);
+        apply();
+      });
+      return b;
+    }
+
+    FAMILIES.forEach(function (pair) {
+      var key = pair[0];
+      var n = countOf(function (el) { return el.dataset.family === key; });
+      if (!n) return;
+      mount.appendChild(chip(pair[1], n, function (on) {
+        if (on) selected.add(key); else selected.delete(key);
+      }, key));
+    });
+
+    var nOa = countOf(function (el) { return el.dataset.oa === "1"; });
+    if (nOa) {
+      mount.appendChild(chip("Open access", nOa, function (on) { oaOnly = on; }));
+    }
+
+    var search = document.createElement("input");
+    search.type = "search";
+    search.className = "pub-search";
+    search.placeholder = "Search title, author or venue…";
+    search.setAttribute("aria-label", "Search publications");
+    mount.appendChild(search);
+
+    var count = document.createElement("span");
+    count.className = "pub-count";
+    count.setAttribute("aria-live", "polite");
+    mount.appendChild(count);
+
+    // Move the BibTeX button into the toolbar when it is present.
+    var actions = document.querySelector(".pub-actions");
+    if (actions) {
+      var link = actions.querySelector("a");
+      if (link) {
+        link.classList.add("btn-jfb-sm");
+        mount.appendChild(link);
+      }
+      actions.remove();
+    }
+
+    var empty = document.createElement("p");
+    empty.className = "pub-empty";
+    empty.hidden = true;
+    empty.textContent = "No publication matches these filters.";
+    timeline.parentNode.insertBefore(empty, timeline.nextSibling);
+
+    function matches(el) {
+      if (selected.size && !selected.has(el.dataset.family)) return false;
+      if (oaOnly && el.dataset.oa !== "1") return false;
+      if (query && el.dataset.text.indexOf(query) === -1) return false;
+      return true;
+    }
+
+    function apply() {
+      var shown = 0;
+      items.forEach(function (el) {
+        var ok = matches(el);
+        el.hidden = !ok;
+        if (ok) shown++;
+      });
+
+      // Hide a year heading once every entry under it is filtered out.
+      var year = null;
+      var seen = 0;
+      Array.prototype.forEach.call(timeline.children, function (node) {
+        if (node.classList.contains("pub-year")) {
+          if (year) year.hidden = seen === 0;
+          year = node;
+          seen = 0;
+        } else if (node.classList.contains("pub-item") && !node.hidden) {
+          seen++;
+        }
+      });
+      if (year) year.hidden = seen === 0;
+
+      count.textContent = shown === items.length
+        ? items.length + " publications"
+        : shown + " of " + items.length;
+      empty.hidden = shown !== 0;
+    }
+
+    var timer;
+    search.addEventListener("input", function () {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        query = search.value.trim().toLowerCase();
+        apply();
+      }, 120);
+    });
+
+    apply();
+  });
+})();
+</script>

@@ -1,0 +1,84 @@
+/*-- scss:defaults --*/
+
+// Shared tokens come from _config/_tokens.scss, listed ahead of this file
+// in _quarto.yml (see the note at the top of that file).
+
+$theme: "darkly" !default;
+
+// --- Bootstrap color system ------------------------------------------------
+$white:      $jfb-n-0;
+$body-bg:    $jfb-n-950;
+$body-color: $jfb-n-fg-dark;
+
+$primary:   $jfb-teal-300;
+$secondary: $jfb-n-300;
+$success:   #6bc46f;
+$info:      $jfb-violet-300;
+$warning:   #e0a649;
+$danger:    #e5716a;
+$light:     $jfb-n-800;
+$dark:      $jfb-n-950;
+
+$min-contrast-ratio: 4.5;
+
+// --- Typography ------------------------------------------------------------
+$font-family-sans-serif: $jfb-font-body;
+$headings-font-family:   $jfb-font-display;
+$headings-font-weight:   600;
+$headings-color:         $jfb-n-fg-dark;
+$line-height-base:       1.65;
+
+// --- Links -----------------------------------------------------------------
+$link-color:       $jfb-teal-300;
+$link-hover-color: $jfb-teal-200;
+
+// --- Navbar ----------------------------------------------------------------
+$navbar-bg: rgba($jfb-n-850, 0.82);
+$navbar-fg: $jfb-n-fg-dark;
+$navbar-hl: $jfb-teal-300;
+
+// --- Shape -----------------------------------------------------------------
+$border-radius:    $jfb-radius;
+$border-radius-sm: $jfb-radius-sm;
+$border-radius-lg: $jfb-radius-lg;
+$border-color:     $jfb-n-700;
+
+/*-- scss:rules --*/
+
+:root {
+  --jfb-bg:            #{$jfb-n-950};
+  --jfb-surface:       #{$jfb-n-850};
+  --jfb-surface-2:     #{$jfb-n-800};
+  --jfb-surface-sunk:  #{$jfb-n-950};
+  --jfb-border:        #{$jfb-n-700};
+  --jfb-border-strong: #{$jfb-n-600};
+
+  --jfb-ink:           #{$jfb-n-fg-dark};
+  --jfb-ink-muted:     #{$jfb-n-300};
+  --jfb-ink-faint:     #{$jfb-n-400};
+
+  --jfb-accent:        #{$jfb-teal-300};
+  --jfb-accent-strong: #{$jfb-teal-200};
+  --jfb-accent-soft:   #{rgba($jfb-teal-300, 0.14)};
+  --jfb-accent-2:      #{$jfb-violet-300};
+
+  --jfb-nav-bg:        #{rgba($jfb-n-850, 0.82)};
+  --jfb-nav-border:    #{$jfb-n-700};
+
+  --jfb-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --jfb-shadow:    0 2px 6px rgba(0, 0, 0, 0.45), 0 10px 28px rgba(0, 0, 0, 0.45);
+  --jfb-shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.5), 0 22px 48px rgba(0, 0, 0, 0.55);
+
+  // Publication family hues, lifted for a dark ground
+  --jfb-fam-journal:    #{$jfb-teal-300};
+  --jfb-fam-chapter:    #{$jfb-violet-300};
+  --jfb-fam-conference: #7fa4ee;
+  --jfb-fam-talk:       #e0a649;
+  --jfb-fam-report:     #{$jfb-n-300};
+  --jfb-fam-software:   #6bc46f;
+  --jfb-fam-oa:         #f0a860;
+
+  --jfb-tag-tint: 18%;
+}
+
+@import "components";

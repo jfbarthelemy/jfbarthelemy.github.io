@@ -4,55 +4,90 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal academic website for Jean-François Barthélémy (Cerema / UMR MCD), built with **Quarto**. Deployed automatically to GitHub Pages via GitHub Actions on every push to `main`.
+Personal academic website for Jean-François Barthélémy (Cerema / UMR MCD), built with **Quarto**.
+Deployed automatically to GitHub Pages (branch `gh-pages`) via GitHub Actions on every push to `main`.
+
+**All prose is US English** — pages, SCSS comments, Python docstrings, commit messages. The two
+exceptions are French course titles on the Teaching page (they are the real names of real courses)
+and the cited publication titles in the generated bibliography: a reference is a quotation and is
+never respelled.
 
 ## Commands
 
 ```bash
-quarto preview    # local dev server with hot-reload
-quarto render     # full build → _site/
-make postprints   # (re)build the Postprints section from its single source of truth
+make data          # regenerate everything derived (postprints, then the publications timeline)
+make publications  # rebuild the timeline, stats, recent list and files/publications.bib
+make postprints    # (re)deploy the postprint bundles and their card includes
+quarto preview     # local dev server with hot reload
+quarto render      # full build -> _site/
 ```
 
-## Architecture
+## Content files
 
-### Content files
-- `index.qmd` — home page (Quarto "trestles" about template with social links)
-- `publications.qmd` — publications listing using the multibib filter
-- `postprints.qmd` — open-access postprints gallery (card grid, generated — see below)
-- `about.qmd` — short about page
-- `files/` — static assets (PDF CV, etc.)
-- `images/` — photos and logos
+- `index.qmd` — home page. The `<h1>` is Quarto's own title block; the hero div holds only the
+  intro, the action buttons, the identity links and the portrait.
+- `publications.qmd` — a thin shell: the featured-postprints block, the filter mount point and the
+  generated timeline.
+- `postprints.qmd` — open-access manuscripts (generated card grid).
+- `software.qmd` + `software/*.qmd` — three Quarto listings (core packages, backend packages,
+  standalone) fed by the YAML front matter of the detail pages.
+- `teaching.qmd`, `about.qmd`, `404.qmd`.
+- `_assets/originals/` — master images, **not deployed** (Quarto ignores `_`-prefixed directories).
 
-### Configuration
-- `_quarto.yml` — main config: site metadata, navbar, bibliography keys, theme, filters
-- `_config/customjfb.scss` / `customjfb-dark.scss` — custom SCSS (light/dark themes blending Julia + Cerema color palettes)
+## Theme
 
-### Bibliography system
-`_biblio/` holds 13 `.bib` files organized by publication type (ACL, ACLN, OS, conferences, reports, patents, software, …). The **multibib** Quarto filter maps each file to a named key in `_quarto.yml` and renders them in separate sections in `publications.qmd` via `{#refs-<key>}` divs and per-section `nocite` YAML.
+`_config/` holds four SCSS files and one head partial:
 
-### Postprints section (generated)
+- `_tokens.scss` — the shared scale (colors, fonts, radii, breakpoints, publication families).
+  It sits in the **`scss:functions`** layer, not `scss:defaults`: Quarto merges `defaults` layers
+  in *reverse* order, so a token file listed there lands after the theme that uses it. It is listed
+  as its own layer in `_quarto.yml` rather than `@import`-ed, because Quarto's static check does not
+  follow an `@import` and reports every token as "used before declaration".
+- `theme-light.scss` / `theme-dark.scss` — the Bootstrap mapping plus one `:root` block of
+  `--jfb-*` custom properties each.
+- `_components.scss` — every shared rule, written against those custom properties. **Light and dark
+  differ by their `:root` block alone; no rule is written twice.**
+- `head.html` — Google Fonts preconnect and stylesheet (a CSS `@import` inside a Quarto rules layer
+  lands after Bootstrap's rules and is silently ignored).
 
-Open-access author-accepted manuscripts live under `postprints/<slug>/` (rendered HTML + PDF + assets,
-**no sources**), one folder per article, served at `/postprints/<slug>/`. Everything is generated from a
-**single source of truth**, `_scripts/postprints_data.py`, by `_scripts/build_postprints.py` (`make postprints`):
-- deploys each `~/articles/<dir>/Webpublish/web/` bundle into `postprints/<slug>/` (drops the `_config/`
-  sources, keeps only the CC badge; renames the HTML to `index.html`; renders `thumb.png` from page 1);
-- regenerates `_includes/_postprints_cards.qmd` (Postprints page), `_includes/_postprints_featured.qmd`
-  (Publications "featured" block) and `_extensions/postprint-links/postprint_map.lua`.
-- `postprints/` is declared in `project: resources:` so Quarto copies the standalone bundles verbatim.
-- The Lua filter `_extensions/postprint-links/postprint-links.lua` (last in the `filters:` chain) injects
-  inline "📄 Postprint" links into the matching bibliography entries, keyed by bib citekey.
+Palette: slate neutrals, cyan-teal accent (`#0e7c86` light / `#45c8d2` dark), violet secondary.
+The four Julia logo colors are kept for the package logos only.
 
-To add/update a postprint: edit one entry in `_scripts/postprints_data.py`, run `make postprints`,
-preview, commit. See `_scripts/README.md`. Do **not** hand-edit the generated files listed above.
+### Two Quarto traps this theme works around
 
-### Deployment
-`.github/workflows/publish.yml` — builds with Quarto and pushes to the `gh-pages` branch. Also mirrors to `origin` (private git server at git.bart.casa). **Note:** the deploy runs `quarto render` only; `make postprints` is a local authoring step, so commit the generated `postprints/` and `_includes/` files.
+- **A class on a markdown heading is merged onto the `<section>` Quarto wraps it in**, and inherited
+  properties (`font-weight`, `font-size`) then leak onto everything inside. Never put a display class
+  on a heading; style `.wrapper h2` instead. This is why `.pub-year` styles its `h2` through a
+  descendant selector, and why the home page has no heading inside `.hero`.
+- **A lone image with alt text becomes a figure with a visible caption.** Pass accessible text as
+  `fig-alt="…"` and leave the markdown alt empty.
+
+## Generated content
+
+Two generators, both documented in [`_scripts/README.md`](_scripts/README.md):
+
+- `_scripts/build_publications.py` — reads the thirteen `_biblio/*.bib` through
+  `quarto pandoc -f biblatex -t csljson` and writes `_includes/_publications_{timeline,stats,recent}.qmd`
+  plus `files/publications.bib`. Entries are classified by **source file**, not CSL type. It aborts
+  on an inconsistent bibliography.
+- `_scripts/build_postprints.py` — from `_scripts/postprints_data.py`; deploys `postprints/<slug>/`
+  and writes `_includes/_postprints_{cards,featured}.qmd`. `--derived-only` skips the 34 MB copy.
+
+Do **not** hand-edit anything under `_includes/` or `files/publications.bib`.
 
 ## Key conventions
 
+- **No raw HTML in `.qmd` files.** Layout is expressed with Pandoc fenced divs (`::: {.class}`) and
+  attribute spans, and styled from `_config/`. The only HTML lives in `_config/*.html`.
 - Icons use `{{< iconify … >}}` (Iconify) and `{{< ai … >}}` (Academicons) shortcodes.
-- `execute: freeze: auto` in `_quarto.yml` — only changed sources are re-rendered.
-- `citeproc: false` + remote CSL from Zotero — let multibib handle citation rendering.
-- `validate-yaml: false` is intentional (multibib adds non-standard YAML keys).
+- The publications filter UI is progressive enhancement: with JavaScript off the full list renders.
+  Its family keys must stay in sync with `FAMILIES` in `_scripts/publications_meta.py`.
+- No citeproc, no `multibib`, no remote CSL — the timeline is generated, so nothing is fetched from
+  the network at build time.
+- `execute: freeze: auto` — there are no executable cells, so this is a no-op kept for safety.
+
+## Deployment
+
+`.github/workflows/publish.yml` builds with Quarto and pushes to `gh-pages`. The deploy runs
+`quarto render` only: `make data` is a local authoring step, so the generated `postprints/`,
+`_includes/` and `files/` must be committed.

@@ -1,0 +1,972 @@
+// ---------------------------------------------------------------------------
+// Shared component rules.
+//
+// Rules only. This partial is imported at the end of the `scss:rules` layer of
+// both theme files, and is written entirely against the --jfb-* custom
+// properties those files declare. Light and dark therefore differ by their
+// :root block alone — there is no second copy of any rule here.
+// ---------------------------------------------------------------------------
+
+// --- Base ------------------------------------------------------------------
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--jfb-bg);
+  color: var(--jfb-ink);
+  font-feature-settings: "cv05" 1, "ss01" 1;
+  transition: background-color 0.25s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  // Package names such as MicroPoroChemoMechanics are single long words; let
+  // them break rather than push the page wider than the screen.
+  overflow-wrap: break-word;
+}
+
+h2 {
+  margin-top: 2.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--jfb-border);
+}
+
+// Anchors must clear the sticky navbar when jumped to.
+:target,
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--jfb-accent) 28%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--jfb-accent);
+  outline-offset: 2px;
+  border-radius: $jfb-radius-sm;
+}
+
+// `page-layout: full` hands us the whole viewport; centre the reading column
+// ourselves so every page shares one measure.
+main.content,
+#quarto-document-content {
+  max-width: $jfb-content-max;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+// `main` is a grid item; without this its automatic minimum size is the
+// content's min-content width, and a wide child (Quarto's listing grid) pushes
+// the whole page past the viewport instead of shrinking.
+#quarto-content > *,
+main.content,
+main.content.column-page {
+  min-width: 0;
+  max-width: min(#{$jfb-content-max}, 100%);
+}
+
+// --- Navbar ----------------------------------------------------------------
+
+.navbar {
+  background: var(--jfb-nav-bg) !important;
+  border-bottom: 1px solid var(--jfb-nav-border);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  box-shadow: none;
+  padding-block: 0.4rem;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.navbar .navbar-brand {
+  font-family: $jfb-font-display;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--jfb-ink) !important;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: var(--jfb-ink-muted) !important;
+  font-weight: 500;
+  font-size: 0.94rem;
+  padding-inline: 0.7rem;
+  border-radius: $jfb-radius-sm;
+  position: relative;
+  transition: color 0.15s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--jfb-ink) !important;
+  }
+
+  &.active {
+    color: var(--jfb-accent-strong) !important;
+    font-weight: 600;
+  }
+
+  &.active::after {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 0.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--jfb-accent);
+  }
+}
+
+.navbar-tools .quarto-navigation-tool,
+.navbar .quarto-search .aa-DetachedSearchButton {
+  color: var(--jfb-ink-muted) !important;
+}
+
+// --- Buttons ---------------------------------------------------------------
+
+.btn-jfb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: $jfb-radius-pill;
+  border: 1px solid var(--jfb-border-strong);
+  background: var(--jfb-surface);
+  color: var(--jfb-ink) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.3;
+  text-decoration: none !important;
+  white-space: nowrap;
+  max-width: 100%;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+              background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--jfb-accent);
+    color: var(--jfb-accent-strong) !important;
+    transform: translateY(-1px);
+    box-shadow: var(--jfb-shadow-sm);
+  }
+}
+
+.btn-jfb-primary {
+  background: var(--jfb-accent);
+  border-color: var(--jfb-accent);
+  color: #fff !important;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--jfb-accent-strong);
+    border-color: var(--jfb-accent-strong);
+    color: #fff !important;
+  }
+}
+
+// In dark mode the accent is a light cyan, so primary buttons need dark text.
+:root[data-bs-theme="dark"] .btn-jfb-primary,
+.quarto-dark .btn-jfb-primary {
+  color: var(--jfb-bg) !important;
+}
+
+.btn-jfb-sm {
+  padding: 0.28rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+// --- Hero ------------------------------------------------------------------
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: center;
+  padding-block: clamp(0.5rem, 2vw, 1.25rem) clamp(1.25rem, 4vw, 2.5rem);
+}
+
+// On the home page the Quarto title block *is* the hero heading: it owns the
+// real <h1>, so no heading is written inside .hero (a class on a markdown
+// heading is merged onto the <section> Quarto wraps it in, and its font-weight
+// then leaks onto every paragraph below).
+main.content:has(.hero) {
+  .quarto-title-block .quarto-title .title {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    line-height: 1.06;
+    margin-bottom: 0.3rem;
+  }
+
+  .quarto-title-block .subtitle {
+    font-family: $jfb-font-display;
+    font-size: clamp(0.95rem, 2.4vw, 1.12rem);
+    font-weight: 500;
+    color: var(--jfb-accent-strong);
+  }
+
+  .quarto-title-block { margin-bottom: 0; }
+}
+
+.hero-body > p {
+  max-width: 40rem;
+  color: var(--jfb-ink-muted);
+  font-size: 1.02rem;
+}
+
+// Pandoc wraps the standalone portrait in a <p>, which would be the grid item
+// (and would swallow `order`). Let the image itself be the item.
+.hero > p { display: contents; }
+
+.hero-portrait {
+  width: clamp(7.5rem, 24vw, 11rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--jfb-surface-2);
+  border: 3px solid var(--jfb-surface);
+  box-shadow: var(--jfb-shadow);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+
+.hero-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  margin-top: 1.2rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--jfb-ink-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--jfb-accent-strong);
+    }
+  }
+}
+
+@media (max-width: $jfb-bp-md) {
+  .hero {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 1.25rem;
+  }
+  .hero-portrait { order: -1; }
+}
+
+// --- Affiliation strip -----------------------------------------------------
+// Replaces the old `about-links` treatment, where each logo was forced onto a
+// full-width row inside the narrow trestles column.
+
+.affil-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.25rem);
+  padding: 1rem 0 1.5rem;
+  border-top: 1px solid var(--jfb-border);
+
+  p { margin: 0; }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.78;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+
+    &:hover { opacity: 1; transform: translateY(-1px); }
+  }
+}
+
+.affil-logo {
+  height: clamp(1.8rem, 6vw, 2.7rem);
+  width: auto;
+  max-width: 100%;
+  padding: 0.35rem 0.6rem;
+  background: #fff;
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius-sm;
+}
+
+// --- Statistics strip ------------------------------------------------------
+
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0 0 2rem;
+}
+
+.stat {
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+  padding: 0.9rem 1rem;
+
+  p { margin: 0; }
+}
+
+.stat-value {
+  display: block;
+  font-family: $jfb-font-display;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--jfb-accent-strong);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--jfb-ink-muted);
+  margin-top: 0.15rem;
+}
+
+// --- Generic cards ---------------------------------------------------------
+
+.card,
+.jfb-card {
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+  box-shadow: var(--jfb-shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--jfb-accent) 45%, var(--jfb-border));
+    box-shadow: var(--jfb-shadow);
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+}
+
+// Four items read better as 2x2 than as 3 + 1.
+.card-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+}
+
+.jfb-card {
+  padding: 1.1rem 1.2rem;
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+
+  p:last-child { margin-bottom: 0; }
+}
+
+// --- Quarto listings (software grid) ---------------------------------------
+
+.quarto-listing {
+  // Quarto emits a fixed `grid-columns` track count, which does not collapse on
+  // a phone. Let the track count follow the available width instead.
+  .list.grid {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr)) !important;
+  }
+
+  .card {
+    height: 100%;
+  }
+
+  .card-img-top {
+    background: var(--jfb-surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--jfb-border);
+
+    .thumbnail-image {
+      object-fit: contain !important;
+      height: auto !important;
+      max-height: 110px;
+      width: auto;
+      max-width: 100%;
+    }
+  }
+
+  .card-title {
+    font-family: $jfb-font-display;
+    font-size: 1.08rem;
+    font-weight: 600;
+  }
+
+  .card-text {
+    color: var(--jfb-ink-muted);
+    font-size: 0.9rem;
+  }
+
+  .listing-categories {
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+  }
+
+  .listing-category {
+    background: var(--jfb-surface-2);
+    border: 1px solid var(--jfb-border);
+    border-radius: $jfb-radius-pill;
+    color: var(--jfb-ink-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.12rem 0.6rem;
+    text-transform: none;
+
+    &:hover {
+      color: var(--jfb-accent-strong);
+      border-color: var(--jfb-accent);
+    }
+  }
+}
+
+// Logo at the top of a software detail page.
+.jfb-page-logo {
+  display: block;
+  max-height: 140px;
+  max-width: 280px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto 1.75rem;
+}
+
+// --- Publications: toolbar -------------------------------------------------
+
+.pub-toolbar {
+  position: sticky;
+  top: 3.6rem;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.85rem;
+  margin: 1.25rem 0 0.5rem;
+  background: color-mix(in srgb, var(--jfb-bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+}
+
+.pub-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--jfb-ink-muted);
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius-pill;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover { border-color: var(--jfb-border-strong); color: var(--jfb-ink); }
+
+  &[aria-pressed="true"] {
+    color: #fff;
+    background: var(--jfb-accent);
+    border-color: var(--jfb-accent);
+  }
+}
+
+:root[data-bs-theme="dark"] .pub-filter[aria-pressed="true"],
+.quarto-dark .pub-filter[aria-pressed="true"] {
+  color: var(--jfb-bg);
+}
+
+.pub-filter-count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+  font-size: 0.75rem;
+}
+
+.pub-search {
+  flex: 1 1 11rem;
+  min-width: 0;
+  padding: 0.32rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--jfb-ink);
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius-pill;
+
+  &::placeholder { color: var(--jfb-ink-faint); }
+  &:focus { outline: 2px solid var(--jfb-accent); outline-offset: 1px; }
+}
+
+.pub-count {
+  font-size: 0.8rem;
+  color: var(--jfb-ink-muted);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+// --- Publications: timeline ------------------------------------------------
+
+.pub-timeline {
+  position: relative;
+  margin-top: 1rem;
+  padding-left: 5.5rem;
+
+  // the rail
+  &::before {
+    content: "";
+    position: absolute;
+    left: 4.45rem;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--jfb-border) 2rem,
+      var(--jfb-border) calc(100% - 2rem),
+      transparent
+    );
+  }
+}
+
+.pub-year {
+  padding: 0;
+  position: sticky;
+  top: 7.6rem;
+  z-index: 5;
+  margin: 1.5rem 0 0 -5.5rem;
+  width: 4rem;
+
+  h2 {
+    margin: 0;
+    padding: 0.15rem 0;
+    border: none;
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--jfb-ink-muted);
+    background: var(--jfb-bg);
+    text-align: right;
+    letter-spacing: 0;
+  }
+}
+
+.pub-item {
+  position: relative;
+  padding: 0.7rem 0 0.85rem;
+  border-bottom: 1px solid var(--jfb-border);
+
+  &:last-child { border-bottom: none; }
+
+  // the dot on the rail
+  &::before {
+    content: "";
+    position: absolute;
+    left: -1.35rem;
+    top: 1.25rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--jfb-fam-report);
+    box-shadow: 0 0 0 3px var(--jfb-bg);
+    transition: transform 0.15s ease;
+  }
+
+  &:hover::before { transform: scale(1.35); }
+}
+
+.pub-title {
+  display: block;
+  font-family: $jfb-font-display;
+  font-size: 1.01rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--jfb-ink) !important;
+  text-decoration: none !important;
+  text-wrap: pretty;
+
+  &:hover { color: var(--jfb-accent-strong) !important; }
+}
+
+.pub-authors {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--jfb-ink-muted);
+  margin-top: 0.3rem;
+
+  strong { color: var(--jfb-ink); font-weight: 600; }
+}
+
+.pub-venue {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--jfb-ink-faint);
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+
+.pub-tags,
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.pub-tag {
+  display: inline-block;
+  font-size: 0.71rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.1rem 0.55rem;
+  border-radius: $jfb-radius-pill;
+  border: 1px solid transparent;
+  background: var(--jfb-surface-2);
+  color: var(--jfb-ink-muted);
+}
+
+.pub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.1rem 0.6rem;
+  border-radius: $jfb-radius-pill;
+  border: 1px solid var(--jfb-border);
+  background: var(--jfb-surface);
+  color: var(--jfb-ink-muted) !important;
+  text-decoration: none !important;
+
+  &:hover {
+    border-color: var(--jfb-accent);
+    color: var(--jfb-accent-strong) !important;
+  }
+}
+
+// Per-family hues: one @each instead of seven hand-written pairs per theme.
+@each $fam in $jfb-families {
+  .pub-tag-#{$fam} {
+    color: var(--jfb-fam-#{$fam});
+    background: color-mix(in srgb, var(--jfb-fam-#{$fam}) var(--jfb-tag-tint), transparent);
+    border-color: color-mix(in srgb, var(--jfb-fam-#{$fam}) 32%, transparent);
+  }
+
+  .pub-item[data-family="#{$fam}"]::before {
+    background: var(--jfb-fam-#{$fam});
+  }
+}
+
+.pub-empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--jfb-ink-muted);
+}
+
+// Narrow screens: drop the rail, turn the year into a full-width sticky pill.
+@media (max-width: $jfb-bp-md) {
+  .pub-timeline {
+    padding-left: 0;
+    &::before { display: none; }
+  }
+
+  .pub-year {
+    width: auto;
+    margin: 1.5rem 0 0.5rem;
+    top: 6.9rem;
+
+    h2 {
+      text-align: left;
+      padding: 0.25rem 0.7rem;
+      border-radius: $jfb-radius-sm;
+      background: var(--jfb-surface-2);
+      border: 1px solid var(--jfb-border);
+      font-size: 1rem;
+    }
+  }
+
+  .pub-item {
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--jfb-border);
+    border-bottom: 1px solid var(--jfb-border);
+
+    &::before { display: none; }
+  }
+
+  @each $fam in $jfb-families {
+    .pub-item[data-family="#{$fam}"] {
+      border-left-color: color-mix(in srgb, var(--jfb-fam-#{$fam}) 55%, transparent);
+    }
+  }
+
+  .pub-toolbar { top: 3.2rem; }
+}
+
+// --- Postprints ------------------------------------------------------------
+
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+  gap: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+.pp-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.9rem 0.95rem 1rem;
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+  box-shadow: var(--jfb-shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--jfb-accent) 45%, var(--jfb-border));
+    box-shadow: var(--jfb-shadow);
+  }
+
+  p { margin: 0; }
+}
+
+.pp-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1.35;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: $jfb-radius-sm;
+  border: 1px solid var(--jfb-border);
+  background: var(--jfb-surface-2);
+}
+
+.pp-title {
+  display: block;
+  font-family: $jfb-font-display;
+  font-weight: 600;
+  font-size: 0.94rem;
+  line-height: 1.3;
+  margin-top: 0.75rem;
+  color: var(--jfb-ink) !important;
+  text-decoration: none !important;
+  text-wrap: pretty;
+
+  &:hover { color: var(--jfb-accent-strong) !important; }
+}
+
+.pp-authors {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--jfb-ink-muted);
+  margin-top: 0.3rem;
+}
+
+.pp-badge {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.1rem 0.55rem;
+  border-radius: $jfb-radius-pill;
+  color: var(--jfb-fam-oa);
+  background: color-mix(in srgb, var(--jfb-fam-oa) var(--jfb-tag-tint), transparent);
+}
+
+.pp-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+.pp-featured {
+  padding: 1.1rem 1.25rem;
+  margin: 1.5rem 0 0.5rem;
+  background: var(--jfb-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--jfb-accent) 35%, transparent);
+  border-radius: $jfb-radius;
+
+  h5 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: var(--jfb-accent-strong);
+  }
+
+  p { color: var(--jfb-ink-muted); font-size: 0.9rem; }
+}
+
+.pp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.7rem 0 0.9rem;
+}
+
+.pp-chip {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.12rem 0.6rem;
+  border-radius: $jfb-radius-pill;
+  background: var(--jfb-surface);
+  border: 1px solid color-mix(in srgb, var(--jfb-accent) 35%, transparent);
+  color: var(--jfb-accent-strong) !important;
+  text-decoration: none !important;
+
+  &:hover { background: var(--jfb-accent); color: #fff !important; }
+}
+
+:root[data-bs-theme="dark"] .pp-chip:hover,
+.quarto-dark .pp-chip:hover { color: var(--jfb-bg) !important; }
+
+// --- Teaching --------------------------------------------------------------
+
+.course-current {
+  padding: 1.25rem 1.4rem 0.85rem;
+  margin-bottom: 2rem;
+  background: var(--jfb-accent-soft);
+  border: 1px solid color-mix(in srgb, var(--jfb-accent) 32%, transparent);
+  border-left: 4px solid var(--jfb-accent);
+  border-radius: $jfb-radius;
+
+  h3 { margin-top: 0; color: var(--jfb-accent-strong); }
+}
+
+.course-card {
+  padding: 1.1rem 1.2rem;
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+  box-shadow: var(--jfb-shadow-sm);
+
+  h3 { margin-top: 0; font-size: 1.02rem; }
+  p:last-child { margin-bottom: 0; }
+}
+
+.course-where {
+  font-size: 0.85rem;
+  color: var(--jfb-accent-strong);
+  font-weight: 500;
+}
+
+// --- Footer ----------------------------------------------------------------
+
+.nav-footer {
+  background: var(--jfb-surface);
+  border-top: 1px solid var(--jfb-border);
+  color: var(--jfb-ink-muted);
+  font-size: 0.84rem;
+  margin-top: 3rem;
+
+  a { color: var(--jfb-ink-muted); text-decoration: none; }
+  a:hover { color: var(--jfb-accent-strong); }
+}
+
+// --- Misc ------------------------------------------------------------------
+
+.quarto-title-block .quarto-title .title {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.quarto-title-block .subtitle {
+  color: var(--jfb-ink-muted);
+  font-size: 1.02rem;
+}
+
+blockquote {
+  border-left: 3px solid var(--jfb-accent);
+  color: var(--jfb-ink-muted);
+  background: var(--jfb-surface-2);
+  padding: 0.6rem 1rem;
+  border-radius: 0 $jfb-radius-sm $jfb-radius-sm 0;
+}
+
+// Tables and long code blocks are the only things allowed to scroll sideways.
+.table-responsive,
+table { max-width: 100%; }
+
+pre {
+  background: var(--jfb-surface-2) !important;
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius-sm;
+}
+
+img { max-width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+// --- Pandoc plumbing -------------------------------------------------------
+// Pandoc wraps the inline content of a fenced div in a <p>. `display: contents`
+// lets the flex container lay out the links themselves instead of that wrapper.
+
+.hero-actions,
+.hero-social,
+.pub-tags,
+.pub-links,
+.pub-actions,
+.pp-btns,
+.pp-chips,
+.affil-strip {
+  > p { display: contents; }
+}
+
+.pub-item p,
+.pp-card p,
+.stat p,
+.pub-year p { margin: 0; }
+
+.pub-actions { margin: 0.75rem 0 0.25rem; }
+
+// A timeline without its rail — used for the short "recent work" list.
+.pub-timeline-flat {
+  padding-left: 0;
+
+  &::before { display: none; }
+  .pub-item::before { display: none; }
+}
+
+// --- Very narrow screens ---------------------------------------------------
+
+@media (max-width: $jfb-bp-sm) {
+  // Long button labels ("MicroPoroChemoMechanics on GitHub") must wrap rather
+  // than widen the page.
+  .btn-jfb {
+    white-space: normal;
+    text-align: left;
+  }
+
+  .pub-title,
+  .pp-title { overflow-wrap: break-word; }
+
+  // anchorjs appends its link inline after a heading; keep it from sticking out.
+  .anchorjs-link { display: none; }
+}

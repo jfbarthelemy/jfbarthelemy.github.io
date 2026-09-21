@@ -6,10 +6,10 @@ description: >
   and all classical schemes, with ForwardDiff sensitivities. Morphologies without a
   closed form enter by finite elements or a neural surrogate.
 categories: [Julia, Micromechanics, Homogenization, Machine Learning]
-image: "../images/logo_mfh.png"
+image: "../images/logo_mfh.svg"
 ---
 
-![](../images/logo_mfh.png){.jfb-page-logo}
+![](../images/logo_mfh.svg){.jfb-page-logo}
 
 **MeanFieldHomogenization.jl** predicts the effective elastic, transport and viscoelastic properties
 of a heterogeneous material from the properties, shapes, orientations and volume fractions
@@ -35,7 +35,7 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
   gates (Hill tensor, localization tensors, contribution tensors), whatever computed the
   answer; the two below are its current tenants, not its limits
 - **Finite-element inclusions** — Eshelby problem solved numerically (3-D elliptical crack,
-  sphere with an off-centre core) behind a two-backend contract
+  sphere with an off-center core) behind a two-backend contract
 - **Neural-surrogate inclusions** — a trained multilayer perceptron standing in for the
   Eshelby response, differentiable with respect to the morphology itself and orders of
   magnitude cheaper than the finite-element solve it replaces
