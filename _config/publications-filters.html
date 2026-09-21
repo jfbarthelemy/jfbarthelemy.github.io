@@ -106,6 +106,51 @@
       actions.remove();
     }
 
+    // ── the year index ───────────────────────────────────────────────────
+    // Built here rather than by Quarto: its table of contents ignores headings
+    // that come through an `{{< include >}}`, and the timeline is one. Fixed
+    // rather than placed in the grid, so it needs nothing from the page layout.
+    var years = Array.prototype.slice.call(
+      timeline.querySelectorAll(".pub-year")
+    ).filter(function (y) { return y.id; });
+
+    var index = null;
+    if (years.length > 3) {
+      index = document.createElement("nav");
+      index.className = "pub-index";
+      index.setAttribute("aria-label", "Jump to a year");
+      var head = document.createElement("p");
+      head.className = "pub-index-title";
+      head.textContent = "Jump to a year";
+      index.appendChild(head);
+      var list = document.createElement("ul");
+      years.forEach(function (y) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.href = "#" + y.id;
+        a.textContent = (y.textContent || "").trim();
+        a.dataset.year = y.id;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      index.appendChild(list);
+      document.body.appendChild(index);
+
+      // Mark the year currently under the toolbar.
+      if ("IntersectionObserver" in window) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var links = index.querySelectorAll("a");
+            Array.prototype.forEach.call(links, function (a) {
+              a.classList.toggle("is-current", a.dataset.year === e.target.id);
+            });
+          });
+        }, { rootMargin: "-30% 0px -60% 0px" });
+        years.forEach(function (y) { spy.observe(y); });
+      }
+    }
+
     var empty = document.createElement("p");
     empty.className = "pub-empty";
     empty.hidden = true;
@@ -127,19 +172,31 @@
         if (ok) shown++;
       });
 
-      // Hide a year heading once every entry under it is filtered out.
+      // Hide a year heading once every entry under it is filtered out, and
+      // take its entry out of the year index on the side at the same time —
+      // an index offering a year with nothing in it is worse than no index.
+      function setYear(node, hidden) {
+        if (!node) return;
+        node.hidden = hidden;
+        if (!node.id) return;
+        if (!index) return;
+        var link = index.querySelector('a[data-year="' + node.id + '"]');
+        var item = link && link.parentNode;
+        if (item) item.hidden = hidden;
+      }
+
       var year = null;
       var seen = 0;
       Array.prototype.forEach.call(timeline.children, function (node) {
         if (node.classList.contains("pub-year")) {
-          if (year) year.hidden = seen === 0;
+          setYear(year, seen === 0);
           year = node;
           seen = 0;
         } else if (node.classList.contains("pub-item") && !node.hidden) {
           seen++;
         }
       });
-      if (year) year.hidden = seen === 0;
+      setYear(year, seen === 0);
 
       count.textContent = shown === items.length
         ? items.length + " publications"

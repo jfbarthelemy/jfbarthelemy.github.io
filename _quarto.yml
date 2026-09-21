@@ -61,6 +61,7 @@ format:
         - _config/_tokens.scss
         - _config/theme-dark.scss
     include-in-header: _config/head.html
+    include-after-body: _config/enhance.html
     toc: false
     page-layout: full
     code-overflow: wrap

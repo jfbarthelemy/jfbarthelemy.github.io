@@ -1,10 +1,19 @@
 ---
 title: "Publications"
 subtitle: "Journal articles, book chapters, conference papers, reports, patents and software, from 2002 onwards."
-toc: false
 format:
   html:
-    include-after-body: _config/publications-filters.html
+    # No `toc: true` here. Quarto's table of contents does not collect
+    # headings that arrive through `{{< include >}}`, and the whole timeline
+    # does — a heading written directly in this file lands in it, the same
+    # heading inside the include does not. The year index is therefore built by
+    # _config/publications-filters.html, which also keeps it in step with the
+    # filters.
+    # A page-level value replaces the project one, so the site-wide
+    # enhancements have to be listed again here.
+    include-after-body:
+      - _config/enhance.html
+      - _config/publications-filters.html
 ---
 
 {{< include _includes/_postprints_featured.qmd >}}

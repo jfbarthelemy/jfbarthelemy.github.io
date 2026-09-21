@@ -369,6 +369,12 @@ def render_entry(e: dict) -> list[str]:
         attrs.append('data-oa="1"')
 
     out = [f"::: {{{' '.join(attrs)}}}"]
+    # The year on every entry, not only in the section heading: once a filter
+    # or a search is on, the headings a reader can see no longer bracket what
+    # is left. On a wide screen it sits in the rail gutter, on a narrow one it
+    # becomes a pill above the title.
+    out.append(f"[{e['year']}]{{.pub-date}}")
+    out.append("")
     if target:
         out.append(f"[{e['title']}]({target}){{.pub-title}}")
     else:

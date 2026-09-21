@@ -290,7 +290,7 @@ main.content:has(.hero) {
 }
 
 .affil-logo {
-  height: clamp(1.8rem, 6vw, 2.7rem);
+  height: clamp(2.3rem, 7.5vw, 3.8rem);
   width: auto;
   max-width: 100%;
   padding: 0.35rem 0.6rem;
@@ -592,6 +592,17 @@ main.content:has(.hero) {
   }
 
   &:hover::before { transform: scale(1.35); }
+}
+
+.pub-date {
+  display: block;
+  font-family: $jfb-font-display;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  font-variant-numeric: tabular-nums;
+  color: var(--jfb-ink-faint);
+  margin-bottom: 0.1rem;
 }
 
 .pub-title {
@@ -969,4 +980,158 @@ img { max-width: 100%; height: auto; }
 
   // anchorjs appends its link inline after a heading; keep it from sticking out.
   .anchorjs-link { display: none; }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Modern touches — restrained, and all of them optional at the reader's end:
+// nothing here carries information, so a browser that ignores it loses nothing.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// --- A soft wash behind the hero ------------------------------------------
+// Two very low-opacity radial gradients. Vertical bleed only: any horizontal
+// negative inset would widen the page past the viewport.
+
+.hero { position: relative; }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem 0 -3rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 58% at 16% 28%,
+      color-mix(in srgb, var(--jfb-accent) 17%, transparent), transparent 72%),
+    radial-gradient(34% 48% at 80% 12%,
+      color-mix(in srgb, var(--jfb-accent-2) 15%, transparent), transparent 72%);
+  // Without a mask the box edges show as straight lines across the page. A
+  // radial mask is not enough — it is still two thirds opaque where the box
+  // ends, so the clipped gradient still draws a line. A vertical fade cannot:
+  // it reaches zero exactly at the edges. The sides need nothing, the two
+  // radial gradients being transparent well before them.
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero::before {
+    animation: jfb-drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes jfb-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(1.5%, -1.5%, 0) scale(1.06); }
+  }
+}
+
+// --- The name, circled ----------------------------------------------------
+// Two thin ellipses that close in on hover, like a pencil circling the name —
+// and, for once, a decoration that says what the work is about: an inclusion
+// in a matrix.
+
+main.content:has(.hero) .quarto-title-block .quarto-title .title {
+  position: relative;
+  display: inline-block;
+}
+
+main.content:has(.hero) .quarto-title .title::before,
+main.content:has(.hero) .quarto-title .title::after {
+  content: "";
+  position: absolute;
+  inset: -0.13em -0.44em;
+  border: 2px solid var(--jfb-accent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.93) rotate(-3deg);
+  transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+main.content:has(.hero) .quarto-title .title::after {
+  inset: -0.29em -0.7em;
+  border-color: color-mix(in srgb, var(--jfb-accent-2) 70%, transparent);
+  transform: scale(0.89) rotate(4deg);
+  transition-delay: 0.07s;
+}
+
+main.content:has(.hero) .quarto-title .title:hover::before {
+  opacity: 0.9;
+  transform: scale(1) rotate(-1.5deg);
+}
+
+main.content:has(.hero) .quarto-title .title:hover::after {
+  opacity: 0.55;
+  transform: scale(1) rotate(2.5deg);
+}
+
+// --- Reveal on scroll -----------------------------------------------------
+// The class is added by JavaScript only, so with it off nothing is ever hidden.
+
+.jfb-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jfb-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.stat-value { font-variant-numeric: tabular-nums; }
+
+// --- Year index on the publications page ----------------------------------
+// Built by _config/publications-filters.html. Fixed rather than placed in the
+// page grid, so it depends on nothing in the layout, and shown only where there
+// is genuinely room beside the reading column — on a narrower screen the sticky
+// year pill in the timeline already does the job.
+
+.pub-index {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 15;
+  display: none;
+  max-height: 72vh;
+  overflow-y: auto;
+  padding: 0.5rem 0.2rem 0.5rem 0.75rem;
+  border-left: 2px solid var(--jfb-border);
+  font-variant-numeric: tabular-nums;
+  scrollbar-width: thin;
+
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { margin: 0; }
+
+  a {
+    display: block;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--jfb-ink-faint);
+    text-decoration: none;
+    border-radius: $jfb-radius-sm;
+    transition: color 0.15s ease, background 0.15s ease;
+
+    &:hover { color: var(--jfb-accent-strong); background: var(--jfb-surface-2); }
+
+    &.is-current {
+      color: var(--jfb-accent-strong);
+      font-weight: 700;
+    }
+  }
+}
+
+.pub-index-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--jfb-ink-faint);
+}
+
+// 90rem = 1440 px: the reading column tops out at 74rem, which leaves enough
+// margin for the index without ever crowding the text.
+@media (min-width: 90rem) {
+  .pub-index { display: block; }
 }
