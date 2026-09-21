@@ -26,7 +26,6 @@ Université Gustave Eiffel).
 ::: {.hero-social}
 [{{< ai orcid >}} ORCID](https://orcid.org/0000-0002-1968-8939)
 [{{< iconify simple-icons github >}} GitHub](https://github.com/jfbarthelemy)
-[{{< iconify simple-icons codeberg >}} Codeberg](https://codeberg.org/jfbarthelemy)
 [{{< ai google-scholar >}} Scholar](https://scholar.google.com/citations?user=RVjtCiAAAAAJ&hl=en)
 [{{< ai hal >}} HAL](https://hal.archives-ouvertes.fr/search/index/?q=%2A&authIdHal_s=jfbarthelemy)
 [{{< ai researchgate >}} ResearchGate](https://www.researchgate.net/profile/Jean-Francois_Barthelemy)

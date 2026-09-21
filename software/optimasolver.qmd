@@ -1,18 +1,21 @@
 ---
 title: "OptimaSolver.jl"
 description: >
-  Primal-dual interior-point solver for Gibbs energy minimization, with diagonal Hessian
-  structure and implicit-differentiation sensitivity matrices. The equilibrium backend of
-  ChemistryLab.jl.
+  Julia port of Allan Leal's Optima C++ library: a primal-dual interior-point solver for
+  Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation
+  sensitivity matrices. The equilibrium backend of ChemistryLab.jl.
 categories: [Julia, Optimization, Thermodynamics]
 image: "../images/logo_optimasolver.svg"
 ---
 
 ![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
-**OptimaSolver.jl** is a primal-dual interior-point solver written for the specific shape of
-chemical equilibrium problems: minimization of a Gibbs energy whose Hessian is diagonal, under
-linear mass-balance constraints. It serves as a core solver backend for
+**OptimaSolver.jl** is a Julia port of the **Optima** C++ library developed by
+[Allan Leal](https://erdw.ethz.ch/en/people/profile.allan-leal.html) (ETH Zürich) —
+[github.com/reaktoro/optima](https://github.com/reaktoro/optima). It is a primal-dual
+interior-point solver written for the specific shape of chemical equilibrium problems:
+minimization of a Gibbs energy whose Hessian is diagonal, under linear mass-balance
+constraints. It serves as a core solver backend for
 [ChemistryLab.jl](chemistrylab.qmd) equilibrium computations.
 
 ### Key features
@@ -22,6 +25,17 @@ linear mass-balance constraints. It serves as a core solver backend for
 - **Sensitivity matrices** obtained by implicit differentiation of the optimality conditions,
   so derivatives of the equilibrium state come out of the solve itself
 - **Warm start** from a previous solution, for continuation along a reaction path
+
+### Credits and license
+
+The algorithmic design — Schur-complement Newton step, filter line search, variable
+stability classification and implicit-differentiation sensitivity — comes from that library
+and from Leal, Blunt & LaForce (2014), *Efficient chemical equilibrium calculations for
+geochemical speciation and reactive transport modelling*, Geochimica et Cosmochimica Acta
+**131**, 301–322, [doi:10.1016/j.gca.2014.01.038](https://doi.org/10.1016/j.gca.2014.01.038).
+
+The port is released under LGPL-2.1-or-later, matching the upstream library, and carries
+both copyright notices.
 
 ### Links
 
