@@ -6,7 +6,7 @@
 
 [Displacement and stress intensity factors of elliptical and ribbon-like cracks in a transformed transversely isotropic matrix](https://doi.org/10.1016/j.ijsolstr.2026.114293){.pub-title}
 
-[J.-F. BarthÃ©lÃ©my]{.pub-authors}
+[**J.-F. Barthélémy**]{.pub-authors}
 
 [International Journal of Solids and Structures 341 (2026) 114293]{.pub-venue}
 
@@ -24,7 +24,7 @@
 
 [Combined effects of slag and recycled sand on the physical and mechanical properties of mortars: From statistical nanoindentation approach to the micromechanical based model](https://doi.org/10.1016/j.jobe.2026.117294){.pub-title}
 
-[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my]{.pub-authors}
+[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**]{.pub-authors}
 
 [Journal of Building Engineering 132 (2026) 117294]{.pub-venue}
 
@@ -41,7 +41,7 @@
 
 [Experimental investigation and multiscale modeling of stiffness modulus, creep-recovery behaviour in aged and micro-cracked bituminous mixes](https://doi.org/10.1016/j.conbuildmat.2026.145595){.pub-title}
 
-[S. C. SomÃ©, J.-F. BarthÃ©lÃ©my, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
+[S. C. Somé, **J.-F. Barthélémy**, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
 
 [Construction and Building Materials 515 (2026) 145595]{.pub-venue}
 
@@ -58,7 +58,7 @@
 
 [Towards a better rheological investigation of the oxidative ageing of bituminous mixes: Frequency versus time characterisation](https://doi.org/10.1080/14680629.2025.2473964){.pub-title}
 
-[A. Achchoubi, S. C. SomÃ©, F. Hammoum, V. Mouillet, J.-F. BarthÃ©lÃ©my]{.pub-authors}
+[A. Achchoubi, S. C. Somé, F. Hammoum, V. Mouillet, **J.-F. Barthélémy**]{.pub-authors}
 
 [Road Materials and Pavement Design (2025) 1-30]{.pub-venue}
 
@@ -75,7 +75,7 @@
 
 [Failure mechanism in recycled sand mortars and recycled aggregate concretes: Experimental and multiscale approaches](https://doi.org/10.1016/j.jobe.2025.111882){.pub-title}
 
-[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my, M. Gharbi]{.pub-authors}
+[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**, M. Gharbi]{.pub-authors}
 
 [Journal of Building Engineering (2025) 111882]{.pub-venue}
 
