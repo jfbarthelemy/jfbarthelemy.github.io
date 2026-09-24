@@ -10,7 +10,7 @@
 
 [Displacement and stress intensity factors of elliptical and ribbon-like cracks in a transformed transversely isotropic matrix](https://doi.org/10.1016/j.ijsolstr.2026.114293){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [International Journal of Solids and Structures 341 (2026) 114293]{.pub-venue}
 
@@ -28,7 +28,7 @@
 
 [DECUHR.jl: Adaptive cubature for vertex singularities](https://doi.org/10.5281/ZENODO.22878393){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [v0.2.1, Zenodo (2026)]{.pub-venue}
 
@@ -45,7 +45,7 @@
 
 [OptimaSolver.jl: Julia-native primal-dual interior-point solver for Gibbs-energy minimization](https://doi.org/10.5281/ZENODO.19534031){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [v0.6.0, Zenodo (2026)]{.pub-venue}
 
@@ -58,11 +58,28 @@
 :::
 :::
 
+::: {#ref-adessinaJBE2026 .pub-item data-family="journal" data-group="acl" data-year="2026"}
+
+[Combined effects of slag and recycled sand on the physical and mechanical properties of mortars: From statistical nanoindentation approach to the micromechanical based model](https://doi.org/10.1016/j.jobe.2026.117294){.pub-title}
+
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my]{.pub-authors}
+
+[Journal of Building Engineering 132 (2026) 117294]{.pub-venue}
+
+::: {.pub-tags}
+[Peer-reviewed article]{.pub-tag .pub-tag-journal}
+:::
+
+::: {.pub-links}
+[DOI](https://doi.org/10.1016/j.jobe.2026.117294){.pub-link} [Publisher](https://linkinghub.elsevier.com/retrieve/pii/S2352710226021169){.pub-link}
+:::
+:::
+
 ::: {#ref-tensnd .pub-item data-family="software" data-group="log" data-year="2026"}
 
 [TensND.jl: Package allowing tensor calculations in arbitrary coordinate systems](https://doi.org/10.5281/zenodo.17985768){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [v0.5.0, Zenodo (2026)]{.pub-venue}
 
@@ -79,7 +96,7 @@
 
 [MeanFieldHomogenization.jl: Mean-field homogenization of heterogeneous materials](https://doi.org/10.5281/zenodo.21884243){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [v0.14.2 (2026)]{.pub-venue}
 
@@ -96,9 +113,9 @@
 
 [ChemistryLab.jl: Numerical laboratory for computational chemistry](https://doi.org/10.5281/zenodo.17756074){.pub-title}
 
-[**J.-F. Barthélémy**, A. Soive]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Soive]{.pub-authors}
 
-[v0.18.0, Zenodo (2026)]{.pub-venue}
+[v0.21.0, Zenodo (2026)]{.pub-venue}
 
 ::: {.pub-tags}
 [Software]{.pub-tag .pub-tag-software}
@@ -113,7 +130,7 @@
 
 [Echoes: Extended Calculator of HOmogEnization Schemes](https://doi.org/10.5281/zenodo.7348758){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [v1.0.0, Zenodo (2026)]{.pub-venue}
 
@@ -130,7 +147,7 @@
 
 [Experimental investigation and multiscale modeling of stiffness modulus, creep-recovery behaviour in aged and micro-cracked bituminous mixes](https://doi.org/10.1016/j.conbuildmat.2026.145595){.pub-title}
 
-[S. C. Somé, **J.-F. Barthélémy**, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
+[S. C. SomÃ©, J.-F. BarthÃ©lÃ©my, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
 
 [Construction and Building Materials 515 (2026) 145595]{.pub-venue}
 
@@ -151,7 +168,7 @@
 
 [Towards a better rheological investigation of the oxidative ageing of bituminous mixes: Frequency versus time characterisation](https://doi.org/10.1080/14680629.2025.2473964){.pub-title}
 
-[A. Achchoubi, S. C. Somé, F. Hammoum, V. Mouillet, **J.-F. Barthélémy**]{.pub-authors}
+[A. Achchoubi, S. C. SomÃ©, F. Hammoum, V. Mouillet, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Road Materials and Pavement Design (2025) 1-30]{.pub-venue}
 
@@ -168,7 +185,7 @@
 
 [Failure mechanism in recycled sand mortars and recycled aggregate concretes: Experimental and multiscale approaches](https://doi.org/10.1016/j.jobe.2025.111882){.pub-title}
 
-[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**, M. Gharbi]{.pub-authors}
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my, M. Gharbi]{.pub-authors}
 
 [Journal of Building Engineering (2025) 111882]{.pub-venue}
 
@@ -189,7 +206,7 @@
 
 [Efficiency of the Impressed Current Cathodic Protection (ICCP) in reinforced concretes: Experimental and numerical investigation](https://doi.org/10.1016/j.electacta.2024.143923){.pub-title}
 
-[A. B. Kouevidjin, A. Adessina, **J.-F. Barthélémy**, J. Carpio-Perez, A. Ben Fraj, A. Pavoine]{.pub-authors}
+[A. B. Kouevidjin, A. Adessina, J.-F. BarthÃ©lÃ©my, J. Carpio-Perez, A. Ben Fraj, A. Pavoine]{.pub-authors}
 
 [Electrochimica Acta 480 (2024) 143923]{.pub-venue}
 
@@ -206,7 +223,7 @@
 
 [Contribution of the Creep-Recovery Test to the Evaluation of Bituminous Mixes Aging](https://doi.org/10.1007/978-3-031-67252-1_57){.pub-title}
 
-[A. Achchoubi, C. Somé, V. Mouillet, **J.-F. Barthélémy**, J.-P. Terrier, S. Bouron, F. Hammoum]{.pub-authors}
+[A. Achchoubi, C. SomÃ©, V. Mouillet, J.-F. BarthÃ©lÃ©my, J.-P. Terrier, S. Bouron, F. Hammoum]{.pub-authors}
 
 [14th International Conference on Asphalt Pavements ISAP2024 Montreal (2024)]{.pub-venue}
 
@@ -225,9 +242,9 @@
 
 ::: {#ref-kouevidjinAJCE2023 .pub-item data-family="conference" data-group="actn" data-year="2023"}
 
-[Caractérisation expérimentale et modélisation multi-échelle des propriétés visco-élastiques linéaires des bétons bitumineux vieillis](https://doi.org/10.26168/ajce.41.1.49){.pub-title}
+[CaractÃ©risation expÃ©rimentale et modÃ©lisation multi-Ã©chelle des propriÃ©tÃ©s visco-Ã©lastiques linÃ©aires des bÃ©tons bitumineux vieillis](https://doi.org/10.26168/ajce.41.1.49){.pub-title}
 
-[A. B. Kouevidjin, S. C. Somé, **J.-F. Barthélémy**, V. Mouillet, J.-C. Molinengo, F. Hammoum]{.pub-authors}
+[A. B. Kouevidjin, S. C. SomÃ©, J.-F. BarthÃ©lÃ©my, V. Mouillet, J.-C. Molinengo, F. Hammoum]{.pub-authors}
 
 [Academic Journal of Civil Engineering 41(1, 1) (2023) 495-505]{.pub-venue}
 
@@ -244,7 +261,7 @@
 
 [Improvement of the compressive strength of recycled aggregate concretes and relative effects on durability properties](https://doi.org/10.1016/j.conbuildmat.2023.131447){.pub-title}
 
-[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**]{.pub-authors}
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Construction and Building Materials 384 (2023) 131447]{.pub-venue}
 
@@ -261,7 +278,7 @@
 
 [Compliance of a crack embedded in a transformed transversely isotropic material](https://doi.org/10.1177/10812865221150771){.pub-title}
 
-[**J.-F. Barthélémy**, I. Sevostianov, A. Giraud, E. Vilchevskaya]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud, E. Vilchevskaya]{.pub-authors}
 
 [Mathematics and Mechanics of Solids (2023) 1-30]{.pub-venue}
 
@@ -279,7 +296,7 @@
 
 [On the long-term delayed strain of concrete structures](https://doi.org/10.1016/j.cemconres.2022.107086){.pub-title}
 
-[A. Aili, J.-M. Torrenti, J.-P. Sellin, **J.-F. Barthélémy**, M. Vandamme]{.pub-authors}
+[A. Aili, J.-M. Torrenti, J.-P. Sellin, J.-F. BarthÃ©lÃ©my, M. Vandamme]{.pub-authors}
 
 [Cement and Concrete Research 165 (2023) 107086]{.pub-venue}
 
@@ -296,7 +313,7 @@
 
 [Evaluation of effects of short and long-term thermo-oxidative aging on chemo-rheological and mechanical properties of asphalt concretes](https://doi.org/10.1080/14680629.2023.2173083){.pub-title}
 
-[S. C. Somé, A. B. Kouevidjin, V. Mouillet, A. Feeser, **J.-F. Barthélémy**, H. Ben Dhia]{.pub-authors}
+[S. C. SomÃ©, A. B. Kouevidjin, V. Mouillet, A. Feeser, J.-F. BarthÃ©lÃ©my, H. Ben Dhia]{.pub-authors}
 
 [Road Materials and Pavement Design 0(0) (2023) 1-30]{.pub-venue}
 
@@ -311,9 +328,9 @@
 
 ::: {#ref-duASM2023a .pub-item data-family="chapter" data-group="os" data-year="2023"}
 
-[Effective Thermal Conductivity of Transversely Isotropic Materials with Concave Pores](https://doi.org/10.1007/978-3-031-43210-1_6){.pub-title}
+[Effective Thermal Conductivity ofÂ Transversely Isotropic Materials withÂ Concave Pores](https://doi.org/10.1007/978-3-031-43210-1_6){.pub-title}
 
-[K. Du, L. Cheng, **J.-F. Barthélémy**, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
+[K. Du, L. Cheng, J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
 
 [In: Advances in Linear and Nonlinear Continuum and Structural Mechanics, Springer Nature Switzerland (2023) 115-134]{.pub-venue}
 
@@ -328,9 +345,9 @@
 
 ::: {#ref-duASM2023 .pub-item data-family="chapter" data-group="os" data-year="2023"}
 
-[Numerical Estimation of Resistivity Contribution Tensor of a Concave Pore Embedded in a Transversely Isotropic Matrix](https://doi.org/10.1007/978-3-031-43210-1_5){.pub-title}
+[Numerical Estimation ofÂ Resistivity Contribution Tensor ofÂ aÂ Concave Pore Embedded inÂ aÂ Transversely Isotropic Matrix](https://doi.org/10.1007/978-3-031-43210-1_5){.pub-title}
 
-[K. Du, L. Cheng, **J.-F. Barthélémy**, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
+[K. Du, L. Cheng, J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
 
 [In: Advances in Linear and Nonlinear Continuum and Structural Mechanics, Springer Nature Switzerland (2023) 87-114]{.pub-venue}
 
@@ -351,7 +368,7 @@
 
 [Experimental investigation and micromechanical modeling of mechanical and durability properties of concrete based on shells from sediments](https://doi.org/10.1016/j.cemconcomp.2022.104684){.pub-title}
 
-[H. Beddaa, F. Lavergne, A. Ben Fraj, **J.-F. Barthélémy**, J.-M. Torrenti]{.pub-authors}
+[H. Beddaa, F. Lavergne, A. Ben Fraj, J.-F. BarthÃ©lÃ©my, J.-M. Torrenti]{.pub-authors}
 
 [Cement and Concrete Composites 133 (2022) 104684]{.pub-venue}
 
@@ -368,7 +385,7 @@
 
 [Effect of thermo-oxidative ageing on the rheological properties of bituminous binders and mixes: Experimental study and multi-scale modeling](https://doi.org/10.1016/j.conbuildmat.2022.128260){.pub-title}
 
-[S. C. Somé, **J.-F. Barthélémy**, V. Mouillet, F. Hammoum, G. Liu]{.pub-authors}
+[S. C. SomÃ©, J.-F. BarthÃ©lÃ©my, V. Mouillet, F. Hammoum, G. Liu]{.pub-authors}
 
 [Construction and Building Materials 344 (2022) 128260]{.pub-venue}
 
@@ -385,7 +402,7 @@
 
 [Modelling of viscoelastic properties and crack growth in bituminous mixtures: Application to the simulation of crack growth in semi-circular samples subjected to oxidative ageing](https://doi.org/10.1016/j.engfracmech.2022.108580){.pub-title}
 
-[A. B. Kouevidjin, **J.-F. Barthélémy**, S. C. Somé, H. Ben Dhia, V. Mouillet]{.pub-authors}
+[A. B. Kouevidjin, J.-F. BarthÃ©lÃ©my, S. C. SomÃ©, H. Ben Dhia, V. Mouillet]{.pub-authors}
 
 [Engineering Fracture Mechanics 271 (2022) 108580]{.pub-venue}
 
@@ -400,11 +417,11 @@
 
 ::: {#ref-dupontPCRA2022 .pub-item data-family="conference" data-group="actn" data-year="2022"}
 
-[Retour d’expérience sur le renforcement côtier par procédé électrochimique]{.pub-title}
+[Retour dâ€™expÃ©rience sur le renforcement cÃ´tier par procÃ©dÃ© Ã©lectrochimique]{.pub-title}
 
-[G. Dupont, **J.-F. Barthélémy**, A. Zanibellato, A. Gomila, N. Verjat]{.pub-authors}
+[G. Dupont, J.-F. BarthÃ©lÃ©my, A. Zanibellato, A. Gomila, N. Verjat]{.pub-authors}
 
-[7e journées Protection Cathodique et Revêtements Associés (14-16 juin 2022), Antibes Juan-les-Pins (2022)]{.pub-venue}
+[7e journÃ©es Protection Cathodique et RevÃªtements AssociÃ©s (14-16 juin 2022), Antibes Juan-les-Pins (2022)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -419,7 +436,7 @@
 
 [Micromechanical modeling of a cracked elliptically orthotropic medium](https://doi.org/10.1016/j.ijengsci.2021.103454){.pub-title}
 
-[**J.-F. Barthélémy**, I. Sevostianov, A. Giraud]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud]{.pub-authors}
 
 [International Journal of Engineering Science 161 (2021) 103454]{.pub-venue}
 
@@ -437,7 +454,7 @@
 
 [Effective elastic properties of transversely isotropic materials with concave pores](https://doi.org/10.1016/j.mechmat.2020.103665){.pub-title}
 
-[K. Du, L. Cheng, **J.-F. Barthélémy**, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
+[K. Du, L. Cheng, J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
 
 [Mechanics of Materials 153 (2021) 103665]{.pub-venue}
 
@@ -454,7 +471,7 @@
 
 [A numerical tool for an easy implementation of homogenization schemes: Development and applications]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [ERICA and CASH II Final Conference, Online Conference (2021)]{.pub-venue}
 
@@ -467,9 +484,9 @@
 
 [Equivalent particle in conduction homogenization and application to a composite spheroid]{.pub-title}
 
-[**J.-F. Barthélémy**, F. Bignonnet, A. Adessina]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, F. Bignonnet, A. Adessina]{.pub-authors}
 
-[EM4SS’21 – Engineered Materials for Sustainable Structures, Online Conference (2021)]{.pub-venue}
+[EM4SSâ€™21 â€“ Engineered Materials for Sustainable Structures, Online Conference (2021)]{.pub-venue}
 
 ::: {.pub-tags}
 [Oral communication]{.pub-tag .pub-tag-talk}
@@ -484,7 +501,7 @@
 
 [Confronting a refined multiscale estimate for the aging basic creep of concrete with a comprehensive experimental database](https://doi.org/10.1016/j.cemconres.2020.106163){.pub-title}
 
-[F. Lavergne, **J.-F. Barthélémy**]{.pub-authors}
+[F. Lavergne, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Cement and Concrete Research 136 (2020) 106163]{.pub-venue}
 
@@ -501,7 +518,7 @@
 
 [Simplified approach to the derivation of the relationship between Hill polarization tensors of transformed problems and applications](https://doi.org/10.1016/j.ijengsci.2020.103326){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [International Journal of Engineering Science 154 (2020) 103326]{.pub-venue}
 
@@ -519,7 +536,7 @@
 
 [Numerical computation of compliance contribution tensor of a concave pore embedded in a transversely isotropic matrix](https://doi.org/10.1016/j.ijengsci.2020.103306){.pub-title}
 
-[K. Du, L. Cheng, **J.-F. Barthélémy**, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
+[K. Du, L. Cheng, J.-F. BarthÃ©lÃ©my, I. Sevostianov, A. Giraud, A. Adessina]{.pub-authors}
 
 [International Journal of Engineering Science 152 (2020) 103306]{.pub-venue}
 
@@ -536,7 +553,7 @@
 
 [The Eshelby problem of the confocal N-layer spheroid with imperfect interfaces and the notion of equivalent particle in thermal conduction](https://doi.org/10.1016/j.ijengsci.2020.103274){.pub-title}
 
-[**J.-F. Barthélémy**, F. Bignonnet]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, F. Bignonnet]{.pub-authors}
 
 [International Journal of Engineering Science 150 (2020) 103274]{.pub-venue}
 
@@ -554,7 +571,7 @@
 
 [Micromechanical model for the diffusion properties of materials embedding complex structures](https://doi.org/10.1016/j.mechmat.2020.103404){.pub-title}
 
-[A. Adessina, **J.-F. Barthélémy**, A. Ben Fraj]{.pub-authors}
+[A. Adessina, J.-F. BarthÃ©lÃ©my, A. Ben Fraj]{.pub-authors}
 
 [Mechanics of Materials (2020) 103404]{.pub-venue}
 
@@ -571,7 +588,7 @@
 
 [Multi-scale modeling of the chloride diffusivity and the elasticity of Portland cement paste](https://doi.org/10.1016/j.conbuildmat.2019.117124){.pub-title}
 
-[M. Achour, F. Bignonnet, **J.-F. Barthélémy**, E. Rozière, O. Amiri]{.pub-authors}
+[M. Achour, F. Bignonnet, J.-F. BarthÃ©lÃ©my, E. RoziÃ¨re, O. Amiri]{.pub-authors}
 
 [Construction and Building Materials 234 (2020) 117124]{.pub-venue}
 
@@ -588,7 +605,7 @@
 
 [Effect of ageing kinetics on the rheological properties of bituminous binders and mixes: Experimental study and multi-scale modeling]{.pub-title}
 
-[C. Somé, **J.-F. Barthélémy**, V. Mouillet, F. Hammoum]{.pub-authors}
+[C. SomÃ©, J.-F. BarthÃ©lÃ©my, V. Mouillet, F. Hammoum]{.pub-authors}
 
 [International Symposium on Bituminous Materials, Lyon, France (2020)]{.pub-venue}
 
@@ -601,7 +618,7 @@
 
 [Effect of thermal ageing on the mechanical properties and cracking behaviour of asphalt concrete]{.pub-title}
 
-[B. Kouevidjin, **J.-F. Barthélémy**, C. Somé, H. Ben Dhia, A. Feeser]{.pub-authors}
+[B. Kouevidjin, J.-F. BarthÃ©lÃ©my, C. SomÃ©, H. Ben Dhia, A. Feeser]{.pub-authors}
 
 [International Symposium on Bituminous Materials, Lyon, France (2020)]{.pub-venue}
 
@@ -614,7 +631,7 @@
 
 [The apparent anisotropy of the SEG-EAGE overthrust model]{.pub-title}
 
-[P. Cupillard, W. Mulder, P. Anquez, A. Mazuyer, **J.-F. Barthélémy**]{.pub-authors}
+[P. Cupillard, W. Mulder, P. Anquez, A. Mazuyer, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [82nd EAGE Conference & Exhibition, Amsterdam, The Netherlands (2020)]{.pub-venue}
 
@@ -627,7 +644,7 @@
 
 [Investigating the impact of fracture orientation deviation on elastic effective properties using the non-periodic homogenization](http://ring.georessources.univ-lorraine.fr/research-publications/ring-meeting-papers?view=pub&id=4990){.pub-title}
 
-[A. Ibourichene, P. Cupillard, **J.-F. Barthélémy**]{.pub-authors}
+[A. Ibourichene, P. Cupillard, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [RING Meeting, ASGA (2020)]{.pub-venue}
 
@@ -644,7 +661,7 @@
 
 [Effective properties of ageing linear viscoelastic media with spheroidal inhomogeneities](https://doi.org/10.1016/j.ijengsci.2019.05.015){.pub-title}
 
-[**J.-F. Barthélémy**, A. Giraud, J. Sanahuja, I. Sevostianov]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Giraud, J. Sanahuja, I. Sevostianov]{.pub-authors}
 
 [International Journal of Engineering Science 144 (2019) 103104]{.pub-venue}
 
@@ -662,7 +679,7 @@
 
 [Effective medium modeling of diagenesis impact on the petroacoustic properties of carbonate rocks](https://doi.org/10.1190/geo2018-0559.1){.pub-title}
 
-[M. Adelinet, **J.-F. Barthélémy**, E. Bemer, Y. Hamon]{.pub-authors}
+[M. Adelinet, J.-F. BarthÃ©lÃ©my, E. Bemer, Y. Hamon]{.pub-authors}
 
 [Geophysics 84(4) (2019) WA43-WA57]{.pub-venue}
 
@@ -679,7 +696,7 @@
 
 [Novel semi-analytical model to calculate shear forces due to viscoelastic interactions](https://doi.org/10.1016/j.engstruct.2018.12.015){.pub-title}
 
-[J.-P. Sellin, H. Sousa, **J.-F. Barthélémy**, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, H. Sousa, J.-F. BarthÃ©lÃ©my, J.-M. Torrenti]{.pub-authors}
 
 [Engineering Structures 183 (2019) 999-1013]{.pub-venue}
 
@@ -696,7 +713,7 @@
 
 [Effective electrical conductivity of transversely isotropic rocks with arbitrarily oriented ellipsoidal inclusions](https://doi.org/10.1016/j.mechmat.2019.03.011){.pub-title}
 
-[A. Giraud, I. Sevostianov, V. I. Kushch, P. Cosenza, D. Prêt, **J.-F. Barthélémy**, A. Trofimov]{.pub-authors}
+[A. Giraud, I. Sevostianov, V. I. Kushch, P. Cosenza, D. PrÃªt, J.-F. BarthÃ©lÃ©my, A. Trofimov]{.pub-authors}
 
 [Mechanics of Materials 133 (2019) 174-192]{.pub-venue}
 
@@ -713,7 +730,7 @@
 
 [Experimental and micromechanical investigation on the mechanical and durability properties of recycled aggregates concrete](https://doi.org/10.1016/j.cemconres.2019.105900){.pub-title}
 
-[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**, C. Chateau, D. Garnier]{.pub-authors}
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my, C. Chateau, D. Garnier]{.pub-authors}
 
 [Cement and Concrete Research 126 (2019) 105900]{.pub-venue}
 
@@ -730,7 +747,7 @@
 
 [A coupled experimental and numerical investigation of ICCP efficiency]{.pub-title}
 
-[A. Adessina, **J.-F. Barthélémy**, J. Carpio-Perez, A. Pavoine, E. Lozinguez]{.pub-authors}
+[A. Adessina, J.-F. BarthÃ©lÃ©my, J. Carpio-Perez, A. Pavoine, E. Lozinguez]{.pub-authors}
 
 [European Corrosion Congress (Eurocorr 2019), Sevilla, Spain (2019)]{.pub-venue}
 
@@ -741,11 +758,11 @@
 
 ::: {#ref-kouevidjinCFM2019 .pub-item data-family="conference" data-group="actn" data-year="2019"}
 
-[Influence du vieillissement thermique sur les propriétés viscoélastiques et les paramètres de rupture des matériaux bitumineux]{.pub-title}
+[Influence du vieillissement thermique sur les propriÃ©tÃ©s viscoÃ©lastiques et les paramÃ¨tres de rupture des matÃ©riaux bitumineux]{.pub-title}
 
-[B. Kouevidjin, C. Somé, **J.-F. Barthélémy**, H. Ben Dhia, A. Feeser]{.pub-authors}
+[B. Kouevidjin, C. SomÃ©, J.-F. BarthÃ©lÃ©my, H. Ben Dhia, A. Feeser]{.pub-authors}
 
-[Congrès Français de Mécanique, Brest (2019)]{.pub-venue}
+[CongrÃ¨s FranÃ§ais de MÃ©canique, Brest (2019)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -754,11 +771,11 @@
 
 ::: {#ref-kouevidjinJTR2019 .pub-item data-family="talk" data-group="aff" data-year="2019"}
 
-[Caractérisation et modélisation de la propagation de fissure dans les enrobés]{.pub-title}
+[CaractÃ©risation et modÃ©lisation de la propagation de fissure dans les enrobÃ©s]{.pub-title}
 
-[B. Kouevidjin, C. Somé, **J.-F. Barthélémy**, A. Feeser, H. Ben Dhia]{.pub-authors}
+[B. Kouevidjin, C. SomÃ©, J.-F. BarthÃ©lÃ©my, A. Feeser, H. Ben Dhia]{.pub-authors}
 
-[Journées Techniques Route, Nantes (2019)]{.pub-venue}
+[JournÃ©es Techniques Route, Nantes (2019)]{.pub-venue}
 
 ::: {.pub-tags}
 [Poster]{.pub-tag .pub-tag-talk}
@@ -769,7 +786,7 @@
 
 [Effective electrical conductivity of anisotropic rocks: Application to mudstones]{.pub-title}
 
-[A. Giraud, I. Sevostianov, V. Kushch, P. Cosenza, D. Prêt, **J.-F. Barthélémy**, A. Trofimov]{.pub-authors}
+[A. Giraud, I. Sevostianov, V. Kushch, P. Cosenza, D. PrÃªt, J.-F. BarthÃ©lÃ©my, A. Trofimov]{.pub-authors}
 
 [Advanced problems in mechanics - Advances in micromechanics of materials, Saint-Petersburg (2019)]{.pub-venue}
 
@@ -782,7 +799,7 @@
 
 [Maxwell and other matrix composite homogenization schemes in ageing linear viscoelasticity]{.pub-title}
 
-[**J.-F. Barthélémy**, A. Giraud, J. Sanahuja, I. Sevostianov]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Giraud, J. Sanahuja, I. Sevostianov]{.pub-authors}
 
 [Advanced problems in mechanics - Advances in micromechanics of materials, Saint-Petersburg (2019)]{.pub-venue}
 
@@ -795,7 +812,7 @@
 
 [Small-Scale-Induced Anisotropy of a 3D Subsurface Model Quantitative Analysis and Numerical Simulations of Waves within The SEG-EAGE overthrust structures]{.pub-title}
 
-[P. Cupillard, W. Mulder, M. Irakarama, A. Mazuyer, P. Anquez, **J.-F. Barthélémy**]{.pub-authors}
+[P. Cupillard, W. Mulder, M. Irakarama, A. Mazuyer, P. Anquez, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [AGU Fall Meeting, San Francisco, USA (2019)]{.pub-venue}
 
@@ -812,7 +829,7 @@
 
 [Contribution of Sacrificial Anode in reinforced concrete patch repair: Results of numerical simulations](https://doi.org/10.1016/j.conbuildmat.2018.05.063){.pub-title}
 
-[E. Lozinguez, **J.-F. Barthélémy**, V. Bouteiller, T. Desbois]{.pub-authors}
+[E. Lozinguez, J.-F. BarthÃ©lÃ©my, V. Bouteiller, T. Desbois]{.pub-authors}
 
 [Construction and Building Materials 178 (2018) 405-417]{.pub-venue}
 
@@ -829,7 +846,7 @@
 
 [Estimating the mechanical properties of hydrating blended cementitious materials: An investigation based on micromechanics](https://doi.org/10.1016/j.cemconres.2017.10.018){.pub-title}
 
-[F. Lavergne, A. Ben Fraj, I. Bayane, **J.-F. Barthélémy**]{.pub-authors}
+[F. Lavergne, A. Ben Fraj, I. Bayane, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Cement and Concrete Research 104 (2018) 37-60]{.pub-venue}
 
@@ -850,7 +867,7 @@
 
 [Effective elastic properties of materials with inclusions of complex structure](https://doi.org/10.1016/j.ijengsci.2017.03.015){.pub-title}
 
-[A. Adessina, **J.-F. Barthélémy**, F. Lavergne, A. Ben Fraj]{.pub-authors}
+[A. Adessina, J.-F. BarthÃ©lÃ©my, F. Lavergne, A. Ben Fraj]{.pub-authors}
 
 [International Journal of Engineering Science 119 (2017) 1-15]{.pub-venue}
 
@@ -865,11 +882,11 @@
 
 ::: {#ref-adessinaCFM2017 .pub-item data-family="conference" data-group="actn" data-year="2017"}
 
-[Approche d’homogénéisation des matériaux à microstructures complexes : Cas des bétons recyclés]{.pub-title}
+[Approche dâ€™homogÃ©nÃ©isation des matÃ©riaux Ã  microstructures complexes : Cas des bÃ©tons recyclÃ©s]{.pub-title}
 
-[A. Adessina, **J.-F. Barthélémy**, A. Ben Fraj]{.pub-authors}
+[A. Adessina, J.-F. BarthÃ©lÃ©my, A. Ben Fraj]{.pub-authors}
 
-[Congrès Français de Mécanique, Lille (2017)]{.pub-venue}
+[CongrÃ¨s FranÃ§ais de MÃ©canique, Lille (2017)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -880,7 +897,7 @@
 
 [Echoes: An efficient numerical library for micromechanics - Berlin workshop]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Micromechanics of Rock and Concrete workshop, Berlin - Federal Institute of Materials Research; Testing - BAM (2017)]{.pub-venue}
 
@@ -893,7 +910,7 @@
 
 [Echoes: An efficient numerical library for micromechanics]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [MAI/ITECH "Micromechanics of cementitious materials" EDF R&D (2017)]{.pub-venue}
 
@@ -906,7 +923,7 @@
 
 [Effective properties of linear ageing viscoelastic media with randomly oriented spheroidal inclusions: Application of Maxwell homogenization scheme]{.pub-title}
 
-[**J.-F. Barthélémy**, A. Giraud, D. Grgic]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Giraud, D. Grgic]{.pub-authors}
 
 [International Conference on Plasticity, Damage, and Fracture, Puerto Vallarta, Mexico (2017)]{.pub-venue}
 
@@ -917,11 +934,11 @@
 
 ::: {#ref-lavergneJOA2017 .pub-item data-family="talk" data-group="com" data-year="2017"}
 
-[Estimation des propriétés mécaniques des matériaux cimentaires en cours d’hydratation à l’aide de la micromécanique]{.pub-title}
+[Estimation des propriÃ©tÃ©s mÃ©caniques des matÃ©riaux cimentaires en cours dâ€™hydratation Ã  lâ€™aide de la micromÃ©canique]{.pub-title}
 
-[F. Lavergne, A. Ben Fraj, I. Bayane, **J.-F. Barthélémy**]{.pub-authors}
+[F. Lavergne, A. Ben Fraj, I. Bayane, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
-[Journées Ouvrages d’Art, Metz (2017)]{.pub-venue}
+[JournÃ©es Ouvrages dâ€™Art, Metz (2017)]{.pub-venue}
 
 ::: {.pub-tags}
 [Oral communication]{.pub-tag .pub-tag-talk}
@@ -930,9 +947,9 @@
 
 ::: {#ref-lozinguezJST2017 .pub-item data-family="talk" data-group="com" data-year="2017"}
 
-[Modélisation éléctrochimique d’une réparation de surface de béton armé : Efficacité des anodes sacrificielles en fonction de la résisitivité électrique du béton]{.pub-title}
+[ModÃ©lisation Ã©lÃ©ctrochimique dâ€™une rÃ©paration de surface de bÃ©ton armÃ© : EfficacitÃ© des anodes sacrificielles en fonction de la rÃ©sisitivitÃ© Ã©lectrique du bÃ©ton]{.pub-title}
 
-[E. Lozinguez, **J.-F. Barthélémy**, V. Bouteiller]{.pub-authors}
+[E. Lozinguez, J.-F. BarthÃ©lÃ©my, V. Bouteiller]{.pub-authors}
 
 [CEFRACOR JST, ENSCP, Paris (2017)]{.pub-venue}
 
@@ -943,9 +960,9 @@
 
 ::: {#ref-lozinguezPCCI2017 .pub-item data-family="report" data-group="rapp" data-year="2017"}
 
-[La protection cathodique des aciers dans le béton atmosphérique. Bibliographie relative à la modélisation](https://doc.cerema.fr/Default/doc/SYRACUSE/16602/la-protection-cathodique-des-aciers-dans-le-beton-atmospherique-bibliographie-relative-a-la-modelisa?_lg=fr-FR){.pub-title}
+[La protection cathodique des aciers dans le bÃ©ton atmosphÃ©rique. Bibliographie relative Ã  la modÃ©lisation](https://doc.cerema.fr/Default/doc/SYRACUSE/16602/la-protection-cathodique-des-aciers-dans-le-beton-atmospherique-bibliographie-relative-a-la-modelisa?_lg=fr-FR){.pub-title}
 
-[E. Lozinguez, **J.-F. Barthélémy**]{.pub-authors}
+[E. Lozinguez, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Cerema (2017)]{.pub-venue}
 
@@ -962,9 +979,9 @@
 
 [The Eshelby inclusion problem in ageing linear viscoelasticity](https://doi.org/10.1016/j.ijsolstr.2016.06.035){.pub-title}
 
-[**J.-F. Barthélémy**, A. Giraud, F. Lavergne, J. Sanahuja]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Giraud, F. Lavergne, J. Sanahuja]{.pub-authors}
 
-[Int. J. Solids Struct. 97–98 (2016) 530-542]{.pub-venue}
+[Int. J. Solids Struct. 97â€“98 (2016) 530-542]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -978,11 +995,11 @@
 
 ::: {#ref-sellinBOA2016 .pub-item data-family="journal" data-group="acln" data-year="2016"}
 
-[Déformations différées des structures en béton : Le pont de Savines](https://www.cerema.fr/fr/system/files?file=documents/2021/07/boa_72.pdf){.pub-title}
+[DÃ©formations diffÃ©rÃ©es des structures en bÃ©ton : Le pont de Savines](https://www.cerema.fr/fr/system/files?file=documents/2021/07/boa_72.pdf){.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, J.-M. Torrenti, G. Bondonet]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, J.-M. Torrenti, G. Bondonet]{.pub-authors}
 
-[Bulletin Ouvrages d’Art (2016)]{.pub-venue}
+[Bulletin Ouvrages dâ€™Art (2016)]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -993,7 +1010,7 @@
 
 [Modelling of patch repair and efficiency of Sacrificial Anode for Cathodic Protection (SACP)]{.pub-title}
 
-[E. Lozinguez, **J.-F. Barthélémy**, V. Bouteiller]{.pub-authors}
+[E. Lozinguez, J.-F. BarthÃ©lÃ©my, V. Bouteiller]{.pub-authors}
 
 [European Corrosion Congress (Eurocorr 2016), Montpellier, France (2016)]{.pub-venue}
 
@@ -1006,7 +1023,7 @@
 
 [A micromechanical investigation on the minimum creep rate of magnesium allow composites]{.pub-title}
 
-[F. Lavergne, **J.-F. Barthélémy**, J. Sanahuja, A. Giraud]{.pub-authors}
+[F. Lavergne, J.-F. BarthÃ©lÃ©my, J. Sanahuja, A. Giraud]{.pub-authors}
 
 [EMI International Conference, Metz, France (2016)]{.pub-venue}
 
@@ -1019,7 +1036,7 @@
 
 [A new tool for micromechanics of ageing linear viscoelastic materials]{.pub-title}
 
-[**J.-F. Barthélémy**, A. Giraud, F. Lavergne, J. Sanahuja]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, A. Giraud, F. Lavergne, J. Sanahuja]{.pub-authors}
 
 [EMI International Conference, Metz, France (2016)]{.pub-venue}
 
@@ -1030,11 +1047,11 @@
 
 ::: {#ref-barthelemyDGITM2016 .pub-item data-family="talk" data-group="com" data-year="2016"}
 
-[Avancées en matière de protection cathodique]{.pub-title}
+[AvancÃ©es en matiÃ¨re de protection cathodique]{.pub-title}
 
-[**J.-F. Barthélémy**, V. Bouteiller, E. Lozinguez, A. Pavoine]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, V. Bouteiller, E. Lozinguez, A. Pavoine]{.pub-authors}
 
-[Rencontre DGITM - DRI - IFSTTAR - Cerema, La Défense (2016)]{.pub-venue}
+[Rencontre DGITM - DRI - IFSTTAR - Cerema, La DÃ©fense (2016)]{.pub-venue}
 
 ::: {.pub-tags}
 [Oral communication]{.pub-tag .pub-tag-talk}
@@ -1045,7 +1062,7 @@
 
 [Effective ageing linear viscoelastic behaviour of precipitating lamellar particles]{.pub-title}
 
-[J. Sanahuja, **J.-F. Barthélémy**, A. Giraud, F. Lavergne]{.pub-authors}
+[J. Sanahuja, J.-F. BarthÃ©lÃ©my, A. Giraud, F. Lavergne]{.pub-authors}
 
 [EMI International Conference, Metz, France (2016)]{.pub-venue}
 
@@ -1058,7 +1075,7 @@
 
 [Effective thermal conductivity of transversely isotropic rocks]{.pub-title}
 
-[A. Giraud, **J.-F. Barthélémy**, P. Cosenza, D. Grgic]{.pub-authors}
+[A. Giraud, J.-F. BarthÃ©lÃ©my, P. Cosenza, D. Grgic]{.pub-authors}
 
 [EMI International Conference, Metz, France (2016)]{.pub-venue}
 
@@ -1073,9 +1090,9 @@
 
 ::: {#ref-sellinABTP2015 .pub-item data-family="journal" data-group="ascl" data-year="2015"}
 
-[Déformations différées de structures en béton : Le cas des ponts de Savines et de Cheviré (Annales du BTP)]{.pub-title}
+[DÃ©formations diffÃ©rÃ©es de structures en bÃ©ton : Le cas des ponts de Savines et de ChevirÃ© (Annales du BTP)]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
 
 [Annales du BTP (2015) 44-51]{.pub-venue}
 
@@ -1086,11 +1103,11 @@
 
 ::: {#ref-sellinAFGC2015 .pub-item data-family="conference" data-group="inv" data-year="2015"}
 
-[Analyse de la déformation d’ouvrages et approche analytique]{.pub-title}
+[Analyse de la dÃ©formation dâ€™ouvrages et approche analytique]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, J.-M. Torrenti]{.pub-authors}
 
-[Débat AFGC. Fluage du béton : De l’échelle nanoscopique à l’ouvrage, Paris (2015)]{.pub-venue}
+[DÃ©bat AFGC. Fluage du bÃ©ton : De lâ€™Ã©chelle nanoscopique Ã lâ€™ouvrage, Paris (2015)]{.pub-venue}
 
 ::: {.pub-tags}
 [Invited lecture]{.pub-tag .pub-tag-conference}
@@ -1099,9 +1116,9 @@
 
 ::: {#ref-sellinMSLB2015 .pub-item data-family="conference" data-group="acti" data-year="2015"}
 
-[Delayed deformations of concrete structures : The Savines bridge and the Cheviré bridge]{.pub-title}
+[Delayed deformations of concrete structures : The Savines bridge and the ChevirÃ© bridge]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
 
 [Multi-Span Large Bridges, Porto (2015)]{.pub-venue}
 
@@ -1112,11 +1129,11 @@
 
 ::: {#ref-sellinGC2015 .pub-item data-family="conference" data-group="actn" data-year="2015"}
 
-[Déformations différées de structures en béton : Le cas des ponts de Savines et de Cheviré]{.pub-title}
+[DÃ©formations diffÃ©rÃ©es de structures en bÃ©ton : Le cas des ponts de Savines et de ChevirÃ©]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, G. Bondonet, B. Cauvin, J.-M. Torrenti]{.pub-authors}
 
-[GC’ 2015 Génie Civil en transition (2015)]{.pub-venue}
+[GCâ€™ 2015 GÃ©nie Civil en transition (2015)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -1127,7 +1144,7 @@
 
 [The effects of long term behavior of both concrete and prestressing tendons on the delayed deflection of a prestressed structure]{.pub-title}
 
-[**J.-F. Barthélémy**, J.-P. Sellin, J.-M. Torrenti]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, J.-P. Sellin, J.-M. Torrenti]{.pub-authors}
 
 [Concreep 10, Vienna, Austria (2015)]{.pub-venue}
 
@@ -1138,11 +1155,11 @@
 
 ::: {#ref-lozinguezJOA2015 .pub-item data-family="talk" data-group="com" data-year="2015"}
 
-[Modélisation de la protection cathodique de l’acier dans le béton]{.pub-title}
+[ModÃ©lisation de la protection cathodique de lâ€™acier dans le bÃ©ton]{.pub-title}
 
-[E. Lozinguez, **J.-F. Barthélémy**, A. Pavoine, V. Bouteiller]{.pub-authors}
+[E. Lozinguez, J.-F. BarthÃ©lÃ©my, A. Pavoine, V. Bouteiller]{.pub-authors}
 
-[Journées Ouvrages d’Art, Nantes (2015)]{.pub-venue}
+[JournÃ©es Ouvrages dâ€™Art, Nantes (2015)]{.pub-venue}
 
 ::: {.pub-tags}
 [Oral communication]{.pub-tag .pub-tag-talk}
@@ -1157,7 +1174,7 @@
 
 [Delayed deformations of segmental prestressed concrete bridges: The case of the Savines Bridge]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, J.-M. Torrenti, G. Bondonet]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, J.-M. Torrenti, G. Bondonet]{.pub-authors}
 
 [Proc. 1st Ageing Mater. Struct. 2014 Conf., Delft, The Netherlands (2014)]{.pub-venue}
 
@@ -1168,11 +1185,11 @@
 
 ::: {#ref-sellinJOA2014 .pub-item data-family="talk" data-group="com" data-year="2014"}
 
-[Déformations différées des structures en béton : Étude du pont de Savines]{.pub-title}
+[DÃ©formations diffÃ©rÃ©es des structures en bÃ©ton : Ã‰tude du pont de Savines]{.pub-title}
 
-[J.-P. Sellin, **J.-F. Barthélémy**, G. Bondonet, J.-M. Torrenti]{.pub-authors}
+[J.-P. Sellin, J.-F. BarthÃ©lÃ©my, G. Bondonet, J.-M. Torrenti]{.pub-authors}
 
-[Journées Ouvrages d’Art, Marne La Vallée (2014)]{.pub-venue}
+[JournÃ©es Ouvrages dâ€™Art, Marne La VallÃ©e (2014)]{.pub-venue}
 
 ::: {.pub-tags}
 [Oral communication]{.pub-tag .pub-tag-talk}
@@ -1187,7 +1204,7 @@
 
 [Nonlinear homogenization approach to the friction coefficient of a quartz-clay fault gouge](https://doi.org/10.1002/nag.2115){.pub-title}
 
-[**J.-F. Barthélémy**, C. Souque, J.-M. Daniel]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, C. Souque, J.-M. Daniel]{.pub-authors}
 
 [Int. J. Numer. Anal. Meth. Geomech. 37(13) (2012) 1948-1968]{.pub-venue}
 
@@ -1204,7 +1221,7 @@
 
 [A new approach to the sedimentation and compaction of basin based on continuum mechanics concepts]{.pub-title}
 
-[A.-L. Guilmin, **J.-F. Barthélémy**, W. Sassi]{.pub-authors}
+[A.-L. Guilmin, J.-F. BarthÃ©lÃ©my, W. Sassi]{.pub-authors}
 
 [46th U.S. Rock Mech. Symp. ARMA, Chicago, USA (2012)]{.pub-venue}
 
@@ -1215,11 +1232,11 @@
 
 ::: {#ref-etcheverryRISQUE2012 .pub-item data-family="report" data-group="rappex" data-year="2012"}
 
-[Prise en compte du risque dans le calcul économique](https://doc.cerema.fr/Default/doc/SYRACUSE/17347/prise-en-compte-du-risque-dans-le-calcul-economique?_lg=fr-FR){.pub-title}
+[Prise en compte du risque dans le calcul Ã©conomique](https://doc.cerema.fr/Default/doc/SYRACUSE/17347/prise-en-compte-du-risque-dans-le-calcul-economique?_lg=fr-FR){.pub-title}
 
-[M. Etcheverry, H. Le Maître, **J.-F. Barthélémy**, X. Delache]{.pub-authors}
+[M. Etcheverry, H. Le MaÃ®tre, J.-F. BarthÃ©lÃ©my, X. Delache]{.pub-authors}
 
-[Sétra (2012)]{.pub-venue}
+[SÃ©tra (2012)]{.pub-venue}
 
 ::: {.pub-tags}
 [Expert report]{.pub-tag .pub-tag-report}
@@ -1234,7 +1251,7 @@
 
 [Multiscale hydromechanical coupling for finite-element simulations of fractured reservoirs]{.pub-title}
 
-[**J.-F. Barthélémy**, J.-M. Daniel]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, J.-M. Daniel]{.pub-authors}
 
 [45th U.S. Rock Mech. Symp. ARMA, San Francisco, USA (2011)]{.pub-venue}
 
@@ -1247,7 +1264,7 @@
 
 [Finite-element modeling of elastic properties of carbonates (PASICAM project)]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [IFPEN (2011)]{.pub-venue}
 
@@ -1264,7 +1281,7 @@
 
 [Understanding seismic anisotropy from fractures observed in wells]{.pub-title}
 
-[L. Chérel, J. Bruneau, N. Dubos-Sallée, K. Labat, **J.-F. Barthélémy**, J.-M. Daniel]{.pub-authors}
+[L. ChÃ©rel, J. Bruneau, N. Dubos-SallÃ©e, K. Labat, J.-F. BarthÃ©lÃ©my, J.-M. Daniel]{.pub-authors}
 
 [72th EAGE Conf. Exhib. Inc. SPE Eur. 2010, Barcelona, Spain (2010)]{.pub-venue}
 
@@ -1275,11 +1292,11 @@
 
 ::: {#ref-jarrigeJEMP2010 .pub-item data-family="conference" data-group="actn" data-year="2010"}
 
-[Vers une représentation de type réseau des écoulements en réservoirs fracturés 3D]{.pub-title}
+[Vers une reprÃ©sentation de type rÃ©seau des Ã©coulements en rÃ©servoirs fracturÃ©s 3D]{.pub-title}
 
-[N. Jarrige, **J.-F. Barthélémy**, M. Delorme, N. Khvoenkova, B. Noetinger]{.pub-authors}
+[N. Jarrige, J.-F. BarthÃ©lÃ©my, M. Delorme, N. Khvoenkova, B. Noetinger]{.pub-authors}
 
-[JEMP Journées d’étude sur les milieux poreux, Nancy, France (2010)]{.pub-venue}
+[JEMP JournÃ©es dâ€™Ã©tude sur les milieux poreux, Nancy, France (2010)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -1294,7 +1311,7 @@
 
 [Compliance and Hill polarization tensor of a crack in an anisotropic matrix](https://doi.org/10.1016/j.ijsolstr.2009.08.003){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [International Journal of Solids and Structures 46(22) (2009) 4064-4072]{.pub-venue}
 
@@ -1312,7 +1329,7 @@
 
 [Effective Permeability of Media with a Dense Network of Long and Micro Fractures](https://doi.org/10.1007/s11242-008-9241-9){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Transport in Porous Media 76(1) (2009) 153-178]{.pub-venue}
 
@@ -1330,7 +1347,7 @@
 
 [Estimates of fracture density and uncertainties from well data](https://doi.org/10.1016/j.ijrmms.2008.08.003){.pub-title}
 
-[**J.-F. Barthélémy**, M. L. E. Guiton, J.-M. Daniel]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, M. L. E. Guiton, J.-M. Daniel]{.pub-authors}
 
 [Int. J. Rock Mech. Min. Sc. 46 (2009) 590-603]{.pub-venue}
 
@@ -1348,7 +1365,7 @@
 
 [A New Approach to the Sedimentation and Compaction of Basin Based on Continuum Mechanics Concepts]{.pub-title}
 
-[**J.-F. Barthélémy**, J.-L. Rudkiewicz, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, J.-L. Rudkiewicz, L. Dormieux]{.pub-authors}
 
 [AAPG Hedb. Conf., Napa, California, USA (2009)]{.pub-venue}
 
@@ -1359,9 +1376,9 @@
 
 ::: {#ref-barthelemyBREV2009 .pub-item data-family="report" data-group="brev" data-year="2009"}
 
-[Procédé d’estimation de la densité de fracture dans un milieu rocheux](https://patents.google.com/patent/EP2103964A1/fr){.pub-title}
+[ProcÃ©dÃ© dâ€™estimation de la densitÃ© de fracture dans un milieu rocheux](https://patents.google.com/patent/EP2103964A1/fr){.pub-title}
 
-[**J.-F. Barthélémy**, M. L. E. Guiton, J.-M. Daniel]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, M. L. E. Guiton, J.-M. Daniel]{.pub-authors}
 
 [European patent, no. 2103964A1 (2009)]{.pub-venue}
 
@@ -1378,7 +1395,7 @@
 
 [Micromechanical approach to the strength properties of frictional geomaterials](https://doi.org/10.1016/j.euromechsol.2008.03.002){.pub-title}
 
-[S. Maghous, L. Dormieux, **J.-F. Barthélémy**]{.pub-authors}
+[S. Maghous, L. Dormieux, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Eur. J. Mech. A/Solids 28(1) (2008) 179-188]{.pub-venue}
 
@@ -1395,9 +1412,9 @@
 
 [Nonlinear behavior of matrix-inclusion composites under high confining pressure: Application to concrete and mortar](https://doi.org/10.1016/j.crme.2008.05.009){.pub-title}
 
-[T. H. Le, L. Dormieux, L. Jeannin, N. Burlion, **J.-F. Barthélémy**]{.pub-authors}
+[T. H. Le, L. Dormieux, L. Jeannin, N. Burlion, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
-[C. R. Mécanique 336(8) (2008) 670-676]{.pub-venue}
+[C. R. MÃ©canique 336(8) (2008) 670-676]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -1412,7 +1429,7 @@
 
 [Coupled homogenization of fractured rock properties]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Workshop natural fractures PDO, Mascate, Oman (2008)]{.pub-venue}
 
@@ -1429,7 +1446,7 @@
 
 [Homogenized constitutive laws for rocks with elastoplastic fractures](https://doi.org/10.1002/nag.595){.pub-title}
 
-[R. Marmier, L. Jeannin, **J.-F. Barthélémy**]{.pub-authors}
+[R. Marmier, L. Jeannin, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Int. J. Numer. Anal. Meth. Geomech. 31(10) (2007) 1217-1237]{.pub-venue}
 
@@ -1446,7 +1463,7 @@
 
 [A poroelastoviscoplastic model at large strains for the compaction of sedimentary basins]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Workshop on Basin Modelling Shell, The Hague, Netherlands (2007)]{.pub-venue}
 
@@ -1459,7 +1476,7 @@
 
 [Homogenization of hydromechanical behavior of fractured rocks]{.pub-title}
 
-[L. Jeannin, R. Marmier, **J.-F. Barthélémy**]{.pub-authors}
+[L. Jeannin, R. Marmier, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [41st Canada - US Rock Mech. Symp. Challenges Demands, Vancouver, Canada (2007)]{.pub-venue}
 
@@ -1470,11 +1487,11 @@
 
 ::: {#ref-barthelemyCFM2007 .pub-item data-family="conference" data-group="actn" data-year="2007"}
 
-[Homogénéisation de la perméabilité d’un milieu fracturé anisotrope et rôle de la perméabilité transverse des fractures]{.pub-title}
+[HomogÃ©nÃ©isation de la permÃ©abilitÃ© dâ€™un milieu fracturÃ© anisotrope et rÃ´le de la permÃ©abilitÃ© transverse des fractures]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
-[XVIIIème Congrès Français de Mécanique, Grenoble (2007)]{.pub-venue}
+[XVIIIÃ¨me CongrÃ¨s FranÃ§ais de MÃ©canique, Grenoble (2007)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -1485,7 +1502,7 @@
 
 [Mechanical and Hydraulic Effective Properties of an Anisotropic Fractured Medium](https://doi.org/10.1002/9780470610794.ch83){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Particle and Continuum Aspects of Mesomechanics, London, UK (2007)]{.pub-venue}
 
@@ -1504,11 +1521,11 @@
 
 ::: {#ref-dormieuxCRAS2006 .pub-item data-family="journal" data-group="acl" data-year="2006"}
 
-[Résistance d’un composite à renforts rigides : Le cas d’une matrice de Drucker-Prager avec règle d’écoulement plastique non associée](https://doi.org/10.1016/j.crme.2005.11.006){.pub-title}
+[RÃ©sistance dâ€™un composite Ã  renforts rigides : Le cas dâ€™une matrice de Drucker-Prager avec rÃ¨gle dâ€™Ã©coulement plastique non associÃ©e](https://doi.org/10.1016/j.crme.2005.11.006){.pub-title}
 
-[L. Dormieux, **J.-F. Barthélémy**, S. Maghous]{.pub-authors}
+[L. Dormieux, J.-F. BarthÃ©lÃ©my, S. Maghous]{.pub-authors}
 
-[C. R. Mécanique 334 (2006) 111-116]{.pub-venue}
+[C. R. MÃ©canique 334 (2006) 111-116]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -1523,7 +1540,7 @@
 
 [Hydromechanical simulation of naturally fractured reservoirs]{.pub-title}
 
-[L. Jeannin, R. Marmier, **J.-F. Barthélémy**]{.pub-authors}
+[L. Jeannin, R. Marmier, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [41st U.S. Rock Mech. Symp. ARMA, Golden, USA (2006)]{.pub-venue}
 
@@ -1534,9 +1551,9 @@
 
 ::: {#ref-barthelemyIFP2006 .pub-item data-family="report" data-group="rapp" data-year="2006"}
 
-[Etude multi-physique des milieux fissurés par changement d’échelle (rapport interne)]{.pub-title}
+[Etude multi-physique des milieux fissurÃ©s par changement dâ€™Ã©chelle (rapport interne)]{.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [IFPEN (2006)]{.pub-venue}
 
@@ -1551,11 +1568,11 @@
 
 ::: {#ref-barthelemyCFM2005 .pub-item data-family="conference" data-group="actn" data-year="2005"}
 
-[Influence de l’interface des inclusions sur le critère de résistance d’un matériau renforcé]{.pub-title}
+[Influence de lâ€™interface des inclusions sur le critÃ¨re de rÃ©sistance dâ€™un matÃ©riau renforcÃ©]{.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
-[XVIIème Congrès Français de Mécanique, Troyes (2005)]{.pub-venue}
+[XVIIÃ¨me CongrÃ¨s FranÃ§ais de MÃ©canique, Troyes (2005)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -1566,7 +1583,7 @@
 
 [On the existence of an effective stress in poroplasticity]{.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
 [3rd Biot Conf. Poromechanics, Norman, Oklahoma, USA (2005)]{.pub-venue}
 
@@ -1577,11 +1594,11 @@
 
 ::: {#ref-barthelemyPhD2005 .pub-item data-family="report" data-group="rapp" data-year="2005"}
 
-[Approche micromécanique de la rupture et de la fissuration dans les géomatériaux](https://pastel.hal.science/pastel-00001296v1/){.pub-title}
+[Approche micromÃ©canique de la rupture et de la fissuration dans les gÃ©omatÃ©riaux](https://pastel.hal.science/pastel-00001296v1/){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
-[Thèse de Doctorat, École Nationale des Ponts et Chaussées (2005)]{.pub-venue}
+[ThÃ¨se de Doctorat, Ã‰cole Nationale des Ponts et ChaussÃ©es (2005)]{.pub-venue}
 
 ::: {.pub-tags}
 [PhD thesis]{.pub-tag .pub-tag-report}
@@ -1596,9 +1613,9 @@
 
 [A micromechanical approach to the strength criterion of Drucker-Prager materials reinforced by rigid inclusions](https://doi.org/10.1002/nag.368){.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
-[Int. J. Numer. Anal. Meth. Geomech. 28(7–8) (2004) 565-582]{.pub-venue}
+[Int. J. Numer. Anal. Meth. Geomech. 28(7â€“8) (2004) 565-582]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -1613,7 +1630,7 @@
 
 [Compaction process in sedimentary basins: The role of stiffness increase and hardening induced by large plastic strains](https://doi.org/10.1002/nag.387){.pub-title}
 
-[V. Deudé, L. Dormieux, S. Maghous, **J.-F. Barthélémy**, D. Bernaud]{.pub-authors}
+[V. DeudÃ©, L. Dormieux, S. Maghous, J.-F. BarthÃ©lÃ©my, D. Bernaud]{.pub-authors}
 
 [Int. J. Numer. Anal. Meth. Geomech. 28(13) (2004) 1279-1303]{.pub-venue}
 
@@ -1630,7 +1647,7 @@
 
 [Mineral-collagen interactions in elasticity of bone ultrastructure - A continuum micromechanics approach](https://doi.org/10.1016/j.euromechsol.2004.05.004){.pub-title}
 
-[C. Hellmich, **J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[C. Hellmich, J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
 [European Journal of Mechanics, A/Solids 23(5) (2004) 783-810]{.pub-venue}
 
@@ -1649,11 +1666,11 @@
 
 ::: {#ref-barthelemyCRAS2003_fisfrot .pub-item data-family="journal" data-group="acl" data-year="2003"}
 
-[Détermination du comportement macroscopique d’un milieu à fissures frottantes](https://doi.org/10.1016/S1631-0721(02)00010-4){.pub-title}
+[DÃ©termination du comportement macroscopique dâ€™un milieu Ã  fissures frottantes](https://doi.org/10.1016/S1631-0721(02)00010-4){.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux, D. Kondo]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux, D. Kondo]{.pub-authors}
 
-[C. R. Mécanique 331 (2003) 77-84]{.pub-venue}
+[C. R. MÃ©canique 331 (2003) 77-84]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -1666,11 +1683,11 @@
 
 ::: {#ref-barthelemyCRAS2003_homnonlin .pub-item data-family="journal" data-group="acl" data-year="2003"}
 
-[Détermination du critère de rupture macroscopique d’un milieu poreux par homogénéisation non linéaire](https://doi.org/10.1016/S1631-0721(03)00063-9){.pub-title}
+[DÃ©termination du critÃ¨re de rupture macroscopique dâ€™un milieu poreux par homogÃ©nÃ©isation non linÃ©aire](https://doi.org/10.1016/S1631-0721(03)00063-9){.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
-[C. R. Mécanique 331 (2003) 271-276]{.pub-venue}
+[C. R. MÃ©canique 331 (2003) 271-276]{.pub-venue}
 
 ::: {.pub-tags}
 [Peer-reviewed article]{.pub-tag .pub-tag-journal}
@@ -1685,7 +1702,7 @@
 
 [Micromechanical approach to the modelling of compaction at large strains](https://doi.org/10.1016/S0266-352X(03)00006-5){.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux, S. Maghous]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux, S. Maghous]{.pub-authors}
 
 [Comput. Geotech. 30 (2003) 321-338]{.pub-venue}
 
@@ -1702,7 +1719,7 @@
 
 [A micromechanical approach to the strength criterion of composite materials]{.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux, E. Lemarchand]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux, E. Lemarchand]{.pub-authors}
 
 [Comput. Model. Concr. Struct., St Johann Im Pongau, Austria (2003)]{.pub-venue}
 
@@ -1713,11 +1730,11 @@
 
 ::: {#ref-barthelemyCFM2003 .pub-item data-family="conference" data-group="actn" data-year="2003"}
 
-[Détermination du comportement macroscopique d’un milieu à fissures frottantes (CFM)]{.pub-title}
+[DÃ©termination du comportement macroscopique dâ€™un milieu Ã  fissures frottantes (CFM)]{.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux, D. Kondo]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux, D. Kondo]{.pub-authors}
 
-[XVIème Congrès Français de Mécanique, Nice (2003)]{.pub-venue}
+[XVIÃ¨me CongrÃ¨s FranÃ§ais de MÃ©canique, Nice (2003)]{.pub-venue}
 
 ::: {.pub-tags}
 [National conference paper]{.pub-tag .pub-tag-conference}
@@ -1732,7 +1749,7 @@
 
 [Micromechanical approach to the modelling of compaction at large strains (Biot conf)]{.pub-title}
 
-[**J.-F. Barthélémy**, L. Dormieux]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my, L. Dormieux]{.pub-authors}
 
 [2nd Biot Conf. Poromechanics, Grenoble, France (2002)]{.pub-venue}
 

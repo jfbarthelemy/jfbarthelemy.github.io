@@ -3,12 +3,12 @@
 :::: {.stat-strip}
 
 ::: {.stat}
-[109]{.stat-value}
+[110]{.stat-value}
 [publications]{.stat-label}
 :::
 
 ::: {.stat}
-[45]{.stat-value}
+[46]{.stat-value}
 [journal articles]{.stat-label}
 :::
 

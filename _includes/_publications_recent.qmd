@@ -6,7 +6,7 @@
 
 [Displacement and stress intensity factors of elliptical and ribbon-like cracks in a transformed transversely isotropic matrix](https://doi.org/10.1016/j.ijsolstr.2026.114293){.pub-title}
 
-[**J.-F. Barthélémy**]{.pub-authors}
+[J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [International Journal of Solids and Structures 341 (2026) 114293]{.pub-venue}
 
@@ -20,11 +20,28 @@
 :::
 :::
 
+::: {#ref-adessinaJBE2026 .pub-item data-family="journal" data-group="acl" data-year="2026"}
+
+[Combined effects of slag and recycled sand on the physical and mechanical properties of mortars: From statistical nanoindentation approach to the micromechanical based model](https://doi.org/10.1016/j.jobe.2026.117294){.pub-title}
+
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my]{.pub-authors}
+
+[Journal of Building Engineering 132 (2026) 117294]{.pub-venue}
+
+::: {.pub-tags}
+[Peer-reviewed article]{.pub-tag .pub-tag-journal}
+:::
+
+::: {.pub-links}
+[DOI](https://doi.org/10.1016/j.jobe.2026.117294){.pub-link} [Publisher](https://linkinghub.elsevier.com/retrieve/pii/S2352710226021169){.pub-link}
+:::
+:::
+
 ::: {#ref-someCBM2026 .pub-item data-family="journal" data-group="acl" data-year="2026"}
 
 [Experimental investigation and multiscale modeling of stiffness modulus, creep-recovery behaviour in aged and micro-cracked bituminous mixes](https://doi.org/10.1016/j.conbuildmat.2026.145595){.pub-title}
 
-[S. C. Somé, **J.-F. Barthélémy**, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
+[S. C. SomÃ©, J.-F. BarthÃ©lÃ©my, A. Achchoubi, F. Hammoum, V. Mouillet]{.pub-authors}
 
 [Construction and Building Materials 515 (2026) 145595]{.pub-venue}
 
@@ -41,7 +58,7 @@
 
 [Towards a better rheological investigation of the oxidative ageing of bituminous mixes: Frequency versus time characterisation](https://doi.org/10.1080/14680629.2025.2473964){.pub-title}
 
-[A. Achchoubi, S. C. Somé, F. Hammoum, V. Mouillet, **J.-F. Barthélémy**]{.pub-authors}
+[A. Achchoubi, S. C. SomÃ©, F. Hammoum, V. Mouillet, J.-F. BarthÃ©lÃ©my]{.pub-authors}
 
 [Road Materials and Pavement Design (2025) 1-30]{.pub-venue}
 
@@ -58,7 +75,7 @@
 
 [Failure mechanism in recycled sand mortars and recycled aggregate concretes: Experimental and multiscale approaches](https://doi.org/10.1016/j.jobe.2025.111882){.pub-title}
 
-[A. Adessina, A. Ben Fraj, **J.-F. Barthélémy**, M. Gharbi]{.pub-authors}
+[A. Adessina, A. Ben Fraj, J.-F. BarthÃ©lÃ©my, M. Gharbi]{.pub-authors}
 
 [Journal of Building Engineering (2025) 111882]{.pub-venue}
 
@@ -68,23 +85,6 @@
 
 ::: {.pub-links}
 [DOI](https://doi.org/10.1016/j.jobe.2025.111882){.pub-link} [Publisher](https://linkinghub.elsevier.com/retrieve/pii/S2352710225001184){.pub-link}
-:::
-:::
-
-::: {#ref-kouevidjinEA2024 .pub-item data-family="journal" data-group="acl" data-year="2024"}
-
-[Efficiency of the Impressed Current Cathodic Protection (ICCP) in reinforced concretes: Experimental and numerical investigation](https://doi.org/10.1016/j.electacta.2024.143923){.pub-title}
-
-[A. B. Kouevidjin, A. Adessina, **J.-F. Barthélémy**, J. Carpio-Perez, A. Ben Fraj, A. Pavoine]{.pub-authors}
-
-[Electrochimica Acta 480 (2024) 143923]{.pub-venue}
-
-::: {.pub-tags}
-[Peer-reviewed article]{.pub-tag .pub-tag-journal}
-:::
-
-::: {.pub-links}
-[DOI](https://doi.org/10.1016/j.electacta.2024.143923){.pub-link} [Publisher](https://linkinghub.elsevier.com/retrieve/pii/S0013468624001671){.pub-link}
 :::
 :::
 
