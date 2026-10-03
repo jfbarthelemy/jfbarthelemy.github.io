@@ -1,41 +1,62 @@
 ---
 title: "OptimaSolver.jl"
 description: >
-  Julia port of Allan Leal's Optima C++ library: a primal-dual interior-point solver for
-  Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation
-  sensitivity matrices. The equilibrium backend of ChemistryLab.jl.
+  Certified Gibbs energy minimization for equilibrium chemistry: an interior-point method
+  ported from Allan Leal's Optima and a multiplier-space Newton method, every answer checked
+  by a KKT certificate. The default backend of ChemistryLab.jl.
 categories: [Julia, Optimization, Thermodynamics]
 image: "../images/logo_optimasolver.svg"
 ---
 
 ![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
-**OptimaSolver.jl** is a Julia port of the **Optima** C++ library developed by
-[Allan Leal](https://erdw.ethz.ch/en/people/profile.allan-leal.html) (ETH Zürich) —
-[github.com/reaktoro/optima](https://github.com/reaktoro/optima). It is a primal-dual
-interior-point solver written for the specific shape of chemical equilibrium problems:
-minimization of a Gibbs energy whose Hessian is diagonal, under linear mass-balance
-constraints. It serves as a core solver backend for
-[ChemistryLab.jl](chemistrylab.qmd) equilibrium computations.
+**OptimaSolver.jl** minimizes a Gibbs energy under linear mass-balance constraints, the
+problem every chemical equilibrium reduces to. It provides a log-barrier interior-point method,
+an independent Julia port of the **Optima** C++ library of
+[Allan Leal](https://erdw.ethz.ch/en/people/profile.allan-leal.html) (ETH Zürich), and a Newton
+method on the optimality conditions in the space of the Lagrange multipliers, which
+[ChemistryLab.jl](chemistrylab.qmd) calls by default. Whichever method produced it, an answer
+is checked by a KKT certificate, and `ForwardDiff` derivatives pass through the solve to any
+order.
+Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 ### Key features
 
-- **Primal-dual interior-point method** exploiting the diagonal Hessian structure of an ideal
-  or non-ideal Gibbs energy
-- **Sensitivity matrices** obtained by implicit differentiation of the optimality conditions,
-  so derivatives of the equilibrium state come out of the solve itself
-- **Warm start** from a previous solution, for continuation along a reaction path
+- **A certificate, not a stopping test** — `kkt_certificate` checks the optimality conditions
+  at any point, whatever produced it; for a convex problem they are sufficient, so it proves the
+  global minimum
+- **Two methods, one problem** — the interior point takes its Newton step through a Schur
+  complement of the diagonal Hessian; the multiplier-space Newton holds bounded species in an
+  active set
+- **A start from a linear program** — `lp_start` solves the pure-phase program by a verified
+  simplex; an impossible budget comes back with its Farkas proof rather than as a failed
+  iteration
+- **Every row at its own scale** — each mass balance is judged against what it holds, so a
+  trace nine orders of magnitude below the major elements is kept to its own amount
+- **Exact derivatives** — dual numbers in the budget, the data or the parameters return the
+  derivatives of the solution by the implicit-function theorem, nested to any order
+- **Solvents and their solutes** — a phase given `invert` recovers its solutes in one call,
+  through one equation in the ionic strength for activity models of the Debye–Hückel family
+
+### Installation
+
+OptimaSolver.jl is registered in Julia's General registry:
+
+```julia
+using Pkg
+Pkg.add("OptimaSolver")
+```
 
 ### Credits and license
 
-The algorithmic design — Schur-complement Newton step, filter line search, variable
-stability classification and implicit-differentiation sensitivity — comes from that library
-and from Leal, Blunt & LaForce (2014), *Efficient chemical equilibrium calculations for
+The interior-point method is an independent port of Optima
+([github.com/reaktoro/optima](https://github.com/reaktoro/optima), © 2020–2024 Allan Leal),
+not affiliated with its authors; the Julia port is © 2026 Jean-François Barthélémy, under
+LGPL-2.1-or-later. Its design — Schur-complement Newton step, filter line search, variable
+stability classification, implicit-differentiation sensitivity — comes from that library and
+from Leal, Blunt & LaForce (2014), *Efficient chemical equilibrium calculations for
 geochemical speciation and reactive transport modelling*, Geochimica et Cosmochimica Acta
 **131**, 301–322, [doi:10.1016/j.gca.2014.01.038](https://doi.org/10.1016/j.gca.2014.01.038).
-
-The port is released under LGPL-2.1-or-later, matching the upstream library, and carries
-both copyright notices.
 
 ### Links
 

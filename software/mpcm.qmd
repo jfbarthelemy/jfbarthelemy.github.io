@@ -25,17 +25,19 @@ conventions, are `ForwardDiff`-compatible, and plug into the SciML ecosystem.
 ![](../images/logo_tensnd.svg){.jfb-page-logo}
 
 **Symbolic and numerical tensor calculations** of any order and dimension in arbitrary
-coordinate systems, with structured isotropic, transversely isotropic and orthotropic types
-and curvilinear differential operators. It is the tensor foundation of the whole ecosystem.
+coordinate systems, with structured isotropic, transversely isotropic, orthotropic and cubic
+types, projection onto each symmetry class, and curvilinear differential operators. It is the
+tensor foundation of the whole ecosystem.
 
 ### [ChemistryLab.jl](chemistrylab.qmd)
 
 ![](../images/logo_chemistrylab.svg){.jfb-page-logo}
 
-**Computational chemistry toolkit** — chemical formula handling, species management,
-stoichiometric matrices, ThermoFun/Cemdata database interoperability, activity models and
-thermodynamic equilibrium by Gibbs energy minimization. Dimensionally aware via
-`DynamicQuantities`.
+**Computational chemistry, from formulas to a certified equilibrium** — species, reactions and
+stoichiometric matrices, ThermoFun and Cemdata data downloaded on demand, activity models up to
+SIT and Pitzer, solid solutions, surface complexation, kinetics and calorimetry, and Gibbs
+energy minimization returned with a certificate stating what it proves. Every quantity carries
+its unit, via `DynamicQuantities`.
 
 ### [MeanFieldHomogenization.jl](meanfieldhom.qmd)
 
@@ -44,8 +46,9 @@ thermodynamic equilibrium by Gibbs energy minimization. Dimensionally aware via
 **Mean-field homogenization framework** for heterogeneous materials: Hill polarization tensors
 for ellipsoidal inclusions and infinite cylinders, crack-opening-displacement tensors with
 stress and displacement intensity factors, second-order Hill tensors for transport problems,
-layered spheres and confocal spheroids with imperfect interfaces, ageing linear viscoelasticity,
-and all the classical schemes.
+layered spheres and confocal spheroids with imperfect interfaces, aging viscoelasticity and
+hereditary conduction as Volterra operators, all the classical schemes, and morphologies with
+no closed form entered by finite elements or a neural surrogate.
 
 ---
 
@@ -55,10 +58,10 @@ and all the classical schemes.
 
 ![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
-**Julia port of Allan Leal's [Optima](https://github.com/reaktoro/optima) C++ library** — a
-primal-dual interior-point solver for Gibbs-energy minimization with diagonal Hessian
-structure and implicit-differentiation sensitivity matrices. Serves as a core solver backend
-for ChemistryLab.jl equilibrium computations. LGPL-2.1-or-later, like the upstream library.
+**Certified Gibbs energy minimization** — a log-barrier interior-point method, an independent
+port of Allan Leal's [Optima](https://github.com/reaktoro/optima) C++ library, and a Newton
+method in the space of the Lagrange multipliers, every answer checked by a KKT certificate,
+with exact derivatives through the solve. The default equilibrium backend of ChemistryLab.jl.
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/OptimaSolver.jl/)
 [![Repository](https://img.shields.io/badge/GitHub-OptimaSolver.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/OptimaSolver.jl)
@@ -69,8 +72,9 @@ for ChemistryLab.jl equilibrium computations. LGPL-2.1-or-later, like the upstre
 
 **Pure-Julia port** of the DECUHR algorithm of Espelid & Genz
 ([Numerical Algorithms **8**, 1994, 201–220](https://doi.org/10.1007/BF02142691)) for
-automatic adaptive integration of functions with vertex singularities over hyper-rectangles.
-Exposed as a pluggable algorithm for the SciML **Integrals.jl** ecosystem.
+automatic adaptive integration of functions with vertex singularities over hyper-rectangles of
+dimension 2 to 15. Exposed as a pluggable algorithm for the SciML **Integrals.jl** ecosystem,
+and differentiable with `ForwardDiff`.
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/DECUHR.jl/)
 [![Repository](https://img.shields.io/badge/GitHub-DECUHR.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/DECUHR.jl)

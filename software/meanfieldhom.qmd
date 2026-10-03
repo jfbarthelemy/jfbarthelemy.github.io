@@ -1,10 +1,9 @@
 ---
 title: "MeanFieldHomogenization.jl"
 description: >
-  Julia framework for mean-field homogenization of heterogeneous materials.
-  Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity
-  and all classical schemes, with ForwardDiff sensitivities. Morphologies without a
-  closed form enter by finite elements or a neural surrogate.
+  Julia framework for mean-field homogenization: Hill tensors, cracks, layered inclusions,
+  aging viscoelasticity and hereditary conduction, all classical schemes, ForwardDiff
+  sensitivities; shapes with no closed form enter by finite elements or a surrogate.
 categories: [Julia, Micromechanics, Homogenization, Machine Learning]
 image: "../images/logo_mfh.svg"
 ---
@@ -15,7 +14,8 @@ image: "../images/logo_mfh.svg"
 of a heterogeneous material from the properties, shapes, orientations and volume fractions
 of the phases of its microstructure. All the ingredients — inclusion morphologies, localization
 tensors and homogenization schemes — live under a common abstraction hierarchy with a shared
-numerical core and a central dispatch mechanism.
+numerical core and a central dispatch mechanism. A microstructure can also serve as the
+constitutive law at each Gauss point of a finite-element computation.
 Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensND.jl](tensnd.qmd)**.
 
 ### Key features
@@ -28,9 +28,12 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
 - **Layered inclusions** — `n`-layer composite spheres and confocal spheroids with imperfect
   interfaces (perfect, spring, membrane, Kapitza, surface-conductive)
 - **Homogenization schemes** — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis,
-  self-consistent and asymmetric self-consistent, differential
-- **Ageing linear viscoelasticity** — Volterra operators with structured ISO/TI/orthotropic
-  kernel storage, available to every scheme
+  self-consistent and asymmetric self-consistent, differential; the cluster model and the
+  equivalent inclusion method for interacting particles
+- **Aging linear Volterra behavior** — aging viscoelasticity and hereditary conduction as
+  time-domain Volterra operators with structured ISO/TI/orthotropic kernel storage, in every
+  scheme; and, for non-aging behavior, the Laplace–Carson route with autodiff-capable numerical
+  inversion
 - **Open inclusion contract** — any morphology joins every scheme through one of three entry
   gates (Hill tensor, localization tensors, contribution tensors), whatever computed the
   answer; the two below are its current tenants, not its limits
@@ -54,9 +57,10 @@ Pkg.add("MeanFieldHomogenization")
 Optional package extensions activate on weak dependencies:
 [DECUHR.jl](https://github.com/MicroPoroChemoMechanics/DECUHR.jl) with
 Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for
-the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), two finite-element
-backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with Optimisers.jl
-and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them:
+the self-consistent schemes), SymPy.jl and Symbolics.jl (symbolic computation),
+MittagLeffler.jl (closed-form time values of the fractional rheological models), two
+finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with
+Optimisers.jl and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them:
 the trained network carries no machine-learning dependency.
 
 ### Documentation
@@ -66,7 +70,8 @@ Full documentation is available at
 including a gallery of complete micromechanical models in the
 [Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/cement_paste/)
 section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in
-concrete, quasi-brittle strength, bituminous mixtures and ageing creep.
+concrete, quasi-brittle strength, the elastic limit of concrete, the friction of a granular
+medium, the strength of a sandstone, bituminous mixtures and aging creep.
 
 ### Links
 

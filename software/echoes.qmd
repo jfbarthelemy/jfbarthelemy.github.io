@@ -1,33 +1,54 @@
 ---
 title: "echoes"
 description: >
-  A C++/Python library implementing homogenization schemes for heterogeneous materials.
-  Provides tools for computing effective elastic, thermal, and viscoelastic properties
-  of composites and geomaterials based on Eshelby-type micromechanical models.
+  Extended Calculator of HOmogEnization Schemes: a C++ library with a Python interface for
+  the analytical micromechanics of random media. Effective elastic, conduction and viscoelastic
+  properties, and their derivatives with respect to the lower-scale moduli.
 categories: [C++, Python, Micromechanics, Homogenization]
 image: "../images/logo_echoes.png"
 ---
 
 ![](../images/logo_echoes.png){.jfb-page-logo}
 
-**echoes** (Extended Calculator of HOmogEnization Schemes) implements a wide range of
-analytical homogenization models for random heterogeneous media.
+**echoes** (Extended Calculator of HOmogEnization Schemes) estimates the effective properties
+of a random heterogeneous medium from the properties, shapes and volume fractions of its
+phases. It solves the Eshelby problem at second order (conductivity) and fourth order
+(elasticity), for isotropic or anisotropic reference media, and feeds the result to a wide
+family of mean-field schemes. Beyond the effective moduli themselves, it returns their
+derivatives with respect to the lower-scale moduli — the ingredient a secant-based nonlinear
+homogenization needs. The numerical core is C++; the modeling is written in Python.
 
 ### Key features
 
-- Dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes
-- Ellipsoidal and crack-like heterogeneities
-- Elasticity, thermal conductivity, and linear viscoelasticity
-- Derivatives of effective properties with respect to phase parameters
-  (essential for secant-based nonlinear homogenization)
-- Python interface with supporting modules
+- **A wide family of schemes** — bounds, dilute and its dual, Mori–Tanaka, self-consistent and
+  asymmetric self-consistent, Maxwell, Ponte Castañeda–Willis, differential
+- **Eshelby at both orders** — second order for conductivity, fourth order for elasticity;
+  isotropic and anisotropic media; ellipsoids, cracks, `n`-layer spheres, generic inclusions
+- **Time and frequency** — aging linear viscoelasticity and complex moduli, so a creep or a
+  dynamic modulus follows from the same microstructure
+- **Derivatives of the moduli** — the sensitivity of the macroscopic stiffness to the
+  lower-scale moduli, which is what makes secant-based nonlinear homogenization possible
+- **C++ core, Python interface** — the numerics are compiled; the modeling is scripted next to
+  NumPy and Matplotlib, in a notebook or a plain script
+
+### Installation
+
+Binary wheels for Windows and Linux, Python 3.7 to 3.12, are attached to the Zenodo record the
+DOI below resolves to — pick the file matching your interpreter, then `pip install` it.
 
 ### Documentation
 
-Full documentation and examples are available at
+The documentation is a course — tensor calculus, Eshelby and Hill tensors, concentration,
+schemes, viscoelasticity, nonlinear homogenization — with every tutorial runnable, at
 [jfbarthelemy.github.io/echoes](https://jfbarthelemy.github.io/echoes/).
+
+### License
+
+The wheels are distributed under the ECHOES Academic and Research License: free use for
+non-commercial research, academic and teaching purposes; any commercial use requires a separate
+written agreement with the copyright holder. The manual is licensed CC BY-SA 4.0.
 
 ### Links
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=quarto)](https://jfbarthelemy.github.io/echoes/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19679057.svg)](https://doi.org/10.5281/zenodo.19679057)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7348758.svg)](https://doi.org/10.5281/zenodo.7348758)

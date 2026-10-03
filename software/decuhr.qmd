@@ -1,8 +1,9 @@
 ---
 title: "DECUHR.jl"
 description: >
-  Pure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994) for adaptive integration of
-  functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.
+  Pure-Julia port of the DECUHR algorithm (Espelid & Genz, 1994): adaptive cubature for
+  integrands that blow up at a vertex of a hyper-rectangle, in dimension 2 to 15, pluggable
+  into Integrals.jl and differentiable with ForwardDiff.
 categories: [Julia, Quadrature, Numerical Analysis]
 image: "../images/logo_decuhr.svg"
 ---
@@ -10,23 +11,43 @@ image: "../images/logo_decuhr.svg"
 ![](../images/logo_decuhr.svg){.jfb-page-logo}
 
 **DECUHR.jl** is a pure-Julia port of the DECUHR algorithm of Espelid & Genz for the
-automatic adaptive integration of functions with vertex singularities over hyper-rectangles —
-the situation met when integrating Green functions over an inclusion.
+automatic adaptive integration of functions with vertex singularities over hyper-rectangular
+regions — the situation met whenever a Green function is integrated over an inclusion. Where a
+plain adaptive rule keeps subdividing without ever converging, the algorithm couples the
+subdivision to an extrapolation that removes the singular contribution.
+Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 ### Key features
 
-- **Vertex-singularity handling** by extrapolation, where a plain adaptive rule stalls
-- **Hyper-rectangular domains** in arbitrary dimension
-- **SciML integration** — exposed as a pluggable algorithm for
-  [Integrals.jl](https://docs.sciml.ai/Integrals/stable/)
+- **Vertex singularities** — subdivision coupled to an extrapolation in the cell size, which is
+  what removes the singular contribution instead of chasing it; logarithmic singularities too
+- **Hyper-rectangular regions** — boxes of dimension 2 to 15, with rules of degree 13 and 11
+  dedicated to 2D and 3D
+- **Strength known or not** — the algebraic exponent can be supplied when the analysis gives it,
+  or estimated from the samples when it does not
+- **Vector-valued integrands** — a whole tensor of integrals shares one subdivision history
+  rather than being recomputed component by component
+- **A SciML algorithm** — `DecuhrAlgorithm` plugs into
+  [Integrals.jl](https://docs.sciml.ai/Integrals/stable/) like any other solver, and
+  `ForwardDiff` passes through it, estimated exponent included
+
+### Installation
+
+DECUHR.jl is registered in Julia's General registry:
+
+```julia
+using Pkg
+Pkg.add("DECUHR")
+```
 
 ### Credits and license
 
 The algorithm and the original Fortran 77 routines are due to T. O. Espelid and A. Genz,
 *DECUHR: an algorithm for automatic integration of singular functions over a hyperrectangular
 region*, Numerical Algorithms **8** (1994) 201–220,
-[doi:10.1007/BF02142691](https://doi.org/10.1007/BF02142691). The Julia port is under the MIT
-license and ships the upstream copyright notice unmodified.
+[doi:10.1007/BF02142691](https://doi.org/10.1007/BF02142691). This package is an independent
+Julia port of that work, under the MIT license, shipping the upstream copyright notice
+unmodified.
 
 ### Links
 

@@ -20,12 +20,15 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 - **Basis types** — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)
 - **Tensor algebra** — products (`⊗`, `⊗ˢ`, `⊠`, `⊠ˢ`, `⋅`, `⊡`, `⊙`), change of basis, variance management
-- **Structured tensors** — isotropic (`TensISO`), transversely isotropic (`TensTI{4}`, `TensTI`)
-  and orthotropic (`TensOrtho`), with compact storage and efficient algebra
-- **Symmetry projection** — closest ISO, TI or ORTHO tensor, with rotation optimized via NLopt.jl
+- **Structured tensors** — isotropic (`TensISO`), transversely isotropic (`TensTI`), orthotropic
+  (`TensOrtho`) and cubic (`TensCubic`), storing 2 to 9 coefficients instead of 81 and staying in
+  their class through products and inversion
+- **Symmetry projection** — closest isotropic, transversely isotropic, orthotropic or cubic
+  tensor, with the material frame given or recovered by rotation optimization (NLopt.jl)
 - **Differential operators** — gradient, symmetric gradient, divergence, Laplacian and Hessian
   in curvilinear coordinates, symbolically or numerically
-- **Generic type system** — `Float64`, symbolic types (`Sym`, `Num`) and `ForwardDiff.Dual`
+- **Generic type system** — the same code path runs on `Float64`, on symbolic scalars (`Sym`,
+  `Num`) and on `ForwardDiff.Dual`, so sensitivities come for free
 
 ### Installation
 

@@ -1,55 +1,57 @@
 ---
 title: "ChemistryLab.jl"
 description: >
-  A Julia computational chemistry toolkit — formula handling, species management,
-  stoichiometric matrices, thermodynamic databases and chemical equilibrium.
-  Initially aimed at low-carbon cementitious materials and aqueous solutions.
+  A Julia numerical laboratory for computational chemistry, from formulas to a certified
+  equilibrium: thermodynamic databases, activity models up to Pitzer, solid solutions,
+  surfaces, kinetics and heat. Initially aimed at cement chemistry.
 categories: [Julia, Chemistry, Materials Science]
 image: "../images/logo_chemistrylab.svg"
 ---
 
 ![](../images/logo_chemistrylab.svg){.jfb-page-logo}
 
-**ChemistryLab.jl** is a computational chemistry toolkit. Although initially dedicated to
-low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides
-chemical formula handling, species management, stoichiometric matrix construction, activity
-models, thermodynamic equilibrium and database interoperability. Developed with Anthony Soive
-and released under LGPL v2.1+.
+**ChemistryLab.jl** carries a chemical problem from its written formulas to its equilibrium
+state. Formulas, species, reactions and stoichiometric matrices are first-class objects,
+thermodynamic data are read from ThermoFun and Cemdata, and equilibrium is computed by Gibbs
+energy minimization and returned with a certificate stating what it proves. Every quantity
+carries its unit, and exact `ForwardDiff` derivatives pass through equilibria, kinetic runs and
+recipes. Initially focused on cement chemistry — CEM I to CEM V entered from an oxide
+analysis — its scope is that of aqueous and mineral systems at large. Developed with Anthony
+Soive and released under LGPL v2.1+.
 Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 
 ### Key features
 
-- **Chemical formula handling** — creation, conversion and display with charge management,
-  Unicode and Phreeqc notations
-- **Species management** — `Species` and `CemSpecies` types for solution and solid phases,
-  with requalification via `with_class`
-- **Stoichiometric matrices** — automatic construction for reaction and equilibrium analysis
-- **Database interoperability** — import and merge ThermoFun (`.json`) and Cemdata (`.dat`) data
-- **Solid solutions** — ideal (`IdealSolidSolutionModel`) or non-ideal binary
-  (`RedlichKisterModel`) mineral mixing phases
-- **Activity models** — `DiluteSolutionModel`, `HKFActivityModel` (extended Debye–Hückel B-dot)
-  and `DaviesActivityModel`
-- **Chemical equilibrium** — equilibrium compositions by Gibbs energy minimization
-  (`equilibrate`, `ChemicalSystem`, `ChemicalState`)
-- **ForwardDiff compatibility** — sensitivity analysis through the whole pipeline
+- **Formulas, species and reactions** — chemical formulas with charge, Unicode and PHREEQC
+  notations; `Species` and `CemSpecies` for solution and solid phases; stoichiometric matrices
+  built automatically
+- **Databases on demand** — ThermoFun databases downloaded from their publisher on first use
+  and checked against a SHA-256; `install_database` takes a PHREEQC file
+- **Certified equilibrium** — the certificate says what it proves: global minimum, KKT point or
+  self-consistent speciation, each element balance judged against its own total
+- **Activity models** — B-dot, Davies, Truesdell–Jones, SIT and Pitzer; SIT and Pitzer solutes
+  solved by Newton, halite solubility within 0.3 % of its measurement
+- **Solid solutions** — ideal, Redlich–Kister, regular, sublattice (C–N–A–S–H) and
+  compound-energy (CASH+) models, miscibility gaps detected and located
+- **Surfaces and interfaces** — surface complexation, constant-capacitance and diffuse-layer
+  electrostatics, cation exchange and a Donnan layer, checked against PHREEQC
+- **Recipes, kinetics, heat** — binders blended, hydrated, carbonated or leached as recipes;
+  Parrott–Killoh and Waller rate laws; isothermal and semi-adiabatic calorimetry
 
 ### Installation
 
-ChemistryLab.jl is registered in Julia's General registry:
+ChemistryLab.jl is registered in Julia's General registry. Solving an equilibrium needs an
+optimization backend, loaded through a package extension; OptimaSolver.jl is the default one,
+and the one the certificate needs:
 
 ```julia
 using Pkg
-Pkg.add("ChemistryLab")
+Pkg.add(["ChemistryLab", "OptimaSolver"])
+using ChemistryLab, OptimaSolver         # OptimaSolver: the default equilibrium backend
 ```
 
-Solving an equilibrium requires an optimization backend, loaded on demand through a package
-extension — either the default Ipopt one or the Julia-native interior-point solver:
-
-```julia
-using Optimization, OptimizationIpopt   # default backend
-# or
-using OptimaSolver                      # Julia-native interior-point backend
-```
+`Optimization` with `OptimizationIpopt` remains available as a backend. A database is
+downloaded once, on first use; `fetch_databases()` prepares a machine for offline work.
 
 ### Links
 

@@ -71,7 +71,7 @@ ellipsoidal and crack-like inclusions.
 ### Nonlinear and viscoelastic behavior
 
 Extension of homogenization methods to nonlinear elasticity and to linear, possibly
-ageing, viscoelasticity.
+aging, viscoelasticity.
 :::
 
 ::: {.jfb-card}
