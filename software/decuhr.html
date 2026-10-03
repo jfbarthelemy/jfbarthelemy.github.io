@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994) for adaptive integration of functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.">
+<meta name="description" content="Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994): adaptive cubature for integrands that blow up at a vertex of a hyper-rectangle, in dimension 2 to 15, pluggable into Integrals.jl and differentiable with ForwardDiff.">
 
 <title>DECUHR.jl – Jean-François Barthélémy</title>
 <style>
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -49,9 +84,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="DECUHR.jl – Jean-François Barthélémy">
-<meta property="og:description" content="Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994) for adaptive integration of functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.">
+<meta property="og:description" content="Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994): adaptive cubature for integrands that blow up at a vertex of a hyper-rectangle, in dimension 2 to 15, pluggable into Integrals.jl and differentiable with ForwardDiff.">
 <meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_decuhr.svg">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 </head>
@@ -308,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
       <h1 class="title">DECUHR.jl</h1>
                   <div>
         <div class="description">
-          <p>Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994) for adaptive integration of functions with vertex singularities over hyper-rectangles, pluggable into Integrals.jl.</p>
+          <p>Pure-Julia port of the DECUHR algorithm (Espelid &amp; Genz, 1994): adaptive cubature for integrands that blow up at a vertex of a hyper-rectangle, in dimension 2 to 15, pluggable into Integrals.jl and differentiable with ForwardDiff.</p>
         </div>
       </div>
                           <div class="quarto-categories">
@@ -341,18 +376,26 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/logo_decuhr.svg" class="jfb-page-logo img-fluid"></p>
-<p><strong>DECUHR.jl</strong> is a pure-Julia port of the DECUHR algorithm of Espelid &amp; Genz for the automatic adaptive integration of functions with vertex singularities over hyper-rectangles — the situation met when integrating Green functions over an inclusion.</p>
+<p><strong>DECUHR.jl</strong> is a pure-Julia port of the DECUHR algorithm of Espelid &amp; Genz for the automatic adaptive integration of functions with vertex singularities over hyper-rectangular regions — the situation met whenever a Green function is integrated over an inclusion. Where a plain adaptive rule keeps subdividing without ever converging, the algorithm couples the subdivision to an extrapolation that removes the singular contribution. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li><strong>Vertex-singularity handling</strong> by extrapolation, where a plain adaptive rule stalls</li>
-<li><strong>Hyper-rectangular domains</strong> in arbitrary dimension</li>
-<li><strong>SciML integration</strong> — exposed as a pluggable algorithm for <a href="https://docs.sciml.ai/Integrals/stable/">Integrals.jl</a></li>
+<li><strong>Vertex singularities</strong> — subdivision coupled to an extrapolation in the cell size, which is what removes the singular contribution instead of chasing it; logarithmic singularities too</li>
+<li><strong>Hyper-rectangular regions</strong> — boxes of dimension 2 to 15, with rules of degree 13 and 11 dedicated to 2D and 3D</li>
+<li><strong>Strength known or not</strong> — the algebraic exponent can be supplied when the analysis gives it, or estimated from the samples when it does not</li>
+<li><strong>Vector-valued integrands</strong> — a whole tensor of integrals shares one subdivision history rather than being recomputed component by component</li>
+<li><strong>A SciML algorithm</strong> — <code>DecuhrAlgorithm</code> plugs into <a href="https://docs.sciml.ai/Integrals/stable/">Integrals.jl</a> like any other solver, and <code>ForwardDiff</code> passes through it, estimated exponent included</li>
 </ul>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>DECUHR.jl is registered in Julia’s General registry:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"DECUHR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="credits-and-license" class="level3">
 <h3 class="anchored" data-anchor-id="credits-and-license">Credits and license</h3>
-<p>The algorithm and the original Fortran 77 routines are due to T. O. Espelid and A. Genz, <em>DECUHR: an algorithm for automatic integration of singular functions over a hyperrectangular region</em>, Numerical Algorithms <strong>8</strong> (1994) 201–220, <a href="https://doi.org/10.1007/BF02142691">doi:10.1007/BF02142691</a>. The Julia port is under the MIT license and ships the upstream copyright notice unmodified.</p>
+<p>The algorithm and the original Fortran 77 routines are due to T. O. Espelid and A. Genz, <em>DECUHR: an algorithm for automatic integration of singular functions over a hyperrectangular region</em>, Numerical Algorithms <strong>8</strong> (1994) 201–220, <a href="https://doi.org/10.1007/BF02142691">doi:10.1007/BF02142691</a>. This package is an independent Julia port of that work, under the MIT license, shipping the upstream copyright notice unmodified.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>

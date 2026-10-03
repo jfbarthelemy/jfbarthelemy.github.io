@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Julia port of Allan Leal’s Optima C++ library: a primal-dual interior-point solver for Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation sensitivity matrices. The equilibrium backend of ChemistryLab.jl.">
+<meta name="description" content="Certified Gibbs energy minimization for equilibrium chemistry: an interior-point method ported from Allan Leal’s Optima and a multiplier-space Newton method, every answer checked by a KKT certificate. The default backend of ChemistryLab.jl.">
 
 <title>OptimaSolver.jl – Jean-François Barthélémy</title>
 <style>
@@ -26,6 +26,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -49,9 +84,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="OptimaSolver.jl – Jean-François Barthélémy">
-<meta property="og:description" content="Julia port of Allan Leal’s Optima C++ library: a primal-dual interior-point solver for Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation sensitivity matrices. The equilibrium backend of ChemistryLab.jl.">
+<meta property="og:description" content="Certified Gibbs energy minimization for equilibrium chemistry: an interior-point method ported from Allan Leal’s Optima and a multiplier-space Newton method, every answer checked by a KKT certificate. The default backend of ChemistryLab.jl.">
 <meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_optimasolver.svg">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 </head>
@@ -308,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
       <h1 class="title">OptimaSolver.jl</h1>
                   <div>
         <div class="description">
-          <p>Julia port of Allan Leal’s Optima C++ library: a primal-dual interior-point solver for Gibbs energy minimization, with diagonal Hessian structure and implicit-differentiation sensitivity matrices. The equilibrium backend of ChemistryLab.jl.</p>
+          <p>Certified Gibbs energy minimization for equilibrium chemistry: an interior-point method ported from Allan Leal’s Optima and a multiplier-space Newton method, every answer checked by a KKT certificate. The default backend of ChemistryLab.jl.</p>
         </div>
       </div>
                           <div class="quarto-categories">
@@ -341,19 +376,27 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/logo_optimasolver.svg" class="jfb-page-logo img-fluid"></p>
-<p><strong>OptimaSolver.jl</strong> is a Julia port of the <strong>Optima</strong> C++ library developed by <a href="https://erdw.ethz.ch/en/people/profile.allan-leal.html">Allan Leal</a> (ETH Zürich) — <a href="https://github.com/reaktoro/optima">github.com/reaktoro/optima</a>. It is a primal-dual interior-point solver written for the specific shape of chemical equilibrium problems: minimization of a Gibbs energy whose Hessian is diagonal, under linear mass-balance constraints. It serves as a core solver backend for <a href="../software/chemistrylab.html">ChemistryLab.jl</a> equilibrium computations.</p>
+<p><strong>OptimaSolver.jl</strong> minimizes a Gibbs energy under linear mass-balance constraints, the problem every chemical equilibrium reduces to. It provides a log-barrier interior-point method, an independent Julia port of the <strong>Optima</strong> C++ library of <a href="https://erdw.ethz.ch/en/people/profile.allan-leal.html">Allan Leal</a> (ETH Zürich), and a Newton method on the optimality conditions in the space of the Lagrange multipliers, which <a href="../software/chemistrylab.html">ChemistryLab.jl</a> calls by default. Whichever method produced it, an answer is checked by a KKT certificate, and <code>ForwardDiff</code> derivatives pass through the solve to any order. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li><strong>Primal-dual interior-point method</strong> exploiting the diagonal Hessian structure of an ideal or non-ideal Gibbs energy</li>
-<li><strong>Sensitivity matrices</strong> obtained by implicit differentiation of the optimality conditions, so derivatives of the equilibrium state come out of the solve itself</li>
-<li><strong>Warm start</strong> from a previous solution, for continuation along a reaction path</li>
+<li><strong>A certificate, not a stopping test</strong> — <code>kkt_certificate</code> checks the optimality conditions at any point, whatever produced it; for a convex problem they are sufficient, so it proves the global minimum</li>
+<li><strong>Two methods, one problem</strong> — the interior point takes its Newton step through a Schur complement of the diagonal Hessian; the multiplier-space Newton holds bounded species in an active set</li>
+<li><strong>A start from a linear program</strong> — <code>lp_start</code> solves the pure-phase program by a verified simplex; an impossible budget comes back with its Farkas proof rather than as a failed iteration</li>
+<li><strong>Every row at its own scale</strong> — each mass balance is judged against what it holds, so a trace nine orders of magnitude below the major elements is kept to its own amount</li>
+<li><strong>Exact derivatives</strong> — dual numbers in the budget, the data or the parameters return the derivatives of the solution by the implicit-function theorem, nested to any order</li>
+<li><strong>Solvents and their solutes</strong> — a phase given <code>invert</code> recovers its solutes in one call, through one equation in the ionic strength for activity models of the Debye–Hückel family</li>
 </ul>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>OptimaSolver.jl is registered in Julia’s General registry:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"OptimaSolver"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="credits-and-license" class="level3">
 <h3 class="anchored" data-anchor-id="credits-and-license">Credits and license</h3>
-<p>The algorithmic design — Schur-complement Newton step, filter line search, variable stability classification and implicit-differentiation sensitivity — comes from that library and from Leal, Blunt &amp; LaForce (2014), <em>Efficient chemical equilibrium calculations for geochemical speciation and reactive transport modelling</em>, Geochimica et Cosmochimica Acta <strong>131</strong>, 301–322, <a href="https://doi.org/10.1016/j.gca.2014.01.038">doi:10.1016/j.gca.2014.01.038</a>.</p>
-<p>The port is released under LGPL-2.1-or-later, matching the upstream library, and carries both copyright notices.</p>
+<p>The interior-point method is an independent port of Optima (<a href="https://github.com/reaktoro/optima">github.com/reaktoro/optima</a>, © 2020–2024 Allan Leal), not affiliated with its authors; the Julia port is © 2026 Jean-François Barthélémy, under LGPL-2.1-or-later. Its design — Schur-complement Newton step, filter line search, variable stability classification, implicit-differentiation sensitivity — comes from that library and from Leal, Blunt &amp; LaForce (2014), <em>Efficient chemical equilibrium calculations for geochemical speciation and reactive transport modelling</em>, Geochimica et Cosmochimica Acta <strong>131</strong>, 301–322, <a href="https://doi.org/10.1016/j.gca.2014.01.038">doi:10.1016/j.gca.2014.01.038</a>.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>

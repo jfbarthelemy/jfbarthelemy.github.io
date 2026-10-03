@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.">
+<meta name="description" content="Extended Calculator of HOmogEnization Schemes: a C++ library with a Python interface for the analytical micromechanics of random media. Effective elastic, conduction and viscoelastic properties, and their derivatives with respect to the lower-scale moduli.">
 
 <title>echoes – Jean-François Barthélémy</title>
 <style>
@@ -49,9 +49,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="echoes – Jean-François Barthélémy">
-<meta property="og:description" content="A C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.">
+<meta property="og:description" content="Extended Calculator of HOmogEnization Schemes: a C++ library with a Python interface for the analytical micromechanics of random media. Effective elastic, conduction and viscoelastic properties, and their derivatives with respect to the lower-scale moduli.">
 <meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_echoes.png">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 <meta property="og:image:height" content="494">
@@ -310,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
       <h1 class="title">echoes</h1>
                   <div>
         <div class="description">
-          <p>A C++/Python library implementing homogenization schemes for heterogeneous materials. Provides tools for computing effective elastic, thermal, and viscoelastic properties of composites and geomaterials based on Eshelby-type micromechanical models.</p>
+          <p>Extended Calculator of HOmogEnization Schemes: a C++ library with a Python interface for the analytical micromechanics of random media. Effective elastic, conduction and viscoelastic properties, and their derivatives with respect to the lower-scale moduli.</p>
         </div>
       </div>
                           <div class="quarto-categories">
@@ -344,24 +344,32 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/logo_echoes.png" class="jfb-page-logo img-fluid"></p>
-<p><strong>echoes</strong> (Extended Calculator of HOmogEnization Schemes) implements a wide range of analytical homogenization models for random heterogeneous media.</p>
+<p><strong>echoes</strong> (Extended Calculator of HOmogEnization Schemes) estimates the effective properties of a random heterogeneous medium from the properties, shapes and volume fractions of its phases. It solves the Eshelby problem at second order (conductivity) and fourth order (elasticity), for isotropic or anisotropic reference media, and feeds the result to a wide family of mean-field schemes. Beyond the effective moduli themselves, it returns their derivatives with respect to the lower-scale moduli — the ingredient a secant-based nonlinear homogenization needs. The numerical core is C++; the modeling is written in Python.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li>Dilute, Mori–Tanaka, self-consistent, and generalized self-consistent schemes</li>
-<li>Ellipsoidal and crack-like heterogeneities</li>
-<li>Elasticity, thermal conductivity, and linear viscoelasticity</li>
-<li>Derivatives of effective properties with respect to phase parameters (essential for secant-based nonlinear homogenization)</li>
-<li>Python interface with supporting modules</li>
+<li><strong>A wide family of schemes</strong> — bounds, dilute and its dual, Mori–Tanaka, self-consistent and asymmetric self-consistent, Maxwell, Ponte Castañeda–Willis, differential</li>
+<li><strong>Eshelby at both orders</strong> — second order for conductivity, fourth order for elasticity; isotropic and anisotropic media; ellipsoids, cracks, <code>n</code>-layer spheres, generic inclusions</li>
+<li><strong>Time and frequency</strong> — aging linear viscoelasticity and complex moduli, so a creep or a dynamic modulus follows from the same microstructure</li>
+<li><strong>Derivatives of the moduli</strong> — the sensitivity of the macroscopic stiffness to the lower-scale moduli, which is what makes secant-based nonlinear homogenization possible</li>
+<li><strong>C++ core, Python interface</strong> — the numerics are compiled; the modeling is scripted next to NumPy and Matplotlib, in a notebook or a plain script</li>
 </ul>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>Binary wheels for Windows and Linux, Python 3.7 to 3.12, are attached to the Zenodo record the DOI below resolves to — pick the file matching your interpreter, then <code>pip install</code> it.</p>
 </section>
 <section id="documentation" class="level3">
 <h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
-<p>Full documentation and examples are available at <a href="https://jfbarthelemy.github.io/echoes/">jfbarthelemy.github.io/echoes</a>.</p>
+<p>The documentation is a course — tensor calculus, Eshelby and Hill tensors, concentration, schemes, viscoelasticity, nonlinear homogenization — with every tutorial runnable, at <a href="https://jfbarthelemy.github.io/echoes/">jfbarthelemy.github.io/echoes</a>.</p>
+</section>
+<section id="license" class="level3">
+<h3 class="anchored" data-anchor-id="license">License</h3>
+<p>The wheels are distributed under the ECHOES Academic and Research License: free use for non-commercial research, academic and teaching purposes; any commercial use requires a separate written agreement with the copyright holder. The manual is licensed CC BY-SA 4.0.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>
-<p><a href="https://jfbarthelemy.github.io/echoes/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=quarto.png" class="img-fluid" alt="Docs"></a> <a href="https://doi.org/10.5281/zenodo.19679057"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19679057.svg" class="img-fluid" alt="DOI"></a></p>
+<p><a href="https://jfbarthelemy.github.io/echoes/"><img src="https://img.shields.io/badge/docs-stable-blue?logo=quarto.png" class="img-fluid" alt="Docs"></a> <a href="https://doi.org/10.5281/zenodo.7348758"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7348758.svg" class="img-fluid" alt="DOI"></a></p>
 
 
 </section>

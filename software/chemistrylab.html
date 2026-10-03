@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.">
+<meta name="description" content="A Julia numerical laboratory for computational chemistry, from formulas to a certified equilibrium: thermodynamic databases, activity models up to Pitzer, solid solutions, surfaces, kinetics and heat. Initially aimed at cement chemistry.">
 
 <title>ChemistryLab.jl – Jean-François Barthélémy</title>
 <style>
@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <meta property="og:title" content="ChemistryLab.jl – Jean-François Barthélémy">
-<meta property="og:description" content="A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.">
+<meta property="og:description" content="A Julia numerical laboratory for computational chemistry, from formulas to a certified equilibrium: thermodynamic databases, activity models up to Pitzer, solid solutions, surfaces, kinetics and heat. Initially aimed at cement chemistry.">
 <meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_chemistrylab.svg">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 </head>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">ChemistryLab.jl</h1>
                   <div>
         <div class="description">
-          <p>A Julia computational chemistry toolkit — formula handling, species management, stoichiometric matrices, thermodynamic databases and chemical equilibrium. Initially aimed at low-carbon cementitious materials and aqueous solutions.</p>
+          <p>A Julia numerical laboratory for computational chemistry, from formulas to a certified equilibrium: thermodynamic databases, activity models up to Pitzer, solid solutions, surfaces, kinetics and heat. Initially aimed at cement chemistry.</p>
         </div>
       </div>
                           <div class="quarto-categories">
@@ -376,29 +376,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="../images/logo_chemistrylab.svg" class="jfb-page-logo img-fluid"></p>
-<p><strong>ChemistryLab.jl</strong> is a computational chemistry toolkit. Although initially dedicated to low-carbon cementitious materials and aqueous solutions, its scope is wider: it provides chemical formula handling, species management, stoichiometric matrix construction, activity models, thermodynamic equilibrium and database interoperability. Developed with Anthony Soive and released under LGPL v2.1+. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
+<p><strong>ChemistryLab.jl</strong> carries a chemical problem from its written formulas to its equilibrium state. Formulas, species, reactions and stoichiometric matrices are first-class objects, thermodynamic data are read from ThermoFun and Cemdata, and equilibrium is computed by Gibbs energy minimization and returned with a certificate stating what it proves. Every quantity carries its unit, and exact <code>ForwardDiff</code> derivatives pass through equilibria, kinetic runs and recipes. Initially focused on cement chemistry — CEM I to CEM V entered from an oxide analysis — its scope is that of aqueous and mineral systems at large. Developed with Anthony Soive and released under LGPL v2.1+. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
-<li><strong>Chemical formula handling</strong> — creation, conversion and display with charge management, Unicode and Phreeqc notations</li>
-<li><strong>Species management</strong> — <code>Species</code> and <code>CemSpecies</code> types for solution and solid phases, with requalification via <code>with_class</code></li>
-<li><strong>Stoichiometric matrices</strong> — automatic construction for reaction and equilibrium analysis</li>
-<li><strong>Database interoperability</strong> — import and merge ThermoFun (<code>.json</code>) and Cemdata (<code>.dat</code>) data</li>
-<li><strong>Solid solutions</strong> — ideal (<code>IdealSolidSolutionModel</code>) or non-ideal binary (<code>RedlichKisterModel</code>) mineral mixing phases</li>
-<li><strong>Activity models</strong> — <code>DiluteSolutionModel</code>, <code>HKFActivityModel</code> (extended Debye–Hückel B-dot) and <code>DaviesActivityModel</code></li>
-<li><strong>Chemical equilibrium</strong> — equilibrium compositions by Gibbs energy minimization (<code>equilibrate</code>, <code>ChemicalSystem</code>, <code>ChemicalState</code>)</li>
-<li><strong>ForwardDiff compatibility</strong> — sensitivity analysis through the whole pipeline</li>
+<li><strong>Formulas, species and reactions</strong> — chemical formulas with charge, Unicode and PHREEQC notations; <code>Species</code> and <code>CemSpecies</code> for solution and solid phases; stoichiometric matrices built automatically</li>
+<li><strong>Databases on demand</strong> — ThermoFun databases downloaded from their publisher on first use and checked against a SHA-256; <code>install_database</code> takes a PHREEQC file</li>
+<li><strong>Certified equilibrium</strong> — the certificate says what it proves: global minimum, KKT point or self-consistent speciation, each element balance judged against its own total</li>
+<li><strong>Activity models</strong> — B-dot, Davies, Truesdell–Jones, SIT and Pitzer; SIT and Pitzer solutes solved by Newton, halite solubility within 0.3 % of its measurement</li>
+<li><strong>Solid solutions</strong> — ideal, Redlich–Kister, regular, sublattice (C–N–A–S–H) and compound-energy (CASH+) models, miscibility gaps detected and located</li>
+<li><strong>Surfaces and interfaces</strong> — surface complexation, constant-capacitance and diffuse-layer electrostatics, cation exchange and a Donnan layer, checked against PHREEQC</li>
+<li><strong>Recipes, kinetics, heat</strong> — binders blended, hydrated, carbonated or leached as recipes; Parrott–Killoh and Waller rate laws; isothermal and semi-adiabatic calorimetry</li>
 </ul>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>ChemistryLab.jl is registered in Julia’s General registry:</p>
+<p>ChemistryLab.jl is registered in Julia’s General registry. Solving an equilibrium needs an optimization backend, loaded through a package extension; OptimaSolver.jl is the default one, and the one the certificate needs:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"ChemistryLab"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Solving an equilibrium requires an optimization backend, loaded on demand through a package extension — either the default Ipopt one or the Julia-native interior-point solver:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Optimization</span>, <span class="bu">OptimizationIpopt</span>   <span class="co"># default backend</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OptimaSolver</span>                      <span class="co"># Julia-native interior-point backend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>([<span class="st">"ChemistryLab"</span>, <span class="st">"OptimaSolver"</span>])</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ChemistryLab</span>, <span class="bu">OptimaSolver</span>         <span class="co"># OptimaSolver: the default equilibrium backend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>Optimization</code> with <code>OptimizationIpopt</code> remains available as a backend. A database is downloaded once, on first use; <code>fetch_databases()</code> prepares a machine for offline work.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>

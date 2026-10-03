@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.">
+<meta name="description" content="Julia framework for mean-field homogenization: Hill tensors, cracks, layered inclusions, aging viscoelasticity and hereditary conduction, all classical schemes, ForwardDiff sensitivities; shapes with no closed form enter by finite elements or a surrogate.">
 
 <title>MeanFieldHomogenization.jl – Jean-François Barthélémy</title>
 <style>
@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <meta property="og:title" content="MeanFieldHomogenization.jl – Jean-François Barthélémy">
-<meta property="og:description" content="Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.">
+<meta property="og:description" content="Julia framework for mean-field homogenization: Hill tensors, cracks, layered inclusions, aging viscoelasticity and hereditary conduction, all classical schemes, ForwardDiff sensitivities; shapes with no closed form enter by finite elements or a surrogate.">
 <meta property="og:image" content="https://jfbarthelemy.github.io/images/logo_mfh.svg">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 </head>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">MeanFieldHomogenization.jl</h1>
                   <div>
         <div class="description">
-          <p>Julia framework for mean-field homogenization of heterogeneous materials. Hill polarization tensors, cracks, layered inclusions, ageing viscoelasticity and all classical schemes, with ForwardDiff sensitivities. Morphologies without a closed form enter by finite elements or a neural surrogate.</p>
+          <p>Julia framework for mean-field homogenization: Hill tensors, cracks, layered inclusions, aging viscoelasticity and hereditary conduction, all classical schemes, ForwardDiff sensitivities; shapes with no closed form enter by finite elements or a surrogate.</p>
         </div>
       </div>
                           <div class="quarto-categories">
@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="../images/logo_mfh.svg" class="jfb-page-logo img-fluid"></p>
-<p><strong>MeanFieldHomogenization.jl</strong> predicts the effective elastic, transport and viscoelastic properties of a heterogeneous material from the properties, shapes, orientations and volume fractions of the phases of its microstructure. All the ingredients — inclusion morphologies, localization tensors and homogenization schemes — live under a common abstraction hierarchy with a shared numerical core and a central dispatch mechanism. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem, built on <strong><a href="../software/tensnd.html">TensND.jl</a></strong>.</p>
+<p><strong>MeanFieldHomogenization.jl</strong> predicts the effective elastic, transport and viscoelastic properties of a heterogeneous material from the properties, shapes, orientations and volume fractions of the phases of its microstructure. All the ingredients — inclusion morphologies, localization tensors and homogenization schemes — live under a common abstraction hierarchy with a shared numerical core and a central dispatch mechanism. A microstructure can also serve as the constitutive law at each Gauss point of a finite-element computation. Part of the <strong><a href="../software/mpcm.html">MicroPoroChemoMechanics</a></strong> ecosystem, built on <strong><a href="../software/tensnd.html">TensND.jl</a></strong>.</p>
 <section id="key-features" class="level3">
 <h3 class="anchored" data-anchor-id="key-features">Key features</h3>
 <ul>
@@ -385,8 +385,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Cracks</strong> — crack-opening-displacement tensor, compliance contribution, stress and displacement intensity factors for elliptic and ribbon cracks</li>
 <li><strong>Transport</strong> — second-order Hill tensor with a closed form for any matrix anisotropy</li>
 <li><strong>Layered inclusions</strong> — <code>n</code>-layer composite spheres and confocal spheroids with imperfect interfaces (perfect, spring, membrane, Kapitza, surface-conductive)</li>
-<li><strong>Homogenization schemes</strong> — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis, self-consistent and asymmetric self-consistent, differential</li>
-<li><strong>Ageing linear viscoelasticity</strong> — Volterra operators with structured ISO/TI/orthotropic kernel storage, available to every scheme</li>
+<li><strong>Homogenization schemes</strong> — bounds, dilute, Mori–Tanaka, Maxwell, Ponte Castañeda–Willis, self-consistent and asymmetric self-consistent, differential; the cluster model and the equivalent inclusion method for interacting particles</li>
+<li><strong>Aging linear Volterra behavior</strong> — aging viscoelasticity and hereditary conduction as time-domain Volterra operators with structured ISO/TI/orthotropic kernel storage, in every scheme; and, for non-aging behavior, the Laplace–Carson route with autodiff-capable numerical inversion</li>
 <li><strong>Open inclusion contract</strong> — any morphology joins every scheme through one of three entry gates (Hill tensor, localization tensors, contribution tensors), whatever computed the answer; the two below are its current tenants, not its limits</li>
 <li><strong>Finite-element inclusions</strong> — Eshelby problem solved numerically (3-D elliptical crack, sphere with an off-center core) behind a two-backend contract</li>
 <li><strong>Neural-surrogate inclusions</strong> — a trained multilayer perceptron standing in for the Eshelby response, differentiable with respect to the morphology itself and orders of magnitude cheaper than the finite-element solve it replaces</li>
@@ -398,11 +398,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>MeanFieldHomogenization.jl</code> is registered in Julia’s General registry:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">add</span>(<span class="st">"MeanFieldHomogenization"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Optional package extensions activate on weak dependencies: <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl">DECUHR.jl</a> with Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for the self-consistent schemes), SymPy.jl (symbolic elliptic integrals), two finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with Optimisers.jl and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them: the trained network carries no machine-learning dependency.</p>
+<p>Optional package extensions activate on weak dependencies: <a href="https://github.com/MicroPoroChemoMechanics/DECUHR.jl">DECUHR.jl</a> with Integrals.jl (adaptive cubature backend), NonlinearSolve.jl (SciML fixed-point algorithms for the self-consistent schemes), SymPy.jl and Symbolics.jl (symbolic computation), MittagLeffler.jl (closed-form time values of the fractional rheological models), two finite-element backends — Ferrite.jl + Gmsh.jl or Gridap.jl + GridapGmsh.jl — and Lux.jl with Optimisers.jl and Zygote.jl to train your own surrogates. Loading a shipped surrogate needs none of them: the trained network carries no machine-learning dependency.</p>
 </section>
 <section id="documentation" class="level3">
 <h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
-<p>Full documentation is available at <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/">MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl</a>, including a gallery of complete micromechanical models in the <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/cement_paste/">Applications</a> section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in concrete, quasi-brittle strength, bituminous mixtures and ageing creep.</p>
+<p>Full documentation is available at <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/">MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl</a>, including a gallery of complete micromechanical models in the <a href="https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/cement_paste/">Applications</a> section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in concrete, quasi-brittle strength, the elastic limit of concrete, the friction of a granular medium, the strength of a sandstone, bituminous mixtures and aging creep.</p>
 </section>
 <section id="links" class="level3">
 <h3 class="anchored" data-anchor-id="links">Links</h3>

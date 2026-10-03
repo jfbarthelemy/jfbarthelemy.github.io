@@ -84,9 +84,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-7d232f143ed0d3b4c3492d3247d8cd9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e9072637a75d321e9ea536e186133dfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -382,10 +382,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Basis types</strong> — canonical, rotated, orthogonal, and fully general (non-orthogonal, symbolic)</li>
 <li><strong>Tensor algebra</strong> — products (<code>⊗</code>, <code>⊗ˢ</code>, <code>⊠</code>, <code>⊠ˢ</code>, <code>⋅</code>, <code>⊡</code>, <code>⊙</code>), change of basis, variance management</li>
-<li><strong>Structured tensors</strong> — isotropic (<code>TensISO</code>), transversely isotropic (<code>TensTI{4}</code>, <code>TensTI</code>) and orthotropic (<code>TensOrtho</code>), with compact storage and efficient algebra</li>
-<li><strong>Symmetry projection</strong> — closest ISO, TI or ORTHO tensor, with rotation optimized via NLopt.jl</li>
+<li><strong>Structured tensors</strong> — isotropic (<code>TensISO</code>), transversely isotropic (<code>TensTI</code>), orthotropic (<code>TensOrtho</code>) and cubic (<code>TensCubic</code>), storing 2 to 9 coefficients instead of 81 and staying in their class through products and inversion</li>
+<li><strong>Symmetry projection</strong> — closest isotropic, transversely isotropic, orthotropic or cubic tensor, with the material frame given or recovered by rotation optimization (NLopt.jl)</li>
 <li><strong>Differential operators</strong> — gradient, symmetric gradient, divergence, Laplacian and Hessian in curvilinear coordinates, symbolically or numerically</li>
-<li><strong>Generic type system</strong> — <code>Float64</code>, symbolic types (<code>Sym</code>, <code>Num</code>) and <code>ForwardDiff.Dual</code></li>
+<li><strong>Generic type system</strong> — the same code path runs on <code>Float64</code>, on symbolic scalars (<code>Sym</code>, <code>Num</code>) and on <code>ForwardDiff.Dual</code>, so sensitivities come for free</li>
 </ul>
 </section>
 <section id="installation" class="level3">
