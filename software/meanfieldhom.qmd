@@ -68,7 +68,7 @@ the trained network carries no machine-learning dependency.
 Full documentation is available at
 [MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/),
 including a gallery of complete micromechanical models in the
-[Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/cement_paste/)
+[Applications](https://MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl/dev/applications/)
 section — hydrating cement paste, chloride diffusivity, the interfacial transition zone in
 concrete, quasi-brittle strength, the elastic limit of concrete, the friction of a granular
 medium, the strength of a sandstone, bituminous mixtures and aging creep.
