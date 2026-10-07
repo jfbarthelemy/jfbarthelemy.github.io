@@ -6,12 +6,13 @@
 PYTHON  ?= $(HOME)/miniconda3/envs/fenicsx-env/bin/python
 PYTHON3 ?= python3
 
-.PHONY: data publications postprints postprints-derived preview render clean-postprints help
+.PHONY: data publications postprints postprints-derived echoes-scene preview render clean-postprints help
 
 help:
 	@echo "make data         - regenerate everything derived from the .bib files and from postprints_data.py"
 	@echo "make publications - rebuild the timeline, stats, recent list and files/publications.bib"
 	@echo "make postprints   - (re)deploy postprints + regenerate their cards"
+	@echo "make echoes-scene - recover images/echoes_scene.json from the echoes manual's cover.html"
 	@echo "make preview      - quarto preview (local dev server)"
 	@echo "make render       - quarto render (full build -> _site/)"
 
@@ -29,6 +30,11 @@ postprints:
 # Regenerate only the card includes, without recopying the 34 MB of bundles
 postprints-derived:
 	$(PYTHON3) _scripts/build_postprints.py --derived-only
+
+# The echoes logo's 3D scene, from Asymptote's WebGL export in the echoes manual
+ECHOES_COVER ?= $(HOME)/echoes/echoes/img/cover.html
+echoes-scene:
+	$(PYTHON3) _scripts/build_echoes_scene.py $(ECHOES_COVER)
 
 preview:
 	quarto preview
