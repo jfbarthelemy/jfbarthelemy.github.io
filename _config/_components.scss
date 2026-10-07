@@ -28,6 +28,13 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
+// The same for a link whose text is an address, such as
+// MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl: on a phone it
+// was wider than the screen.
+p a {
+  overflow-wrap: anywhere;
+}
+
 h2 {
   margin-top: 2.75rem;
   padding-bottom: 0.4rem;
