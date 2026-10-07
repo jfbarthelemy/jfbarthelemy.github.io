@@ -53,28 +53,28 @@ Université Gustave Eiffel).
 
 :::: {.card-grid .card-grid-2}
 
-::: {.jfb-card}
+::: {.jfb-card motif="homogenization"}
 ### Micromechanics and homogenization
 
 Analytical and semi-analytical methods for predicting the effective properties of
 heterogeneous materials — composites, geomaterials and cracked media.
 :::
 
-::: {.jfb-card}
+::: {.jfb-card motif="eshelby"}
 ### Eshelby-based models
 
 Dilute, Mori–Tanaka, self-consistent and generalized self-consistent schemes for
 ellipsoidal and crack-like inclusions.
 :::
 
-::: {.jfb-card}
+::: {.jfb-card motif="viscoelastic"}
 ### Nonlinear and viscoelastic behavior
 
 Extension of homogenization methods to nonlinear elasticity and to linear, possibly
 aging, viscoelasticity.
 :::
 
-::: {.jfb-card}
+::: {.jfb-card motif="software"}
 ### Scientific software
 
 Open-source libraries in Julia and C++ for computational micromechanics — see
