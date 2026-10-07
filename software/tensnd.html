@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -79,14 +79,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-bc11afefa793bc2599208d47736ed7f1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-e86376cff35219a3e236bec42bfc6679.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a9639fbe16bf9af808bf1dcfd0669bab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-62e8269002af85d73c5524bfb2c668ca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a9639fbe16bf9af808bf1dcfd0669bab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -447,6 +447,693 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     // the page states a number of publications that is false — and a slow or
     // throttled frame loop can leave it there. A decoration is not worth a
     // wrong figure.
+  });
+})();
+</script>
+<script>
+// Motion — the few animations of the site, each of which shows an idea of the
+// work: an inclusion settling in a matrix, a medium being homogenized, the
+// Eshelby field, a creep curve, an adaptive subdivision.
+//
+// Rules, shared by every module below:
+//   - nothing is hidden or changed without JavaScript: the page is complete
+//     as written, and each module only enhances an element already there;
+//   - a reader who asks for reduced motion gets no automatic animation;
+//   - a continuous animation runs only while its element is on screen and the
+//     tab is visible;
+//   - colors are read from the theme's --jfb-* custom properties, and read
+//     again when the reader switches between the light and the dark theme;
+//   - each module is inert when the element it enhances is not on the page.
+//
+// The two heavier pieces — the echoes viewer and the homogenization widget —
+// are separate scripts under js/, loaded only on the page that uses them.
+(function () {
+  "use strict";
+
+  var M = {};
+  window.jfbMotion = M;
+
+  M.calm = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+  // Relative path from this page to the site root ("./", "../").
+  var offsetMeta = document.querySelector('meta[name="quarto:offset"]');
+  M.offset = offsetMeta ? offsetMeta.getAttribute("content") : "./";
+
+  // A theme token as [r, g, b] in [0, 1]. The browser normalizes any CSS color
+  // through a canvas fill style.
+  var probe = document.createElement("canvas").getContext("2d");
+  M.css = function (name) {
+    return getComputedStyle(document.body).getPropertyValue("--jfb-" + name).trim();
+  };
+  M.rgb = function (name) {
+    probe.fillStyle = "#000";
+    probe.fillStyle = M.css(name) || "#000";
+    var s = probe.fillStyle, v;
+    if (s.charAt(0) === "#") {
+      v = [1, 3, 5].map(function (i) { return parseInt(s.substr(i, 2), 16) / 255; });
+    } else {
+      v = s.replace(/[^\d.,]/g, "").split(",").slice(0, 3).map(function (x) { return +x / 255; });
+    }
+    return v;
+  };
+
+  // Theme switches: Quarto swaps the body class between quarto-light and
+  // quarto-dark, then the stylesheet; colors are read on the next frame.
+  var themeListeners = [];
+  M.onTheme = function (fn) { themeListeners.push(fn); };
+  if ("MutationObserver" in window) {
+    new MutationObserver(function () {
+      requestAnimationFrame(function () {
+        themeListeners.forEach(function (fn) { fn(); });
+      });
+    }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  // Run fn once, the first time el is at least `threshold` visible.
+  M.whenVisible = function (el, fn, threshold) {
+    if (!("IntersectionObserver" in window)) { fn(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { io.disconnect(); fn(); }
+      });
+    }, { threshold: threshold == null ? 0.3 : threshold });
+    io.observe(el);
+  };
+
+  // A frame loop bound to an element. frame(dt, t) is called on every frame
+  // — at most `fps` times a second when given — while the loop is started,
+  // the element on screen and the tab visible; it returns false to stop. dt is
+  // clamped, so a tab that comes back does not jump. start() can be called
+  // again at any time.
+  M.loop = function (el, frame, fps) {
+    var wanted = false, onScreen = true, raf = 0, last = 0, t = 0;
+    var gap = fps ? 1000 / fps - 2 : 0;
+    function tick(now) {
+      raf = 0;
+      if (last && now - last < gap) { schedule(); return; }
+      var dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
+      last = now;
+      t += dt;
+      if (frame(dt, t) === false) { wanted = false; last = 0; return; }
+      schedule();
+    }
+    function schedule() {
+      if (wanted && onScreen && !document.hidden && !raf) raf = requestAnimationFrame(tick);
+      if ((!wanted || !onScreen || document.hidden) && raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+        last = 0;
+      }
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        schedule();
+      }).observe(el);
+    }
+    document.addEventListener("visibilitychange", schedule);
+    return {
+      start: function () { wanted = true; schedule(); },
+      stop: function () { wanted = false; schedule(); },
+      get running() { return !!raf; }
+    };
+  };
+
+  M.loadScript = function (path, onload) {
+    var s = document.createElement("script");
+    s.src = M.offset + path;
+    s.async = true;
+    s.onload = onload;
+    document.head.appendChild(s);
+  };
+
+  // Plays draw(f), f from 0 to 1, over `seconds`; draw(1) is the resting
+  // state, and the only one drawn for a reader who asks for reduced motion.
+  M.play = function (seconds, draw, done) {
+    if (M.calm) { draw(1); if (done) done(); return; }
+    var start = 0;
+    function tick(now) {
+      if (!start) start = now;
+      var f = Math.min((now - start) / (seconds * 1000), 1);
+      draw(f);
+      if (f < 1) requestAnimationFrame(tick);
+      else if (done) done();
+    }
+    requestAnimationFrame(tick);
+  };
+
+  M.ease = function (f) { return f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2; };
+  M.easeOut = function (f) { return 1 - Math.pow(1 - f, 3); };
+  // The part of [a, b] that f has covered, in [0, 1].
+  M.span = function (f, a, b) { return Math.max(0, Math.min(1, (f - a) / (b - a))); };
+
+  // A seeded generator (mulberry32), so that a page draws the same
+  // microstructure on every visit.
+  M.random = function (seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) >>> 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+  M.hash = function (str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) h = Math.imul(h ^ str.charCodeAt(i), 16777619);
+    return h >>> 0;
+  };
+
+  var SVG = "http://www.w3.org/2000/svg";
+  M.svg = function (tag, attrs, parent) {
+    var el = document.createElementNS(SVG, tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(el);
+    return el;
+  };
+  M.mix = function (a, b, t) { return [0, 1, 2].map(function (i) { return a[i] + (b[i] - a[i]) * t; }); };
+  M.cssColor = function (c, alpha) {
+    var v = c.map(function (x) { return Math.round(x * 255); }).join(", ");
+    return alpha == null ? "rgb(" + v + ")" : "rgba(" + v + ", " + alpha + ")";
+  };
+
+  // Random sequential addition: candidate shapes are kept when they overlap no
+  // shape already placed. A shape is an ellipse (x, y, a ≥ b, angle θ), tested
+  // for overlap as a chain of circles of radius b along its major axis.
+  M.rsa = function (rand, count, tries, make, gap) {
+    var placed = [];
+    function circles(s) {
+      var n = Math.max(1, Math.ceil(s.a / s.b)), out = [];
+      for (var i = 0; i < n; i++) {
+        var d = n === 1 ? 0 : -s.a + s.b + (2 * (s.a - s.b)) * i / (n - 1);
+        out.push([s.x + d * Math.cos(s.t), s.y + d * Math.sin(s.t), s.b]);
+      }
+      return out;
+    }
+    for (var k = 0; k < tries && placed.length < count; k++) {
+      var s = make(rand), cs = circles(s), ok = true;
+      for (var j = 0; j < placed.length && ok; j++) {
+        var other = placed[j]._c;
+        for (var p = 0; p < cs.length && ok; p++) {
+          for (var q = 0; q < other.length && ok; q++) {
+            var dx = cs[p][0] - other[q][0], dy = cs[p][1] - other[q][1];
+            if (Math.hypot(dx, dy) < cs[p][2] + other[q][2] + (gap || 0)) ok = false;
+          }
+        }
+      }
+      if (ok) { s._c = cs; placed.push(s); }
+    }
+    return placed;
+  };
+
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+
+  // ── Package logos ─────────────────────────────────────────────────────────
+  // images/anim/logo_<x>.svg is the same logo, building itself in about two
+  // seconds. It plays once when the logo comes into view and again on hover,
+  // then the static file is put back: the resting state is the logo itself.
+  // An <img> does not restart an SVG animation for a URL it has shown, so each
+  // play gets a fresh blob: URL of the same text.
+  var LOGO_SECONDS = { mfh: 1.9, tensnd: 1.8, decuhr: 2.25, optimasolver: 2.2, chemistrylab: 2.0, org: 2.1 };
+
+  function animateLogos() {
+    var imgs = document.querySelectorAll("img.thumbnail-image, img.jfb-page-logo");
+    Array.prototype.forEach.call(imgs, function (img) {
+      var m = /\/images\/logo_([a-z]+)\.svg(\?.*)?$/.exec(img.src);
+      if (!m || !(m[1] in LOGO_SECONDS)) return;
+      var still = img.src, seconds = LOGO_SECONDS[m[1]];
+      var text = null, playing = false;
+      img.classList.add("jfb-logo-pending");
+      function reveal() { img.classList.remove("jfb-logo-pending"); }
+      setTimeout(reveal, 6000);
+      function play() {
+        if (!text || playing) return;
+        playing = true;
+        var url = URL.createObjectURL(new Blob([text], { type: "image/svg+xml" }));
+        img.src = url;
+        reveal();
+        setTimeout(function () {
+          img.src = still;
+          URL.revokeObjectURL(url);
+          playing = false;
+        }, seconds * 1000 + 200);
+      }
+      fetch(still.replace("/images/logo_", "/images/anim/logo_"))
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (t) {
+          text = t;
+          M.whenVisible(img, play, 0.4);
+          var hover = img.closest(".quarto-grid-item") || img;
+          hover.addEventListener("mouseenter", play);
+        })
+        .catch(reveal);
+    });
+  }
+
+  // ── echoes ─────────────────────────────────────────────────────────────────
+  // The logo becomes the 3D scene it was rendered from (js/echoes-viewer.js).
+  function echoes() {
+    var imgs = Array.prototype.slice.call(document.querySelectorAll("img.thumbnail-image, img.jfb-page-logo"))
+      .filter(function (img) { return /\/images\/logo_echoes\.png$/.test(img.src); });
+    if (!imgs.length || !window.WebGLRenderingContext || !("ResizeObserver" in window)) return;
+    M.loadScript("js/echoes-viewer.js", function () { if (M.echoesViewer) M.echoesViewer(imgs); });
+  }
+
+  // ── Research pictograms ─────────────────────────────────────────────────────
+  // A small figure on each research card of the home page, named by the card's
+  // `motif` attribute. It plays once when the card comes into view, again on
+  // hover, and rests on its last frame. Each builder draws into a 64×64 box and
+  // returns { seconds, draw(f) }.
+  var MOTIFS = {};
+
+  // A heterogeneous RVE melts into its effective medium and comes back. The
+  // effective tint is the area average of the phase colors.
+  MOTIFS.homogenization = function (svg) {
+    var box = M.svg("rect", { x: 7, y: 7, width: 50, height: 50, rx: 7 }, svg);
+    var shapes = [
+      [21, 20, 9, 3.2, -30, "accent"], [42, 18, 5.5, 5.5, 0, "accent-2"], [45, 38, 10, 2.6, 62, "accent"],
+      [20, 42, 7, 4.5, 15, "accent-2"], [32, 30, 3.5, 3.5, 0, "accent"], [32, 49, 7, 1.3, -10, "accent-2"]
+    ];
+    var incl = shapes.map(function (s) {
+      return { s: s, el: M.svg("ellipse", { cx: 0, cy: 0, rx: s[2], ry: s[3] }, svg) };
+    });
+    var veil = M.svg("rect", { x: 7, y: 7, width: 50, height: 50, rx: 7, opacity: 0 }, svg);
+    function colors() {
+      var matrix = M.rgb("surface-2"), sum = [0, 0, 0], phi = 0;
+      box.setAttribute("fill", M.cssColor(matrix));
+      box.setAttribute("stroke", M.cssColor(M.rgb("border-strong")));
+      incl.forEach(function (i) {
+        var c = M.rgb(i.s[5]), area = Math.PI * i.s[2] * i.s[3] / 2500;
+        i.el.setAttribute("fill", M.cssColor(c, 0.85));
+        c = M.mix(matrix, c, 0.85);
+        sum = sum.map(function (v, k) { return v + area * c[k]; });
+        phi += area;
+      });
+      veil.setAttribute("fill", M.cssColor(sum.map(function (v, k) { return v + (1 - phi) * matrix[k]; })));
+    }
+    colors();
+    M.onTheme(colors);
+    return {
+      seconds: 4.2,
+      draw: function (f) {
+        incl.forEach(function (i, k) {
+          var turn = (k % 2 ? 1 : -1) * 14 * Math.sin(Math.PI * f);
+          i.el.setAttribute("transform", "translate(" + i.s[0] + " " + i.s[1] + ") rotate(" + (i.s[4] + turn) + ")");
+        });
+        var melt = M.ease(M.span(f, 0.18, 0.42)) - M.ease(M.span(f, 0.66, 0.9));
+        veil.setAttribute("opacity", melt.toFixed(3));
+      }
+    };
+  };
+
+  // Eshelby's inclusion: a circular inclusion under a dilatational eigenstrain
+  // swells, and the matrix grid follows the exact plane field u_r = ε r inside
+  // (r ≤ a), ε a²/r outside. Inside, the grid stays a square grid: the strain is
+  // uniform, which is Eshelby's result. The amplitude is exaggerated to be seen.
+  MOTIFS.eshelby = function (svg) {
+    var id = "jfb-clip-" + Math.random().toString(36).slice(2);
+    var clip = M.svg("clipPath", { id: id }, M.svg("defs", {}, svg));
+    M.svg("rect", { x: 7, y: 7, width: 50, height: 50, rx: 7 }, clip);
+    var frame = M.svg("rect", { x: 7, y: 7, width: 50, height: 50, rx: 7, fill: "none" }, svg);
+    var grid = M.svg("g", { "clip-path": "url(#" + id + ")", fill: "none", "stroke-width": 0.9 }, svg);
+    var lines = [];
+    for (var k = 0; k < 7; k++) {
+      lines.push({ h: true, c: 7 + 50 * (k + 0.5) / 7, el: M.svg("path", {}, grid) });
+      lines.push({ h: false, c: 7 + 50 * (k + 0.5) / 7, el: M.svg("path", {}, grid) });
+    }
+    var A = 10.5, EPS = 0.24;
+    var disk = M.svg("circle", { cx: 32, cy: 32, r: A, "stroke-width": 1.4 }, svg);
+    function colors() {
+      frame.setAttribute("stroke", M.css("border-strong"));
+      grid.setAttribute("stroke", M.css("ink-faint"));
+      disk.setAttribute("stroke", M.css("accent"));
+      disk.setAttribute("fill", M.cssColor(M.rgb("accent"), 0.2));
+    }
+    colors();
+    M.onTheme(colors);
+    function moved(x, y, eps) {
+      var dx = x - 32, dy = y - 32, r = Math.hypot(dx, dy);
+      var u = r <= A ? eps * r : eps * A * A / r;
+      return r ? [x + u * dx / r, y + u * dy / r] : [x, y];
+    }
+    return {
+      seconds: 2.4,
+      draw: function (f) {
+        var eps = EPS * M.ease(M.span(f, 0.1, 0.75));
+        lines.forEach(function (l) {
+          var d = "";
+          for (var i = 0; i <= 40; i++) {
+            var s = 4 + 56 * i / 40;
+            var p = l.h ? moved(s, l.c, eps) : moved(l.c, s, eps);
+            d += (i ? "L" : "M") + p[0].toFixed(2) + " " + p[1].toFixed(2);
+          }
+          l.el.setAttribute("d", d);
+        });
+        disk.setAttribute("r", (A * (1 + eps)).toFixed(2));
+      }
+    };
+  };
+
+  // The creep compliance of a Burgers body, J(t) = 1/E₁ + t/η₁ + (1 − e^(−E₂t/η₂))/E₂:
+  // the instantaneous jump, the delayed elasticity, then the steady flow.
+  MOTIFS.viscoelastic = function (svg) {
+    var E1 = 1, eta1 = 6, E2 = 1.2, eta2 = 0.6, T = 4, JMAX = 2.6;
+    function J(t) { return 1 / E1 + t / eta1 + (1 - Math.exp(-E2 * t / eta2)) / E2; }
+    var x0 = 10, y0 = 55, w = 46, h = 44;
+    var d = "M" + x0 + " " + y0 + "L" + x0 + " " + (y0 - h * J(0) / JMAX).toFixed(2);
+    for (var i = 1; i <= 60; i++) {
+      var t = T * i / 60;
+      d += "L" + (x0 + w * t / T).toFixed(2) + " " + (y0 - h * J(t) / JMAX).toFixed(2);
+    }
+    var axes = M.svg("path", { d: "M10 8V55H58", fill: "none", "stroke-width": 1.2, "stroke-linecap": "round" }, svg);
+    var curve = M.svg("path", { d: d, fill: "none", "stroke-width": 2.2, "stroke-linecap": "round", "stroke-linejoin": "round" }, svg);
+    var dot = M.svg("circle", { r: 2.4 }, svg);
+    var len = curve.getTotalLength();
+    curve.setAttribute("stroke-dasharray", len.toFixed(2));
+    function colors() {
+      axes.setAttribute("stroke", M.css("ink-faint"));
+      curve.setAttribute("stroke", M.css("accent"));
+      dot.setAttribute("fill", M.css("accent-2"));
+    }
+    colors();
+    M.onTheme(colors);
+    return {
+      seconds: 2.2,
+      draw: function (f) {
+        var g = M.easeOut(f);
+        curve.setAttribute("stroke-dashoffset", (len * (1 - g)).toFixed(2));
+        var p = curve.getPointAtLength(len * g);
+        dot.setAttribute("cx", p.x.toFixed(2));
+        dot.setAttribute("cy", p.y.toFixed(2));
+      }
+    };
+  };
+
+  // An orthonormal frame turned by a third of a turn about (1, 1, 1): a change
+  // of basis that maps the frame onto itself, e₁ → e₂ → e₃. Every play turns it
+  // one third further.
+  MOTIFS.software = function (svg) {
+    var colors = ["#CB3C33", "#389826", "#9558B2"];
+    var az = -0.62, el = 0.38, L = 23, O = [30, 36];
+    var ex = [-Math.sin(az), Math.cos(az), 0];
+    var ey = [-Math.sin(el) * Math.cos(az), -Math.sin(el) * Math.sin(az), Math.cos(el)];
+    var ez = [Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el)];
+    var axes = colors.map(function (c) {
+      var g = M.svg("g", {}, svg);
+      return {
+        g: g,
+        line: M.svg("line", { stroke: c, "stroke-width": 2.6, "stroke-linecap": "round" }, g),
+        tip: M.svg("circle", { r: 2.7, fill: c }, g)
+      };
+    });
+    M.svg("circle", { cx: O[0], cy: O[1], r: 3.6, fill: "#4063D8" }, svg);
+    var turns = 0;
+    function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+    function rotate(v, th) {
+      var n = [1 / Math.sqrt(3), 1 / Math.sqrt(3), 1 / Math.sqrt(3)];
+      var c = Math.cos(th), s = Math.sin(th), nd = dot(n, v);
+      var cr = [n[1] * v[2] - n[2] * v[1], n[2] * v[0] - n[0] * v[2], n[0] * v[1] - n[1] * v[0]];
+      return [0, 1, 2].map(function (i) { return v[i] * c + cr[i] * s + n[i] * nd * (1 - c); });
+    }
+    return {
+      seconds: 1.8,
+      draw: function (f) {
+        var th = 2 * Math.PI / 3 * (turns + M.ease(f));
+        if (f >= 1) turns += 1;
+        var order = [];
+        [[1, 0, 0], [0, 1, 0], [0, 0, 1]].forEach(function (e, i) {
+          var v = rotate(e, th);
+          var x = O[0] + L * dot(v, ex), y = O[1] - L * dot(v, ey);
+          axes[i].line.setAttribute("x1", O[0]);
+          axes[i].line.setAttribute("y1", O[1]);
+          axes[i].line.setAttribute("x2", x.toFixed(2));
+          axes[i].line.setAttribute("y2", y.toFixed(2));
+          axes[i].tip.setAttribute("cx", x.toFixed(2));
+          axes[i].tip.setAttribute("cy", y.toFixed(2));
+          order.push([dot(v, ez), axes[i].g]);
+        });
+        // Nearer axes drawn last.
+        order.sort(function (a, b) { return a[0] - b[0]; }).forEach(function (o) { svg.insertBefore(o[1], svg.lastChild); });
+      }
+    };
+  };
+
+  function pictograms() {
+    var cards = document.querySelectorAll(".jfb-card[data-motif]");
+    Array.prototype.forEach.call(cards, function (card) {
+      var build = MOTIFS[card.getAttribute("data-motif")];
+      if (!build) return;
+      var svg = M.svg("svg", { viewBox: "0 0 64 64", class: "jfb-motif", "aria-hidden": "true", focusable: "false" });
+      card.insertBefore(svg, card.firstChild);
+      var m = build(svg), playing = false;
+      m.draw(0);
+      function play() {
+        if (playing) return;
+        playing = true;
+        M.play(m.seconds, m.draw, function () { playing = false; });
+      }
+      if (M.calm) { m.draw(1); return; }
+      M.whenVisible(card, play, 0.5);
+      card.addEventListener("mouseenter", play);
+    });
+  }
+
+  // ── Banner signature ────────────────────────────────────────────────────────
+  // On the right of each page's title banner, a pale microstructure of the
+  // section's own kind, drawn from a seed taken from the page path, so a page
+  // shows the same one on every visit. Its grains grow once, then stay still.
+  // The 404 page gets a crack instead.
+  var SIGNATURES = {
+    fibers: function (rand) {
+      var t = -0.3 + 0.12 * (rand() - 0.5);
+      return M.rsa(rand, 16, 900, function (r) {
+        var a = 16 + 20 * r();
+        return { x: 20 + 370 * r(), y: 12 + 136 * r(), a: a, b: a / 8, t: t + 0.12 * (r() - 0.5), kind: "fiber" };
+      }, 4);
+    },
+    cracks: function (rand) {
+      return M.rsa(rand, 18, 900, function (r) {
+        var a = 10 + 22 * r();
+        return { x: 20 + 370 * r(), y: 12 + 136 * r(), a: a, b: 1.4, t: Math.PI * r(), kind: "crack" };
+      }, 7);
+    },
+    layered: function (rand) {
+      return M.rsa(rand, 12, 900, function (r) {
+        var a = 8 + 14 * r();
+        return { x: 20 + 370 * r(), y: 14 + 132 * r(), a: a, b: a, t: 0, kind: "layered" };
+      }, 6);
+    },
+    spheres: function (rand) {
+      return M.rsa(rand, 22, 900, function (r) {
+        var a = 4 + 13 * r();
+        return { x: 15 + 375 * r(), y: 10 + 140 * r(), a: a, b: a, t: 0, kind: "sphere" };
+      }, 4);
+    },
+    mixture: function (rand) {
+      var kinds = ["sphere", "oblate", "fiber", "crack"];
+      return M.rsa(rand, 18, 900, function (r) {
+        var kind = kinds[Math.floor(4 * r())], a = 7 + 16 * r();
+        var b = kind === "sphere" ? a : kind === "oblate" ? a * 0.55 : kind === "fiber" ? a / 6 : 1.4;
+        return { x: 18 + 372 * r(), y: 12 + 136 * r(), a: a, b: b, t: Math.PI * r(), kind: kind };
+      }, 5);
+    }
+  };
+
+  function sectionOf(path) {
+    if (/\/software\/[^/]+$/.test(path)) return "mixture";
+    if (/\/software(\.html)?\/?$/.test(path)) return "fibers";
+    if (/\/publications(\.html)?\/?$/.test(path)) return "cracks";
+    if (/\/postprints(\.html)?\/?$/.test(path)) return "layered";
+    if (/\/teaching(\.html)?\/?$/.test(path)) return "spheres";
+    return "mixture";
+  }
+
+  function bannerSignature() {
+    var banner = document.querySelector(".quarto-title-banner");
+    if (!banner) return;
+    var svg = M.svg("svg", {
+      viewBox: "0 0 400 160", preserveAspectRatio: "xMaxYMid slice",
+      class: "jfb-banner-motif", "aria-hidden": "true", focusable: "false"
+    });
+    var cracked = document.body.classList.contains("page-404");
+    if (cracked) crack(svg);
+    else grains(svg, sectionOf(location.pathname.replace(/index\.html$/, "")));
+    banner.insertBefore(svg, banner.firstChild);
+  }
+
+  function grains(svg, kind) {
+    var rand = M.random(M.hash(location.pathname.replace(/\.html$/, "")));
+    var shapes = SIGNATURES[kind](rand);
+    shapes.forEach(function (s, i) {
+      var g = M.svg("g", {
+        transform: "translate(" + s.x.toFixed(1) + " " + s.y.toFixed(1) + ") rotate(" + (s.t * 180 / Math.PI).toFixed(1) + ")",
+        class: "grain" + (i % 3 === 2 ? " alt" : "")
+      }, svg);
+      var inner = M.svg("g", { class: "grow", style: "animation-delay:" + (0.04 * i).toFixed(2) + "s" }, g);
+      if (s.kind === "layered") {
+        M.svg("circle", { r: s.a, class: "coat" }, inner);
+        M.svg("circle", { r: (s.a * 0.62).toFixed(1), class: "core" }, inner);
+      } else {
+        M.svg("ellipse", { rx: s.a.toFixed(1), ry: s.b.toFixed(1), class: s.kind === "crack" ? "crack" : "body" }, inner);
+      }
+    });
+  }
+
+  // A crack across the banner: a path refined by random midpoint
+  // displacement, with two short branches, drawn once from left to right.
+  function crack(svg) {
+    var rand = M.random(404);
+    function refine(a, b, amp, depth, out) {
+      if (!depth) { out.push(b); return; }
+      var m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + amp * (rand() - 0.5)];
+      refine(a, m, amp * 0.55, depth - 1, out);
+      refine(m, b, amp * 0.55, depth - 1, out);
+    }
+    function path(a, b, amp, depth) {
+      var pts = [a];
+      refine(a, b, amp, depth, pts);
+      return pts.map(function (p, i) { return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("");
+    }
+    var main = [[-10, 92], [410, 64]];
+    var pts = [main[0]];
+    refine(main[0], main[1], 46, 7, pts);
+    var d = pts.map(function (p, i) { return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join("");
+    M.svg("path", { d: d, class: "crack-path", pathLength: 1 }, svg);
+    [[0.35, -1], [0.7, 1]].forEach(function (b, k) {
+      var p = pts[Math.round(b[0] * (pts.length - 1))];
+      M.svg("path", {
+        d: path(p, [p[0] + 46, p[1] + b[1] * 34], 14, 4), class: "crack-path branch",
+        pathLength: 1, style: "animation-delay:" + (0.45 + 0.35 * k * 2 * b[0]).toFixed(2) + "s"
+      }, svg);
+    });
+  }
+
+  // ── Hero: a medium being homogenized ────────────────────────────────────────
+  // Behind the portrait, a disk of heterogeneous material — inclusions of
+  // varied shapes, turning slowly — melts into its effective medium, whose tint
+  // is the area average of the phase colors, then comes back as a new
+  // realization of the same random medium. A cycle takes twenty seconds.
+  var CYCLE = 20;
+
+  function hero() {
+    var portrait = document.querySelector(".hero .hero-portrait");
+    if (!portrait) return;
+    var figure = document.createElement("span");
+    figure.className = "hero-figure";
+    portrait.parentNode.insertBefore(figure, portrait);
+    figure.appendChild(portrait);
+    var canvas = document.createElement("canvas");
+    canvas.className = "hero-rve";
+    canvas.setAttribute("aria-hidden", "true");
+    figure.insertBefore(canvas, portrait);
+    var ctx = canvas.getContext("2d");
+    var rand = M.random(1949), realization = null, next = null, palette = null;
+
+    function medium() {
+      return M.rsa(rand, 24, 1500, function (r) {
+        var k = r(), a, b;
+        if (k < 0.32) { a = 0.08 + 0.07 * r(); b = a; }                         // sphere
+        else if (k < 0.64) { a = 0.11 + 0.07 * r(); b = a * (0.45 + 0.2 * r()); } // spheroid
+        else if (k < 0.88) { a = 0.14 + 0.07 * r(); b = a / (3.5 + 2.5 * r()); }  // fiber
+        else { a = 0.12 + 0.05 * r(); b = 0.014; }                              // crack
+        var rho = Math.sqrt(r()) * (0.9 - a), th = 2 * Math.PI * r();
+        return {
+          x: rho * Math.cos(th), y: rho * Math.sin(th), a: a, b: b, t: Math.PI * r(),
+          w: (r() - 0.5) * 0.25, c: r() < 0.55 ? 0 : 1
+        };
+      }, 0.025);
+    }
+
+    function readTheme() {
+      palette = {
+        matrix: M.mix(M.rgb("surface-2"), M.rgb("accent"), 0.06),
+        phases: [M.rgb("accent"), M.rgb("accent-2")],
+        edge: M.rgb("border-strong")
+      };
+    }
+
+    function effective(set) {
+      var sum = [0, 0, 0], phi = 0;
+      set.forEach(function (s) {
+        var area = s.a * s.b;            // π a b / π R², with R = 1
+        var c = palette.phases[s.c];
+        sum = sum.map(function (v, k) { return v + area * c[k]; });
+        phi += area;
+      });
+      return sum.map(function (v, k) { return v + (1 - phi) * palette.matrix[k]; });
+    }
+
+    function paint(t) {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var size = canvas.clientWidth;
+      if (!size) return;
+      if (canvas.width !== Math.round(size * dpr)) {
+        canvas.width = canvas.height = Math.round(size * dpr);
+      }
+      var R = canvas.width / 2;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(R, 0, 0, R, R, R);
+
+      var phase = t % CYCLE;
+      // 0–8 s heterogeneous, 8–12 s melting, 12–16 s effective, 16–20 s back.
+      var shown = 1 - M.ease(M.span(phase, 8, 12)) + M.ease(M.span(phase, 16, 20));
+      if (phase >= 16 && !next) next = medium();
+      if (phase < 16 && next) { realization = next; next = null; }
+      var set = phase >= 16 ? next : realization;
+      var eff = effective(set);
+      var ground = M.mix(palette.matrix, eff, 1 - shown);
+
+      ctx.beginPath();
+      ctx.arc(0, 0, 1 - 1.5 / R, 0, 2 * Math.PI);
+      ctx.fillStyle = M.cssColor(ground);
+      ctx.fill();
+      ctx.lineWidth = 1.5 / R;
+      ctx.strokeStyle = M.cssColor(palette.edge, 0.9);
+      ctx.stroke();
+
+      set.forEach(function (s) {
+        ctx.save();
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.t + s.w * t);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s.a, s.b, 0, 0, 2 * Math.PI);
+        ctx.fillStyle = M.cssColor(palette.phases[s.c], 0.9 * shown);
+        ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    readTheme();
+    realization = medium();
+    var clock = 0;
+    M.onTheme(function () { readTheme(); paint(clock); });
+    if ("ResizeObserver" in window) new ResizeObserver(function () { paint(clock); }).observe(canvas);
+    paint(0);
+    if (M.calm) return;
+    var loop = M.loop(canvas, function (dt) { clock += dt; paint(clock); return true; }, 30);
+    loop.start();
+    // Deterministic frames for the GIF/MP4 exporter.
+    M.heroFrame = function (seconds) { clock = seconds; paint(clock); };
+  }
+
+  // ── Homogenization widget ───────────────────────────────────────────────────
+  function widget() {
+    var mount = document.getElementById("hom-widget");
+    if (!mount) return;
+    M.loadScript("js/hom-widget.js", function () { if (M.homWidget) M.homWidget(mount); });
+  }
+
+  ready(function () {
+    if (!M.calm) animateLogos();
+    echoes();
+    pictograms();
+    bannerSignature();
+    hero();
+    widget();
   });
 })();
 </script>
