@@ -2,6 +2,8 @@
 title: "Page not found"
 subtitle: "That address does not match anything on this site."
 toc: false
+# Lets _config/motion.html draw a crack across the banner.
+body-classes: page-404
 ---
 
 The page you asked for may have been renamed or moved. These are the main sections:

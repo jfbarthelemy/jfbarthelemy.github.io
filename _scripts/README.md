@@ -1,12 +1,13 @@
 # `_scripts/` — generated content
 
-Two sections of the site are **generated**, each from a single source of truth. You never edit
+Three parts of the site are **generated**, each from a single source of truth. You never edit
 the generated files by hand.
 
 | Generator | Source of truth | Needs |
 |---|---|---|
 | `build_publications.py` | `_biblio/*.bib` (+ `postprints_data.py` for the postprint links) | standard library + the pandoc bundled with Quarto |
 | `build_postprints.py` | `postprints_data.py` | PyMuPDF (`fitz`) for the thumbnails |
+| `build_echoes_scene.py` | the echoes manual's `img/cover.html` | numpy |
 
 `make data` runs both, in the right order (the timeline reads `postprints_data.py`).
 
@@ -70,6 +71,29 @@ Generated (do **not** edit by hand):
 - `_includes/_postprints_featured.qmd` — "Open-access postprints" block, included by `publications.qmd`.
 
 `make postprints-derived` regenerates just the two includes, without recopying the 34 MB of bundles.
+
+## The echoes logo in 3D (`build_echoes_scene.py`)
+
+The echoes logo is an Asymptote scene — `img/cover.asy` in the echoes manual, seed 1949: a
+translucent sphere holding 100 ellipsoids and 100 superspheres. Its WebGL export, `img/cover.html`,
+weighs 16 MB, because it ships every Bézier control point of 27,648 patches. The generator reads
+that export and recovers the thirteen numbers that define each inclusion — center, a 3×3 matrix,
+the supersphere exponent — plus its color, into `images/echoes_scene.json` (23 kB, 8 kB
+compressed). `js/echoes-viewer.js` rebuilds the meshes from it and draws the same scene in plain
+WebGL.
+
+```bash
+python3 _scripts/build_echoes_scene.py ~/echoes/echoes/img/cover.html   # or: make echoes-scene
+```
+
+The patch corners are exact samples of each parametric surface, but the export reorders the
+patches and does not always print a shared node with the same digits, so nodes are never matched
+by position: two patches are neighbors when they share a whole edge, which gives the parameter
+grid. The script refuses to write anything if a surface does not have that grid, or if a corner
+lies farther from its fitted surface than the printing precision (the worst residual is reported:
+7e-5 for a container of radius 100). numpy only. Rerun it only if the logo itself changes.
+
+Generated (do **not** edit by hand): `images/echoes_scene.json`.
 
 ## Add or update a postprint (the whole workflow)
 

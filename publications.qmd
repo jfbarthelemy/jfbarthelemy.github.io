@@ -13,6 +13,7 @@ format:
     # enhancements have to be listed again here.
     include-after-body:
       - _config/enhance.html
+      - _config/motion.html
       - _config/publications-filters.html
 ---
 

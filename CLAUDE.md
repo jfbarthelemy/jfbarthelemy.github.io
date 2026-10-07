@@ -62,9 +62,32 @@ The four Julia logo colors are kept for the package logos only.
 - **A lone image with alt text becomes a figure with a visible caption.** Pass accessible text as
   `fig-alt="…"` and leave the markdown alt empty.
 
+## Motion
+
+A few animations, each showing an idea of the work rather than decorating: the package logos
+building themselves (`images/anim/`), the echoes logo in 3D, pictograms on the home-page research
+cards (homogenization, the exact Eshelby field, Burgers creep, a change of basis), a
+microstructure in each page banner, a crack on the 404 page, an RVE melting into its effective
+medium behind the portrait, and a homogenization widget on the MeanFieldHomogenization page.
+
+- `_config/motion.html` — included after the body of every page (so a page that sets its own
+  `include-after-body`, like `publications.qmd`, must list it again). It holds the shared guards
+  and one module per element; each module is inert when its element is absent.
+- `js/echoes-viewer.js` and `js/hom-widget.js` — loaded on demand, only on the page that uses
+  them. `images/echoes_scene.json` comes from `_scripts/build_echoes_scene.py`.
+- Anchors in the markup are Pandoc attributes only: `motif="…"` on a `.jfb-card`,
+  `body-classes: page-404`, an empty `#hom-widget` div holding a no-JavaScript sentence.
+
+Rules: nothing is hidden or changed without JavaScript; `prefers-reduced-motion` gets no
+automatic animation (the resting frame is drawn); a continuous animation runs only while on
+screen and with the tab visible, at 30 frames per second at most; colors come from the
+`--jfb-*` tokens and are read again when the theme switches; a logo animation ends by putting the
+static file back, so the resting state is the logo itself. The masters of the animated logos, and
+their GIF/MP4 exports, live in `Private/assets/logos/anim/`.
+
 ## Generated content
 
-Two generators, both documented in [`_scripts/README.md`](_scripts/README.md):
+Three generators, all documented in [`_scripts/README.md`](_scripts/README.md):
 
 - `_scripts/build_publications.py` — reads the thirteen `_biblio/*.bib` through
   `quarto pandoc -f biblatex -t csljson` and writes `_includes/_publications_{timeline,stats,recent}.qmd`
@@ -72,8 +95,10 @@ Two generators, both documented in [`_scripts/README.md`](_scripts/README.md):
   on an inconsistent bibliography.
 - `_scripts/build_postprints.py` — from `_scripts/postprints_data.py`; deploys `postprints/<slug>/`
   and writes `_includes/_postprints_{cards,featured}.qmd`. `--derived-only` skips the 34 MB copy.
+- `_scripts/build_echoes_scene.py` — from the echoes manual's `img/cover.html`; writes
+  `images/echoes_scene.json`.
 
-Do **not** hand-edit anything under `_includes/` or `files/publications.bib`.
+Do **not** hand-edit anything under `_includes/`, `files/publications.bib` or `images/echoes_scene.json`.
 
 ## Key conventions
 

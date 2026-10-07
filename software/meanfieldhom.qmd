@@ -45,6 +45,18 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
 - **Prototyping-oriented** — `ForwardDiff` sensitivities with respect to fractions, moduli and
   inclusion geometry, plus symbolic simplification via `SymPy` and `Symbolics`
 
+### Try it in the browser
+
+The simplest case the package handles: an isotropic matrix holding isotropic spherical
+inclusions. The chart gives the effective Young's modulus as the inclusions take up more of the
+volume — the Hashin–Shtrikman bounds, which no isotropic mixture of these two phases can leave,
+and the Mori–Tanaka and self-consistent estimates between them. For spheres all four are closed
+forms, so the chart computes them in your browser rather than calling the package.
+
+::: {#hom-widget}
+*The interactive chart needs JavaScript.*
+:::
+
 ### Installation
 
 `MeanFieldHomogenization.jl` is registered in Julia's General registry:

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <title>DECUHR.jl</title>
+  <!-- Animated variant of ../logo_decuhr.svg: the integration box and its
+       first subdivision are drawn, then each adaptive refinement closes in on
+       the singular vertex. The last frame is the static logo exactly. -->
+  <style>
+    .cell { transform-box: fill-box; transform-origin: 0% 100%; }
+    @media (prefers-reduced-motion: no-preference) {
+      .box   { animation: draw 0.7s ease-in-out both; }
+      .cut   { animation: draw 0.4s 0.45s ease-out both; }
+      .cut + .cut { animation-delay: 0.6s; }
+      .cell  { animation: refine 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+      .c1 { animation-delay: 0.85s; } .c2 { animation-delay: 1.15s; }
+      .c3 { animation-delay: 1.4s; }  .c4 { animation-delay: 1.62s; }
+    }
+    @keyframes draw {
+      0%     { stroke-dasharray: 1; stroke-dashoffset: 1; }
+      99.9%  { stroke-dasharray: 1; stroke-dashoffset: 0; }
+      100%   { stroke-dasharray: none; }
+    }
+    @keyframes refine { from { opacity: 0; transform: scale(0.35); } }
+  </style>
+  <!-- hyper-rectangle d'integration et sa premiere subdivision -->
+  <g stroke="#CCCCCC" stroke-width="18" fill="none">
+    <rect class="box" pathLength="1" x="90" y="90" width="420" height="420"/>
+    <line class="cut" pathLength="1" x1="300" y1="90" x2="300" y2="510"/>
+    <line class="cut" pathLength="1" x1="90" y1="300" x2="510" y2="300"/>
+  </g>
+  <!-- subdivisions adaptatives successives, concentrees sur le coin bas-gauche -->
+  <g stroke="#FFFFFF" stroke-width="10">
+    <rect class="cell c1" x="90" y="300" width="210" height="210" fill="#4063D8"/>
+    <rect class="cell c2" x="90" y="405" width="105" height="105" fill="#9558B2"/>
+    <rect class="cell c3" x="90" y="457" width="53" height="53" fill="#389826"/>
+  </g>
+  <!-- sommet singulier -->
+  <rect class="cell c4" x="90" y="484" width="26" height="26" fill="#CB3C33"/>
+</svg>

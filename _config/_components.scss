@@ -28,6 +28,13 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
+// The same for a link whose text is an address, such as
+// MicroPoroChemoMechanics.github.io/MeanFieldHomogenization.jl: on a phone it
+// was wider than the screen.
+p a {
+  overflow-wrap: anywhere;
+}
+
 h2 {
   margin-top: 2.75rem;
   padding-bottom: 0.4rem;
@@ -1283,4 +1290,251 @@ main.quarto-banner-title-block { padding-top: 0; }
   bottom: -0.32rem;
   right: -0.46rem;
   opacity: 1;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Motion — styles for _config/motion.html. Every class here is added by that
+// script, never written in the markup: with JavaScript off none of it applies.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// --- Package logos -----------------------------------------------------------
+// Hidden only between the script's start and the first play, so the static
+// logo is not seen to vanish and rebuild; the script lifts it after 6 s at most.
+.jfb-logo-pending { opacity: 0; }
+
+// --- echoes, in 3D -----------------------------------------------------------
+// The canvas takes the place of the image, with the image's classes.
+canvas.echoes-viewer {
+  display: block;
+  aspect-ratio: 1;
+  outline-offset: 4px;
+  // Horizontal drags turn the sphere; vertical ones still scroll the page.
+  touch-action: pan-y;
+}
+
+.card-img-top canvas.echoes-viewer {
+  width: 110px !important;
+  height: 110px !important;
+  max-height: none !important;
+}
+
+canvas.jfb-page-logo.echoes-viewer {
+  width: min(15rem, 70vw);
+  height: auto;
+  max-height: none;
+  max-width: none;
+  cursor: grab;
+
+  &:active { cursor: grabbing; }
+}
+
+// --- Research pictograms -----------------------------------------------------
+.jfb-card .jfb-motif {
+  float: right;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin: -0.15rem -0.2rem 0.35rem 0.9rem;
+  overflow: visible;
+}
+
+// --- Banner signature --------------------------------------------------------
+.quarto-title-banner {
+  position: relative;
+  overflow: hidden;
+
+  .quarto-title { position: relative; z-index: 1; }
+}
+
+.jfb-banner-motif {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(46%, 34rem);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(to left, #000 45%, transparent);
+  mask-image: linear-gradient(to left, #000 45%, transparent);
+
+  .grain .body,
+  .grain .coat {
+    fill: color-mix(in srgb, var(--jfb-accent) 9%, transparent);
+    stroke: color-mix(in srgb, var(--jfb-accent) 55%, transparent);
+    stroke-width: 1.1;
+  }
+
+  .grain.alt .body,
+  .grain.alt .coat {
+    fill: color-mix(in srgb, var(--jfb-accent-2) 9%, transparent);
+    stroke: color-mix(in srgb, var(--jfb-accent-2) 50%, transparent);
+  }
+
+  .grain .core {
+    fill: color-mix(in srgb, var(--jfb-accent-2) 16%, transparent);
+    stroke: color-mix(in srgb, var(--jfb-accent-2) 45%, transparent);
+    stroke-width: 1;
+  }
+
+  .grain .crack {
+    fill: color-mix(in srgb, var(--jfb-ink-faint) 30%, transparent);
+    stroke: color-mix(in srgb, var(--jfb-ink-faint) 80%, transparent);
+    stroke-width: 0.8;
+  }
+
+  .grow {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .crack-path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--jfb-ink-muted) 75%, transparent);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .crack-path.branch { stroke-width: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .jfb-banner-motif .grow {
+    animation: jfb-grain-grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .jfb-banner-motif .crack-path {
+    stroke-dasharray: 1;
+    animation: jfb-crack 1.2s cubic-bezier(0.45, 0, 0.25, 1) both;
+  }
+  .jfb-banner-motif .crack-path.branch { animation-duration: 0.6s; }
+  @keyframes jfb-grain-grow { from { opacity: 0; transform: scale(0.1); } }
+  @keyframes jfb-crack { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+}
+
+// On a narrow screen the banner text runs under the motif: fainter there.
+@media (max-width: $jfb-bp-md) {
+  .jfb-banner-motif { width: 70%; opacity: 0.32; }
+}
+
+// --- Hero: the RVE behind the portrait ---------------------------------------
+// The figure is the grid item in place of the portrait; the disk sits behind
+// the portrait, up and to the left, never past the edge of the page.
+.hero-figure {
+  position: relative;
+  display: block;
+  isolation: isolate;
+}
+
+.hero-rve {
+  position: absolute;
+  z-index: -1;
+  width: 140%;
+  aspect-ratio: 1;
+  left: -58%;
+  top: -36%;
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+@media (max-width: $jfb-bp-md) {
+  // The portrait comes first, alone on its row, against the left gutter:
+  // the disk goes to its right.
+  .hero-figure { order: -1; }
+  .hero-rve { left: 42%; top: -14%; width: 128%; }
+}
+
+// --- Homogenization widget (js/hom-widget.js) --------------------------------
+.hom-widget {
+  margin: 1rem 0 1.75rem;
+  padding: 1rem 1.1rem 0.6rem;
+  background: var(--jfb-surface);
+  border: 1px solid var(--jfb-border);
+  border-radius: $jfb-radius;
+  box-shadow: var(--jfb-shadow-sm);
+}
+
+.hom-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.6rem 1.5rem;
+}
+
+.hom-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--jfb-ink-muted);
+
+  input { width: 100%; accent-color: var(--jfb-accent); }
+  output {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--jfb-ink);
+  }
+}
+
+.hom-slider-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.hom-figure { margin: 0.75rem 0 0; }
+
+.hom-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: $jfb-font-body;
+  overflow: visible;
+
+  .hom-grid { stroke: var(--jfb-border); stroke-width: 1; }
+  .hom-grid-minor { stroke-dasharray: 2 3; }
+  .hom-tick { fill: var(--jfb-ink-faint); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .hom-axis-label { fill: var(--jfb-ink-muted); font-size: 12px; }
+  .hom-band { fill: color-mix(in srgb, var(--jfb-accent) 10%, transparent); stroke: none; }
+  .hom-bound { fill: none; stroke: color-mix(in srgb, var(--jfb-accent) 55%, transparent); stroke-width: 1.25; }
+  .hom-mt { fill: none; stroke: var(--jfb-accent); stroke-width: 2.2; }
+  .hom-sc { fill: none; stroke: var(--jfb-accent-2); stroke-width: 2.2; stroke-dasharray: 6 4; }
+  .hom-cursor { stroke: var(--jfb-ink-faint); stroke-width: 1; }
+  .hom-dot { stroke: var(--jfb-surface); stroke-width: 1.5; }
+  .hom-dot-lower, .hom-dot-upper { fill: color-mix(in srgb, var(--jfb-accent) 60%, var(--jfb-surface)); }
+  .hom-dot-mt { fill: var(--jfb-accent); }
+  .hom-dot-sc { fill: var(--jfb-accent-2); }
+}
+
+.hom-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--jfb-ink-muted);
+
+  strong {
+    color: var(--jfb-ink);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.hom-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hom-key {
+  display: inline-block;
+  width: 1.4rem;
+  height: 0;
+  border-top: 2.2px solid var(--jfb-accent);
+}
+
+.hom-key-bound { border-top: 1.25px solid color-mix(in srgb, var(--jfb-accent) 55%, transparent); }
+.hom-key-sc { border-top: 2.2px dashed var(--jfb-accent-2); }
+
+.hom-figure {
+  max-width: 46rem;
+  margin-inline: auto;
 }
