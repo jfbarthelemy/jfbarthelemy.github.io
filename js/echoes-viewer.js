@@ -3,26 +3,85 @@
 // The logo is an Asymptote scene (img/cover.asy in the echoes manual): a
 // translucent sphere holding 100 ellipsoids and 100 superspheres. Asymptote's
 // own WebGL export of it weighs 16 MB; the thirteen numbers that define each
-// inclusion, recovered by _scripts/build_echoes_scene.py, weigh 25 kB. This
-// script rebuilds the meshes from them and draws the scene with plain WebGL —
-// no library.
+// inclusion, recovered by _scripts/build_echoes_scene.py of the website, weigh
+// 23 kB. This script rebuilds the meshes from them and draws the scene with
+// plain WebGL — no library. It replaces the logo image by a canvas once the
+// scene is ready: with no WebGL, or if anything fails, the image simply stays.
 //
-// It is loaded on demand by _config/motion.html, only on a page that holds the
-// echoes logo, and replaces that image by a canvas once the scene is ready:
-// with no WebGL, or if anything fails, the image simply stays.
+// The same file serves two sites, and is copied from the website to the echoes
+// manual unchanged:
 //
-//   - the echoes page: the sphere turns slowly (one turn in 40 s) and can be
-//     turned by hand — mouse, finger or arrow keys;
-//   - the Software grid: it turns while the card is hovered.
+//   - on the website (jfbarthelemy.github.io/js/) it is loaded on demand by
+//     _config/motion.html, whose shared helpers it uses. On the echoes page the
+//     sphere turns slowly (one turn in 40 s) and can be turned by hand — mouse,
+//     finger or arrow keys; in the Software grid it turns while hovered;
+//   - anywhere else (the echoes manual) it brings the few helpers it needs and
+//     starts by itself on the images matched by the `data-target` selector of
+//     its <script> tag, reading the scene from `data-scene` (a path from the
+//     site root).
 //
 // The inclusions keep their Asymptote colors in both themes. The container is
-// drawn from the theme's ink color, so that it reads as glass on a light page
-// and on a dark one alike.
+// drawn from the page's ink color, so that it reads as glass on a light page
+// and on a dark one alike. A reader who asks for reduced motion gets a still
+// sphere, which can still be turned by hand.
 (function () {
   "use strict";
 
-  var M = window.jfbMotion;
-  if (!M) return;
+  var script = document.currentScript;
+  var M = window.jfbMotion || standaloneHelpers();
+
+  // The subset of _config/motion.html this script uses, for a page that does
+  // not have it. The ink is the body's text color.
+  function standaloneHelpers() {
+    var H = {};
+    H.calm = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    var meta = document.querySelector('meta[name="quarto:offset"]');
+    H.offset = meta ? meta.getAttribute("content") : "./";
+    var probe = document.createElement("canvas").getContext("2d");
+    H.rgb = function () {
+      probe.fillStyle = "#000";
+      probe.fillStyle = getComputedStyle(document.body).color || "#000";
+      var c = probe.fillStyle;
+      if (c.charAt(0) === "#") return [1, 3, 5].map(function (i) { return parseInt(c.substr(i, 2), 16) / 255; });
+      return c.replace(/[^\d.,]/g, "").split(",").slice(0, 3).map(function (x) { return +x / 255; });
+    };
+    var listeners = [];
+    H.onTheme = function (fn) { listeners.push(fn); };
+    new MutationObserver(function () {
+      requestAnimationFrame(function () { listeners.forEach(function (fn) { fn(); }); });
+    }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    H.loop = function (el, frame, fps) {
+      var wanted = false, onScreen = true, raf = 0, last = 0, t = 0;
+      var gap = fps ? 1000 / fps - 2 : 0;
+      function tick(now) {
+        raf = 0;
+        if (last && now - last < gap) { schedule(); return; }
+        var dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
+        last = now;
+        t += dt;
+        if (frame(dt, t) === false) { wanted = false; last = 0; return; }
+        schedule();
+      }
+      function schedule() {
+        if (wanted && onScreen && !document.hidden && !raf) raf = requestAnimationFrame(tick);
+        if ((!wanted || !onScreen || document.hidden) && raf) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+          last = 0;
+        }
+      }
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[entries.length - 1].isIntersecting;
+        schedule();
+      }).observe(el);
+      document.addEventListener("visibilitychange", schedule);
+      return {
+        start: function () { wanted = true; schedule(); },
+        stop: function () { wanted = false; schedule(); }
+      };
+    };
+    return H;
+  }
 
   var NU = 16, NV = 32;          // mesh resolution of one inclusion
   var TURN = 40;                 // seconds per turn on the echoes page
@@ -367,8 +426,8 @@
     };
   }
 
-  M.echoesViewer = function (imgs) {
-    fetch(M.offset + "images/echoes_scene.json")
+  M.echoesViewer = function (imgs, scenePath) {
+    fetch(M.offset + (scenePath || "images/echoes_scene.json"))
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (scene) {
         var viewers = [];
@@ -384,4 +443,15 @@
       })
       .catch(function (err) { if (window.console) console.warn("echoes viewer:", err); });
   };
+
+  // Standalone: start on the images the <script> tag names.
+  if (!window.jfbMotion && script && script.getAttribute("data-target") &&
+      window.WebGLRenderingContext && "ResizeObserver" in window && "IntersectionObserver" in window) {
+    var start = function () {
+      var imgs = Array.prototype.slice.call(document.querySelectorAll(script.getAttribute("data-target")));
+      if (imgs.length) M.echoesViewer(imgs, script.getAttribute("data-scene"));
+    };
+    if (document.readyState !== "loading") start();
+    else document.addEventListener("DOMContentLoaded", start);
+  }
 })();
