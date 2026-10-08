@@ -34,7 +34,7 @@ tensor foundation of the whole ecosystem.
 ![](../images/logo_chemistrylab.svg){.jfb-page-logo}
 
 **Computational chemistry, from formulas to a certified equilibrium** — species, reactions and
-stoichiometric matrices, ThermoFun and Cemdata data downloaded on demand, activity models up to
+stoichiometric matrices, thermodynamic databases imported in the formats in common use, activity models up to
 SIT and Pitzer, solid solutions, surface complexation, kinetics and calorimetry, and Gibbs
 energy minimization returned with a certificate stating what it proves. Every quantity carries
 its unit, via `DynamicQuantities`.

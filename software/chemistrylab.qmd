@@ -12,7 +12,7 @@ image: "../images/logo_chemistrylab.svg"
 
 **ChemistryLab.jl** carries a chemical problem from its written formulas to its equilibrium
 state. Formulas, species, reactions and stoichiometric matrices are first-class objects,
-thermodynamic data are read from ThermoFun and Cemdata, and equilibrium is computed by Gibbs
+thermodynamic databases are imported in the formats in common use, and equilibrium is computed by Gibbs
 energy minimization and returned with a certificate stating what it proves. Every quantity
 carries its unit, and exact `ForwardDiff` derivatives pass through equilibria, kinetic runs and
 recipes. Initially focused on cement chemistry — CEM I to CEM V entered from an oxide
@@ -25,8 +25,11 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 - **Formulas, species and reactions** — chemical formulas with charge, Unicode and PHREEQC
   notations; `Species` and `CemSpecies` for solution and solid phases; stoichiometric matrices
   built automatically
-- **Databases on demand** — ThermoFun databases downloaded from their publisher on first use
-  and checked against a SHA-256; `install_database` takes a PHREEQC file
+- **Thermodynamic databases** — databases of reactions (PHREEQC, The Geochemist's Workbench,
+  EQ3/6) and of formation properties (JSON and YAML formats) imported with the activity model
+  they were fitted with; none is stored in the package: the freely redistributable ones are
+  downloaded from their publisher on first use and checked against a SHA-256, the others
+  installed by hand under their publisher's terms
 - **Certified equilibrium** — the certificate says what it proves: global minimum, KKT point or
   self-consistent speciation, each element balance judged against its own total
 - **Activity models** — B-dot, Davies, Truesdell–Jones, SIT and Pitzer; SIT and Pitzer solutes
