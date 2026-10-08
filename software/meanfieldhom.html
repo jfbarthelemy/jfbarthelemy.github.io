@@ -1030,10 +1030,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
   // ── Hero: a medium being homogenized ────────────────────────────────────────
   // Behind the portrait, a disk of heterogeneous material — inclusions of
-  // varied shapes, turning slowly — melts into its effective medium, whose tint
-  // is the area average of the phase colors, then comes back as a new
-  // realization of the same random medium. A cycle takes twenty seconds.
-  var CYCLE = 20;
+  // varied shapes, turning slowly — melts into its effective medium: as the
+  // inclusions fade, the ground takes on the area average of the colors shown,
+  // and once they are gone the disk is uniformly that tint. It then comes back
+  // as a new realization of the same random medium. The inclusions cover about
+  // a third of the disk, so that the effective tint is clearly not the
+  // matrix's. A cycle takes ten seconds.
+  var CYCLE = 10;
 
   function hero() {
     var portrait = document.querySelector(".hero .hero-portrait");
@@ -1050,18 +1053,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     var rand = M.random(1949), realization = null, next = null, palette = null;
 
     function medium() {
-      return M.rsa(rand, 24, 1500, function (r) {
+      return M.rsa(rand, 44, 8000, function (r) {
         var k = r(), a, b;
-        if (k < 0.32) { a = 0.08 + 0.07 * r(); b = a; }                         // sphere
-        else if (k < 0.64) { a = 0.11 + 0.07 * r(); b = a * (0.45 + 0.2 * r()); } // spheroid
-        else if (k < 0.88) { a = 0.14 + 0.07 * r(); b = a / (3.5 + 2.5 * r()); }  // fiber
-        else { a = 0.12 + 0.05 * r(); b = 0.014; }                              // crack
-        var rho = Math.sqrt(r()) * (0.9 - a), th = 2 * Math.PI * r();
+        if (k < 0.34) { a = 0.09 + 0.08 * r(); b = a; }                          // sphere
+        else if (k < 0.68) { a = 0.12 + 0.08 * r(); b = a * (0.5 + 0.2 * r()); }   // spheroid
+        else if (k < 0.9) { a = 0.15 + 0.08 * r(); b = a / (3 + 2 * r()); }        // fiber
+        else { a = 0.12 + 0.05 * r(); b = 0.014; }                               // crack
+        var rho = Math.sqrt(r()) * (0.93 - a), th = 2 * Math.PI * r();
         return {
           x: rho * Math.cos(th), y: rho * Math.sin(th), a: a, b: b, t: Math.PI * r(),
-          w: (r() - 0.5) * 0.25, c: r() < 0.55 ? 0 : 1
+          w: (r() - 0.5) * 0.5, c: r() < 0.55 ? 0 : 1
         };
-      }, 0.025);
+      }, 0.016);
     }
 
     function readTheme() {
@@ -1072,11 +1075,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       };
     }
 
+    // The color an inclusion is drawn with: its phase at 90 % over the matrix.
+    function shade(s) { return M.mix(palette.matrix, palette.phases[s.c], 0.9); }
+
     function effective(set) {
       var sum = [0, 0, 0], phi = 0;
       set.forEach(function (s) {
         var area = s.a * s.b;            // π a b / π R², with R = 1
-        var c = palette.phases[s.c];
+        var c = shade(s);
         sum = sum.map(function (v, k) { return v + area * c[k]; });
         phi += area;
       });
@@ -1096,11 +1102,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       ctx.setTransform(R, 0, 0, R, R, R);
 
       var phase = t % CYCLE;
-      // 0–8 s heterogeneous, 8–12 s melting, 12–16 s effective, 16–20 s back.
-      var shown = 1 - M.ease(M.span(phase, 8, 12)) + M.ease(M.span(phase, 16, 20));
-      if (phase >= 16 && !next) next = medium();
-      if (phase < 16 && next) { realization = next; next = null; }
-      var set = phase >= 16 ? next : realization;
+      // 0–4 s heterogeneous, 4–6 s melting, 6–8 s effective, 8–10 s back.
+      var shown = 1 - M.ease(M.span(phase, 4, 6)) + M.ease(M.span(phase, 8, 10));
+      if (phase >= 8 && !next) next = medium();
+      if (phase < 8 && next) { realization = next; next = null; }
+      var set = phase >= 8 ? next : realization;
       var eff = effective(set);
       var ground = M.mix(palette.matrix, eff, 1 - shown);
 
@@ -1118,7 +1124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         ctx.rotate(s.t + s.w * t);
         ctx.beginPath();
         ctx.ellipse(0, 0, s.a, s.b, 0, 0, 2 * Math.PI);
-        ctx.fillStyle = M.cssColor(palette.phases[s.c], 0.9 * shown);
+        ctx.fillStyle = M.cssColor(shade(s), shown);
         ctx.fill();
         ctx.restore();
       });
