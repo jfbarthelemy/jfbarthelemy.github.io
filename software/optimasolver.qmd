@@ -47,16 +47,35 @@ using Pkg
 Pkg.add("OptimaSolver")
 ```
 
-### Credits and license
+### Origin, credits and license
 
-The interior-point method is an independent port of Optima
-([github.com/reaktoro/optima](https://github.com/reaktoro/optima), © 2020–2024 Allan Leal),
-not affiliated with its authors; the Julia port is © 2026 Jean-François Barthélémy, under
-LGPL-2.1-or-later. Its design — Schur-complement Newton step, filter line search, variable
-stability classification, implicit-differentiation sensitivity — comes from that library and
-from Leal, Blunt & LaForce (2014), *Efficient chemical equilibrium calculations for
-geochemical speciation and reactive transport modelling*, Geochimica et Cosmochimica Acta
-**131**, 301–322, [doi:10.1016/j.gca.2014.01.038](https://doi.org/10.1016/j.gca.2014.01.038).
+OptimaSolver.jl began as an independent Julia port of Optima
+([github.com/reaktoro/optima](https://github.com/reaktoro/optima), © 2020–2024 Allan Leal), not
+affiliated with its authors. The interior-point method keeps that lineage: the canonicalization of
+the conservation matrix, the Schur-complement Newton step, the stability classification of the
+variables and the sensitivity of the answer come from that library and from Leal, Blunt & LaForce
+(2014), *Efficient chemical equilibrium calculations for geochemical speciation and reactive
+transport modelling*, Geochimica et Cosmochimica Acta **131**, 301–322,
+[doi:10.1016/j.gca.2014.01.038](https://doi.org/10.1016/j.gca.2014.01.038). Its log-barrier
+formulation and filter line search follow Wächter & Biegler (2006), Mathematical Programming
+**106**, 25–57, [doi:10.1007/s10107-004-0559-y](https://doi.org/10.1007/s10107-004-0559-y).
+
+The multiplier-space Newton method, the KKT certificate, the phase-stability tests, the
+linear-programming start and the derivatives of the answer are original to OptimaSolver.jl, more
+than half of its code. They implement published methods: Brinkley (1947),
+[doi:10.1063/1.1746420](https://doi.org/10.1063/1.1746420); White, Johnson & Dantzig (1958),
+[doi:10.1063/1.1744264](https://doi.org/10.1063/1.1744264); Karpov, Chudnenko & Kulik (1997),
+[doi:10.2475/ajs.297.8.767](https://doi.org/10.2475/ajs.297.8.767); and Michelsen (1982) for
+phase stability, [doi:10.1016/0378-3812(82)85001-2](https://doi.org/10.1016/0378-3812(82)85001-2).
+
+The Julia port and the original parts are © 2025–2026 Jean-François Barthélémy (Cerema,
+UMR MCD), under LGPL-2.1-or-later.
+
+### How to cite
+
+Cite OptimaSolver.jl by its DOI,
+[10.5281/zenodo.19534031](https://doi.org/10.5281/zenodo.19534031), and, for the interior-point
+algorithm, Leal, Blunt & LaForce (2014).
 
 ### Links
 
