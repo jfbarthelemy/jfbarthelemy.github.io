@@ -55,7 +55,9 @@ Palette: slate neutrals, petrol-blue accent (`#235a76` light / `#76b0cc` dark), 
 named by role (`$jfb-accent-*`, `$jfb-accent2-*`) in `_tokens.scss`, which also keeps three
 alternative palettes as commented blocks (navy & copper, Prussian blue & brick, the former
 cyan-teal & violet): switching is uncommenting one block, then checking the publication family
-hues in the theme files. The four Julia logo colors are kept for the package logos only.
+hues in the theme files. Two more chart hues, `--jfb-series-3` (brick) and `--jfb-series-4`
+(teal), follow the two accents in a chart; the four were chosen to stay apart under every
+color-vision deficiency. The four Julia logo colors are kept for the package logos only.
 
 ### Two Quarto traps this theme works around
 

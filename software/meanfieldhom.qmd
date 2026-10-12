@@ -49,9 +49,15 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
 
 The simplest case the package handles: an isotropic matrix holding isotropic spherical
 inclusions. The chart gives the effective Young's modulus as the inclusions take up more of the
-volume — the Hashin–Shtrikman bounds, which no isotropic mixture of these two phases can leave,
-and the Mori–Tanaka and self-consistent estimates between them. For spheres all four are closed
-forms, so the chart computes them in your browser rather than calling the package.
+volume, on a logarithmic or a linear scale; drag across it to read the values at a given
+fraction. The boxes under it choose the curves: the Voigt–Reuss bounds and the tighter
+Hashin–Shtrikman ones, which no isotropic mixture of these two phases can leave; the dilute
+estimates, on the stiffness or on the compliance, which hold at small fractions only; and the
+Mori–Tanaka, three-phase (generalized self-consistent), differential and self-consistent
+estimates. For spheres the Maxwell and Ponte Castañeda–Willis schemes coincide with
+Mori–Tanaka, and the asymmetric self-consistent scheme with the self-consistent one. Every
+curve is a closed form, a fixed point or a short differential equation, computed in your
+browser rather than by the package, and checked against the package to ten significant digits.
 
 ::: {#hom-widget}
 *The interactive chart needs JavaScript.*
