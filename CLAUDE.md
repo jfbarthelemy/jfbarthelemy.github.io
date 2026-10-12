@@ -50,8 +50,12 @@ quarto render      # full build -> _site/
 - `head.html` — Google Fonts preconnect and stylesheet (a CSS `@import` inside a Quarto rules layer
   lands after Bootstrap's rules and is silently ignored).
 
-Palette: slate neutrals, cyan-teal accent (`#0e7c86` light / `#45c8d2` dark), violet secondary.
-The four Julia logo colors are kept for the package logos only.
+Palette: slate neutrals, petrol-blue accent (`#235a76` light / `#76b0cc` dark), gold secondary
+(`#a77a12` for figures and `#94690c` for text on light, `#e5bd5a` on dark). The accent scales are
+named by role (`$jfb-accent-*`, `$jfb-accent2-*`) in `_tokens.scss`, which also keeps three
+alternative palettes as commented blocks (navy & copper, Prussian blue & brick, the former
+cyan-teal & violet): switching is uncommenting one block, then checking the publication family
+hues in the theme files. The four Julia logo colors are kept for the package logos only.
 
 ### Two Quarto traps this theme works around
 
@@ -67,14 +71,17 @@ The four Julia logo colors are kept for the package logos only.
 A few animations, each showing an idea of the work rather than decorating: the package logos
 building themselves (`images/anim/`), the echoes logo in 3D, pictograms on the home-page research
 cards (homogenization, the exact Eshelby field, Burgers creep, a change of basis), a
-microstructure in each page banner, a crack on the 404 page, an RVE melting into its effective
-medium behind the portrait, and a homogenization widget on the MeanFieldHomogenization page.
+microstructure in each page banner, a crack on the 404 page, a turning 3D sphere of inclusions
+melting into its effective medium behind the portrait, and a homogenization widget on the
+MeanFieldHomogenization page.
 
 - `_config/motion.html` — included after the body of every page (so a page that sets its own
   `include-after-body`, like `publications.qmd`, must list it again). It holds the shared guards
   and one module per element; each module is inert when its element is absent.
-- `js/echoes-viewer.js` and `js/hom-widget.js` — loaded on demand, only on the page that uses
-  them. `images/echoes_scene.json` comes from `_scripts/build_echoes_scene.py`.
+- `js/echoes-viewer.js`, `js/hero-sphere.js` and `js/hom-widget.js` — loaded on demand, only on
+  the page that uses them. `js/hero-sphere.js` places its inclusions through capsules that
+  contain them (no interpenetration, checked independently) at a fixed volume fraction, and
+  exposes `jfbMotion.heroFrame(seconds)` for deterministic captures. `images/echoes_scene.json` comes from `_scripts/build_echoes_scene.py`.
 - Anchors in the markup are Pandoc attributes only: `motif="…"` on a `.jfb-card`,
   `body-classes: page-404`, an empty `#hom-widget` div holding a no-JavaScript sentence.
 
