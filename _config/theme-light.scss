@@ -80,6 +80,12 @@ $border-color:     $jfb-n-100;
   --jfb-fam-software:   #2f7d32;
   --jfb-fam-oa:         #b4520c;
 
+  // Third and fourth series of a chart, after the accent and the secondary
+  // accent (the homogenization widget). The four hues stay apart under every
+  // color-vision deficiency, pairwise.
+  --jfb-series-3: #a83a2c;
+  --jfb-series-4: #1f9e89;
+
   --jfb-tag-tint: 12%;
 }
 

@@ -1480,7 +1480,35 @@ canvas.jfb-page-logo.echoes-viewer {
   gap: 0.75rem;
 }
 
-.hom-figure { margin: 0.75rem 0 0; }
+.hom-scale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem 0.6rem;
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--jfb-ink-muted);
+}
+
+// Two radio buttons drawn as one switch; the inputs stay focusable.
+.hom-switch {
+  display: inline-flex;
+  border: 1px solid var(--jfb-border-strong);
+  border-radius: 999px;
+  overflow: hidden;
+
+  label { position: relative; margin: 0; cursor: pointer; }
+  input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  span { display: block; padding: 0.12rem 0.75rem; }
+  input:checked + span { background: var(--jfb-accent); color: var(--jfb-surface); }
+  input:focus-visible + span { outline: 2px solid var(--jfb-accent); outline-offset: -2px; }
+}
+
+.hom-figure {
+  max-width: 46rem;
+  margin: 0.4rem auto 0;
+}
 
 .hom-chart {
   display: block;
@@ -1488,53 +1516,75 @@ canvas.jfb-page-logo.echoes-viewer {
   height: auto;
   font-family: $jfb-font-body;
   overflow: visible;
+  cursor: crosshair;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 
   .hom-grid { stroke: var(--jfb-border); stroke-width: 1; }
   .hom-grid-minor { stroke-dasharray: 2 3; }
   .hom-tick { fill: var(--jfb-ink-faint); font-size: 11px; font-variant-numeric: tabular-nums; }
   .hom-axis-label { fill: var(--jfb-ink-muted); font-size: 12px; }
-  .hom-band { fill: color-mix(in srgb, var(--jfb-accent) 10%, transparent); stroke: none; }
-  .hom-bound { fill: none; stroke: color-mix(in srgb, var(--jfb-accent) 55%, transparent); stroke-width: 1.25; }
-  .hom-mt { fill: none; stroke: var(--jfb-accent); stroke-width: 2.2; }
-  .hom-sc { fill: none; stroke: var(--jfb-accent-2); stroke-width: 2.2; stroke-dasharray: 6 4; }
   .hom-cursor { stroke: var(--jfb-ink-faint); stroke-width: 1; }
   .hom-dot { stroke: var(--jfb-surface); stroke-width: 1.5; }
-  .hom-dot-lower, .hom-dot-upper { fill: color-mix(in srgb, var(--jfb-accent) 60%, var(--jfb-surface)); }
+  .hom-dot-hs { fill: color-mix(in srgb, var(--jfb-accent) 60%, var(--jfb-surface)); }
+  .hom-dot-vr { fill: var(--jfb-ink-faint); }
+  .hom-dot-dilute, .hom-dot-dilutec { fill: var(--jfb-ink-muted); }
   .hom-dot-mt { fill: var(--jfb-accent); }
+  .hom-dot-gsc { fill: var(--jfb-series-3); }
+  .hom-dot-diff { fill: var(--jfb-series-4); }
   .hom-dot-sc { fill: var(--jfb-accent-2); }
 }
 
+// One stroke per curve, shared by the chart and the keys of the legend. The
+// bounds and the dilute estimates stay gray and thin, as references; each
+// estimate has a hue and a dash of its own, so that no curve is told from
+// another by its color alone.
+.hom-widget {
+  .hom-band { fill: color-mix(in srgb, var(--jfb-accent) 10%, transparent); stroke: none; }
+  .hom-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .hom-hs { stroke: color-mix(in srgb, var(--jfb-accent) 55%, transparent); stroke-width: 1.25; }
+  .hom-vr { stroke: var(--jfb-ink-faint); stroke-width: 1.25; stroke-dasharray: 0.1 3.5; stroke-linecap: round; }
+  .hom-dilute { stroke: var(--jfb-ink-muted); stroke-width: 1.5; stroke-dasharray: 9 3 2 3; }
+  .hom-dilutec { stroke: var(--jfb-ink-muted); stroke-width: 1.5; stroke-dasharray: 9 3 2 3 2 3; }
+  .hom-mt { stroke: var(--jfb-accent); stroke-width: 2.2; }
+  .hom-gsc { stroke: var(--jfb-series-3); stroke-width: 2.2; stroke-dasharray: 0.1 4.5; }
+  .hom-diff { stroke: var(--jfb-series-4); stroke-width: 2; stroke-dasharray: 14 4; }
+  .hom-sc { stroke: var(--jfb-accent-2); stroke-width: 2.2; stroke-dasharray: 6 4; }
+}
+
 .hom-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  margin-top: 0.4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 0.1rem 1.5rem;
+  margin-top: 0.5rem;
   font-size: 0.82rem;
   color: var(--jfb-ink-muted);
 
   strong {
+    margin-left: auto;
     color: var(--jfb-ink);
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 }
 
 .hom-legend-item {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.1rem 0;
+  cursor: pointer;
+
+  input { margin: 0; accent-color: var(--jfb-accent); cursor: pointer; }
+  &.is-off { color: var(--jfb-ink-faint); }
+  &.is-off .hom-key, &.is-off strong { opacity: 0.45; }
 }
 
 .hom-key {
-  display: inline-block;
-  width: 1.4rem;
-  height: 0;
-  border-top: 2.2px solid var(--jfb-accent);
-}
-
-.hom-key-bound { border-top: 1.25px solid color-mix(in srgb, var(--jfb-accent) 55%, transparent); }
-.hom-key-sc { border-top: 2.2px dashed var(--jfb-accent-2); }
-
-.hom-figure {
-  max-width: 46rem;
-  margin-inline: auto;
+  flex: none;
+  width: 1.6rem;
+  height: 0.5rem;
+  overflow: visible;
 }
