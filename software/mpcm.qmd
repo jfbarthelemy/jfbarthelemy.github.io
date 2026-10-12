@@ -29,16 +29,6 @@ coordinate systems, with structured isotropic, transversely isotropic, orthotrop
 types, projection onto each symmetry class, and curvilinear differential operators. It is the
 tensor foundation of the whole ecosystem.
 
-### [ChemistryLab.jl](chemistrylab.qmd)
-
-![](../images/logo_chemistrylab.svg){.jfb-page-logo}
-
-**Computational chemistry, from formulas to a certified equilibrium** — species, reactions and
-stoichiometric matrices, thermodynamic databases imported in the formats in common use, activity models up to
-SIT and Pitzer, solid solutions, surface complexation, kinetics and calorimetry, and Gibbs
-energy minimization returned with a certificate stating what it proves. Every quantity carries
-its unit, via `DynamicQuantities`.
-
 ### [MeanFieldHomogenization.jl](meanfieldhom.qmd)
 
 ![](../images/logo_mfh.svg){.jfb-page-logo}
@@ -49,6 +39,16 @@ stress and displacement intensity factors, second-order Hill tensors for transpo
 layered spheres and confocal spheroids with imperfect interfaces, aging viscoelasticity and
 hereditary conduction as Volterra operators, all the classical schemes, and morphologies with
 no closed form entered by finite elements or a neural surrogate.
+
+### [ChemistryLab.jl](chemistrylab.qmd)
+
+![](../images/logo_chemistrylab.svg){.jfb-page-logo}
+
+**Computational chemistry, from formulas to a certified equilibrium** — species, reactions and
+stoichiometric matrices, thermodynamic databases imported in the formats in common use, activity models up to
+SIT and Pitzer, solid solutions, surface complexation, kinetics and calorimetry, and Gibbs
+energy minimization returned with a certificate stating what it proves. Every quantity carries
+its unit, via `DynamicQuantities`.
 
 ---
 
@@ -63,7 +63,7 @@ port of Allan Leal's [Optima](https://github.com/reaktoro/optima) C++ library, a
 method in the space of the Lagrange multipliers, every answer checked by a KKT certificate,
 with exact derivatives through the solve. The default equilibrium backend of ChemistryLab.jl.
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/OptimaSolver.jl/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/OptimaSolver.jl/stable/)
 [![Repository](https://img.shields.io/badge/GitHub-OptimaSolver.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/OptimaSolver.jl)
 
 ### [DECUHR.jl](decuhr.qmd)
@@ -76,14 +76,14 @@ automatic adaptive integration of functions with vertex singularities over hyper
 dimension 2 to 15. Exposed as a pluggable algorithm for the SciML **Integrals.jl** ecosystem,
 and differentiable with `ForwardDiff`.
 
-[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/DECUHR.jl/)
+[![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/DECUHR.jl/stable/)
 [![Repository](https://img.shields.io/badge/GitHub-DECUHR.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/DECUHR.jl)
 
 ---
 
 ## Installation and registry
 
-TensND.jl, ChemistryLab.jl, OptimaSolver.jl, DECUHR.jl and MeanFieldHomogenization.jl are
+TensND.jl, MeanFieldHomogenization.jl, ChemistryLab.jl, OptimaSolver.jl and DECUHR.jl are
 registered in Julia's **General registry** and installed with a plain `Pkg.add` (see
 MeanFieldHomogenization.jl's [page](meanfieldhom.qmd) for details).
 

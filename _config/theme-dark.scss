@@ -10,10 +10,10 @@ $white:      $jfb-n-0;
 $body-bg:    $jfb-n-950;
 $body-color: $jfb-n-fg-dark;
 
-$primary:   $jfb-teal-300;
+$primary:   $jfb-accent-300;
 $secondary: $jfb-n-300;
 $success:   #6bc46f;
-$info:      $jfb-violet-300;
+$info:      $jfb-accent2-300;
 $warning:   #e0a649;
 $danger:    #e5716a;
 $light:     $jfb-n-800;
@@ -29,13 +29,13 @@ $headings-color:         $jfb-n-fg-dark;
 $line-height-base:       1.65;
 
 // --- Links -----------------------------------------------------------------
-$link-color:       $jfb-teal-300;
-$link-hover-color: $jfb-teal-200;
+$link-color:       $jfb-accent-300;
+$link-hover-color: $jfb-accent-200;
 
 // --- Navbar ----------------------------------------------------------------
 $navbar-bg: rgba($jfb-n-850, 0.82);
 $navbar-fg: $jfb-n-fg-dark;
-$navbar-hl: $jfb-teal-300;
+$navbar-hl: $jfb-accent-300;
 
 // --- Shape -----------------------------------------------------------------
 $border-radius:    $jfb-radius;
@@ -57,10 +57,10 @@ $border-color:     $jfb-n-700;
   --jfb-ink-muted:     #{$jfb-n-300};
   --jfb-ink-faint:     #{$jfb-n-400};
 
-  --jfb-accent:        #{$jfb-teal-300};
-  --jfb-accent-strong: #{$jfb-teal-200};
-  --jfb-accent-soft:   #{rgba($jfb-teal-300, 0.14)};
-  --jfb-accent-2:      #{$jfb-violet-300};
+  --jfb-accent:        #{$jfb-accent-300};
+  --jfb-accent-strong: #{$jfb-accent-200};
+  --jfb-accent-soft:   #{rgba($jfb-accent-300, 0.14)};
+  --jfb-accent-2:      #{$jfb-accent2-300};
 
   --jfb-nav-bg:        #{rgba($jfb-n-850, 0.82)};
   --jfb-nav-border:    #{$jfb-n-700};
@@ -70,10 +70,10 @@ $border-color:     $jfb-n-700;
   --jfb-shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.5), 0 22px 48px rgba(0, 0, 0, 0.55);
 
   // Publication family hues, lifted for a dark ground
-  --jfb-fam-journal:    #{$jfb-teal-300};
-  --jfb-fam-chapter:    #{$jfb-violet-300};
-  --jfb-fam-conference: #7fa4ee;
-  --jfb-fam-talk:       #e0a649;
+  --jfb-fam-journal:    #{$jfb-accent-300};
+  --jfb-fam-chapter:    #{$jfb-accent2-300};
+  --jfb-fam-conference: #ef8a78;
+  --jfb-fam-talk:       #c39bd3;
   --jfb-fam-report:     #{$jfb-n-300};
   --jfb-fam-software:   #6bc46f;
   --jfb-fam-oa:         #f0a860;
