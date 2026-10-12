@@ -1,7 +1,7 @@
 /*-- scss:functions --*/
 
 // ---------------------------------------------------------------------------
-// Design tokens — "Slate & Cyan"
+// Design tokens — slate neutrals and two accents
 //
 // Variables only — and deliberately in the `scss:functions` layer, not
 // `scss:defaults`. Quarto merges the theme files' `defaults` layers in REVERSE
@@ -34,19 +34,73 @@ $jfb-n-900:     #0f1a24;
 $jfb-n-950:     #0b1015;
 $jfb-n-fg-dark: #e6edf3;
 
-// --- Accent: cyan-teal -----------------------------------------------------
-$jfb-teal-50:   #e3f5f7;
-$jfb-teal-200:  #7fdde4;
-$jfb-teal-300:  #45c8d2;
-$jfb-teal-400:  #2fb6c2;
-$jfb-teal-500:  #159aa6;
-$jfb-teal-600:  #0e7c86;   // 5.0:1 on white
-$jfb-teal-700:  #0a5c64;
-$jfb-teal-900:  #063e44;
+// --- Accents ----------------------------------------------------------------
+// One palette is active; the others are kept, commented out, as ready-made
+// alternatives: to switch, comment the active block and uncomment another.
+// Every palette defines the same names:
+//   $jfb-accent-50 … 900  the main accent (links, buttons, banners), from the
+//                         light theme's soft tint (50) to its strongest (900);
+//                         the dark theme uses 200 and 300;
+//   $jfb-accent2-300      the secondary accent on a dark ground;
+//   $jfb-accent2-500      the secondary accent of figures on a light ground
+//                         (fills, strokes: at least 3:1 on white);
+//   $jfb-accent2-700      the same hue for text on a light ground (at least
+//                         4.5:1 on white).
+// The publication family hues in theme-light.scss and theme-dark.scss were
+// chosen to stay apart from the active palette: look at them again after a
+// switch.
 
-// --- Secondary accent: violet (echoes the Julia mark) ----------------------
-$jfb-violet-300: #c69be4;
-$jfb-violet-600: #7a46a0;
+// Petrol & Gold (active)
+$jfb-accent-50:   #e6eff3;
+$jfb-accent-200:  #a3c8da;
+$jfb-accent-300:  #76b0cc;
+$jfb-accent-400:  #4a8cab;
+$jfb-accent-500:  #2f7090;
+$jfb-accent-600:  #235a76;   // 7.5:1 on white
+$jfb-accent-700:  #1a465d;
+$jfb-accent-900:  #102e3e;
+$jfb-accent2-300: #e5bd5a;
+$jfb-accent2-500: #a77a12;   // 3.9:1 on white
+$jfb-accent2-700: #94690c;   // 4.9:1 on white
+
+// Navy & Copper
+// $jfb-accent-50:   #e8f0fa;
+// $jfb-accent-200:  #a7c7ef;
+// $jfb-accent-300:  #78aee9;
+// $jfb-accent-400:  #4b8fd9;
+// $jfb-accent-500:  #2c72c0;
+// $jfb-accent-600:  #1d5aa0;   // 7.0:1 on white
+// $jfb-accent-700:  #164680;
+// $jfb-accent-900:  #0d2d55;
+// $jfb-accent2-300: #f2a067;
+// $jfb-accent2-500: #b5541c;   // 4.9:1 on white
+// $jfb-accent2-700: #b5541c;
+
+// Prussian blue & Brick
+// $jfb-accent-50:   #e7edf7;
+// $jfb-accent-200:  #b0c4ea;
+// $jfb-accent-300:  #8eaee6;
+// $jfb-accent-400:  #5a82cc;
+// $jfb-accent-500:  #3a63b0;
+// $jfb-accent-600:  #284d93;   // 8.2:1 on white
+// $jfb-accent-700:  #1e3b73;
+// $jfb-accent-900:  #13264b;
+// $jfb-accent2-300: #ef8a78;
+// $jfb-accent2-500: #a83a2c;   // 6.4:1 on white
+// $jfb-accent2-700: #a83a2c;
+
+// Cyan-teal & Violet (the palette of 2025-09 to 2026-10)
+// $jfb-accent-50:   #e3f5f7;
+// $jfb-accent-200:  #7fdde4;
+// $jfb-accent-300:  #45c8d2;
+// $jfb-accent-400:  #2fb6c2;
+// $jfb-accent-500:  #159aa6;
+// $jfb-accent-600:  #0e7c86;   // 5.0:1 on white
+// $jfb-accent-700:  #0a5c64;
+// $jfb-accent-900:  #063e44;
+// $jfb-accent2-300: #c69be4;
+// $jfb-accent2-500: #7a46a0;   // 6.5:1 on white
+// $jfb-accent2-700: #7a46a0;
 
 // --- Julia brand colors, kept for the software section ---------------------
 $julia-blue:    #4063d8;

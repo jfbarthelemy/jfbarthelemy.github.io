@@ -178,7 +178,7 @@ main.content.column-page {
   }
 }
 
-// In dark mode the accent is a light cyan, so primary buttons need dark text.
+// In dark mode the accent is a light tint, so primary buttons need dark text.
 :root[data-bs-theme="dark"] .btn-jfb-primary,
 .quarto-dark .btn-jfb-primary {
   color: var(--jfb-bg) !important;
@@ -1034,7 +1034,7 @@ main.content:has(.hero) .quarto-title-block .quarto-title .title {
   display: inline-block;
 }
 
-// The teal ellipse rests visible: invisible until hovered, nobody ever
+// The accent ellipse rests visible: invisible until hovered, nobody ever
 // discovers it, and the target is only as wide as the name.
 main.content:has(.hero) .quarto-title .title::before,
 main.content:has(.hero) .quarto-title .title::after {
@@ -1050,7 +1050,7 @@ main.content:has(.hero) .quarto-title .title::after {
   z-index: -1;
 }
 
-// The violet one only comes in on hover — that is the movement.
+// The secondary one only comes in on hover — that is the movement.
 main.content:has(.hero) .quarto-title .title::after {
   inset: -0.29em -0.7em;
   border-color: color-mix(in srgb, var(--jfb-accent-2) 70%, transparent);
