@@ -1474,6 +1474,20 @@ canvas.jfb-page-logo.echoes-viewer {
   }
 }
 
+// Marks under a slider: zero-width boxes spread from one end of the thumb's
+// travel to the other, each label centered on its own position.
+.hom-slider-scale {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0.5rem;
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: var(--jfb-ink-faint);
+
+  span { display: flex; justify-content: center; width: 0; white-space: nowrap; }
+}
+
 .hom-slider-head {
   display: flex;
   justify-content: space-between;

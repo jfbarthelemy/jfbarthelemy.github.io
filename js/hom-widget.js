@@ -68,6 +68,9 @@
   // At φ = 0 its roots are 1 and a negative one, and A, C keep opposite signs
   // over the whole range, so the positive root is the estimate.
   function gsc_shear(m, i, phi) {
+    // At φ = 1 the coefficients cancel down to the root, losing up to eight
+    // digits at a contrast of 10⁴; the limit is the inclusion itself.
+    if (phi >= 1) return i.mu;
     var nm = nu_of(m), ni = nu_of(i), g = i.mu / m.mu, g1 = g - 1;
     var e1 = g1 * (49 - 50 * ni * nm) + 35 * g * (ni - 2 * nm) + 35 * (2 * ni - nm);
     var e2 = 5 * ni * (g - 8) + 7 * (g + 4);
@@ -170,9 +173,11 @@
     return e;
   }
 
+  // Three significant digits below 100, so that a contrast of 1/10⁴ does not
+  // read 0.000.
   function fmt(v) {
     if (!isFinite(v)) return "—";
-    return v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(v >= 1 ? 2 : 3);
+    return v >= 100 ? v.toFixed(0) : v >= 1 ? v.toFixed(v >= 10 ? 1 : 2) : v.toPrecision(3);
   }
 
   // Ticks of a linear axis: a step of 1, 2 or 5 times a power of ten, about
@@ -188,14 +193,15 @@
   }
 
   // Ticks of a logarithmic axis: 1, 2 and 5 in every decade, the decades
-  // drawn solid.
+  // drawn solid. Over more than two decades only the decades are labeled.
   function logTicks(y0, y1) {
-    var ticks = [];
+    var ticks = [], wide = Math.log10(y1 / y0) > 2.5;
     for (var d = Math.floor(Math.log10(y0)); d <= Math.ceil(Math.log10(y1)); d++) {
       [1, 2, 5].forEach(function (mant) {
         var v = mant * Math.pow(10, d);
         if (v < y0 || v > y1) return;
-        ticks.push({ v: v, label: String(+v.toPrecision(v >= 1 ? 3 : 2)), major: mant === 1 });
+        var label = wide && mant !== 1 ? "" : String(+v.toPrecision(v >= 1 ? 3 : 2));
+        ticks.push({ v: v, label: label, major: mant === 1 });
       });
     }
     return ticks;
@@ -207,12 +213,17 @@
     var form = el("div", { class: "hom-controls" }, mount);
     var uid = Math.random().toString(36).slice(2, 7);
 
-    function slider(id, label, min, max, step, value, show) {
+    function slider(id, label, min, max, step, value, show, marks) {
       var wrap = el("label", { class: "hom-slider", for: id }, form);
       var head = el("span", { class: "hom-slider-head" }, wrap);
       el("span", { class: "hom-slider-label" }, head).innerHTML = label;
       var out = el("output", { for: id }, head);
       var input = el("input", { type: "range", id: id, min: min, max: max, step: step, value: value }, wrap);
+      // Evenly spaced marks under the track, to show how the slider reads.
+      if (marks) {
+        var row = el("span", { class: "hom-slider-scale", "aria-hidden": "true" }, wrap);
+        marks.forEach(function (m) { el("span", {}, row, m); });
+      }
       function sync() { out.textContent = show(+input.value); }
       input.addEventListener("input", function () { sync(); update(); });
       sync();
@@ -220,10 +231,11 @@
     }
 
     var sPhi = slider("hom-phi-" + uid, "Inclusion volume fraction <i>φ</i>", 0, 1, 0.01, 0.3, function (v) { return v.toFixed(2); });
-    var sC = slider("hom-c-" + uid, "Stiffness contrast <i>E</i><sub>i</sub>/<i>E</i><sub>m</sub>", -2, 2, 0.05, 1, function (v) {
+    // The contrast slider moves the decimal logarithm of Eᵢ/Eₘ, from 10⁻⁴ to 10⁴.
+    var sC = slider("hom-c-" + uid, "Stiffness contrast <i>E</i><sub>i</sub>/<i>E</i><sub>m</sub>", -4, 4, 0.05, 1, function (v) {
       var c = Math.pow(10, v);
       return c >= 1 ? fmt(c) : "1/" + fmt(1 / c);
-    });
+    }, ["10⁻⁴", "10⁻²", "1", "10²", "10⁴"]);
     var sNm = slider("hom-nm-" + uid, "Poisson ratio of the matrix <i>ν</i><sub>m</sub>", 0, 0.49, 0.01, 0.2, function (v) { return v.toFixed(2); });
     var sNi = slider("hom-ni-" + uid, "Poisson ratio of the inclusions <i>ν</i><sub>i</sub>", 0, 0.49, 0.01, 0.2, function (v) { return v.toFixed(2); });
 
@@ -325,13 +337,19 @@
       // Curves. A value with no Young's modulus breaks the line; one beyond
       // the axis is held a little outside it and clipped, so that the line
       // leaves the plot with its own slope.
-      var N = 120, pts = {};
-      for (var j = 0; j <= N; j++) {
-        var f = j / N, e = estimates(m, inc, f);
+      // A uniform grid, refined geometrically toward both ends: at a high
+      // contrast the far bound leaves φ = 0, and the estimates reach φ = 1,
+      // almost vertically.
+      var N = 120, grid = [], pts = {};
+      for (var j = 0; j <= N; j++) grid.push(j / N);
+      [1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3].forEach(function (g) { grid.push(g, 1 - g); });
+      grid.sort(function (a, b) { return a - b; });
+      grid.forEach(function (f) {
+        var e = estimates(m, inc, f);
         for (var key in e) {
           (pts[key] = pts[key] || []).push(e[key] > 0 && isFinite(e[key]) ? [X(f), Math.max(top - H, Math.min(bottom + H, Y(e[key])))] : null);
         }
-      }
+      });
       function line(p) {
         var d = "", pen = false;
         p.forEach(function (q) {
