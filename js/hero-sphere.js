@@ -5,10 +5,10 @@
 // penny-shaped cracks — in the two accent colors of the theme, and turns
 // slowly. Every ten seconds the inclusions melt into the matrix and the sphere
 // becomes its effective medium: one uniform tint, the volume average of the
-// colors of its phases. The melting comes in two overlapping stages, as the 2D
-// disk it replaces did: the inclusions first lose their colors to the
-// effective tint, then the medium closes over them. The sphere then comes back
-// the other way, as a new realization of the same random medium.
+// colors of its phases. As in the 2D disk it replaces, the inclusions keep
+// their colors and fade out, dissolving into the mass while the matrix
+// thickens into the effective medium; the sphere then comes back the other
+// way, as a new realization of the same random medium.
 //
 // Loaded on demand by the hero module of _config/motion.html, whose helpers it
 // uses. It draws with plain WebGL and the lighting of js/echoes-viewer.js; with
@@ -20,10 +20,9 @@
   var M = window.jfbMotion;
   if (!M) return;
 
-  var CYCLE = 10;          // seconds, split as below
-  var TINT = [3, 5.5, 8.4, 10];    // the inclusions take the effective tint, and lose it
-  var CLOSE = [3.8, 6.2, 7.6, 9.4]; // the medium closes over them, and opens again
-  var SWAP = 6.9;          // the next realization is drawn while the sphere is uniform
+  var CYCLE = 10;          // seconds
+  var MELT = [3.4, 6.4, 7.6, 9.9];  // the inclusions dissolve, and come back
+  var SWAP = 7;            // the next realization is drawn while the sphere is uniform
   var TURN = 36;           // seconds per turn
   var TILT = 0.35;         // rad: the axis of rotation leans toward the reader
   var SEED = 1949;
@@ -203,11 +202,12 @@
   ].join("\n");
 
   // Lambert plus a GGX highlight, as in js/echoes-viewer.js; the color is the
-  // inclusion's phase, drawn toward the effective tint as uMelt goes to 1.
+  // inclusion's phase. uAlpha (premultiplied) is 1 except where the layer
+  // cannot be used (see below).
   var FS_INCLUSION = [
     "precision mediump float;",
     "varying vec3 vN; varying float vPhase;",
-    "uniform vec3 uLight; uniform vec3 uPhase0; uniform vec3 uPhase1; uniform vec3 uTint; uniform float uMelt;",
+    "uniform vec3 uLight; uniform vec3 uPhase0; uniform vec3 uPhase1; uniform float uAlpha;",
     "void main() {",
     "  vec3 N = normalize(vN); if (N.z < 0.0) N = -N;",
     "  vec3 L = normalize(uLight); vec3 V = vec3(0.0, 0.0, 1.0); vec3 H = normalize(L + V);",
@@ -217,16 +217,15 @@
     "  float D = a2 / (3.14159 * d * d);",
     "  float F = 0.04 + 0.96 * pow(1.0 - max(dot(H, V), 0.0), 5.0);",
     "  float spec = 0.75 * D * F / (4.0 * nv);",
-    "  vec3 c = mix(mix(uPhase0, uPhase1, vPhase), uTint, uMelt);",
-    "  gl_FragColor = vec4(c * (0.2 + 0.85 * nl) + vec3(min(spec, 1.2) * nl), 1.0);",
+    "  vec3 c = mix(uPhase0, uPhase1, vPhase);",
+    "  gl_FragColor = vec4(c * (0.2 + 0.85 * nl) + vec3(min(spec, 1.2) * nl), 1.0) * uAlpha;",
     "}"
   ].join("\n");
 
   // The matrix. As glass (uSolid = 0) it is a veil of the matrix color, denser
   // toward the rim, where it takes the page's ink so that it reads on either
   // ground; as the effective medium (uSolid = 1) it is an opaque, lit sphere of
-  // the effective tint, which hides the inclusions behind it. Premultiplied
-  // alpha.
+  // the effective tint. Premultiplied alpha.
   var FS_MEDIUM = [
     "precision mediump float;",
     "varying vec3 vN;",
@@ -248,7 +247,23 @@
 
   var ATTRIBUTES = [["pos", 0, 3, "aPos"], ["nor", 1, 3, "aNor"], ["phase", 2, 1, "aPhase"]];
 
-  function program(gl, fs) {
+  // The inclusion layer laid over the matrix: a square covering the canvas,
+  // read with the alpha of the stage. Premultiplied alpha.
+  var VS_LAYER = [
+    "attribute vec2 aCorner; varying vec2 vUV;",
+    "void main() { vUV = aCorner * 0.5 + 0.5; gl_Position = vec4(aCorner, 0.0, 1.0); }"
+  ].join("\n");
+
+  var FS_LAYER = [
+    "precision mediump float;",
+    "varying vec2 vUV; uniform sampler2D uLayer; uniform float uAlpha;",
+    "void main() { gl_FragColor = texture2D(uLayer, vUV) * uAlpha; }"
+  ].join("\n");
+
+  var UNIFORMS = ["uRot", "uScale", "uLight", "uPhase0", "uPhase1", "uAlpha", "uInk", "uMatrix",
+    "uTint", "uBase", "uRim", "uSolid", "uLayer"];
+
+  function program(gl, vs, fs, attributes) {
     function sh(type, src) {
       var s = gl.createShader(type);
       gl.shaderSource(s, src);
@@ -257,15 +272,73 @@
       return s;
     }
     var p = gl.createProgram();
-    gl.attachShader(p, sh(gl.VERTEX_SHADER, VS));
+    gl.attachShader(p, sh(gl.VERTEX_SHADER, vs));
     gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs));
-    ATTRIBUTES.forEach(function (a) { gl.bindAttribLocation(p, a[1], a[3]); });
+    attributes.forEach(function (a) { gl.bindAttribLocation(p, a[1], a[3]); });
     gl.linkProgram(p);
     if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
-    var names = ["uRot", "uScale", "uLight", "uPhase0", "uPhase1", "uMelt", "uInk", "uMatrix", "uTint", "uBase", "uRim", "uSolid"];
     var u = {};
-    names.forEach(function (n) { u[n] = gl.getUniformLocation(p, n); });
+    UNIFORMS.forEach(function (n) { u[n] = gl.getUniformLocation(p, n); });
     return { id: p, u: u };
+  }
+
+  // An offscreen layer for the inclusions, so that they fade out as one body:
+  // drawn opaque at twice the canvas resolution, since WebGL 1 has no
+  // multisampling offscreen, then laid over the matrix, where the bilinear
+  // read at each pixel center averages a 2×2 block. Null if the platform
+  // refuses it, in which case each inclusion fades on its own.
+  function Layer(gl) {
+    var tex = gl.createTexture(), depth = gl.createRenderbuffer(), fbo = gl.createFramebuffer();
+    var corners = gl.createBuffer(), side = 0;
+    gl.bindBuffer(gl.ARRAY_BUFFER, corners);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var limit = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE), gl.getParameter(gl.MAX_RENDERBUFFER_SIZE), 2048);
+
+    function resize(n) {
+      side = n;
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, n, n, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
+      gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, n, n);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depth);
+      return gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+    }
+
+    if (!resize(Math.min(512, limit))) {
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      return null;
+    }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    return {
+      // Render into the layer, sized for a canvas of `size` pixels.
+      begin: function (size) {
+        var n = Math.min(2 * size, limit);
+        if (n !== side) resize(n);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.viewport(0, 0, n, n);
+      },
+      // Back to the canvas, and lay the layer over it.
+      end: function (prog, size, alpha) {
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.viewport(0, 0, size, size);
+        gl.useProgram(prog.id);
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.uniform1i(prog.u.uLayer, 0);
+        gl.uniform1f(prog.u.uAlpha, alpha);
+        ATTRIBUTES.forEach(function (a) { gl.disableVertexAttribArray(a[1]); });
+        gl.bindBuffer(gl.ARRAY_BUFFER, corners);
+        gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+    };
   }
 
   // Meshes go up in batches of fewer than 65,536 vertices (WebGL 1 indices are
@@ -346,10 +419,12 @@
     var attrs = { antialias: true, premultipliedAlpha: true, alpha: true };
     var gl = canvas.getContext("webgl", attrs) || canvas.getContext("experimental-webgl", attrs);
     if (!gl) return;
-    var pIncl, pMedium;
+    var pIncl, pMedium, pLayer, layer;
     try {
-      pIncl = program(gl, FS_INCLUSION);
-      pMedium = program(gl, FS_MEDIUM);
+      pIncl = program(gl, VS, FS_INCLUSION, ATTRIBUTES);
+      pMedium = program(gl, VS, FS_MEDIUM, ATTRIBUTES);
+      pLayer = program(gl, VS_LAYER, FS_LAYER, [["corner", 0, 2, "aCorner"]]);
+      layer = Layer(gl);
     } catch (err) {
       if (window.console) console.warn("hero sphere:", err);
       return;
@@ -406,37 +481,52 @@
 
       var phase = t % CYCLE;
       realize(Math.floor((t + CYCLE - SWAP) / CYCLE));
-      // Each stage goes from 0 (heterogeneous) to 1 (homogenized) and back.
-      var melt = stage(phase, TINT), h = stage(phase, CLOSE);
+      // 0 while heterogeneous, 1 once homogenized.
+      var h = stage(phase, MELT);
       var rot = rotation(2 * Math.PI * t / TURN, TILT), scale = 0.96;
 
       gl.viewport(0, 0, size, size);
       gl.clearColor(0, 0, 0, 0);
-      // clear() honors the depth mask, which the matrix pass leaves off.
-      gl.depthMask(true);
-      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      gl.enable(gl.DEPTH_TEST);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.disable(gl.DEPTH_TEST);
 
-      if (h < 1) {
-        gl.disable(gl.BLEND);
+      // The matrix, back half: glass.
+      drawMatrix(rot, scale, gl.FRONT, 0);
+
+      // The inclusions, fading out as one body over it.
+      var alpha = 1 - h;
+      if (alpha > 0) {
+        var fading = alpha < 1;
+        if (fading && layer) layer.begin(size);
+        if (fading && layer) gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.depthMask(true);
+        gl.clear(gl.DEPTH_BUFFER_BIT);
+        gl.enable(gl.DEPTH_TEST);
         gl.disable(gl.CULL_FACE);
+        if (fading && !layer) gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        else gl.disable(gl.BLEND);
         gl.useProgram(pIncl.id);
         gl.uniformMatrix3fv(pIncl.u.uRot, false, rot);
         gl.uniform1f(pIncl.u.uScale, scale);
         gl.uniform3fv(pIncl.u.uLight, light);
         gl.uniform3fv(pIncl.u.uPhase0, palette.phases[0]);
         gl.uniform3fv(pIncl.u.uPhase1, palette.phases[1]);
-        gl.uniform3fv(pIncl.u.uTint, tint);
-        gl.uniform1f(pIncl.u.uMelt, melt);
+        gl.uniform1f(pIncl.u.uAlpha, fading && !layer ? alpha : 1);
         draw(gl, bIncl);
+        gl.disable(gl.DEPTH_TEST);
+        gl.enable(gl.BLEND);
+        if (fading && layer) layer.end(pLayer, size, alpha);
       }
 
-      // The matrix: its back half as glass, then its front half over the
-      // inclusions, turning from glass into the effective medium.
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-      gl.depthMask(false);
+      // The matrix, front half: from glass to the effective medium.
+      drawMatrix(rot, scale, gl.BACK, h);
+    }
+
+    function drawMatrix(rot, scale, cull, solid) {
       gl.enable(gl.CULL_FACE);
+      gl.cullFace(cull);
       gl.useProgram(pMedium.id);
       gl.uniformMatrix3fv(pMedium.u.uRot, false, rot);
       gl.uniform1f(pMedium.u.uScale, scale);
@@ -446,11 +536,8 @@
       gl.uniform3fv(pMedium.u.uTint, tint);
       gl.uniform1f(pMedium.u.uBase, palette.base);
       gl.uniform1f(pMedium.u.uRim, palette.rim);
-      [[gl.FRONT, 0], [gl.BACK, h]].forEach(function (pass) {
-        gl.cullFace(pass[0]);
-        gl.uniform1f(pMedium.u.uSolid, pass[1]);
-        draw(gl, bGlass);
-      });
+      gl.uniform1f(pMedium.u.uSolid, solid);
+      draw(gl, bGlass);
     }
 
     readTheme();
