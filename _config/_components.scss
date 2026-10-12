@@ -1416,8 +1416,8 @@ canvas.jfb-page-logo.echoes-viewer {
   .jfb-banner-motif { width: 70%; opacity: 0.32; }
 }
 
-// --- Hero: the RVE behind the portrait ---------------------------------------
-// The figure is the grid item in place of the portrait; the disk sits behind
+// --- Hero: the sphere behind the portrait (js/hero-sphere.js) ---------------
+// The figure is the grid item in place of the portrait; the sphere sits behind
 // the portrait, up and to the left, never past the edge of the page.
 .hero-figure {
   position: relative;
@@ -1425,22 +1425,22 @@ canvas.jfb-page-logo.echoes-viewer {
   isolation: isolate;
 }
 
-.hero-rve {
+.hero-sphere {
   position: absolute;
   z-index: -1;
   width: 140%;
   aspect-ratio: 1;
   left: -58%;
   top: -36%;
-  opacity: 0.62;
+  opacity: 0.8;
   pointer-events: none;
 }
 
 @media (max-width: $jfb-bp-md) {
   // The portrait comes first, alone on its row, against the left gutter:
-  // the disk goes to its right.
+  // the sphere goes to its right.
   .hero-figure { order: -1; }
-  .hero-rve { left: 42%; top: -14%; width: 128%; }
+  .hero-sphere { left: 42%; top: -14%; width: 128%; }
 }
 
 // --- Homogenization widget (js/hom-widget.js) --------------------------------

@@ -8,8 +8,8 @@ project:
     - files/
     # Loaded by _config/motion.html, never referenced from a page, so Quarto
     # would not copy them: the scripts loaded on demand (the echoes viewer, the
-    # homogenization widget), the data the echoes viewer draws, and the
-    # animated variants of the package logos.
+    # sphere behind the portrait, the homogenization widget), the data the
+    # echoes viewer draws, and the animated variants of the package logos.
     - js/
     - images/echoes_scene.json
     - images/anim/
