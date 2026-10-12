@@ -3,8 +3,8 @@
     "listing": "/software.html",
     "items": [
       "/software/tensnd.html",
-      "/software/chemistrylab.html",
       "/software/meanfieldhom.html",
+      "/software/chemistrylab.html",
       "/software/optimasolver.html",
       "/software/decuhr.html",
       "/software/echoes.html"

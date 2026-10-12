@@ -49,9 +49,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a9639fbe16bf9af808bf1dcfd0669bab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-62e8269002af85d73c5524bfb2c668ca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-a9639fbe16bf9af808bf1dcfd0669bab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2294ff6f2d09ccf3b1fc22c55e9a51ab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-13c26137efe912abbe4ae38ca3f57f62.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-2294ff6f2d09ccf3b1fc22c55e9a51ab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -438,8 +438,9 @@ ul.task-list li input[type="checkbox"] {
 //     again when the reader switches between the light and the dark theme;
 //   - each module is inert when the element it enhances is not on the page.
 //
-// The two heavier pieces — the echoes viewer and the homogenization widget —
-// are separate scripts under js/, loaded only on the page that uses them.
+// The three heavier pieces — the echoes viewer, the sphere behind the portrait
+// and the homogenization widget — are separate scripts under js/, loaded only
+// on the page that uses them.
 (function () {
   "use strict";
 
@@ -985,118 +986,12 @@ ul.task-list li input[type="checkbox"] {
   }
 
   // ── Hero: a medium being homogenized ────────────────────────────────────────
-  // Behind the portrait, a disk of heterogeneous material — inclusions of
-  // varied shapes, turning slowly — melts into its effective medium: as the
-  // inclusions fade, the ground takes on the area average of the colors shown,
-  // and once they are gone the disk is uniformly that tint. It then comes back
-  // as a new realization of the same random medium. The inclusions cover about
-  // a third of the disk, so that the effective tint is clearly not the
-  // matrix's. A cycle takes ten seconds.
-  var CYCLE = 10;
-
+  // Behind the portrait, a sphere of heterogeneous material turns slowly and,
+  // every ten seconds, melts into its effective medium (js/hero-sphere.js).
   function hero() {
     var portrait = document.querySelector(".hero .hero-portrait");
-    if (!portrait) return;
-    var figure = document.createElement("span");
-    figure.className = "hero-figure";
-    portrait.parentNode.insertBefore(figure, portrait);
-    figure.appendChild(portrait);
-    var canvas = document.createElement("canvas");
-    canvas.className = "hero-rve";
-    canvas.setAttribute("aria-hidden", "true");
-    figure.insertBefore(canvas, portrait);
-    var ctx = canvas.getContext("2d");
-    var rand = M.random(1949), realization = null, next = null, palette = null;
-
-    function medium() {
-      return M.rsa(rand, 44, 8000, function (r) {
-        var k = r(), a, b;
-        if (k < 0.34) { a = 0.09 + 0.08 * r(); b = a; }                          // sphere
-        else if (k < 0.68) { a = 0.12 + 0.08 * r(); b = a * (0.5 + 0.2 * r()); }   // spheroid
-        else if (k < 0.9) { a = 0.15 + 0.08 * r(); b = a / (3 + 2 * r()); }        // fiber
-        else { a = 0.12 + 0.05 * r(); b = 0.014; }                               // crack
-        var rho = Math.sqrt(r()) * (0.93 - a), th = 2 * Math.PI * r();
-        return {
-          x: rho * Math.cos(th), y: rho * Math.sin(th), a: a, b: b, t: Math.PI * r(),
-          w: (r() - 0.5) * 0.5, c: r() < 0.55 ? 0 : 1
-        };
-      }, 0.016);
-    }
-
-    function readTheme() {
-      palette = {
-        matrix: M.mix(M.rgb("surface-2"), M.rgb("accent"), 0.06),
-        phases: [M.rgb("accent"), M.rgb("accent-2")],
-        edge: M.rgb("border-strong")
-      };
-    }
-
-    // The color an inclusion is drawn with: its phase at 90 % over the matrix.
-    function shade(s) { return M.mix(palette.matrix, palette.phases[s.c], 0.9); }
-
-    function effective(set) {
-      var sum = [0, 0, 0], phi = 0;
-      set.forEach(function (s) {
-        var area = s.a * s.b;            // π a b / π R², with R = 1
-        var c = shade(s);
-        sum = sum.map(function (v, k) { return v + area * c[k]; });
-        phi += area;
-      });
-      return sum.map(function (v, k) { return v + (1 - phi) * palette.matrix[k]; });
-    }
-
-    function paint(t) {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var size = canvas.clientWidth;
-      if (!size) return;
-      if (canvas.width !== Math.round(size * dpr)) {
-        canvas.width = canvas.height = Math.round(size * dpr);
-      }
-      var R = canvas.width / 2;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.setTransform(R, 0, 0, R, R, R);
-
-      var phase = t % CYCLE;
-      // 0–4 s heterogeneous, 4–6 s melting, 6–8 s effective, 8–10 s back.
-      var shown = 1 - M.ease(M.span(phase, 4, 6)) + M.ease(M.span(phase, 8, 10));
-      if (phase >= 8 && !next) next = medium();
-      if (phase < 8 && next) { realization = next; next = null; }
-      var set = phase >= 8 ? next : realization;
-      var eff = effective(set);
-      var ground = M.mix(palette.matrix, eff, 1 - shown);
-
-      ctx.beginPath();
-      ctx.arc(0, 0, 1 - 1.5 / R, 0, 2 * Math.PI);
-      ctx.fillStyle = M.cssColor(ground);
-      ctx.fill();
-      ctx.lineWidth = 1.5 / R;
-      ctx.strokeStyle = M.cssColor(palette.edge, 0.9);
-      ctx.stroke();
-
-      set.forEach(function (s) {
-        ctx.save();
-        ctx.translate(s.x, s.y);
-        ctx.rotate(s.t + s.w * t);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, s.a, s.b, 0, 0, 2 * Math.PI);
-        ctx.fillStyle = M.cssColor(shade(s), shown);
-        ctx.fill();
-        ctx.restore();
-      });
-    }
-
-    readTheme();
-    realization = medium();
-    var clock = 0;
-    M.onTheme(function () { readTheme(); paint(clock); });
-    if ("ResizeObserver" in window) new ResizeObserver(function () { paint(clock); }).observe(canvas);
-    paint(0);
-    if (M.calm) return;
-    var loop = M.loop(canvas, function (dt) { clock += dt; paint(clock); return true; }, 30);
-    loop.start();
-    // Deterministic frames for the GIF/MP4 exporter.
-    M.heroFrame = function (seconds) { clock = seconds; paint(clock); };
+    if (!portrait || !window.WebGLRenderingContext || !("ResizeObserver" in window)) return;
+    M.loadScript("js/hero-sphere.js", function () { if (M.heroSphere) M.heroSphere(portrait); });
   }
 
   // ── Homogenization widget ───────────────────────────────────────────────────
