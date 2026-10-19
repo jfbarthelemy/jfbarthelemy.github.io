@@ -49,9 +49,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-35d5c5bc2bef3c6711820de45c04c7fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-5512526b5e62c025deb11395318ba973.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-35d5c5bc2bef3c6711820de45c04c7fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0f82bfc15d297387beb111e0cd105a1e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fbf65cc373a87541868533c0c71c8944.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-0f82bfc15d297387beb111e0cd105a1e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/iconify-2.1.0/iconify-icon.min.js"></script>
 <link href="site_libs/quarto-contrib/academicons-1.9.4/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/academicons-1.9.4/size.css" rel="stylesheet">
@@ -83,16 +83,14 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Cabin+Sketch:wght@400;700&amp;display=swap">
 
 
 <meta property="og:title" content="Jean-François Barthélémy">
 <meta property="og:description" content="Researcher · Cerema / UMR MCD">
-<meta property="og:image" content="https://jfbarthelemy.github.io/images/portrait.png">
+<meta property="og:image" content="https://jfbarthelemy.github.io/images/portrait-charcoal.jpg">
 <meta property="og:site_name" content="Jean-François Barthélémy">
 <meta property="og:image:alt" content="Jean-François Barthélémy">
-<meta property="og:image:height" content="420">
-<meta property="og:image:width" content="420">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -315,6 +313,31 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
 
+<!--
+  The two SVG filters of the charcoal theme (_config/_charcoal.scss), defined
+  once per page. #jfb-line roughens a drawn line — a frame, a ring, an ellipse —
+  and lets the paper's tooth break it; #jfb-smudge does the same, more loosely,
+  for a rubbed shadow. Applied to decorative pseudo-elements only, never to
+  content: with this markup missing, the lines are merely straight. The filter
+  region is generous, below and to the right, where the cast shadows fall.
+-->
+<style>:root { --jfb-line: url(#jfb-line); --jfb-smudge-filter: url(#jfb-smudge); }</style>
+<svg class="jfb-filters" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <filter id="jfb-line" x="-12%" y="-30%" width="145%" height="230%" color-interpolation-filters="sRGB">
+    <feturbulence type="fractalNoise" basefrequency="0.022" numoctaves="1" seed="4" result="warp"></feturbulence>
+    <fedisplacementmap in="SourceGraphic" in2="warp" scale="2.4" xchannelselector="R" ychannelselector="G" result="wobble"></fedisplacementmap>
+    <feturbulence type="fractalNoise" basefrequency="0.9" numoctaves="1" seed="9" result="tooth"></feturbulence>
+    <fecolormatrix in="tooth" type="matrix" result="toothA" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.3"></fecolormatrix>
+    <fecomposite in="wobble" in2="toothA" operator="in"></fecomposite>
+  </filter>
+  <filter id="jfb-smudge" x="-15%" y="-15%" width="135%" height="140%" color-interpolation-filters="sRGB">
+    <feturbulence type="fractalNoise" basefrequency="0.018 0.06" numoctaves="3" seed="2" result="warp"></feturbulence>
+    <fedisplacementmap in="SourceGraphic" in2="warp" scale="14" xchannelselector="R" ychannelselector="G" result="wobble"></fedisplacementmap>
+    <feturbulence type="fractalNoise" basefrequency="0.7" numoctaves="1" seed="5" result="tooth"></feturbulence>
+    <fecolormatrix in="tooth" type="matrix" result="toothA" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.0 -0.2"></fecolormatrix>
+    <fecomposite in="wobble" in2="toothA" operator="in"></fecomposite>
+  </filter>
+</svg>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -346,7 +369,7 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://orcid.org/0000-0002-1968-8939"><i class="ai  ai-orcid" aria-label="orcid"></i> ORCID</a> <a href="https://github.com/jfbarthelemy"><iconify-icon role="img" inline="" icon="simple-icons:github" aria-label="Icon github from simple-icons Iconify.design set." title="Icon github from simple-icons Iconify.design set."></iconify-icon> GitHub</a> <a href="https://scholar.google.com/citations?user=RVjtCiAAAAAJ&amp;hl=en"><i class="ai  ai-google-scholar" aria-label="google-scholar"></i> Scholar</a> <a href="https://hal.archives-ouvertes.fr/search/index/?q=%2A&amp;authIdHal_s=jfbarthelemy"><i class="ai  ai-hal" aria-label="hal"></i> HAL</a> <a href="https://www.researchgate.net/profile/Jean-Francois_Barthelemy"><i class="ai  ai-researchgate" aria-label="researchgate"></i> ResearchGate</a> <a href="https://www.webofscience.com/wos/author/record/449919"><i class="ai  ai-clarivate" aria-label="clarivate"></i> Web of Science</a> <a href="https://www.linkedin.com/in/jean-fran%C3%A7ois-barth%C3%A9l%C3%A9my-75b3122/"><iconify-icon role="img" inline="" icon="devicon:linkedin" aria-label="Icon linkedin from devicon Iconify.design set." title="Icon linkedin from devicon Iconify.design set."></iconify-icon> LinkedIn</a> <a href="mailto:jf.barthelemy@cerema.fr"><iconify-icon role="img" inline="" icon="mdi:email-outline" aria-label="Icon email-outline from mdi Iconify.design set." title="Icon email-outline from mdi Iconify.design set."></iconify-icon> Email</a></p>
 </div>
 </div>
-<p><img src="images/portrait.png" class="hero-portrait img-fluid" alt="Jean-François Barthélémy"></p>
+<p><img src="images/portrait-charcoal.jpg" class="hero-portrait img-fluid" alt="Jean-François Barthélémy"></p>
 </div>
 <div class="affil-strip">
 <p><a href="https://www.cerema.fr/en"><img src="images/logo-cerema.jpg" class="affil-logo img-fluid" alt="Cerema"></a> <a href="https://mcd.univ-gustave-eiffel.fr/"><img src="images/logo-umr-mcd.png" class="affil-logo img-fluid" alt="UMR MCD — Université Gustave Eiffel"></a></p>
