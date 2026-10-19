@@ -1,0 +1,520 @@
+// ---------------------------------------------------------------------------
+// Charcoal — the site drawn on paper.
+//
+// Imported after `components` by both theme files, and written, like it,
+// against the --jfb-* custom properties alone: the light and the dark theme
+// still differ by their :root block (plus the two texture names, $jfb-paper
+// and $jfb-portrait, which each theme file sets before the import).
+//
+// What changes is the material, never the layout:
+//   - the page and every surface are paper: a tiled tooth, periodic, so the
+//     tiles never show a seam (images/charcoal/paper-*.webp);
+//   - borders become drawn lines: a pseudo-element carries the border and goes
+//     through the #jfb-line SVG filter (_config/charcoal.html), which makes it
+//     waver and lets the paper's tooth break it. The filter is named through
+//     --jfb-line, declared next to it: Quarto reads every url() of a theme as
+//     a file to copy, a fragment included;
+//   - shadows become smudges: the box-shadow of that same pseudo-element goes
+//     through the same filter, and it lengthens when a tile is lifted;
+//   - rules, the rail and the dots are masks (alpha-only PNG) painted with a
+//     theme color, so a single file serves both themes.
+// Content is never filtered — text, logos, the animated pieces and the
+// pictograms are drawn exactly as before.
+// ---------------------------------------------------------------------------
+
+$jfb-paper-url: url("#{$jfb-tex}#{$jfb-paper}");
+
+@mixin jfb-paper {
+  background-image: $jfb-paper-url;
+  background-size: 512px 512px;
+}
+
+@mixin jfb-mask($file, $position: center, $size: 100% 100%, $repeat: no-repeat) {
+  -webkit-mask: url("#{$jfb-tex}#{$file}") #{$position} / #{$size} #{$repeat};
+  mask: url("#{$jfb-tex}#{$file}") #{$position} / #{$size} #{$repeat};
+}
+
+// A frame drawn around a box, heavier on the side away from the light, with
+// its smudged shadow in two parts: $touch, short and dark, where the sheet
+// meets the paper, and $cast, wide and soft, thrown further. Hovered, the
+// sheet lifts: both lengthen, to $touch-lift and $cast-lift.
+@mixin jfb-drawn($radius: inherit,
+                 $touch: 3px 5px 6px -2px, $cast: 14px 22px 30px -10px,
+                 $touch-lift: 6px 9px 10px -3px, $cast-lift: 22px 34px 44px -14px,
+                 $widths: 1.3px 2.2px 2.6px 1.3px, $opacity: 0.72) {
+  position: relative;
+  border-color: transparent;
+  box-shadow: var(--jfb-rim);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: $radius;
+    border: solid var(--jfb-charcoal);
+    border-width: $widths;
+    opacity: $opacity;
+    box-shadow: $touch var(--jfb-smudge), $cast var(--jfb-smudge-soft);
+    filter: var(--jfb-line);
+    pointer-events: none;
+    transition: box-shadow 0.28s ease, opacity 0.28s ease;
+  }
+
+  &:hover {
+    border-color: transparent;
+    box-shadow: var(--jfb-rim);
+  }
+
+  &:hover::after {
+    box-shadow: $touch-lift var(--jfb-smudge), $cast-lift var(--jfb-smudge-soft);
+    opacity: min(1, $opacity + 0.15);
+  }
+}
+
+// A charcoal rule along one edge of a positioned box.
+@mixin jfb-rule($edge: bottom, $offset: 0, $height: 12px, $opacity: 0.5) {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  #{$edge}: $offset;
+  height: $height;
+  background-color: var(--jfb-charcoal);
+  opacity: $opacity;
+  pointer-events: none;
+  @include jfb-mask("stroke-h.webp");
+}
+
+// --- Paper, and the light on it ---------------------------------------------
+
+body {
+  @include jfb-paper;
+}
+
+// Two fixed layers between the paper and the page: the edges of the view
+// rubbed dark, the center left lit, as in a charcoal film; and a haze of smoke
+// over the whole sheet. Both sit under the content (z-index -1 in the root
+// stacking context), so a sheet laid on the page stays lit.
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+// The rubbing of the edges is the texture laid over an even tone: the share
+// of that even tone (--jfb-vignette-even) sets how much the streaks show.
+body::before {
+  background: radial-gradient(ellipse 78% 72% at 50% 40%, transparent 38%, var(--jfb-vignette) 100%);
+  -webkit-mask:
+    url("#{$jfb-tex}rub-tile#{$jfb-soft}.webp") 0 0 / 1024px 512px repeat,
+    linear-gradient(var(--jfb-vignette-even), var(--jfb-vignette-even));
+  mask:
+    url("#{$jfb-tex}rub-tile#{$jfb-soft}.webp") 0 0 / 1024px 512px repeat,
+    linear-gradient(var(--jfb-vignette-even), var(--jfb-vignette-even));
+}
+
+body::after {
+  background-color: var(--jfb-smoke);
+  -webkit-mask: url("#{$jfb-tex}smoke.webp") 0 0 / 900px 900px repeat;
+  mask: url("#{$jfb-tex}smoke.webp") 0 0 / 900px 900px repeat;
+}
+
+// A sheet laid on the page is modeled by the light: lit at its top-left,
+// shaded toward its bottom-right, on the paper's tooth.
+@mixin jfb-sheet {
+  background-color: color-mix(in srgb, var(--jfb-tint, var(--jfb-surface)) var(--jfb-tint-body), var(--jfb-surface));
+  background-image:
+    radial-gradient(120% 90% at 0% 0%, var(--jfb-glow), transparent 55%),
+    linear-gradient(150deg, transparent 40%, var(--jfb-shade) 100%),
+    $jfb-paper-url;
+  background-size: 100% 100%, 100% 100%, 512px 512px;
+}
+
+.nav-footer,
+pre {
+  @include jfb-paper;
+}
+
+.card,
+.jfb-card,
+.stat,
+.pp-card,
+.course-card,
+.hom-widget,
+.pp-featured,
+.course-current {
+  @include jfb-sheet;
+}
+
+// --- Navbar: paper, a drawn edge, and its shadow rubbed onto the page --------
+
+.navbar {
+  background-image: $jfb-paper-url !important;
+  background-size: 512px 512px !important;
+  border-bottom: 0;
+
+  &::after {
+    @include jfb-rule(bottom, -6px, 12px, 0.5);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 44px;
+    background: linear-gradient(to bottom, var(--jfb-smudge), transparent);
+    opacity: 1;
+    pointer-events: none;
+    @include jfb-mask("rub-band#{$jfb-soft}.webp", center top, 100% 360px);
+  }
+}
+
+.navbar .navbar-nav .nav-link.active::after {
+  height: 7px;
+  bottom: -0.1rem;
+  border-radius: 0;
+  background: var(--jfb-accent);
+  @include jfb-mask("stroke-h.webp");
+}
+
+// The two corners around the name in the navbar, drawn.
+.navbar .navbar-brand .navbar-title::before,
+.navbar .navbar-brand .navbar-title::after {
+  border-width: 2.4px;
+  filter: var(--jfb-line);
+}
+
+// --- Headings -----------------------------------------------------------------
+
+h2 {
+  position: relative;
+  border-bottom: 0;
+
+  &::after {
+    @include jfb-rule(bottom, -0.45rem, 12px, 0.5);
+    left: -0.25rem;
+  }
+}
+
+.pub-year h2::after { display: none; }
+
+// --- Buttons and pills ----------------------------------------------------------
+
+.btn-jfb {
+  @include jfb-paper;
+  @include jfb-drawn($radius: $jfb-radius-pill,
+                     $touch: 2px 3px 3px -1px, $cast: 6px 9px 12px -5px,
+                     $touch-lift: 3px 5px 5px -2px, $cast-lift: 10px 15px 18px -7px,
+                     $widths: 1.2px 1.8px 2.1px 1.2px, $opacity: 0.78);
+  background-color: var(--jfb-surface);
+
+  &:hover,
+  &:focus-visible {
+    border-color: transparent;
+    box-shadow: var(--jfb-rim);
+  }
+}
+
+// The primary button is colored chalk: the accent with the paper's grain in it.
+.btn-jfb-primary {
+  background-color: var(--jfb-accent);
+
+  &::after { border-color: var(--jfb-accent-strong); }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--jfb-accent-strong);
+    border-color: transparent;
+  }
+}
+
+.hero-social a {
+  @include jfb-paper;
+  @include jfb-drawn($radius: $jfb-radius-pill,
+                     $touch: 1px 2px 3px -1px, $cast: 4px 6px 9px -4px,
+                     $touch-lift: 2px 4px 4px -2px, $cast-lift: 7px 11px 14px -6px,
+                     $widths: 1px 1.5px 1.7px 1px, $opacity: 0.6);
+  background-color: var(--jfb-surface);
+
+  &:hover,
+  &:focus-visible {
+    border-color: transparent;
+    box-shadow: var(--jfb-rim);
+  }
+}
+
+// The small pills of the lists are too many to filter one by one: a charcoal
+// edge, the paper, no movement.
+.pub-tag,
+.pub-link,
+.pp-chip,
+.pub-filter,
+.pub-search,
+.quarto-listing .listing-category {
+  @include jfb-paper;
+  border-color: color-mix(in srgb, var(--jfb-charcoal) 30%, transparent);
+}
+
+.pub-filter[aria-pressed="true"],
+.pp-chip:hover {
+  @include jfb-paper;
+}
+
+// --- Drawn tiles --------------------------------------------------------------
+
+// Each tile of a grid takes the next hue of the cycle.
+@mixin jfb-tint-cycle($items, $hues) {
+  $n: length($hues);
+  @for $i from 1 through $n {
+    #{$items}:nth-child(#{$n}n + #{$i}) { --jfb-tint: var(--jfb-tint-#{nth($hues, $i)}); }
+  }
+}
+
+@include jfb-tint-cycle(".card-grid > *", (ochre, sage, rose, sky));
+@include jfb-tint-cycle(".stat-strip > .stat", (ochre, sage, rose, sky));
+@include jfb-tint-cycle(".pp-grid > .pp-card", (ochre, sage, rose, sky));
+@include jfb-tint-cycle(".quarto-listing .list > .g-col-1", (ochre, sage, rose));
+
+.card,
+.jfb-card,
+.stat,
+.pp-card,
+.course-card,
+.hom-widget,
+.pp-featured {
+  @include jfb-drawn;
+}
+
+// The publications toolbar stays where it is; it only gets drawn.
+.pub-toolbar {
+  @include jfb-drawn($touch: 2px 3px 4px -2px, $cast: 6px 10px 16px -8px,
+                     $touch-lift: 2px 3px 4px -2px, $cast-lift: 6px 10px 16px -8px, $opacity: 0.6);
+  position: sticky;
+}
+
+// The current course keeps its accent bar, now a stroke of colored chalk.
+.course-current {
+  @include jfb-drawn;
+  border-left-color: transparent;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    bottom: 0.3rem;
+    left: -2px;
+    width: 9px;
+    background-color: var(--jfb-accent);
+    pointer-events: none;
+    @include jfb-mask("stroke-v.webp", center top, 9px 600px, repeat-y);
+  }
+}
+
+// Software listing: the logo area is set off by a drawn line, not a border,
+// and by its tint — warm, never the sky, which the gray-blue of the logos
+// would melt into.
+.quarto-listing .card-img-top {
+  position: relative;
+  border-bottom: 0;
+  background-color: color-mix(in srgb, var(--jfb-tint, var(--jfb-tint-ochre)) var(--jfb-tint-logo), var(--jfb-surface));
+  @include jfb-paper;
+
+  &::after { @include jfb-rule(bottom, -5px, 10px, 0.45); }
+}
+
+// --- Home ---------------------------------------------------------------------
+
+// The two washes behind the hero become charcoal smudges, the accents only as
+// colored dust in them. Same box, same drift, same vertical fade.
+.hero::before {
+  opacity: 0.75;
+  background-color: var(--jfb-rub);
+  background-image:
+    radial-gradient(40% 58% at 16% 28%,
+      color-mix(in srgb, var(--jfb-accent) 16%, transparent), transparent 72%),
+    radial-gradient(34% 48% at 80% 12%,
+      color-mix(in srgb, var(--jfb-accent-2) 14%, transparent), transparent 72%);
+  -webkit-mask-image: url("#{$jfb-tex}smudges#{$jfb-soft}.webp"),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-image: url("#{$jfb-tex}smudges#{$jfb-soft}.webp"),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 74%, transparent 100%);
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  mask-composite: intersect;
+}
+
+// The name stands slightly off the paper, and its ellipses are drawn.
+main.content:has(.hero) .quarto-title-block .quarto-title .title {
+  text-shadow: 0.03em 0.045em 0.05em var(--jfb-smudge),
+               0.08em 0.12em 0.18em var(--jfb-smudge-soft);
+}
+
+main.content:has(.hero) .quarto-title .title::before,
+main.content:has(.hero) .quarto-title .title::after {
+  border-width: 2.6px;
+  filter: var(--jfb-line);
+}
+
+// The portrait: the charcoal drawing of the theme, a drawn ring, and the
+// shadow the disc casts on the paper (over the sphere, which is behind it).
+.hero-portrait {
+  content: url("#{$jfb-img}#{$jfb-portrait}");
+  border: 0;
+  background: var(--jfb-surface-2);
+  box-shadow: 4px 6px 7px -3px var(--jfb-smudge), 14px 20px 28px -10px var(--jfb-smudge-soft);
+}
+
+.hero-figure .hero-portrait {
+  display: block;
+  box-shadow: none;
+}
+
+.hero-figure::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: solid var(--jfb-charcoal);
+  border-width: 2px 3.4px 3.8px 2px;
+  opacity: 0.85;
+  box-shadow: 5px 7px 8px -4px var(--jfb-smudge), 20px 28px 38px -14px var(--jfb-smudge-soft);
+  filter: var(--jfb-line);
+  pointer-events: none;
+}
+
+.affil-strip {
+  position: relative;
+  border-top: 0;
+
+  &::before { @include jfb-rule(top, -6px, 12px, 0.4); }
+
+  a {
+    position: relative;
+    border-radius: $jfb-radius-sm;
+    @include jfb-drawn($radius: $jfb-radius-sm,
+                       $touch: 2px 3px 4px -2px, $cast: 8px 12px 18px -8px,
+                       $touch-lift: 3px 5px 6px -3px, $cast-lift: 13px 20px 26px -10px,
+                       $widths: 1px 1.6px 1.9px 1px, $opacity: 0.55);
+  }
+}
+
+.affil-logo { border-color: transparent; }
+
+// --- Page banner: paper rubbed with the side of the stick ---------------------
+
+.quarto-title-banner {
+  background-color: var(--jfb-surface-2);
+  // lit from the upper left, sinking into shadow toward the bottom right
+  background-image:
+    radial-gradient(70% 140% at 18% 0%, var(--jfb-glow), transparent 65%),
+    linear-gradient(170deg, transparent 30%, var(--jfb-shade) 75%, var(--jfb-smudge-soft) 130%),
+    $jfb-paper-url;
+  background-size: 100% 100%, 100% 100%, 512px 512px;
+  border-bottom: 0;
+  // the band casts its shadow on the page under it (overflow clips children,
+  // not the box's own shadow)
+  box-shadow: 0 6px 7px -3px var(--jfb-smudge), 0 22px 32px -14px var(--jfb-smudge-soft);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--jfb-rub);
+    pointer-events: none;
+    @include jfb-mask("rub-band#{$jfb-soft}.webp", right bottom, cover);
+  }
+
+  &::after { @include jfb-rule(bottom, -4px, 12px, 0.55); }
+
+  .title {
+    text-shadow: 0.025em 0.04em 0.045em var(--jfb-smudge),
+                 0.07em 0.1em 0.16em var(--jfb-smudge-soft);
+  }
+}
+
+// --- Publications: a charcoal rail, chalk dots, ruled entries ------------------
+
+.pub-timeline::before {
+  left: calc(4.45rem - 4px);
+  width: 10px;
+  border-radius: 0;
+  background: var(--jfb-charcoal);
+  opacity: 0.42;
+  -webkit-mask-image: url("#{$jfb-tex}stroke-v.webp"),
+    linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+  -webkit-mask-size: 10px 600px, 100% 100%;
+  -webkit-mask-repeat: repeat-y, no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-image: url("#{$jfb-tex}stroke-v.webp"),
+    linear-gradient(to bottom, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+  mask-size: 10px 600px, 100% 100%;
+  mask-repeat: repeat-y, no-repeat;
+  mask-composite: intersect;
+}
+
+.pub-item {
+  border-bottom: 0;
+
+  &::before {
+    left: -1.5rem;
+    top: 1.1rem;
+    width: 13px;
+    height: 13px;
+    border-radius: 0;
+    box-shadow: none;
+    @include jfb-mask("dot.webp");
+  }
+
+  &::after { @include jfb-rule(bottom, -5px, 10px, 0.22); }
+  &:last-child::after { display: none; }
+}
+
+// On a wide screen the sticky year sits in the margin, where no entry passes
+// under it: no ground of its own, or it would show as a pale patch on the
+// rubbed edges of the view. On a narrow one it rides over the entries, as a
+// pill: there it is a sheet.
+.pub-year h2 { background: transparent; }
+
+@media (max-width: $jfb-bp-md) {
+  .pub-item::after { left: 0.85rem; }
+
+  .pub-year h2 {
+    background-color: var(--jfb-surface-2);
+    @include jfb-paper;
+  }
+}
+
+// --- Footer -----------------------------------------------------------------------
+
+.nav-footer {
+  position: relative;
+  border-top: 0;
+
+  &::before { @include jfb-rule(top, -6px, 12px, 0.45); }
+}
+
+// --- The big titles in charcoal ----------------------------------------------------
+// The name, the page titles, the section headings and the brand. The small
+// titles (cards, entries) and the year labels keep the display font: hatched
+// letters stop reading below this size.
+
+.quarto-title .title,
+h1,
+h2,
+.navbar .navbar-brand {
+  font-family: $jfb-font-charcoal;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.pub-year h2 {
+  font-family: $jfb-font-display;
+}

@@ -8,6 +8,7 @@ the generated files by hand.
 | `build_publications.py` | `_biblio/*.bib` (+ `postprints_data.py` for the postprint links) | standard library + the pandoc bundled with Quarto |
 | `build_postprints.py` | `postprints_data.py` | PyMuPDF (`fitz`) for the thumbnails |
 | `build_echoes_scene.py` | the echoes manual's `img/cover.html` | numpy |
+| `build_charcoal_textures.py` | seeded noise (no input) | numpy, Pillow |
 
 `make data` runs both, in the right order (the timeline reads `postprints_data.py`).
 
@@ -95,6 +96,30 @@ lies farther from its fitted surface than the printing precision (the worst resi
 
 Generated (do **not** edit by hand): `images/echoes_scene.json`.
 
+## The charcoal textures (`build_charcoal_textures.py`)
+
+The theme draws the site in charcoal (`_config/_charcoal.scss`), from textures written into
+`images/charcoal/` as lossless WebP:
+
+- `paper-light.webp`, `paper-dark.webp` — the paper's tooth, one per theme, tiled;
+- `rub-tile`, `rub-band`, `smudges` — the rubbed edges of the view, the banners and the hero's
+  two smudges, each also as a `-soft` version (the same marks blurred with the stump), used on
+  the light paper;
+- `smoke.webp` — the haze over the page, tiled;
+- `stroke-h`, `stroke-v`, `dot` — the drawn rules, the publications rail and its dots.
+
+Everything is drawn from seeded noise, so a run is reproducible. The tiled textures are built in
+Fourier space, which makes them periodic: they repeat without a seam. All but the two papers
+are masks — alpha only — that the stylesheet paints with a theme color, so one file serves both
+themes; the large ones are drawn at half the size they are shown at, without grain of their own
+(the paper gives it), which keeps the whole set under half a megabyte.
+
+```bash
+python3 _scripts/build_charcoal_textures.py
+```
+
+Generated (do **not** edit by hand): `images/charcoal/`.
+
 ## Add or update a postprint (the whole workflow)
 
 1. (Re)render the article's Quarto project so that `~/articles/<dir>/Webpublish/web/` is current.
@@ -118,6 +143,17 @@ magick _assets/originals/id_jfb_cartoon.png -resize 256x256\! -background transp
        -define icon:auto-resize=64,48,32,24,16 images/favicon.ico
 magick _assets/originals/LogoCerema_horizontal.jpg -resize x160 -strip images/logo-cerema.jpg
 magick "_assets/originals/UMR MCD-couleur-300dpi.png" -resize x160 -strip images/logo-umr-mcd.png
+```
+
+The portrait of the home page is a charcoal drawing of the photograph `_assets/originals/jfb.jpg`,
+one per theme: `images/portrait-charcoal.jpg` (light) and `images/portrait-charcoal-dark.jpg`
+(dark, swapped in by the dark stylesheet). Both are the 840 px square avatars made by the
+drawing tool, which lives outside this repository with its masters (`charcoal.py`,
+`make_portraits.sh`), reduced:
+
+```bash
+magick avatar_fusain_clair_840.png  -resize 480x480 -quality 88 -strip images/portrait-charcoal.jpg
+magick avatar_fusain_sombre_840.png -resize 480x480 -quality 88 -strip images/portrait-charcoal-dark.jpg
 ```
 
 ## Notes

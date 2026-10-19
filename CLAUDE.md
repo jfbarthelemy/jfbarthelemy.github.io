@@ -36,7 +36,7 @@ quarto render      # full build -> _site/
 
 ## Theme
 
-`_config/` holds four SCSS files and one head partial:
+`_config/` holds five SCSS files, one head partial and one body partial:
 
 - `_tokens.scss` — the shared scale (colors, fonts, radii, breakpoints, publication families).
   It sits in the **`scss:functions`** layer, not `scss:defaults`: Quarto merges `defaults` layers
@@ -50,7 +50,8 @@ quarto render      # full build -> _site/
 - `head.html` — Google Fonts preconnect and stylesheet (a CSS `@import` inside a Quarto rules layer
   lands after Bootstrap's rules and is silently ignored).
 
-Palette: slate neutrals, petrol-blue accent (`#235a76` light / `#76b0cc` dark), gold secondary
+Palette: graphite neutrals (the former slate scale is kept, commented, in `_tokens.scss`),
+petrol-blue accent (`#235a76` light / `#76b0cc` dark), gold secondary
 (`#a77a12` for figures and `#94690c` for text on light, `#e5bd5a` on dark). The accent scales are
 named by role (`$jfb-accent-*`, `$jfb-accent2-*`) in `_tokens.scss`, which also keeps three
 alternative palettes as commented blocks (navy & copper, Prussian blue & brick, the former
@@ -58,6 +59,34 @@ cyan-teal & violet): switching is uncommenting one block, then checking the publ
 hues in the theme files. Two more chart hues, `--jfb-series-3` (brick) and `--jfb-series-4`
 (teal), follow the two accents in a chart; the four were chosen to stay apart under every
 color-vision deficiency. The four Julia logo colors are kept for the package logos only.
+
+### Charcoal
+
+The site is drawn in charcoal by `_config/_charcoal.scss`, imported after `components` by both
+theme files and written against `--jfb-*` like it. The material changes, never the layout:
+
+- paper everywhere (tiled tooth, `$jfb-paper` per theme); the edges of the view rubbed dark and
+  a haze of smoke, two fixed layers under the content (`body::before`, `body::after`);
+- borders become drawn lines: a pseudo-element carries the border and goes through the
+  `#jfb-line` SVG filter of `_config/charcoal.html` (included before the body). The filter is
+  named through `--jfb-line`: Quarto reads every `url()` of a theme as a file to copy, a
+  fragment included, and fails on `url(#…)`;
+- shadows are smudges in two parts (`--jfb-smudge` short and dark, `--jfb-smudge-soft` cast
+  further), lengthened when a tile is hovered; always black, on the dark theme too, whose
+  sheets stand a step lighter than the ground and catch a chalk edge (`--jfb-rim`);
+- each tile is a sheet modeled by the light (`--jfb-glow`, `--jfb-shade`) and tinted with a very
+  pale colored chalk, cycled per grid (ochre, sage, rose, sky); the logo area of a software card
+  takes more of it, never sky, which the gray-blue logos would melt into;
+- rules, the rail, the dots and the rubbings are alpha masks painted with a theme color
+  (`--jfb-charcoal`, `--jfb-rub`); on the light paper the rubbings are the stumped `-soft`
+  files (`$jfb-soft`);
+- the big titles (name, page titles, `h2`, the brand) are in Cabin Sketch; small titles, year
+  labels and text keep Space Grotesk and Inter.
+
+`url()` in a theme is resolved from the project root: Quarto copies the file next to the
+compiled stylesheet and rewrites the path, so textures and the dark portrait need no
+`resources:` entry. Content is never filtered: logos, the animated pieces and the pictograms
+are drawn exactly as before. Textures come from `_scripts/build_charcoal_textures.py`.
 
 ### Two Quarto traps this theme works around
 
