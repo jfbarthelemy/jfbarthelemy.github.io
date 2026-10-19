@@ -7,7 +7,7 @@ $theme: "darkly" !default;
 
 // --- Bootstrap color system ------------------------------------------------
 $white:      $jfb-n-0;
-$body-bg:    $jfb-n-950;
+$body-bg:    $jfb-n-850;
 $body-color: $jfb-n-fg-dark;
 
 $primary:   $jfb-accent-300;
@@ -16,8 +16,8 @@ $success:   #6bc46f;
 $info:      $jfb-accent2-300;
 $warning:   #e0a649;
 $danger:    #e5716a;
-$light:     $jfb-n-800;
-$dark:      $jfb-n-950;
+$light:     $jfb-n-700;
+$dark:      $jfb-n-900;
 
 $min-contrast-ratio: 4.5;
 
@@ -33,7 +33,7 @@ $link-color:       $jfb-accent-300;
 $link-hover-color: $jfb-accent-200;
 
 // --- Navbar ----------------------------------------------------------------
-$navbar-bg: rgba($jfb-n-850, 0.82);
+$navbar-bg: rgba($jfb-n-850, 0.86);
 $navbar-fg: $jfb-n-fg-dark;
 $navbar-hl: $jfb-accent-300;
 
@@ -41,29 +41,31 @@ $navbar-hl: $jfb-accent-300;
 $border-radius:    $jfb-radius;
 $border-radius-sm: $jfb-radius-sm;
 $border-radius-lg: $jfb-radius-lg;
-$border-color:     $jfb-n-700;
+$border-color:     $jfb-n-600;
 
 /*-- scss:rules --*/
 
 :root {
-  --jfb-bg:            #{$jfb-n-950};
-  --jfb-surface:       #{$jfb-n-850};
-  --jfb-surface-2:     #{$jfb-n-800};
-  --jfb-surface-sunk:  #{$jfb-n-950};
-  --jfb-border:        #{$jfb-n-700};
-  --jfb-border-strong: #{$jfb-n-600};
+  --jfb-bg:            #{$jfb-n-850};
+  // The sheets stand a step lighter than the ground, lit, so that the black
+  // shadows they cast read against both.
+  --jfb-surface:       #{$jfb-n-750};
+  --jfb-surface-2:     #{$jfb-n-700};
+  --jfb-surface-sunk:  #{$jfb-n-900};
+  --jfb-border:        #{$jfb-n-600};
+  --jfb-border-strong: #{$jfb-n-500};
 
   --jfb-ink:           #{$jfb-n-fg-dark};
   --jfb-ink-muted:     #{$jfb-n-300};
-  --jfb-ink-faint:     #{$jfb-n-400};
+  --jfb-ink-faint:     #{$jfb-n-350};   // 4.6:1 on the ground
 
   --jfb-accent:        #{$jfb-accent-300};
   --jfb-accent-strong: #{$jfb-accent-200};
   --jfb-accent-soft:   #{rgba($jfb-accent-300, 0.14)};
   --jfb-accent-2:      #{$jfb-accent2-300};
 
-  --jfb-nav-bg:        #{rgba($jfb-n-850, 0.82)};
-  --jfb-nav-border:    #{$jfb-n-700};
+  --jfb-nav-bg:        #{rgba($jfb-n-850, 0.86)};
+  --jfb-nav-border:    #{$jfb-n-600};
 
   --jfb-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --jfb-shadow:    0 2px 6px rgba(0, 0, 0, 0.45), 0 10px 28px rgba(0, 0, 0, 0.45);
@@ -83,7 +85,46 @@ $border-color:     $jfb-n-700;
   --jfb-series-3: #e0604f;
   --jfb-series-4: #2e9e7e;
 
+  // Charcoal: the line (frames, rules, the rail), the rubbed tone of the
+  // banners and the hero, and the smudged shadows under what stands off the
+  // paper — a short dark one where it touches, a wide soft one cast further.
+  // Read by _config/_charcoal.scss only.
+  --jfb-charcoal:    #d9d4cb;
+  --jfb-rub:         rgba(232, 226, 214, 0.10);
+  --jfb-smudge:      rgba(0, 0, 0, 0.92);
+  --jfb-smudge-soft: rgba(0, 0, 0, 0.85);
+  // The light of the page, as in a charcoal film: edges rubbed dark (vignette),
+  // a haze of smoke over everything, and each sheet modeled — lit at its
+  // top-left (glow), shaded toward its bottom-right (shade).
+  --jfb-vignette:    rgba(0, 0, 0, 0.85);
+  --jfb-vignette-even: rgba(0, 0, 0, 0.25);   // how evenly the edges are rubbed
+  --jfb-smoke:       rgba(222, 216, 204, 0.055);
+  --jfb-shade:       rgba(0, 0, 0, 0.32);
+  --jfb-glow:        rgba(240, 234, 222, 0.09);
+
+  // Colored chalk, very pale: each tile takes one hue (ochre, sage, rose, sky)
+  // mixed into its sheet at --jfb-tint-body; the logo area of a software card
+  // takes more, --jfb-tint-logo, so that the pale gray-blue of the logos stands
+  // out from it.
+  --jfb-tint-ochre:  #c9a24a;
+  --jfb-tint-sage:   #7f9f7a;
+  --jfb-tint-rose:   #c27e70;
+  --jfb-tint-sky:    #6f97ad;
+  --jfb-tint-body:   6%;
+  --jfb-tint-logo:   12%;
+  // The edges of a sheet that catch the light, top and left: on the dark
+  // ground only, where a pale edge reads (on the paper it would not).
+  --jfb-rim:         inset 1px 1px 0 rgba(246, 240, 228, 0.13), inset 14px 18px 26px -18px rgba(246, 240, 228, 0.08);
+
   --jfb-tag-tint: 18%;
 }
 
+// The two textures that differ by theme; the masks are shared.
+$jfb-paper:    "paper-dark.webp";
+$jfb-portrait: "portrait-charcoal-dark.jpg";
+// The rubbings of the edges, the banners and the hero: stumped (softened) on
+// the light paper, where their streaks would read too hard.
+$jfb-soft:     "";
+
 @import "components";
+@import "charcoal";

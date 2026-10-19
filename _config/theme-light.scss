@@ -67,9 +67,9 @@ $border-color:     $jfb-n-100;
   --jfb-nav-bg:        #{rgba($jfb-n-0, 0.82)};
   --jfb-nav-border:    #{$jfb-n-100};
 
-  --jfb-shadow-sm: 0 1px 2px rgba(15, 26, 36, 0.06), 0 1px 3px rgba(15, 26, 36, 0.05);
-  --jfb-shadow:    0 2px 4px rgba(15, 26, 36, 0.05), 0 8px 24px rgba(15, 26, 36, 0.08);
-  --jfb-shadow-lg: 0 4px 8px rgba(15, 26, 36, 0.06), 0 18px 40px rgba(15, 26, 36, 0.12);
+  --jfb-shadow-sm: 0 1px 2px rgba(30, 28, 25, 0.06), 0 1px 3px rgba(30, 28, 25, 0.05);
+  --jfb-shadow:    0 2px 4px rgba(30, 28, 25, 0.05), 0 8px 24px rgba(30, 28, 25, 0.08);
+  --jfb-shadow-lg: 0 4px 8px rgba(30, 28, 25, 0.06), 0 18px 40px rgba(30, 28, 25, 0.12);
 
   // Publication family hues (see $jfb-families in _tokens.scss)
   --jfb-fam-journal:    #{$jfb-accent-600};
@@ -86,7 +86,46 @@ $border-color:     $jfb-n-100;
   --jfb-series-3: #a83a2c;
   --jfb-series-4: #1f9e89;
 
+  // Charcoal: the line (frames, rules, the rail), the rubbed tone of the
+  // banners and the hero, and the smudged shadows under what stands off the
+  // paper — a short dark one where it touches, a wide soft one cast further.
+  // Read by _config/_charcoal.scss only.
+  --jfb-charcoal:    #2a2825;
+  --jfb-rub:         rgba(42, 40, 37, 0.16);
+  --jfb-smudge:      rgba(30, 28, 25, 0.46);
+  --jfb-smudge-soft: rgba(30, 28, 25, 0.26);
+  // The light of the page, as in a charcoal film: edges rubbed dark (vignette),
+  // a haze of smoke over everything, and each sheet modeled — lit at its
+  // top-left (glow), shaded toward its bottom-right (shade).
+  --jfb-vignette:    rgba(28, 26, 23, 0.36);
+  --jfb-vignette-even: rgba(0, 0, 0, 0.6);   // how evenly the edges are rubbed
+  --jfb-smoke:       rgba(40, 38, 35, 0.065);
+  --jfb-shade:       rgba(40, 38, 35, 0.09);
+  --jfb-glow:        rgba(255, 255, 255, 0.6);
+
+  // Colored chalk, very pale: each tile takes one hue (ochre, sage, rose, sky)
+  // mixed into its sheet at --jfb-tint-body; the logo area of a software card
+  // takes more, --jfb-tint-logo, so that the pale gray-blue of the logos stands
+  // out from it.
+  --jfb-tint-ochre:  #c9a24a;
+  --jfb-tint-sage:   #7f9f7a;
+  --jfb-tint-rose:   #c27e70;
+  --jfb-tint-sky:    #6f97ad;
+  --jfb-tint-body:   6%;
+  --jfb-tint-logo:   15%;
+  // The edges of a sheet that catch the light, top and left: on the dark
+  // ground only, where a pale edge reads (on the paper it would not).
+  --jfb-rim:         0 0 0 transparent;
+
   --jfb-tag-tint: 12%;
 }
 
+// The two textures that differ by theme; the masks are shared.
+$jfb-paper:    "paper-light.webp";
+$jfb-portrait: "portrait-charcoal.jpg";
+// The rubbings of the edges, the banners and the hero: stumped (softened) on
+// the light paper, where their streaks would read too hard.
+$jfb-soft:     "-soft";
+
 @import "components";
+@import "charcoal";

@@ -1,7 +1,7 @@
 /*-- scss:functions --*/
 
 // ---------------------------------------------------------------------------
-// Design tokens — slate neutrals and two accents
+// Design tokens — graphite neutrals and two accents
 //
 // Variables only — and deliberately in the `scss:functions` layer, not
 // `scss:defaults`. Quarto merges the theme files' `defaults` layers in REVERSE
@@ -17,22 +17,45 @@
 // holds the raw scale both themes pick from, so a hue is written exactly once.
 // ---------------------------------------------------------------------------
 
-// --- Neutrals (slate) ------------------------------------------------------
-$jfb-n-0:       #ffffff;
-$jfb-n-25:      #f7f9fb;
-$jfb-n-50:      #ecf1f5;
-$jfb-n-100:     #dbe3e9;
-$jfb-n-200:     #c2ced7;
-$jfb-n-300:     #9aaab7;
-$jfb-n-400:     #6f8090;
-$jfb-n-500:     #54636f;
-$jfb-n-600:     #3d4a55;
-$jfb-n-700:     #27333d;
-$jfb-n-800:     #1c2731;
-$jfb-n-850:     #141c24;
-$jfb-n-900:     #0f1a24;
-$jfb-n-950:     #0b1015;
-$jfb-n-fg-dark: #e6edf3;
+// --- Neutrals (graphite) ---------------------------------------------------
+// The grays of charcoal on drawing paper: neutral, a breath warm, so that the
+// paper does not turn blue and the blacks read as charcoal rather than ink.
+// The dark theme stands on 850, a charcoal ground rather than a black one, so
+// that the smudged shadows, black, still show on it.
+$jfb-n-0:       #fcfbf8;
+$jfb-n-25:      #f3f2ee;
+$jfb-n-50:      #eae8e3;
+$jfb-n-100:     #dbd8d2;
+$jfb-n-200:     #c3bfb8;
+$jfb-n-300:     #a19d96;
+$jfb-n-350:     #8e8a83;
+$jfb-n-400:     #79756f;
+$jfb-n-500:     #5b5853;
+$jfb-n-600:     #4d4a46;
+$jfb-n-700:     #3d3b37;
+$jfb-n-750:     #34322f;
+$jfb-n-800:     #2c2b28;
+$jfb-n-850:     #22211f;
+$jfb-n-900:     #191816;
+$jfb-n-950:     #131211;
+$jfb-n-fg-dark: #ece9e3;
+
+// Slate (the neutrals before the charcoal theme)
+// $jfb-n-0:       #ffffff;
+// $jfb-n-25:      #f7f9fb;
+// $jfb-n-50:      #ecf1f5;
+// $jfb-n-100:     #dbe3e9;
+// $jfb-n-200:     #c2ced7;
+// $jfb-n-300:     #9aaab7;
+// $jfb-n-400:     #6f8090;
+// $jfb-n-500:     #54636f;
+// $jfb-n-600:     #3d4a55;
+// $jfb-n-700:     #27333d;
+// $jfb-n-800:     #1c2731;
+// $jfb-n-850:     #141c24;
+// $jfb-n-900:     #0f1a24;
+// $jfb-n-950:     #0b1015;
+// $jfb-n-fg-dark: #e6edf3;
 
 // --- Accents ----------------------------------------------------------------
 // One palette is active; the others are kept, commented out, as ready-made
@@ -116,6 +139,10 @@ $jfb-families: journal, chapter, conference, talk, report, software, oa;
 // --- Typography ------------------------------------------------------------
 $jfb-font-body:    "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 $jfb-font-display: "Space Grotesk", "Inter", "Segoe UI", system-ui, sans-serif;
+// The big titles only (the name, the page titles, the section headings): its
+// letters are hatched like charcoal, which reads at that size and would not
+// below it.
+$jfb-font-charcoal: "Cabin Sketch", $jfb-font-display;
 
 // --- Shape -----------------------------------------------------------------
 $jfb-radius-sm:   0.375rem;
@@ -132,3 +159,10 @@ $jfb-bp-xl: 75rem;   // 1200px
 // --- Layout ----------------------------------------------------------------
 $jfb-content-max: 74rem;
 $jfb-prose-max:   46rem;
+
+// --- Charcoal textures -------------------------------------------------------
+// Drawn by _scripts/build_charcoal_textures.py into images/charcoal/. Quarto
+// resolves a url() of the theme from the project root, copies the file next to
+// the compiled stylesheet and rewrites the path.
+$jfb-tex: "images/charcoal/";
+$jfb-img: "images/";

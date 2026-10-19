@@ -38,7 +38,7 @@ Université Gustave Eiffel).
 
 ::::
 
-![](images/portrait.png){.hero-portrait fig-alt="Jean-François Barthélémy"}
+![](images/portrait-charcoal.jpg){.hero-portrait fig-alt="Jean-François Barthélémy"}
 
 :::::
 
