@@ -58,10 +58,11 @@ its unit, via `DynamicQuantities`.
 
 ![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
-**Certified Gibbs energy minimization** — a log-barrier interior-point method, an independent
-port of Allan Leal's [Optima](https://github.com/reaktoro/optima) C++ library, and a Newton
-method in the space of the Lagrange multipliers, every answer checked by a KKT certificate,
-with exact derivatives through the solve. The default equilibrium backend of ChemistryLab.jl.
+**Certified Gibbs energy minimization** — by default the active-set iteration of Allan Leal's
+[Optima](https://github.com/reaktoro/optima) C++ library, in an independent port, beside a
+log-barrier interior-point method and a Newton method in the space of the Lagrange
+multipliers, every answer checked by a KKT certificate, with exact derivatives through the
+solve. The default equilibrium backend of ChemistryLab.jl.
 
 [![Docs](https://img.shields.io/badge/docs-stable-blue?logo=julia)](https://MicroPoroChemoMechanics.github.io/OptimaSolver.jl/stable/)
 [![Repository](https://img.shields.io/badge/GitHub-OptimaSolver.jl-181717?logo=github)](https://github.com/MicroPoroChemoMechanics/OptimaSolver.jl)

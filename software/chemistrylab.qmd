@@ -39,7 +39,8 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 - **Surfaces and interfaces** — surface complexation, constant-capacitance and diffuse-layer
   electrostatics, cation exchange and a Donnan layer, checked against PHREEQC
 - **Recipes, kinetics, heat** — binders blended, hydrated, carbonated or leached as recipes;
-  Parrott–Killoh and Waller rate laws; isothermal and semi-adiabatic calorimetry
+  Parrott–Killoh and Waller rate laws; isothermal and semi-adiabatic calorimetry; for a host
+  code, an implicit kinetic step at each node, certified or refused with its cause
 
 ### Installation
 

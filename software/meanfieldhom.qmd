@@ -32,8 +32,11 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem, built on **[TensN
   equivalent inclusion method for interacting particles
 - **Aging linear Volterra behavior** — aging viscoelasticity and hereditary conduction as
   time-domain Volterra operators with structured ISO/TI/orthotropic kernel storage, in every
-  scheme; and, for non-aging behavior, the Laplace–Carson route with autodiff-capable numerical
-  inversion
+  scheme, nested across scales, with phases that form or dissolve during the history; and, for
+  non-aging behavior, the Laplace–Carson route with autodiff-capable numerical inversion
+- **Nonlinear laws at a material point** — secant, tangent, affine and second-order estimates,
+  polycrystals, microcrack damage and porous plasticity, derived from the microstructure and
+  usable at each Gauss point of a finite-element computation
 - **Open inclusion contract** — any morphology joins every scheme through one of three entry
   gates (Hill tensor, localization tensors, contribution tensors), whatever computed the
   answer; the two below are its current tenants, not its limits

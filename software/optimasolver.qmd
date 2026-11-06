@@ -1,9 +1,9 @@
 ---
 title: "OptimaSolver.jl"
 description: >
-  Certified Gibbs energy minimization for equilibrium chemistry: an interior-point method
-  ported from Allan Leal's Optima and a multiplier-space Newton method, every answer checked
-  by a KKT certificate. The default backend of ChemistryLab.jl.
+  Certified Gibbs energy minimization for equilibrium chemistry: the active-set iteration of
+  Allan Leal's Optima, an interior-point method and a multiplier-space Newton method, every
+  answer checked by a KKT certificate. The default backend of ChemistryLab.jl.
 categories: [Julia, Optimization, Thermodynamics]
 image: "../images/logo_optimasolver.svg"
 ---
@@ -11,11 +11,12 @@ image: "../images/logo_optimasolver.svg"
 ![](../images/logo_optimasolver.svg){.jfb-page-logo}
 
 **OptimaSolver.jl** minimizes a Gibbs energy under linear mass-balance constraints, the
-problem every chemical equilibrium reduces to. It provides a log-barrier interior-point method,
-an independent Julia port of the **Optima** C++ library of
-[Allan Leal](https://erdw.ethz.ch/en/people/profile.allan-leal.html) (ETH Zürich), and a Newton
-method on the optimality conditions in the space of the Lagrange multipliers, which
-[ChemistryLab.jl](chemistrylab.qmd) calls by default. Whichever method produced it, an answer
+problem every chemical equilibrium reduces to. Its default method is the active-set Newton
+iteration of the **Optima** C++ library of
+[Allan Leal](https://erdw.ethz.ch/en/people/profile.allan-leal.html) (ETH Zürich), in an
+independent Julia port; a log-barrier interior-point method and a Newton method on the
+optimality conditions in the space of the Lagrange multipliers, which
+[ChemistryLab.jl](chemistrylab.qmd) uses to certify its answers, complete it. Whichever method produced it, an answer
 is checked by a KKT certificate, and `ForwardDiff` derivatives pass through the solve to any
 order.
 Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
@@ -25,9 +26,13 @@ Part of the **[MicroPoroChemoMechanics](mpcm.qmd)** ecosystem.
 - **A certificate, not a stopping test** — `kkt_certificate` checks the optimality conditions
   at any point, whatever produced it; for a convex problem they are sufficient, so it proves the
   global minimum
-- **Two methods, one problem** — the interior point takes its Newton step through a Schur
-  complement of the diagonal Hessian; the multiplier-space Newton holds bounded species in an
-  active set
+- **Three methods, one problem** — the active set holds unstable species on their bounds and
+  takes a null-space Newton step on a basis the matrix supports, pricing an absent component
+  by the dual ratio test; the interior point takes its Newton step through a Schur complement;
+  the multiplier-space Newton holds bounded species in an exact active set
+- **Unknowns that are not amounts** — the extents of reactions advanced over a time step or
+  the potential of a charged surface are solved with the amounts, each fixed by its own
+  equation
 - **A start from a linear program** — `lp_start` solves the pure-phase program by a verified
   simplex; an impossible budget comes back with its Farkas proof rather than as a failed
   iteration
